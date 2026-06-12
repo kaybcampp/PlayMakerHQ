@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Matchups — PlayMaker HQ</title>
-  <meta name="description" content="Explore NFL matchup intelligence, weather impact, defensive tiers, injuries, player trends, and PlayMaker angles before opening the prediction tool." />
+  <meta name="description"
+    content="Explore weekly NFL matchup intelligence, team trends, defensive tiers, weather impact, injury context, prop opportunity scores, and PlayMaker betting angles." />
 
   <link rel="stylesheet" href="assets/css/matchups.css" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
@@ -35,12 +37,13 @@
       <span class="hq-pill">NFL Matchup Intelligence</span>
 
       <h2>
-        Every game has a story.
-        <span>PlayMaker finds the edge.</span>
+        Start with the game.
+        <span>Then find the prop edge.</span>
       </h2>
 
       <p>
-        Compare teams, review defensive pressure, weather impact, injury context, and prop angles before opening the PlayMaker tool.
+        Use PlayMaker HQ to scan the weekly NFL board, compare team context, spot favorable prop environments, and
+        decide which games deserve deeper research.
       </p>
 
       <div class="matchup-search-card">
@@ -49,22 +52,31 @@
           <input type="text" id="matchup-search" placeholder="Search Eagles vs Giants, Chiefs vs Bills..." />
           <button type="button">Search</button>
         </div>
-        <p class="search-note">Matchup pages and live reports coming soon.</p>
+        <p class="search-note">Future matchup reports can be auto-generated from schedule, team, defense, weather,
+          injury, and player data.</p>
       </div>
     </div>
   </section>
 
   <main>
 
-    <section class="hq-section">
+    <section class="hq-section week-board-section">
       <div class="section-header">
-        <h3>Featured Matchups</h3>
-        <p>High-interest games with prop context, defensive trends, and PlayMaker-style breakdowns.</p>
+        <h3>Weekly Matchup Board</h3>
+        <p>A command-center view for finding which games may have the strongest prop angles.</p>
+      </div>
+
+      <div class="week-controls">
+        <button type="button">Week 1</button>
+        <button type="button">Week 2</button>
+        <button type="button" class="active-week">Current Week</button>
+        <button type="button">Next Week</button>
+        <button type="button">Playoffs</button>
       </div>
 
       <div class="matchup-grid">
 
-        <article class="matchup-card">
+        <article class="matchup-card featured-matchup">
           <div class="matchup-top">
             <span class="game-tag">NFC East</span>
             <span class="game-date">Upcoming</span>
@@ -78,13 +90,27 @@
             <span>PHI</span>
           </div>
 
+          <div class="opportunity-score">
+            <span>Prop Opportunity Score</span>
+            <strong>84/100</strong>
+          </div>
+
+          <div class="matchup-angle">
+            <span>PlayMaker Angle</span>
+            <p>PHI rushing props and short-yardage TD markets may be worth checking first.</p>
+          </div>
+
           <ul class="matchup-points">
-            <li>QB rushing containment</li>
-            <li>Eagles red-zone pass defense</li>
-            <li>Short-yardage TD trends</li>
+            <li>NYG run defense tier: weak</li>
+            <li>PHI rushing trend: strong</li>
+            <li>Weather: clean conditions</li>
+            <li>Markets to check: QB rush, RB rush, anytime TD</li>
           </ul>
 
-          <a href="#" class="card-link">View report →</a>
+          <div class="card-actions">
+            <a href="matchups/giants-vs-eagles.html" class="card-link">View report →</a>
+            <a href="/playmaker/?away=NYG&home=PHI" class="card-link secondary-link">Analyze in PlayMaker</a>
+          </div>
         </article>
 
         <article class="matchup-card">
@@ -101,13 +127,27 @@
             <span>KC</span>
           </div>
 
+          <div class="opportunity-score">
+            <span>Prop Opportunity Score</span>
+            <strong>78/100</strong>
+          </div>
+
+          <div class="matchup-angle">
+            <span>PlayMaker Angle</span>
+            <p>KC passing volume, TE receiving usage, and game-script props could stand out.</p>
+          </div>
+
           <ul class="matchup-points">
-            <li>Mahomes passing efficiency</li>
-            <li>Kelce receiving volume</li>
-            <li>Chiefs rushing script</li>
+            <li>JAX pressure rate: watchlist</li>
+            <li>KC passing trend: favorable</li>
+            <li>Weather: limited concern</li>
+            <li>Markets to check: passing yards, receptions, receiving yards</li>
           </ul>
 
-          <a href="#" class="card-link">View report →</a>
+          <div class="card-actions">
+            <a href="matchups/jaguars-vs-chiefs.html" class="card-link">View report →</a>
+            <a href="/playmaker/?away=JAX&home=KC" class="card-link secondary-link">Analyze in PlayMaker</a>
+          </div>
         </article>
 
         <article class="matchup-card">
@@ -124,13 +164,27 @@
             <span>BUF</span>
           </div>
 
+          <div class="opportunity-score">
+            <span>Prop Opportunity Score</span>
+            <strong>81/100</strong>
+          </div>
+
+          <div class="matchup-angle">
+            <span>PlayMaker Angle</span>
+            <p>Dual-threat QB production and RB all-purpose usage could create multiple angles.</p>
+          </div>
+
           <ul class="matchup-points">
-            <li>Bijan rushing + receiving usage</li>
-            <li>Josh Allen rushing floor</li>
-            <li>WR target share trends</li>
+            <li>BUF home weather: monitor wind</li>
+            <li>ATL RB usage: strong</li>
+            <li>BUF QB rushing floor: elevated</li>
+            <li>Markets to check: rush yards, receptions, rush + rec yards</li>
           </ul>
 
-          <a href="#" class="card-link">View report →</a>
+          <div class="card-actions">
+            <a href="matchups/falcons-vs-bills.html" class="card-link">View report →</a>
+            <a href="/playmaker/?away=ATL&home=BUF" class="card-link secondary-link">Analyze in PlayMaker</a>
+          </div>
         </article>
 
       </div>
@@ -138,30 +192,80 @@
 
     <section class="hq-section hq-section-alt">
       <div class="section-header">
-        <h3>What PlayMaker Checks</h3>
-        <p>Each matchup report is designed to support the same logic used by the PlayMaker prop tool.</p>
+        <h3>What Each Matchup Connects To</h3>
+        <p>Each game card can eventually pull from the same data sources that power the PlayMaker tool.</p>
       </div>
 
       <div class="logic-grid">
         <div class="logic-card">
-          <h4>Last 10 Games</h4>
-          <p>Recent player performance, usage, and hit-rate trends.</p>
+          <h4>Schedule Data</h4>
+          <p>Game week, home team, away team, kickoff time, stadium, division, and matchup slug.</p>
         </div>
 
         <div class="logic-card">
           <h4>Defense Tiers</h4>
-          <p>Pass defense, run defense, pressure rate, and matchup difficulty.</p>
+          <p>Pass defense, run defense, pressure rate, similar-defense logic, and stat-specific weaknesses.</p>
         </div>
 
         <div class="logic-card">
-          <h4>Weather Impact</h4>
-          <p>Wind, rain, snow, temperature, and outdoor game conditions.</p>
+          <h4>Weather + Stadiums</h4>
+          <p>Dome status, outdoor conditions, wind, rain, snow, temperature, and passing/rushing impact.</p>
         </div>
 
         <div class="logic-card">
-          <h4>Injury Context</h4>
-          <p>Player injuries plus key team injuries that can affect game script.</p>
+          <h4>Injuries + Availability</h4>
+          <p>Player injuries, offensive line status, defensive injuries, questionable tags, and role changes.</p>
         </div>
+
+        <div class="logic-card">
+          <h4>Player Trends</h4>
+          <p>Last 10 games, usage, hit rates, targets, touches, attempts, TD trends, and prop-specific history.</p>
+        </div>
+
+        <div class="logic-card">
+          <h4>Results History</h4>
+          <p>How PlayMaker has performed by team, player, prop category, matchup type, and recommendation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hq-section hq-section-alt">
+      <div class="section-header">
+        <h3>Matchup Intelligence Logic</h3>
+        <p>The matchup board should help users decide where to start, not force every game into a pick.</p>
+      </div>
+
+      <div class="score-breakdown">
+        <div class="score-card">
+          <span>01</span>
+          <h4>Defensive Weakness</h4>
+          <p>Does one team allow production in a specific prop category?</p>
+        </div>
+
+        <div class="score-card">
+          <span>02</span>
+          <h4>Player Trend Strength</h4>
+          <p>Are the relevant players showing strong recent usage or hit-rate patterns?</p>
+        </div>
+
+        <div class="score-card">
+          <span>03</span>
+          <h4>Weather Safety</h4>
+          <p>Are conditions clean enough for passing, rushing, receiving, or kicking markets?</p>
+        </div>
+
+        <div class="score-card">
+          <span>04</span>
+          <h4>Injury Clarity</h4>
+          <p>Are key players healthy, limited, or creating role shifts for backups?</p>
+        </div>
+
+        <div class="score-card">
+          <span>05</span>
+          <h4>Game Script</h4>
+          <p>Does the likely pace, score environment, or spread support the prop angle?</p>
+        </div>
+
       </div>
     </section>
 
@@ -176,7 +280,7 @@
         <div class="report-row">
           <div>
             <h4>Game Preview Reports</h4>
-            <p>Full game breakdowns with team trends, weather, defense, and prop angles.</p>
+            <p>Full game breakdowns with team trends, weather, defense, injuries, and prop angles.</p>
           </div>
           <span>Coming Soon</span>
         </div>
@@ -184,9 +288,17 @@
         <div class="report-row">
           <div>
             <h4>Prop Matchup Reports</h4>
-            <p>Player-specific pages for rushing, receiving, passing, TDs, and receptions.</p>
+            <p>Player-specific pages for rushing, receiving, passing, TDs, receptions, and defensive matchups.</p>
           </div>
           <span>Coming Soon</span>
+        </div>
+
+        <div class="report-row">
+          <div>
+            <h4>Weekly Opportunity Rankings</h4>
+            <p>Rank each NFL game by prop opportunity score so users know where to research first.</p>
+          </div>
+          <span>Planned</span>
         </div>
 
         <div class="report-row">
@@ -202,8 +314,8 @@
 
     <section class="hq-section">
       <div class="final-cta">
-        <h3>Want the actual prop number?</h3>
-        <p>Open PlayMaker and run the matchup through the prediction tool.</p>
+        <h3>Found a matchup worth checking?</h3>
+        <p>Open PlayMaker, choose the teams, select the player, enter the line, and run the full prediction.</p>
         <a href="/playmaker/" class="btn-primary">Launch PlayMaker</a>
       </div>
     </section>
@@ -215,4 +327,5 @@
   </footer>
 
 </body>
+
 </html>
