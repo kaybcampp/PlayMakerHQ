@@ -1,0 +1,452 @@
+/* ==========================================
+   PLAYMAKER HQ — PRICING PAGE
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0B0F1A;
+    color: #E6F6EE;
+    font-family: 'Poppins', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* HEADER */
+
+.pm-header {
+    background: #131A2A;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.pm-header h1 {
+    color: #66FF99;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(102,255,153,.4);
+}
+
+.pm-nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.pm-link {
+    color: #E6F6EE;
+    text-decoration: none;
+    opacity: .9;
+}
+
+.pm-link:hover,
+.pm-link.active {
+    color: #66FF99;
+}
+
+.pm-link-cta {
+    background: rgba(102,255,153,.12);
+    border: 1px solid rgba(102,255,153,.35);
+    padding: .5rem .9rem;
+    border-radius: 999px;
+}
+
+/* HERO */
+
+.pricing-hero {
+    position: relative;
+    min-height: 560px;
+    background:
+        linear-gradient(rgba(11,15,26,.84), rgba(11,15,26,.94)),
+        url('../images/playMakerBackground.png') center bottom / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem 1rem;
+    overflow: hidden;
+}
+
+.hero-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(102,255,153,.18), transparent 65%);
+    pointer-events: none;
+}
+
+.pricing-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+.hq-pill {
+    display: inline-block;
+    background: rgba(102,255,153,.12);
+    border: 1px solid rgba(102,255,153,.4);
+    color: #66FF99;
+    padding: .4rem .9rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    font-weight: 800;
+    margin-bottom: 1.25rem;
+}
+
+.pricing-hero h2 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.pricing-hero h2 span {
+    display: block;
+    color: #66FF99;
+    text-shadow: 0 0 18px rgba(102,255,153,.55);
+}
+
+.pricing-hero p {
+    max-width: 720px;
+    margin: 0 auto;
+    color: #A3AABF;
+    font-size: 1.08rem;
+}
+
+/* SECTIONS */
+
+.hq-section {
+    padding: 5rem 1rem;
+}
+
+.hq-section-alt {
+    background: #131A2A;
+}
+
+.section-header {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.section-header h3 {
+    color: #66FF99;
+    font-size: 2rem;
+    margin-bottom: .75rem;
+}
+
+.section-header p {
+    color: #A3AABF;
+}
+
+/* PRICING CARDS */
+
+.pricing-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+.pricing-card {
+    background: linear-gradient(145deg, #0B0F1A, #131A2A);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 20px;
+    padding: 1.6rem;
+    box-shadow: 0 0 20px rgba(102,255,153,.1);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 28px rgba(102,255,153,.2);
+}
+
+.featured-plan {
+    border-color: rgba(102,255,153,.45);
+    box-shadow: 0 0 34px rgba(102,255,153,.22);
+    position: relative;
+}
+
+.plan-top {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+.plan-tag {
+    color: #66FF99;
+    border: 1px solid rgba(102,255,153,.35);
+    background: rgba(102,255,153,.08);
+    border-radius: 999px;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 900;
+}
+
+.featured-tag {
+    background: #66FF99;
+    color: #0B0F1A;
+    box-shadow: 0 0 16px rgba(102,255,153,.45);
+}
+
+.pricing-card h4 {
+    color: #E6F6EE;
+    font-size: 1.45rem;
+    margin-bottom: .4rem;
+}
+
+.price {
+    color: #66FF99;
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: .8rem;
+    text-shadow: 0 0 16px rgba(102,255,153,.35);
+}
+
+.price span {
+    color: #A3AABF;
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.plan-description {
+    color: #A3AABF;
+    margin-bottom: 1.3rem;
+    min-height: 54px;
+}
+
+.plan-features {
+    list-style: none;
+    display: grid;
+    gap: .7rem;
+    margin-bottom: 1.5rem;
+    flex: 1;
+}
+
+.plan-features li {
+    color: #A3AABF;
+    border-left: 3px solid rgba(102,255,153,.55);
+    padding-left: .7rem;
+    font-size: .95rem;
+}
+
+.plan-btn {
+    text-decoration: none;
+    text-align: center;
+    border-radius: 999px;
+    padding: .9rem 1.2rem;
+    font-weight: 900;
+    transition: .25s ease;
+    display: inline-block;
+}
+
+.plan-btn.primary {
+    background: #66FF99;
+    color: #0B0F1A;
+    box-shadow: 0 0 16px rgba(102,255,153,.45);
+}
+
+.plan-btn.secondary {
+    background: rgba(102,255,153,.1);
+    color: #66FF99;
+    border: 1px solid rgba(102,255,153,.35);
+}
+
+.plan-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(102,255,153,.45);
+}
+
+/* VALUE CARDS */
+
+.value-grid {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+}
+
+.value-card {
+    background: #0B0F1A;
+    border: 1px solid rgba(102,255,153,.16);
+    border-radius: 16px;
+    padding: 1.35rem;
+    box-shadow: 0 0 16px rgba(102,255,153,.09);
+}
+
+.value-card h4 {
+    color: #66FF99;
+    margin-bottom: .45rem;
+}
+
+.value-card p {
+    color: #A3AABF;
+    font-size: .95rem;
+}
+
+/* COMPARISON TABLE */
+
+.comparison-table-wrap {
+    max-width: 1050px;
+    margin: 0 auto;
+    overflow-x: auto;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.07);
+    box-shadow: 0 0 20px rgba(102,255,153,.1);
+}
+
+.comparison-table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    background: #131A2A;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.comparison-table th {
+    color: #66FF99;
+    background: #0B0F1A;
+    font-size: .95rem;
+}
+
+.comparison-table td {
+    color: #A3AABF;
+}
+
+.comparison-table td:first-child {
+    color: #E6F6EE;
+    font-weight: 700;
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* FAQ */
+
+.faq-list {
+    max-width: 950px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+}
+
+.faq-item {
+    background: #131A2A;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px;
+    padding: 1.35rem;
+    box-shadow: 0 0 16px rgba(102,255,153,.08);
+}
+
+.faq-item h4 {
+    color: #66FF99;
+    margin-bottom: .45rem;
+}
+
+.faq-item p {
+    color: #A3AABF;
+}
+
+/* CTA */
+
+.final-cta {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    background: linear-gradient(145deg, #131A2A, #0B0F1A);
+    border: 1px solid rgba(102,255,153,.16);
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    box-shadow: 0 0 22px rgba(102,255,153,.12);
+}
+
+.final-cta h3 {
+    color: #66FF99;
+    font-size: 2rem;
+    margin-bottom: .75rem;
+}
+
+.final-cta p {
+    color: #A3AABF;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    text-decoration: none;
+    background: #66FF99;
+    color: #0B0F1A;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 900;
+    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    transition: .25s ease;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(102,255,153,.7);
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #A3AABF;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+    .pm-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .pm-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: .75rem;
+    }
+
+    .pricing-hero {
+        min-height: auto;
+        padding: 5rem 1rem;
+    }
+
+    .plan-description {
+        min-height: auto;
+    }
+
+    .comparison-table-wrap {
+        border-radius: 14px;
+    }
+
+    .final-cta {
+        padding: 3rem 1.25rem;
+    }
+}
