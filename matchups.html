@@ -11,6 +11,49 @@
 
   <link rel="stylesheet" href="assets/css/matchups.css" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+  <!-- AUTOCOMPLETE STYLE -->
+  <style>
+    .autocomplete-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .suggestions-box {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #131A2A;
+      border: 1px solid rgba(102, 255, 153, .25);
+      border-radius: 12px;
+      margin-top: 6px;
+      max-height: 260px;
+      overflow-y: auto;
+      z-index: 9999;
+      box-shadow: 0 0 20px rgba(102, 255, 153, .15);
+    }
+
+    .suggestion-item {
+      padding: 12px;
+      cursor: pointer;
+      color: #E6F6EE;
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
+      font-size: 0.95rem;
+    }
+
+    .suggestion-item:hover {
+      background: rgba(102, 255, 153, .12);
+      color: #66FF99;
+    }
+
+    .suggestion-meta {
+      font-size: 0.75rem;
+      color: #A3AABF;
+      margin-left: 6px;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -26,14 +69,15 @@
       <a href="research.html" class="pm-link">Research</a>
       <a href="results.html" class="pm-link">Results</a>
       <a href="pricing.html" class="pm-link">Pricing</a>
-      <a href="/playmaker/" class="pm-link pm-link-cta">Open Tool</a>
+      <a href="/tool/" class="pm-link pm-link-cta">Open Tool</a>
     </nav>
   </header>
 
+  <!-- HERO -->
   <section class="matchups-hero">
-    <div class="hero-glow"></div>
 
     <div class="matchups-hero-content">
+
       <span class="hq-pill">NFL Matchup Intelligence</span>
 
       <h2>
@@ -42,28 +86,43 @@
       </h2>
 
       <p>
-        Use PlayMaker HQ to scan the weekly NFL board, compare team context, spot favorable prop environments, and
-        decide which games deserve deeper research.
+        Explore weekly NFL matchups, team context, defensive matchups, weather impact, injury reports, and prop
+        opportunity scoring.
       </p>
 
+      <!-- SEARCH -->
       <div class="matchup-search-card">
+
         <label for="matchup-search">Search Matchups</label>
-        <div class="search-row">
+
+        <div class="search-row autocomplete-wrapper">
+
           <input type="text" id="matchup-search" placeholder="Search Eagles vs Giants, Chiefs vs Bills..." />
-          <button type="button">Search</button>
+
+          <button type="button" onclick="runSearch()">Search</button>
+
+          <div id="suggestions" class="suggestions-box"></div>
+
         </div>
-        <p class="search-note">Future matchup reports can be auto-generated from schedule, team, defense, weather,
-          injury, and player data.</p>
+
+        <p class="search-note">
+          Search all 2026 NFL matchups instantly.
+        </p>
+
       </div>
+
     </div>
+
   </section>
 
   <main>
 
+    <!-- MATCHUP BOARD -->
     <section class="hq-section week-board-section">
+
       <div class="section-header">
         <h3>Weekly Matchup Board</h3>
-        <p>A command-center view for finding which games may have the strongest prop angles.</p>
+        <p>Scan matchups, compare teams, and identify prop opportunities.</p>
       </div>
 
       <div class="week-controls">
@@ -76,6 +135,7 @@
 
       <div class="matchup-grid">
 
+        <!-- CARD 1 -->
         <article class="matchup-card featured-matchup">
           <div class="matchup-top">
             <span class="game-tag">NFC East</span>
@@ -109,10 +169,11 @@
 
           <div class="card-actions">
             <a href="matchups/giants-vs-eagles.html" class="card-link">View report →</a>
-            <a href="/playmaker/?away=NYG&home=PHI" class="card-link secondary-link">Analyze in PlayMaker</a>
+            <a href="/tool/?away=NYG&home=PHI" class="card-link secondary-link">Analyze in PlayMaker</a>
           </div>
         </article>
 
+        <!-- CARD 2 -->
         <article class="matchup-card">
           <div class="matchup-top">
             <span class="game-tag">AFC Spotlight</span>
@@ -134,22 +195,23 @@
 
           <div class="matchup-angle">
             <span>PlayMaker Angle</span>
-            <p>KC passing volume, TE receiving usage, and game-script props could stand out.</p>
+            <p>KC passing volume and TE usage create strong receiving prop angles.</p>
           </div>
 
           <ul class="matchup-points">
             <li>JAX pressure rate: watchlist</li>
             <li>KC passing trend: favorable</li>
-            <li>Weather: limited concern</li>
-            <li>Markets to check: passing yards, receptions, receiving yards</li>
+            <li>Weather: minimal impact</li>
+            <li>Markets: passing yards, receptions</li>
           </ul>
 
           <div class="card-actions">
             <a href="matchups/jaguars-vs-chiefs.html" class="card-link">View report →</a>
-            <a href="/playmaker/?away=JAX&home=KC" class="card-link secondary-link">Analyze in PlayMaker</a>
+            <a href="/tool/?away=JAX&home=KC" class="card-link secondary-link">Analyze in PlayMaker</a>
           </div>
         </article>
 
+        <!-- CARD 3 -->
         <article class="matchup-card">
           <div class="matchup-top">
             <span class="game-tag">Prime Prop Game</span>
@@ -171,108 +233,70 @@
 
           <div class="matchup-angle">
             <span>PlayMaker Angle</span>
-            <p>Dual-threat QB production and RB all-purpose usage could create multiple angles.</p>
+            <p>Dual-threat QB + RB usage creates multiple prop entry points.</p>
           </div>
 
           <ul class="matchup-points">
-            <li>BUF home weather: monitor wind</li>
+            <li>BUF weather: monitor wind</li>
             <li>ATL RB usage: strong</li>
             <li>BUF QB rushing floor: elevated</li>
-            <li>Markets to check: rush yards, receptions, rush + rec yards</li>
+            <li>Markets: rush + rec yards</li>
           </ul>
 
           <div class="card-actions">
             <a href="matchups/falcons-vs-bills.html" class="card-link">View report →</a>
-            <a href="/playmaker/?away=ATL&home=BUF" class="card-link secondary-link">Analyze in PlayMaker</a>
+            <a href="/tool/?away=ATL&home=BUF" class="card-link secondary-link">Analyze in PlayMaker</a>
           </div>
         </article>
 
       </div>
     </section>
 
+    <!-- LOGIC SECTION -->
     <section class="hq-section hq-section-alt">
       <div class="section-header">
         <h3>What Each Matchup Connects To</h3>
-        <p>Each game card can eventually pull from the same data sources that power the PlayMaker tool.</p>
+        <p>Each game ties directly into PlayMaker’s core prediction engine.</p>
       </div>
 
       <div class="logic-grid">
         <div class="logic-card">
           <h4>Schedule Data</h4>
-          <p>Game week, home team, away team, kickoff time, stadium, division, and matchup slug.</p>
+          <p>Week, teams, date, stadium, and matchup structure.</p>
         </div>
 
         <div class="logic-card">
-          <h4>Defense Tiers</h4>
-          <p>Pass defense, run defense, pressure rate, similar-defense logic, and stat-specific weaknesses.</p>
+          <h4>Defense Matchups</h4>
+          <p>Run defense, pass defense, pressure rate, and weakness tiers.</p>
         </div>
 
         <div class="logic-card">
-          <h4>Weather + Stadiums</h4>
-          <p>Dome status, outdoor conditions, wind, rain, snow, temperature, and passing/rushing impact.</p>
+          <h4>Weather Impact</h4>
+          <p>Wind, rain, snow, temperature, and dome effects.</p>
         </div>
 
         <div class="logic-card">
-          <h4>Injuries + Availability</h4>
-          <p>Player injuries, offensive line status, defensive injuries, questionable tags, and role changes.</p>
+          <h4>Injuries</h4>
+          <p>Player status and lineup changes affecting usage.</p>
         </div>
 
         <div class="logic-card">
           <h4>Player Trends</h4>
-          <p>Last 10 games, usage, hit rates, targets, touches, attempts, TD trends, and prop-specific history.</p>
+          <p>Last 10 games, usage, targets, attempts, and scoring patterns.</p>
         </div>
 
         <div class="logic-card">
-          <h4>Results History</h4>
-          <p>How PlayMaker has performed by team, player, prop category, matchup type, and recommendation.</p>
+          <h4>Historical Results</h4>
+          <p>Track record of PlayMaker predictions and performance accuracy.</p>
         </div>
       </div>
     </section>
 
-    <section class="hq-section hq-section-alt">
-      <div class="section-header">
-        <h3>Matchup Intelligence Logic</h3>
-        <p>The matchup board should help users decide where to start, not force every game into a pick.</p>
-      </div>
-
-      <div class="score-breakdown">
-        <div class="score-card">
-          <span>01</span>
-          <h4>Defensive Weakness</h4>
-          <p>Does one team allow production in a specific prop category?</p>
-        </div>
-
-        <div class="score-card">
-          <span>02</span>
-          <h4>Player Trend Strength</h4>
-          <p>Are the relevant players showing strong recent usage or hit-rate patterns?</p>
-        </div>
-
-        <div class="score-card">
-          <span>03</span>
-          <h4>Weather Safety</h4>
-          <p>Are conditions clean enough for passing, rushing, receiving, or kicking markets?</p>
-        </div>
-
-        <div class="score-card">
-          <span>04</span>
-          <h4>Injury Clarity</h4>
-          <p>Are key players healthy, limited, or creating role shifts for backups?</p>
-        </div>
-
-        <div class="score-card">
-          <span>05</span>
-          <h4>Game Script</h4>
-          <p>Does the likely pace, score environment, or spread support the prop angle?</p>
-        </div>
-
-      </div>
-    </section>
-
+    <!-- REPORT TYPES -->
     <section class="hq-section">
       <div class="section-header">
         <h3>Upcoming Report Types</h3>
-        <p>This page will eventually become the matchup command center for weekly NFL research.</p>
+        <p>This page will evolve into a full NFL matchup intelligence hub.</p>
       </div>
 
       <div class="report-list">
@@ -280,7 +304,7 @@
         <div class="report-row">
           <div>
             <h4>Game Preview Reports</h4>
-            <p>Full game breakdowns with team trends, weather, defense, injuries, and prop angles.</p>
+            <p>Full breakdown of matchups with prop angles and trends.</p>
           </div>
           <span>Coming Soon</span>
         </div>
@@ -288,23 +312,15 @@
         <div class="report-row">
           <div>
             <h4>Prop Matchup Reports</h4>
-            <p>Player-specific pages for rushing, receiving, passing, TDs, receptions, and defensive matchups.</p>
+            <p>Player-level breakdowns for rushing, passing, receiving, TDs.</p>
           </div>
           <span>Coming Soon</span>
         </div>
 
         <div class="report-row">
           <div>
-            <h4>Weekly Opportunity Rankings</h4>
-            <p>Rank each NFL game by prop opportunity score so users know where to research first.</p>
-          </div>
-          <span>Planned</span>
-        </div>
-
-        <div class="report-row">
-          <div>
-            <h4>Community Ride/Fade Results</h4>
-            <p>See what users are locking in and how those picks perform over time.</p>
+            <h4>Community Results</h4>
+            <p>User picks performance tracking and hit-rate analytics.</p>
           </div>
           <span>Planned</span>
         </div>
@@ -312,11 +328,12 @@
       </div>
     </section>
 
+    <!-- CTA -->
     <section class="hq-section">
       <div class="final-cta">
-        <h3>Found a matchup worth checking?</h3>
-        <p>Open PlayMaker, choose the teams, select the player, enter the line, and run the full prediction.</p>
-        <a href="/playmaker/" class="btn-primary">Launch PlayMaker</a>
+        <h3>Ready to run the numbers?</h3>
+        <p>Open PlayMaker and generate the real prop projections.</p>
+        <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
       </div>
     </section>
 
@@ -326,6 +343,129 @@
     <p>&copy; 2025 PlayMaker HQ. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    let scheduleData = [];
+
+    async function loadSchedule() {
+      try {
+        const res = await fetch("/assets/data/schedule2026.json");
+        scheduleData = await res.json();
+      } catch (err) {
+        console.error("Failed to load schedule:", err);
+      }
+    }
+
+    loadSchedule();
+
+    const input = document.getElementById("matchup-search");
+    const box = document.getElementById("suggestions");
+
+    // ---------------------------------------
+    // MATCHUP NAVIGATION FUNCTION (NEW CORE)
+    // ---------------------------------------
+    function openMatchup(game) {
+      const home = game.home;
+      const away = game.away;
+
+      const key = `${away}-vs-${home}`;
+
+      window.location.href = `/matchup.html?game=${key}`;
+    }
+
+    // ---------------------------------------
+    // INPUT AUTOCOMPLETE
+    // ---------------------------------------
+    input.addEventListener("input", function () {
+      const val = this.value.toLowerCase();
+      box.innerHTML = "";
+
+      if (!val || !scheduleData.length) return;
+
+      const matches = scheduleData
+        .filter(g => {
+          const a = `${g.away} vs ${g.home}`.toLowerCase();
+          const b = `${g.home} vs ${g.away}`.toLowerCase();
+          return a.includes(val) || b.includes(val);
+        })
+        .slice(0, 8);
+
+      matches.forEach(game => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item";
+
+        item.innerHTML = `
+        ${game.away} vs ${game.home}
+        <span class="suggestion-meta">(${game.date || "TBD"})</span>
+      `;
+
+        // CLICK → GO TO MATCHUP PAGE
+        item.onclick = () => {
+          input.value = `${game.away} vs ${game.home}`;
+          box.innerHTML = "";
+          openMatchup(game);
+        };
+
+        box.appendChild(item);
+      });
+    });
+
+    // ---------------------------------------
+    // ENTER KEY → OPEN MATCHUP PAGE
+    // ---------------------------------------
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+
+        const val = this.value.toLowerCase();
+
+        const match = scheduleData.find(g => {
+          const a = `${g.away} vs ${g.home}`.toLowerCase();
+          const b = `${g.home} vs ${g.away}`.toLowerCase();
+          return a.includes(val) || b.includes(val);
+        });
+
+        if (match) {
+          openMatchup(match);
+        }
+      }
+    });
+
+    // ---------------------------------------
+    // SEARCH BUTTON → OPEN MATCHUP PAGE
+    // ---------------------------------------
+    function runSearch() {
+      const val = input.value.toLowerCase();
+
+      const match = scheduleData.find(g => {
+        const a = `${g.away} vs ${g.home}`.toLowerCase();
+        const b = `${g.home} vs ${g.away}`.toLowerCase();
+        return a.includes(val) || b.includes(val);
+      });
+
+      if (match) {
+        openMatchup(match);
+        return;
+      }
+
+      // fallback: still allow filtering if no exact match
+      document.querySelectorAll(".matchup-card").forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(val)
+          ? "block"
+          : "none";
+      });
+
+      box.innerHTML = "";
+    }
+
+    // ---------------------------------------
+    // CLOSE DROPDOWN ON OUTSIDE CLICK
+    // ---------------------------------------
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".autocomplete-wrapper")) {
+        box.innerHTML = "";
+      }
+    });
+  </script>
 </body>
 
 </html>
