@@ -180,6 +180,15 @@
 
         <section class="hq-section">
             <div class="section-header">
+                <h3>Historical PlayMaker Results</h3>
+                <p id="results-summary">Loading previous PlayMaker picks tied to this matchup...</p>
+            </div>
+
+            <div id="historical-results-list" class="matchup-grid"></div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
                 <h3>Prop Categories to Review</h3>
                 <p id="prop-summary">Use this matchup as the starting point before running specific player props.</p>
             </div>
@@ -489,7 +498,91 @@
     `).join("");
         }
 
-        function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers) {
+        function getTeamResultMatches(resultsData, awayCode, homeCode, awayName, homeName, awayPlayers, homePlayers) {
+            if (!Array.isArray(resultsData)) return [];
+
+            const awayWords = awayName.split(" ");
+            const homeWords = homeName.split(" ");
+
+            const awayNick = awayWords[awayWords.length - 1];
+            const homeNick = homeWords[homeWords.length - 1];
+
+            const playerNames = [
+                ...filterKeyPlayers(awayPlayers).map(p => p.name),
+                ...filterKeyPlayers(homePlayers).map(p => p.name)
+            ];
+
+            return resultsData.filter(item => {
+                const matchup = String(item.matchup || item.match || "").toLowerCase();
+                const pick = String(item.pick || `${item.player || ""} ${item.line || ""} ${item.market || ""}`).toLowerCase();
+
+                const teamMatch =
+                    matchup.includes(awayNick.toLowerCase()) ||
+                    matchup.includes(homeNick.toLowerCase()) ||
+                    matchup.includes(awayCode.toLowerCase()) ||
+                    matchup.includes(homeCode.toLowerCase());
+
+                const playerMatch = playerNames.some(name =>
+                    pick.includes(String(name).toLowerCase())
+                );
+
+                return teamMatch || playerMatch;
+            }).slice(0, 6);
+        }
+
+        function renderHistoricalResults(results, awayCode, homeCode) {
+            const summaryEl = document.getElementById("results-summary");
+            const listEl = document.getElementById("historical-results-list");
+
+            if (!summaryEl || !listEl) return;
+
+            if (!results.length) {
+                summaryEl.textContent =
+                    `No previous PlayMaker results found yet for ${awayCode} or ${homeCode}.`;
+
+                listEl.innerHTML = `
+            <article class="matchup-card">
+                <h4>No Historical Results Yet</h4>
+                <p>This section will populate once prior PlayMaker picks exist for these teams or players.</p>
+            </article>
+        `;
+                return;
+            }
+
+            const won = results.filter(r => r.result === "won").length;
+            const lost = results.filter(r => r.result === "lost").length;
+            const total = won + lost;
+            const accuracy = total ? Math.round((won / total) * 100) : 0;
+
+            summaryEl.textContent =
+                `${results.length} previous PlayMaker picks found for this matchup context · ${won}-${lost} · ${accuracy}% accuracy.`;
+
+            listEl.innerHTML = results.map(item => {
+                const result = String(item.result || "").toUpperCase();
+                const matchup = item.matchup || item.match || "Matchup unavailable";
+                const pick = item.pick || `${item.player || ""} ${item.line || ""} ${item.market || ""}`.trim();
+                const confidence = item.confidence ?? item.odds ?? "N/A";
+
+                return `
+            <article class="matchup-card">
+                <div class="matchup-top">
+                    <span class="game-tag">${result}</span>
+                    <span class="game-date">${item.date || "TBD"}</span>
+                </div>
+
+                <h4>${pick}</h4>
+
+                <ul class="matchup-points">
+                    <li>${matchup}</li>
+                    <li>Confidence: ${String(confidence).includes("%") ? confidence : `${confidence}%`}</li>
+                    <li>Final: ${item.score || "Score unavailable"}</li>
+                </ul>
+            </article>
+        `;
+            }).join("");
+        }
+
+        function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
 
@@ -512,6 +605,16 @@
             const bestAngle = getBestAngle(awayCode, homeCode, awayDefense, homeDefense);
             const filteredAwayPlayers = filterKeyPlayers(awayPlayers);
             const filteredHomePlayers = filterKeyPlayers(homePlayers);
+
+            const historicalResults = getTeamResultMatches(
+                resultsData,
+                awayCode,
+                homeCode,
+                awayName,
+                homeName,
+                awayPlayers,
+                homePlayers
+            );
 
             document.title = `${awayName} vs ${homeName} — PlayMaker Prime`;
 
@@ -578,6 +681,7 @@
 
             renderPlayerList("away-player-list", filteredAwayPlayers);
             renderPlayerList("home-player-list", filteredHomePlayers);
+            renderHistoricalResults(historicalResults, awayCode, homeCode);
             document.getElementById("weather-copy").textContent = weather
                 ? `${weather.stadium} · ${weather.isDome ? "Dome/controlled environment" : "Outdoor"} · ${weather.label}. ${weather.available
                     ? `${Math.round(weather.temperature)}°F, wind ${Math.round(weather.windMph)} mph, ${weather.description}.`
@@ -718,13 +822,22 @@
                     console.warn("Home players unavailable:", err.message);
                 }
 
+                let resultsData = [];
+
+                try {
+                    resultsData = await loadJson("/assets/data/results.json");
+                } catch (err) {
+                    console.warn("Results unavailable:", err.message);
+                }
+
                 renderMatchup(
                     game,
                     defenseData,
                     weatherData,
                     injuriesData,
                     awayPlayers,
-                    homePlayers
+                    homePlayers,
+                    resultsData
                 );
             } catch (err) {
                 console.error("Failed to load matchup:", err);
