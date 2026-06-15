@@ -168,8 +168,19 @@
           </ul>
 
           <div class="card-actions">
-            <a href="matchups/giants-vs-eagles.html" class="card-link">View report →</a>
-            <a href="/tool/?away=NYG&home=PHI" class="card-link secondary-link">Analyze in PlayMaker</a>
+
+            <a href="/matchup.html?game=NYG-vs-PHI" class="card-link">
+
+              View Report →
+
+            </a>
+
+            <a href="/tool/?away=NYG&home=PHI" class="card-link secondary-link">
+
+              Analyze in PlayMaker
+
+            </a>
+
           </div>
         </article>
 
@@ -206,8 +217,19 @@
           </ul>
 
           <div class="card-actions">
-            <a href="matchups/jaguars-vs-chiefs.html" class="card-link">View report →</a>
-            <a href="/tool/?away=JAX&home=KC" class="card-link secondary-link">Analyze in PlayMaker</a>
+
+            <a href="/matchup.html?game=JAX-vs-KC" class="card-link">
+
+              View Report →
+
+            </a>
+
+            <a href="/tool/?away=JAX&home=KC" class="card-link secondary-link">
+
+              Analyze in PlayMaker
+
+            </a>
+
           </div>
         </article>
 
@@ -244,8 +266,19 @@
           </ul>
 
           <div class="card-actions">
-            <a href="matchups/falcons-vs-bills.html" class="card-link">View report →</a>
-            <a href="/tool/?away=ATL&home=BUF" class="card-link secondary-link">Analyze in PlayMaker</a>
+
+            <a href="/matchup.html?game=ATL-vs-BUF" class="card-link">
+
+              View Report →
+
+            </a>
+
+            <a href="/tool/?away=ATL&home=BUF" class="card-link secondary-link">
+
+              Analyze in PlayMaker
+
+            </a>
+
           </div>
         </article>
 
@@ -364,12 +397,16 @@
     // MATCHUP NAVIGATION FUNCTION (NEW CORE)
     // ---------------------------------------
     function openMatchup(game) {
-      const home = game.home;
-      const away = game.away;
+
+      if (!game) return;
+
+      const home = String(game.home).toUpperCase();
+      const away = String(game.away).toUpperCase();
 
       const key = `${away}-vs-${home}`;
 
-      window.location.href = `/matchup.html?game=${key}`;
+      window.location.href = `/matchup.html?game=${encodeURIComponent(key)}`;
+
     }
 
     // ---------------------------------------
@@ -419,9 +456,20 @@
         const val = this.value.toLowerCase();
 
         const match = scheduleData.find(g => {
-          const a = `${g.away} vs ${g.home}`.toLowerCase();
-          const b = `${g.home} vs ${g.away}`.toLowerCase();
-          return a.includes(val) || b.includes(val);
+
+          const awayHome =
+            `${g.away} vs ${g.home}`.toLowerCase();
+
+          const homeAway =
+            `${g.home} vs ${g.away}`.toLowerCase();
+
+          return (
+            awayHome === val ||
+            homeAway === val ||
+            awayHome.includes(val) ||
+            homeAway.includes(val)
+          );
+
         });
 
         if (match) {
@@ -434,29 +482,33 @@
     // SEARCH BUTTON → OPEN MATCHUP PAGE
     // ---------------------------------------
     function runSearch() {
-      const val = input.value.toLowerCase();
+
+      const val = input.value.toLowerCase().trim();
 
       const match = scheduleData.find(g => {
-        const a = `${g.away} vs ${g.home}`.toLowerCase();
-        const b = `${g.home} vs ${g.away}`.toLowerCase();
-        return a.includes(val) || b.includes(val);
+
+        const a =
+          `${g.away} vs ${g.home}`.toLowerCase();
+
+        const b =
+          `${g.home} vs ${g.away}`.toLowerCase();
+
+        return (
+          a === val ||
+          b === val ||
+          a.includes(val) ||
+          b.includes(val)
+        );
+
       });
 
       if (match) {
         openMatchup(match);
-        return;
       }
 
-      // fallback: still allow filtering if no exact match
-      document.querySelectorAll(".matchup-card").forEach(card => {
-        card.style.display = card.innerText.toLowerCase().includes(val)
-          ? "block"
-          : "none";
-      });
-
       box.innerHTML = "";
-    }
 
+    }
     // ---------------------------------------
     // CLOSE DROPDOWN ON OUTSIDE CLICK
     // ---------------------------------------

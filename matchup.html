@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Matchup Report — PlayMaker Prime</title>
+    <meta name="description"
+        content="Dynamic NFL matchup report with schedule data, defensive tiers, prop opportunity notes, and PlayMaker analysis links." />
+
+    <link rel="stylesheet" href="assets/css/matchups.css" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+</head>
+
+<body>
+
+    <header class="pm-header">
+        <h1>PlayMaker Prime</h1>
+
+        <nav class="pm-nav">
+            <a href="index.html" class="pm-link">Home</a>
+            <a href="players.html" class="pm-link">Players</a>
+            <a href="teams.html" class="pm-link">Teams</a>
+            <a href="matchups.html" class="pm-link active">Matchups</a>
+            <a href="research.html" class="pm-link">Research</a>
+            <a href="results.html" class="pm-link">Results</a>
+            <a href="pricing.html" class="pm-link">Pricing</a>
+            <a href="/tool/" class="pm-link pm-link-cta">Open Tool</a>
+        </nav>
+    </header>
+
+    <section class="matchups-hero">
+        <div class="hero-glow"></div>
+
+        <div class="matchups-hero-content">
+            <span class="hq-pill" id="matchup-week">NFL Matchup Report</span>
+
+            <h2 id="matchup-title">
+                Loading matchup...
+                <span>PlayMaker Prime</span>
+            </h2>
+
+            <p id="matchup-subtitle">
+                Pulling schedule data and matchup context.
+            </p>
+
+            <div class="matchup-search-card">
+                <label>Matchup Snapshot</label>
+
+                <div class="opportunity-score">
+                    <span>Prop Opportunity Score</span>
+                    <strong id="opportunity-score">Pending</strong>
+                </div>
+
+                <p class="search-note" id="matchup-note">
+                    Building this matchup report.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <main>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Game Overview</h3>
+                <p>Schedule and matchup context for this NFL game.</p>
+            </div>
+
+            <div class="logic-grid">
+                <div class="logic-card">
+                    <h4>Game Date</h4>
+                    <p id="game-date">Loading...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4>Week</h4>
+                    <p id="game-week">Loading...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4>Away Team</h4>
+                    <p id="away-team">Loading...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4>Home Team</h4>
+                    <p id="home-team">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>Defensive Matchup</h3>
+                <p id="defense-source-note">Loading defensive baseline...</p>
+            </div>
+
+            <div class="logic-grid">
+                <div class="logic-card">
+                    <h4 id="away-defense-title">Away Defense</h4>
+                    <p id="away-defense-copy">Loading...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4 id="home-defense-title">Home Defense</h4>
+                    <p id="home-defense-copy">Loading...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4>Passing Edge</h4>
+                    <p id="passing-edge-copy">Loading...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4>Rushing Edge</h4>
+                    <p id="rushing-edge-copy">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Matchup Intelligence</h3>
+                <p id="intelligence-summary">Loading matchup summary...</p>
+            </div>
+
+            <div class="score-breakdown">
+                <div class="score-card">
+                    <span>01</span>
+                    <h4>Defense Matchup</h4>
+                    <p id="defense-copy">Loading defense context...</p>
+                </div>
+
+                <div class="score-card">
+                    <span>02</span>
+                    <h4>Player Trend Focus</h4>
+                    <p id="trend-copy">Player trend data will connect here next.</p>
+                </div>
+
+                <div class="score-card">
+                    <span>03</span>
+                    <h4>Weather Watch</h4>
+                    <p id="weather-copy">Weather and stadium impact will connect here next.</p>
+                </div>
+
+                <div class="score-card">
+                    <span>04</span>
+                    <h4>Injury Context</h4>
+                    <p id="injury-copy">Injury and availability signals will connect here next.</p>
+                </div>
+
+                <div class="score-card">
+                    <span>05</span>
+                    <h4>Game Script</h4>
+                    <p id="script-copy">Loading projected game script focus...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Prop Categories to Review</h3>
+                <p id="prop-summary">Use this matchup as the starting point before running specific player props.</p>
+            </div>
+
+            <div class="matchup-grid">
+                <article class="matchup-card">
+                    <div class="matchup-top">
+                        <span class="game-tag">Passing</span>
+                        <span class="game-date" id="passing-rating">Review</span>
+                    </div>
+
+                    <h4>QB Passing Props</h4>
+
+                    <ul class="matchup-points">
+                        <li id="passing-point-1">Passing yards</li>
+                        <li id="passing-point-2">Completions and attempts</li>
+                        <li id="passing-point-3">Passing touchdowns</li>
+                    </ul>
+                </article>
+
+                <article class="matchup-card">
+                    <div class="matchup-top">
+                        <span class="game-tag">Rushing</span>
+                        <span class="game-date" id="rushing-rating">Review</span>
+                    </div>
+
+                    <h4>Rushing Props</h4>
+
+                    <ul class="matchup-points">
+                        <li id="rushing-point-1">QB rushing yards</li>
+                        <li id="rushing-point-2">RB rushing yards</li>
+                        <li id="rushing-point-3">Rushing touchdowns</li>
+                    </ul>
+                </article>
+
+                <article class="matchup-card">
+                    <div class="matchup-top">
+                        <span class="game-tag">Receiving</span>
+                        <span class="game-date" id="receiving-rating">Review</span>
+                    </div>
+
+                    <h4>Receiving Props</h4>
+
+                    <ul class="matchup-points">
+                        <li id="receiving-point-1">Receiving yards</li>
+                        <li id="receiving-point-2">Receptions</li>
+                        <li id="receiving-point-3">Anytime touchdown angles</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>PlayMaker Angle</h3>
+                <p>This section turns the matchup into a starting point for prop research.</p>
+            </div>
+
+            <div class="report-list">
+                <div class="report-row">
+                    <div>
+                        <h4 id="primary-angle-title">Primary Angle</h4>
+                        <p id="primary-angle-copy">Loading primary matchup angle...</p>
+                    </div>
+                    <span id="primary-angle-tag">Loading</span>
+                </div>
+
+                <div class="report-row">
+                    <div>
+                        <h4 id="secondary-angle-title">Secondary Angle</h4>
+                        <p id="secondary-angle-copy">Loading secondary matchup angle...</p>
+                    </div>
+                    <span id="secondary-angle-tag">Review</span>
+                </div>
+
+                <div class="report-row">
+                    <div>
+                        <h4>Next Step</h4>
+                        <p id="next-step-copy">Open PlayMaker to test specific player lines from this matchup.</p>
+                    </div>
+                    <span>Tool Ready</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="final-cta">
+                <h3>Ready to run the matchup?</h3>
+                <p id="cta-copy">Open PlayMaker and generate the real prop projections.</p>
+                <a href="/tool/" id="tool-link" class="btn-primary">Launch PlayMaker</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 PlayMaker Prime. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const gameParam = params.get("game");
+
+        const TEAM_NAMES = {
+            ARI: "Arizona Cardinals",
+            ATL: "Atlanta Falcons",
+            BAL: "Baltimore Ravens",
+            BUF: "Buffalo Bills",
+            CAR: "Carolina Panthers",
+            CHI: "Chicago Bears",
+            CIN: "Cincinnati Bengals",
+            CLE: "Cleveland Browns",
+            DAL: "Dallas Cowboys",
+            DEN: "Denver Broncos",
+            DET: "Detroit Lions",
+            GB: "Green Bay Packers",
+            HOU: "Houston Texans",
+            IND: "Indianapolis Colts",
+            JAX: "Jacksonville Jaguars",
+            KC: "Kansas City Chiefs",
+            LV: "Las Vegas Raiders",
+            LAC: "Los Angeles Chargers",
+            LAR: "Los Angeles Rams",
+            MIA: "Miami Dolphins",
+            MIN: "Minnesota Vikings",
+            NE: "New England Patriots",
+            NO: "New Orleans Saints",
+            NYG: "New York Giants",
+            NYJ: "New York Jets",
+            PHI: "Philadelphia Eagles",
+            PIT: "Pittsburgh Steelers",
+            SF: "San Francisco 49ers",
+            SEA: "Seattle Seahawks",
+            TB: "Tampa Bay Buccaneers",
+            TEN: "Tennessee Titans",
+            WAS: "Washington Commanders",
+            WSH: "Washington Commanders"
+        };
+
+        const TEAM_ALIAS = {
+            WSH: "WAS"
+        };
+
+        function teamKey(code) {
+            return TEAM_ALIAS[code] || code;
+        }
+
+        function normalizeParam(value) {
+            return String(value || "")
+                .toUpperCase()
+                .replaceAll("_", "-")
+                .replaceAll(" ", "-");
+        }
+
+        function matchupMatches(game, key) {
+            if (!game || !key) return false;
+
+            const direct = `${game.away}-VS-${game.home}`.toUpperCase();
+            const reverse = `${game.home}-VS-${game.away}`.toUpperCase();
+            const matchupKey = String(game.matchupKey || "").toUpperCase();
+
+            return key === direct || key === reverse || key === matchupKey;
+        }
+
+        function formatTeam(code) {
+            return TEAM_NAMES[code] || code;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return "TBD";
+
+            const date = new Date(dateString + "T12:00:00");
+            return date.toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            });
+        }
+
+        function tierScore(tier) {
+            const scores = { A: 4, B: 3, C: 2, D: 1 };
+            return scores[tier] || 2;
+        }
+
+        function formatPct(value) {
+            if (value === null || value === undefined || Number.isNaN(Number(value))) return "N/A";
+            return `${(Number(value) * 100).toFixed(1)}%`;
+        }
+
+        function getDefense(defenseData, code) {
+            if (!defenseData || !defenseData.teams) return null;
+            return defenseData.teams[teamKey(code)] || defenseData.teams[code] || null;
+        }
+
+        function calculateOpportunityScore(game, awayDefense, homeDefense) {
+            if (!game || !game.week) return "Pending";
+
+            let score = 70;
+
+            if (homeDefense) {
+                score += (5 - tierScore(homeDefense.passDefenseTier)) * 2;
+                score += (5 - tierScore(homeDefense.runDefenseTier)) * 2;
+            }
+
+            if (awayDefense) {
+                score += (5 - tierScore(awayDefense.passDefenseTier));
+                score += (5 - tierScore(awayDefense.runDefenseTier));
+            }
+
+            score += Number(game.week) % 4;
+
+            score = Math.max(60, Math.min(score, 94));
+
+            return `${score}/100`;
+        }
+
+        function getFocusByScore(scoreText) {
+            const score = Number(String(scoreText).split("/")[0]);
+
+            if (score >= 85) return "High";
+            if (score >= 78) return "Strong";
+            if (score >= 72) return "Medium";
+            return "Watch";
+        }
+
+        function getBestAngle(awayCode, homeCode, awayDefense, homeDefense) {
+            if (!homeDefense) {
+                return {
+                    title: `${awayCode} Offensive Review`,
+                    copy: `Start by checking ${awayCode}'s top usage players against ${homeCode}'s defense.`,
+                    tag: "Review",
+                    propType: "Balanced"
+                };
+            }
+
+            const passWeakness = tierScore(homeDefense.passDefenseTier);
+            const runWeakness = tierScore(homeDefense.runDefenseTier);
+
+            if (runWeakness <= passWeakness) {
+                return {
+                    title: `${awayCode} Rushing Props vs ${homeCode}`,
+                    copy: `${homeCode} grades as a ${homeDefense.runDefenseTier} run defense baseline. Start with ${awayCode} rushing yards, QB rushing, RB rushing, and rushing TD markets.`,
+                    tag: homeDefense.runDefenseTier === "D" ? "Priority" : "Review",
+                    propType: "Rushing"
+                };
+            }
+
+            return {
+                title: `${awayCode} Passing Props vs ${homeCode}`,
+                copy: `${homeCode} grades as a ${homeDefense.passDefenseTier} pass defense baseline. Start with ${awayCode} passing yards, receiving yards, receptions, and passing TD markets.`,
+                tag: homeDefense.passDefenseTier === "D" ? "Priority" : "Review",
+                propType: "Passing"
+            };
+        }
+
+        function renderNotFound() {
+            document.getElementById("matchup-week").textContent = "Matchup Not Found";
+            document.getElementById("matchup-title").innerHTML = `Matchup unavailable <span>Try another search</span>`;
+            document.getElementById("matchup-subtitle").textContent =
+                "We could not find this matchup in the current schedule data.";
+            document.getElementById("matchup-note").textContent =
+                "Return to the Matchups page and select a game from the search dropdown.";
+            document.getElementById("opportunity-score").textContent = "N/A";
+        }
+
+        function renderMatchup(game, defenseData, weatherData) {
+            const awayCode = String(game.away || "").toUpperCase();
+            const homeCode = String(game.home || "").toUpperCase();
+
+            const awayName = formatTeam(awayCode);
+            const homeName = formatTeam(homeCode);
+
+            const awayDefense = getDefense(defenseData, awayCode);
+            const homeDefense = getDefense(defenseData, homeCode);
+            const weather = weatherData?.games?.[game.gameId] || null;
+
+            const readableDate = formatDate(game.date);
+            const score = calculateOpportunityScore(game, awayDefense, homeDefense);
+            const focus = getFocusByScore(score);
+            const bestAngle = getBestAngle(awayCode, homeCode, awayDefense, homeDefense);
+
+            document.title = `${awayName} vs ${homeName} — PlayMaker Prime`;
+
+            document.getElementById("matchup-week").textContent = `Week ${game.week} Matchup`;
+
+            document.getElementById("matchup-title").innerHTML = `
+        ${awayName} vs ${homeName}
+        <span>${awayCode} @ ${homeCode}</span>
+      `;
+
+            document.getElementById("matchup-subtitle").textContent =
+                `${readableDate} · A PlayMaker Prime matchup report built for player prop research.`;
+
+            document.getElementById("opportunity-score").textContent = score;
+
+            document.getElementById("matchup-note").textContent =
+                `${awayCode} travels to ${homeCode}. This report uses schedule data plus defensive baseline tiers to shape the first prop research angle.`;
+
+            document.getElementById("game-date").textContent = readableDate;
+            document.getElementById("game-week").textContent = `Week ${game.week}`;
+            document.getElementById("away-team").textContent = awayName;
+            document.getElementById("home-team").textContent = homeName;
+
+            if (defenseData) {
+                document.getElementById("defense-source-note").textContent =
+                    `Defensive tiers use ${defenseData.sourceSeason} regular-season EPA baseline data. Status: ${defenseData.status}.`;
+            }
+
+            document.getElementById("away-defense-title").textContent = `${awayCode} Defense`;
+            document.getElementById("home-defense-title").textContent = `${homeCode} Defense`;
+
+            document.getElementById("away-defense-copy").textContent = awayDefense
+                ? `Overall ${awayDefense.overallDefenseTier} · Pass ${awayDefense.passDefenseTier} · Run ${awayDefense.runDefenseTier} · Pressure ${formatPct(awayDefense.pressureRate)}`
+                : `Defense data unavailable for ${awayCode}.`;
+
+            document.getElementById("home-defense-copy").textContent = homeDefense
+                ? `Overall ${homeDefense.overallDefenseTier} · Pass ${homeDefense.passDefenseTier} · Run ${homeDefense.runDefenseTier} · Pressure ${formatPct(homeDefense.pressureRate)}`
+                : `Defense data unavailable for ${homeCode}.`;
+
+            document.getElementById("passing-edge-copy").textContent = homeDefense
+                ? `${awayCode} passing props face a ${homeDefense.passDefenseTier} pass defense baseline from ${homeCode}.`
+                : `Passing edge will update when ${homeCode} defense data is available.`;
+
+            document.getElementById("rushing-edge-copy").textContent = homeDefense
+                ? `${awayCode} rushing props face a ${homeDefense.runDefenseTier} run defense baseline from ${homeCode}.`
+                : `Rushing edge will update when ${homeCode} defense data is available.`;
+
+            document.getElementById("intelligence-summary").textContent =
+                `${awayName} vs ${homeName} is marked as a ${focus.toLowerCase()} prop research spot. The current first-look angle is ${bestAngle.propType.toLowerCase()} props.`;
+
+            document.getElementById("defense-copy").textContent =
+                homeDefense
+                    ? `${homeCode}'s baseline defense: Overall ${homeDefense.overallDefenseTier}, Pass ${homeDefense.passDefenseTier}, Run ${homeDefense.runDefenseTier}.`
+                    : `Defense tiers will populate when available.`;
+
+            document.getElementById("trend-copy").textContent =
+                `Next layer: connect recent player usage for ${awayCode} and ${homeCode}.`;
+
+            document.getElementById("weather-copy").textContent = weather
+                ? `${weather.stadium} · ${weather.isDome ? "Dome/controlled environment" : "Outdoor"} · ${weather.label}. ${weather.available
+                    ? `${Math.round(weather.temperature)}°F, wind ${Math.round(weather.windMph)} mph, ${weather.description}.`
+                    : weather.reason
+                }`
+                : `Weather and stadium data will update once this game is added to the weather cache.`;
+
+            document.getElementById("injury-copy").textContent =
+                `Next layer: connect injury and availability data for role changes.`;
+
+            document.getElementById("script-copy").textContent =
+                `Game script will combine schedule spot, defense tier, weather, and injuries to prioritize prop types.`;
+
+            document.getElementById("prop-summary").textContent =
+                `Start with ${bestAngle.propType.toLowerCase()} props, then use PlayMaker to test specific player lines for ${awayCode} vs ${homeCode}.`;
+
+            document.getElementById("passing-rating").textContent =
+                bestAngle.propType === "Passing" ? bestAngle.tag : "Review";
+
+            document.getElementById("rushing-rating").textContent =
+                bestAngle.propType === "Rushing" ? bestAngle.tag : "Review";
+
+            document.getElementById("receiving-rating").textContent =
+                bestAngle.propType === "Passing" ? "Review" : "Watch";
+
+            document.getElementById("passing-point-1").textContent =
+                `${awayCode} QB passing yards vs ${homeCode} pass defense`;
+
+            document.getElementById("passing-point-2").textContent =
+                `Receiving yards and receptions if pass defense grades weak`;
+
+            document.getElementById("passing-point-3").textContent =
+                `Passing TD markets if red-zone context supports it`;
+
+            document.getElementById("rushing-point-1").textContent =
+                `${awayCode} rushing yards vs ${homeCode} run defense`;
+
+            document.getElementById("rushing-point-2").textContent =
+                `QB rushing and RB rushing volume`;
+
+            document.getElementById("rushing-point-3").textContent =
+                `Short-yardage and rushing TD opportunities`;
+
+            document.getElementById("receiving-point-1").textContent =
+                `WR, TE, and RB receiving yards`;
+
+            document.getElementById("receiving-point-2").textContent =
+                `Target share and reception volume`;
+
+            document.getElementById("receiving-point-3").textContent =
+                `Anytime touchdown and red-zone usage`;
+
+            document.getElementById("primary-angle-title").textContent = bestAngle.title;
+            document.getElementById("primary-angle-copy").textContent = bestAngle.copy;
+            document.getElementById("primary-angle-tag").textContent = bestAngle.tag;
+
+            document.getElementById("secondary-angle-title").textContent = `${homeCode} Counter Angle`;
+            document.getElementById("secondary-angle-copy").textContent =
+                awayDefense
+                    ? `${homeCode} offensive props should be checked against ${awayCode}'s ${awayDefense.passDefenseTier} pass defense and ${awayDefense.runDefenseTier} run defense baseline.`
+                    : `${homeCode} offensive props should be reviewed once ${awayCode} defensive data is available.`;
+            document.getElementById("secondary-angle-tag").textContent = "Review";
+
+            document.getElementById("next-step-copy").textContent =
+                `Use this report as the matchup layer, then open PlayMaker to test individual player lines from ${awayCode} vs ${homeCode}.`;
+
+            document.getElementById("cta-copy").textContent =
+                `Run ${awayCode} vs ${homeCode} through PlayMaker for prop-specific analysis.`;
+
+            document.getElementById("tool-link").href =
+                `/tool/?away=${encodeURIComponent(awayCode)}&home=${encodeURIComponent(homeCode)}`;
+        }
+
+        async function loadJson(path) {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error(`Failed to load ${path}`);
+            return await res.json();
+        }
+
+        async function loadMatchup() {
+            try {
+                const key = normalizeParam(gameParam);
+
+                if (!key) {
+                    renderNotFound();
+                    return;
+                }
+
+                const schedule = await loadJson("/assets/data/schedule2026.json");
+
+                let defenseData = null;
+
+                try {
+                    defenseData = await loadJson("/assets/data/defense-tiers.json");
+                } catch (err) {
+                    console.warn("Defense tiers unavailable:", err.message);
+                }
+
+                const game = schedule.find(g => matchupMatches(g, key));
+
+                if (!game) {
+                    renderNotFound();
+                    return;
+                }
+
+                let weatherData = null;
+
+                try {
+                    weatherData = await loadJson("/assets/data/weather-cache.json");
+                } catch (err) {
+                    console.warn("Weather cache unavailable:", err.message);
+                }
+
+                renderMatchup(game, defenseData, weatherData);
+
+            } catch (err) {
+                console.error("Failed to load matchup:", err);
+                renderNotFound();
+            }
+        }
+
+        loadMatchup();
+    </script>
+
+</body>
+
+</html>
