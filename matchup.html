@@ -427,7 +427,7 @@
             document.getElementById("opportunity-score").textContent = "N/A";
         }
 
-        function renderMatchup(game, defenseData, weatherData) {
+        function renderMatchup(game, defenseData, weatherData, injuriesData) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
 
@@ -437,6 +437,12 @@
             const awayDefense = getDefense(defenseData, awayCode);
             const homeDefense = getDefense(defenseData, homeCode);
             const weather = weatherData?.games?.[game.gameId] || null;
+            const awayInjuries = injuriesData?.teams?.[teamKey(awayCode)] || null;
+            const homeInjuries = injuriesData?.teams?.[teamKey(homeCode)] || null;
+
+            const awayCount = awayInjuries?.injuryCount || 0;
+            const homeCount = homeInjuries?.injuryCount || 0;
+            const totalInjuries = awayCount + homeCount;
 
             const readableDate = formatDate(game.date);
             const score = calculateOpportunityScore(game, awayDefense, homeDefense);
@@ -508,7 +514,11 @@
                 : `Weather and stadium data will update once this game is added to the weather cache.`;
 
             document.getElementById("injury-copy").textContent =
-                `Next layer: connect injury and availability data for role changes.`;
+                injuriesData
+                    ? totalInjuries > 0
+                        ? `${awayCode}: ${awayCount} clean injury flags · ${homeCode}: ${homeCount} clean injury flags. Review player availability before locking props.`
+                        : `No major injury concerns currently exist. Official injury reports will begin populating closer to preseason and update automatically each week.`
+                    : `Injury data unavailable.`;
 
             document.getElementById("script-copy").textContent =
                 `Game script will combine schedule spot, defense tier, weather, and injuries to prioritize prop types.`;
@@ -613,7 +623,20 @@
                     console.warn("Weather cache unavailable:", err.message);
                 }
 
-                renderMatchup(game, defenseData, weatherData);
+                let injuriesData = null;
+
+                try {
+                    injuriesData = await loadJson("/assets/data/injuries.json");
+                } catch (err) {
+                    console.warn("Injuries unavailable:", err.message);
+                }
+
+                renderMatchup(
+                    game,
+                    defenseData,
+                    weatherData,
+                    injuriesData
+                );
 
             } catch (err) {
                 console.error("Failed to load matchup:", err);
