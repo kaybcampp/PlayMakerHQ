@@ -209,53 +209,53 @@
 
         <section class="hq-section">
             <div class="section-header">
-                <h3>Prop Categories to Review</h3>
-                <p id="prop-summary">Use this matchup as the starting point before running specific player props.</p>
+                <h3>Matchup Opportunities</h3>
+                <p id="opportunity-summary">Loading matchup-specific prop opportunities...</p>
             </div>
 
             <div class="matchup-grid">
                 <article class="matchup-card">
                     <div class="matchup-top">
-                        <span class="game-tag">Passing</span>
-                        <span class="game-date" id="passing-rating">Review</span>
+                        <span class="game-tag">Primary Opportunity</span>
+                        <span class="game-date" id="primary-opportunity-stars">★★★★★</span>
                     </div>
 
-                    <h4>QB Passing Props</h4>
+                    <h4 id="primary-opportunity-title">Loading primary opportunity...</h4>
 
                     <ul class="matchup-points">
-                        <li id="passing-point-1">Passing yards</li>
-                        <li id="passing-point-2">Completions and attempts</li>
-                        <li id="passing-point-3">Passing touchdowns</li>
+                        <li id="primary-opportunity-1">Analyzing best prop path...</li>
+                        <li id="primary-opportunity-2">Checking defensive tiers...</li>
+                        <li id="primary-opportunity-3">Reviewing game script...</li>
                     </ul>
                 </article>
 
                 <article class="matchup-card">
                     <div class="matchup-top">
-                        <span class="game-tag">Rushing</span>
-                        <span class="game-date" id="rushing-rating">Review</span>
+                        <span class="game-tag">Secondary Opportunity</span>
+                        <span class="game-date" id="secondary-opportunity-stars">★★★★</span>
                     </div>
 
-                    <h4>Rushing Props</h4>
+                    <h4 id="secondary-opportunity-title">Loading secondary opportunity...</h4>
 
                     <ul class="matchup-points">
-                        <li id="rushing-point-1">QB rushing yards</li>
-                        <li id="rushing-point-2">RB rushing yards</li>
-                        <li id="rushing-point-3">Rushing touchdowns</li>
+                        <li id="secondary-opportunity-1">Building alternate prop angle...</li>
+                        <li id="secondary-opportunity-2">Checking player pool...</li>
+                        <li id="secondary-opportunity-3">Reviewing supporting markets...</li>
                     </ul>
                 </article>
 
                 <article class="matchup-card">
                     <div class="matchup-top">
-                        <span class="game-tag">Receiving</span>
-                        <span class="game-date" id="receiving-rating">Review</span>
+                        <span class="game-tag">Avoid / Use Caution</span>
+                        <span class="game-date" id="caution-opportunity-stars">★★</span>
                     </div>
 
-                    <h4>Receiving Props</h4>
+                    <h4 id="caution-opportunity-title">Loading caution area...</h4>
 
                     <ul class="matchup-points">
-                        <li id="receiving-point-1">Receiving yards</li>
-                        <li id="receiving-point-2">Receptions</li>
-                        <li id="receiving-point-3">Anytime touchdown angles</li>
+                        <li id="caution-opportunity-1">Identifying lower-confidence angles...</li>
+                        <li id="caution-opportunity-2">Checking defensive resistance...</li>
+                        <li id="caution-opportunity-3">Reviewing volatility factors...</li>
                     </ul>
                 </article>
             </div>
@@ -263,7 +263,7 @@
 
         <section class="hq-section hq-section-alt">
             <div class="section-header">
-                <h3>PlayMaker Angle</h3>
+                <h3>Why This Matchup?</h3>
                 <p>This section turns the matchup into a starting point for prop research.</p>
             </div>
 
@@ -672,6 +672,16 @@
             }).join("");
         }
 
+        function getPlayerByPosition(players, position, index = 0) {
+            if (!Array.isArray(players)) return null;
+
+            return players.filter(player => player.position === position)[index] || null;
+        }
+
+        function playerName(player, fallback) {
+            return player?.name || fallback;
+        }
+
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
@@ -821,45 +831,102 @@
             document.getElementById("script-copy").textContent =
                 `Game script will combine schedule spot, defense tier, weather, and injuries to prioritize prop types.`;
 
-            document.getElementById("prop-summary").textContent =
-                `Start with ${bestAngle.propType.toLowerCase()} props, then use PlayMaker to test specific player lines for ${awayCode} vs ${homeCode}.`;
+            const awayQB = getPlayerByPosition(filteredAwayPlayers, "QB");
+            const awayRB = getPlayerByPosition(filteredAwayPlayers, "RB");
+            const awayWR1 = getPlayerByPosition(filteredAwayPlayers, "WR", 0);
+            const awayWR2 = getPlayerByPosition(filteredAwayPlayers, "WR", 1);
+            const awayTE = getPlayerByPosition(filteredAwayPlayers, "TE");
 
-            document.getElementById("passing-rating").textContent =
-                bestAngle.propType === "Passing" ? bestAngle.tag : "Review";
+            const homeQB = getPlayerByPosition(filteredHomePlayers, "QB");
+            const homeRB = getPlayerByPosition(filteredHomePlayers, "RB");
+            const homeWR1 = getPlayerByPosition(filteredHomePlayers, "WR", 0);
+            const homeWR2 = getPlayerByPosition(filteredHomePlayers, "WR", 1);
+            const homeTE = getPlayerByPosition(filteredHomePlayers, "TE");
 
-            document.getElementById("rushing-rating").textContent =
-                bestAngle.propType === "Rushing" ? bestAngle.tag : "Review";
+            const primaryMarket =
+                bestAngle.propType === "Rushing"
+                    ? "Rushing Props"
+                    : bestAngle.propType === "Passing"
+                        ? "Passing / Receiving Props"
+                        : "Balanced Props";
 
-            document.getElementById("receiving-rating").textContent =
-                bestAngle.propType === "Passing" ? "Review" : "Watch";
+            const secondaryMarket =
+                bestAngle.propType === "Rushing"
+                    ? "Receiving Props"
+                    : "Rushing Props";
 
-            document.getElementById("passing-point-1").textContent =
-                `${awayCode} QB passing yards vs ${homeCode} pass defense`;
+            const cautionMarket =
+                bestAngle.propType === "Rushing"
+                    ? `${homeCode} passing props`
+                    : `${awayCode} rushing props`;
 
-            document.getElementById("passing-point-2").textContent =
-                `Receiving yards and receptions if pass defense grades weak`;
+            document.getElementById("opportunity-summary").textContent =
+                `${awayCode} vs ${homeCode} grades best through ${primaryMarket.toLowerCase()}, with secondary angles available depending on line value.`;
 
-            document.getElementById("passing-point-3").textContent =
-                `Passing TD markets if red-zone context supports it`;
+            document.getElementById("primary-opportunity-title").textContent =
+                `${awayCode} ${primaryMarket}`;
 
-            document.getElementById("rushing-point-1").textContent =
-                `${awayCode} rushing yards vs ${homeCode} run defense`;
+            document.getElementById("secondary-opportunity-title").textContent =
+                `${awayCode} ${secondaryMarket}`;
 
-            document.getElementById("rushing-point-2").textContent =
-                `QB rushing and RB rushing volume`;
+            document.getElementById("caution-opportunity-title").textContent =
+                cautionMarket;
 
-            document.getElementById("rushing-point-3").textContent =
-                `Short-yardage and rushing TD opportunities`;
+            if (bestAngle.propType === "Rushing") {
+                document.getElementById("primary-opportunity-1").textContent =
+                    `${playerName(awayRB, `${awayCode} RB`)} rushing yards`;
 
-            document.getElementById("receiving-point-1").textContent =
-                `WR, TE, and RB receiving yards`;
+                document.getElementById("primary-opportunity-2").textContent =
+                    `${playerName(awayQB, `${awayCode} QB`)} rushing yards`;
 
-            document.getElementById("receiving-point-2").textContent =
-                `Target share and reception volume`;
+                document.getElementById("primary-opportunity-3").textContent =
+                    `${playerName(awayRB, `${awayCode} RB`)} / ${playerName(awayQB, `${awayCode} QB`)} rushing TD angles`;
 
-            document.getElementById("receiving-point-3").textContent =
-                `Anytime touchdown and red-zone usage`;
+                document.getElementById("secondary-opportunity-1").textContent =
+                    `${playerName(awayWR1, `${awayCode} WR1`)} receiving yards`;
 
+                document.getElementById("secondary-opportunity-2").textContent =
+                    `${playerName(awayWR2, `${awayCode} WR2`)} receptions`;
+
+                document.getElementById("secondary-opportunity-3").textContent =
+                    `${playerName(awayTE, `${awayCode} TE`)} receiving yards or TD angle`;
+
+                document.getElementById("caution-opportunity-1").textContent =
+                    `${playerName(homeQB, `${homeCode} QB`)} passing yards`;
+
+                document.getElementById("caution-opportunity-2").textContent =
+                    `${playerName(homeWR1, `${homeCode} WR1`)} receiving props`;
+
+                document.getElementById("caution-opportunity-3").textContent =
+                    `${homeCode} low-volume WR/TE props`;
+            } else {
+                document.getElementById("primary-opportunity-1").textContent =
+                    `${playerName(awayQB, `${awayCode} QB`)} passing yards`;
+
+                document.getElementById("primary-opportunity-2").textContent =
+                    `${playerName(awayWR1, `${awayCode} WR1`)} receiving yards`;
+
+                document.getElementById("primary-opportunity-3").textContent =
+                    `${playerName(awayWR2, `${awayCode} WR2`)} receptions / ${playerName(awayTE, `${awayCode} TE`)} receiving yards`;
+
+                document.getElementById("secondary-opportunity-1").textContent =
+                    `${playerName(awayRB, `${awayCode} RB`)} rushing yards`;
+
+                document.getElementById("secondary-opportunity-2").textContent =
+                    `${playerName(awayQB, `${awayCode} QB`)} rushing yards`;
+
+                document.getElementById("secondary-opportunity-3").textContent =
+                    `${playerName(awayRB, `${awayCode} RB`)} rush + rec TD angle`;
+
+                document.getElementById("caution-opportunity-1").textContent =
+                    `${playerName(homeQB, `${homeCode} QB`)} passing yards`;
+
+                document.getElementById("caution-opportunity-2").textContent =
+                    `${playerName(homeWR1, `${homeCode} WR1`)} low-target receiving props`;
+
+                document.getElementById("caution-opportunity-3").textContent =
+                    `${homeCode} props affected by weather or injury uncertainty`;
+            }
             document.getElementById("primary-angle-title").textContent = bestAngle.title;
             document.getElementById("primary-angle-copy").textContent = bestAngle.copy;
             document.getElementById("primary-angle-tag").textContent = bestAngle.tag;
