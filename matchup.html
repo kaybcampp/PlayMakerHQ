@@ -49,8 +49,28 @@
                 <label>Matchup Snapshot</label>
 
                 <div class="opportunity-score">
-                    <span>Prop Opportunity Score</span>
-                    <strong id="opportunity-score">Pending</strong>
+                    <div class="opportunity-main">
+                        <div class="opportunity-score-top">
+                            <span>PlayMaker Matchup Ranking</span>
+                            <strong id="opportunity-score">Pending</strong>
+                        </div>
+
+                        <div class="opportunity-bar">
+                            <div id="opportunity-fill" class="opportunity-fill"></div>
+                        </div>
+
+                        <div class="opportunity-tier">
+                            <span id="opportunity-tier">Calculating...</span>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-drivers">
+                        <h5>Key Drivers</h5>
+
+                        <ul id="opportunity-drivers-list">
+                            <li>Building matchup profile...</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <p class="search-note" id="matchup-note">
@@ -384,14 +404,27 @@
             return defenseData.teams[teamKey(code)] || defenseData.teams[code] || null;
         }
 
-        function calculateOpportunityScore(game, awayDefense, homeDefense) {
-            if (!game || !game.week) return "Pending";
+        function calculateOpportunityScore(game, awayDefense, homeDefense, weather, totalInjuries, historicalResults) {
 
-            let score = 70;
+            if (!game || !game.week) {
+                return {
+                    score: 0,
+                    label: "Pending",
+                    tier: "Pending",
+                    reasons: ["Waiting for matchup data."]
+                };
+            }
+
+            let score = 58;
+            const reasons = [];
 
             if (homeDefense) {
-                score += (5 - tierScore(homeDefense.passDefenseTier)) * 2;
-                score += (5 - tierScore(homeDefense.runDefenseTier)) * 2;
+                const passBoost = (5 - tierScore(homeDefense.passDefenseTier)) * 3;
+                const runBoost = (5 - tierScore(homeDefense.runDefenseTier)) * 3;
+
+                score += passBoost + runBoost;
+
+                reasons.push(`Opponent defensive baseline: Pass ${homeDefense.passDefenseTier}, Run ${homeDefense.runDefenseTier}`);
             }
 
             if (awayDefense) {
@@ -399,15 +432,72 @@
                 score += (5 - tierScore(awayDefense.runDefenseTier));
             }
 
+            if (weather) {
+                if (weather.isDome) {
+                    score += 4;
+                    reasons.push("Dome or controlled environment helps reduce weather risk");
+                } else if (weather.available) {
+                    const wind = Number(weather.windMph || 0);
+
+                    if (wind <= 10) {
+                        score += 3;
+                        reasons.push("Weather looks manageable");
+                    } else if (wind >= 18) {
+                        score -= 6;
+                        reasons.push("Higher wind may reduce passing/receiving confidence");
+                    }
+                }
+            }
+
+            if (Array.isArray(historicalResults) && historicalResults.length) {
+                const won = historicalResults.filter(r => r.result === "won").length;
+                const lost = historicalResults.filter(r => r.result === "lost").length;
+                const total = won + lost;
+                const hitRate = total ? won / total : 0;
+
+                if (total >= 3 && hitRate >= 0.65) {
+                    score += 6;
+                    reasons.push(`Historical PlayMaker edge: ${won}-${lost} in related picks`);
+                } else if (total >= 3 && hitRate < 0.5) {
+                    score -= 4;
+                    reasons.push(`Historical results are mixed: ${won}-${lost} in related picks`);
+                }
+            }
+
+            if (totalInjuries >= 5) {
+                score -= 5;
+                reasons.push("Elevated injury noise lowers confidence");
+            } else if (totalInjuries > 0) {
+                score -= 2;
+                reasons.push("Some injury context should be reviewed");
+            }
+
             score += Number(game.week) % 4;
 
-            score = Math.max(60, Math.min(score, 94));
+            score = Math.max(45, Math.min(Math.round(score), 96));
 
-            return `${score}/100`;
+            let tier = "Watch";
+
+            if (score >= 85) {
+                tier = "Elite Opportunity";
+            }
+            else if (score >= 78) {
+                tier = "Strong Opportunity";
+            }
+            else if (score >= 70) {
+                tier = "Moderate Opportunity";
+            }
+
+            return {
+                score,
+                label: `${score}%`,
+                tier,
+                reasons
+            };
         }
 
-        function getFocusByScore(scoreText) {
-            const score = Number(String(scoreText).split("/")[0]);
+        function getFocusByScore(scoreValue) {
+            const score = Number(scoreValue);
 
             if (score >= 85) return "High";
             if (score >= 78) return "Strong";
@@ -600,8 +690,6 @@
             const totalInjuries = awayCount + homeCount;
 
             const readableDate = formatDate(game.date);
-            const score = calculateOpportunityScore(game, awayDefense, homeDefense);
-            const focus = getFocusByScore(score);
             const bestAngle = getBestAngle(awayCode, homeCode, awayDefense, homeDefense);
             const filteredAwayPlayers = filterKeyPlayers(awayPlayers);
             const filteredHomePlayers = filterKeyPlayers(homePlayers);
@@ -616,6 +704,18 @@
                 homePlayers
             );
 
+            const scoreData = calculateOpportunityScore(
+                game,
+                awayDefense,
+                homeDefense,
+                weather,
+                totalInjuries,
+                historicalResults
+            );
+
+            const score = scoreData.label;
+            const focus = getFocusByScore(scoreData.score);
+
             document.title = `${awayName} vs ${homeName} — PlayMaker Prime`;
 
             document.getElementById("matchup-week").textContent = `Week ${game.week} Matchup`;
@@ -628,7 +728,29 @@
             document.getElementById("matchup-subtitle").textContent =
                 `${readableDate} · A PlayMaker Prime matchup report built for player prop research.`;
 
-            document.getElementById("opportunity-score").textContent = score;
+            document.getElementById("opportunity-score").textContent = scoreData.label;
+
+            document.getElementById("opportunity-fill").style.width = `${scoreData.score}%`;
+
+            document.getElementById("opportunity-tier").textContent =
+                scoreData.tier;
+
+            const driversList =
+                document.getElementById("opportunity-drivers-list");
+
+            driversList.innerHTML =
+                scoreData.reasons.length
+                    ? scoreData.reasons.map(reason => {
+
+                        const icon =
+                            reason.toLowerCase().includes("injury")
+                                ? "⚠"
+                                : "✓";
+
+                        return `<li>${icon} ${reason}</li>`;
+
+                    }).join("")
+                    : "<li>✓ Matchup profile generated successfully.</li>";
 
             document.getElementById("matchup-note").textContent =
                 `${awayCode} travels to ${homeCode}. This report uses schedule data plus defensive baseline tiers to shape the first prop research angle.`;

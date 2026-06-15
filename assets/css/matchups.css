@@ -329,27 +329,142 @@ body {
 /* OPPORTUNITY + ANGLE */
 
 .opportunity-score {
-    background: rgba(102, 255, 153, .08);
-    border: 1px solid rgba(102, 255, 153, .2);
-    border-radius: 14px;
-    padding: .9rem 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 28px;
     align-items: center;
-    gap: .75rem;
+
+    background: rgba(102, 255, 153, 0.08);
+    border: 1px solid rgba(102, 255, 153, 0.20);
+    border-radius: 18px;
+
+    padding: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.opportunity-score span {
+.opportunity-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+.opportunity-score-top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.opportunity-score-top span {
     color: #A3AABF;
-    font-size: .85rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+#opportunity-score {
+    color: #66FF99;
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: 0 0 18px rgba(102, 255, 153, 0.35);
+}
+
+.opportunity-bar {
+    width: 100%;
+    height: 18px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.opportunity-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #39ff14, #66FF99);
+    box-shadow: 0 0 18px rgba(102, 255, 153, 0.45);
+    transition: width 0.7s ease;
+}
+
+.opportunity-tier {
+    display: flex;
+    justify-content: center;
+}
+
+.opportunity-tier span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 16px;
+
+    border-radius: 999px;
+
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    background: rgba(57, 255, 20, 0.12);
+    border: 1px solid rgba(57, 255, 20, 0.30);
+
+    color: #C8FFD9;
+}
+
+.opportunity-drivers {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    padding-left: 24px;
+}
+
+.opportunity-drivers h5 {
+    margin: 0 0 14px;
+    color: #fff;
+    font-size: 0.95rem;
     font-weight: 700;
 }
 
-.opportunity-score strong {
-    color: #66FF99;
-    font-size: 1.35rem;
-    text-shadow: 0 0 12px rgba(102, 255, 153, .35);
+.opportunity-drivers ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: grid;
+    gap: 12px;
+}
+
+.opportunity-drivers li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    color: #A3AABF;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+
+    .opportunity-score {
+        grid-template-columns: 1fr;
+    }
+
+    .opportunity-drivers {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+        padding-left: 0;
+        padding-top: 20px;
+    }
+
+    #opportunity-score {
+        font-size: 2rem;
+    }
 }
 
 .matchup-angle {
@@ -671,6 +786,12 @@ footer {
     .opportunity-score {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .opportunity-main {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
     }
 
     .card-actions {
