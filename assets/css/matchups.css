@@ -19,7 +19,7 @@ body {
 
 .pm-header {
     background: #131A2A;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@ body {
     color: #66FF99;
     font-size: 1.4rem;
     font-weight: 800;
-    text-shadow: 0 0 12px rgba(102,255,153,.4);
+    text-shadow: 0 0 12px rgba(102, 255, 153, .4);
 }
 
 .pm-nav {
@@ -54,8 +54,8 @@ body {
 }
 
 .pm-link-cta {
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.35);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .35);
     padding: .5rem .9rem;
     border-radius: 999px;
 }
@@ -66,7 +66,7 @@ body {
     position: relative;
     min-height: 620px;
     background:
-        linear-gradient(rgba(11,15,26,.84), rgba(11,15,26,.94)),
+        linear-gradient(rgba(11, 15, 26, .84), rgba(11, 15, 26, .94)),
         url('../images/playMakerBackground.png') center bottom / cover no-repeat;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@ body {
 .hero-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(102,255,153,.18), transparent 65%);
+    background: radial-gradient(circle at center, rgba(102, 255, 153, .18), transparent 65%);
     pointer-events: none;
 }
 
@@ -91,8 +91,8 @@ body {
 
 .hq-pill {
     display: inline-block;
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.4);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .4);
     color: #66FF99;
     padding: .4rem .9rem;
     border-radius: 999px;
@@ -110,7 +110,7 @@ body {
 .matchups-hero h2 span {
     display: block;
     color: #66FF99;
-    text-shadow: 0 0 18px rgba(102,255,153,.55);
+    text-shadow: 0 0 18px rgba(102, 255, 153, .55);
 }
 
 .matchups-hero p {
@@ -125,11 +125,11 @@ body {
 .matchup-search-card {
     max-width: 760px;
     margin: 0 auto;
-    background: rgba(19,26,42,.88);
-    border: 1px solid rgba(102,255,153,.22);
+    background: rgba(19, 26, 42, .88);
+    border: 1px solid rgba(102, 255, 153, .22);
     border-radius: 18px;
     padding: 1.4rem;
-    box-shadow: 0 0 24px rgba(102,255,153,.14);
+    box-shadow: 0 0 24px rgba(102, 255, 153, .14);
     text-align: left;
 }
 
@@ -148,18 +148,18 @@ body {
 .search-row input {
     flex: 1;
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.35);
+    border: 1px solid rgba(102, 255, 153, .35);
     color: #fff;
     border-radius: 12px;
     padding: 1rem;
     outline: none;
     font-size: 1rem;
-    box-shadow: 0 0 14px rgba(102,255,153,.12);
+    box-shadow: 0 0 14px rgba(102, 255, 153, .12);
 }
 
 .search-row input:focus {
     border-color: #66FF99;
-    box-shadow: 0 0 20px rgba(102,255,153,.35);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .35);
 }
 
 .search-row button {
@@ -170,11 +170,11 @@ body {
     padding: 0 1.4rem;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
 }
 
 .search-row button:hover {
-    box-shadow: 0 0 24px rgba(102,255,153,.65);
+    box-shadow: 0 0 24px rgba(102, 255, 153, .65);
 }
 
 .search-note {
@@ -221,9 +221,9 @@ body {
 }
 
 .week-controls button {
-    background: rgba(19,26,42,.85);
+    background: rgba(19, 26, 42, .85);
     color: #A3AABF;
-    border: 1px solid rgba(255,255,255,.08);
+    border: 1px solid rgba(255, 255, 255, .08);
     border-radius: 999px;
     padding: .65rem 1rem;
     font-weight: 800;
@@ -236,7 +236,7 @@ body {
     color: #0B0F1A;
     background: #66FF99;
     border-color: #66FF99;
-    box-shadow: 0 0 18px rgba(102,255,153,.45);
+    box-shadow: 0 0 18px rgba(102, 255, 153, .45);
 }
 
 /* MATCHUP CARDS */
@@ -251,22 +251,22 @@ body {
 
 .matchup-card {
     background: linear-gradient(145deg, #0B0F1A, #131A2A);
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 18px;
     padding: 1.5rem;
-    box-shadow: 0 0 20px rgba(102,255,153,.1);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .1);
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
 .matchup-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 0 28px rgba(102,255,153,.2);
-    border-color: rgba(102,255,153,.25);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .2);
+    border-color: rgba(102, 255, 153, .25);
 }
 
 .featured-matchup {
-    border-color: rgba(102,255,153,.35);
-    box-shadow: 0 0 30px rgba(102,255,153,.18);
+    border-color: rgba(102, 255, 153, .35);
+    box-shadow: 0 0 30px rgba(102, 255, 153, .18);
 }
 
 .matchup-top {
@@ -286,14 +286,14 @@ body {
 
 .game-tag {
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
 }
 
 .game-date {
     color: #A3AABF;
-    border: 1px solid rgba(255,255,255,.1);
-    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(255, 255, 255, .04);
 }
 
 .matchup-card h4 {
@@ -312,7 +312,7 @@ body {
 
 .team-row span {
     background: #131A2A;
-    border: 1px solid rgba(102,255,153,.2);
+    border: 1px solid rgba(102, 255, 153, .2);
     border-radius: 12px;
     padding: .55rem .85rem;
     color: #66FF99;
@@ -329,8 +329,8 @@ body {
 /* OPPORTUNITY + ANGLE */
 
 .opportunity-score {
-    background: rgba(102,255,153,.08);
-    border: 1px solid rgba(102,255,153,.2);
+    background: rgba(102, 255, 153, .08);
+    border: 1px solid rgba(102, 255, 153, .2);
     border-radius: 14px;
     padding: .9rem 1rem;
     margin-bottom: 1rem;
@@ -349,12 +349,12 @@ body {
 .opportunity-score strong {
     color: #66FF99;
     font-size: 1.35rem;
-    text-shadow: 0 0 12px rgba(102,255,153,.35);
+    text-shadow: 0 0 12px rgba(102, 255, 153, .35);
 }
 
 .matchup-angle {
-    background: rgba(255,255,255,.035);
-    border: 1px solid rgba(255,255,255,.07);
+    background: rgba(255, 255, 255, .035);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 14px;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -386,7 +386,7 @@ body {
 
 .matchup-points li {
     color: #A3AABF;
-    border-left: 3px solid rgba(102,255,153,.55);
+    border-left: 3px solid rgba(102, 255, 153, .55);
     padding-left: .65rem;
     font-size: .95rem;
 }
@@ -406,12 +406,12 @@ body {
 }
 
 .card-link:hover {
-    text-shadow: 0 0 12px rgba(102,255,153,.5);
+    text-shadow: 0 0 12px rgba(102, 255, 153, .5);
 }
 
 .secondary-link {
     color: #A3AABF;
-    border: 1px solid rgba(102,255,153,.25);
+    border: 1px solid rgba(102, 255, 153, .25);
     border-radius: 999px;
     padding: .45rem .75rem;
     font-size: .85rem;
@@ -419,7 +419,7 @@ body {
 
 .secondary-link:hover {
     color: #66FF99;
-    background: rgba(102,255,153,.08);
+    background: rgba(102, 255, 153, .08);
 }
 
 /* LOGIC CARDS */
@@ -434,10 +434,10 @@ body {
 
 .logic-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 16px;
     padding: 1.35rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.09);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
 }
 
 .logic-card h4 {
@@ -462,10 +462,10 @@ body {
 
 .score-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 16px;
     padding: 1.35rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.09);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
 }
 
 .score-card span {
@@ -497,14 +497,14 @@ body {
 
 .report-row {
     background: #131A2A;
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 16px;
     padding: 1.25rem 1.4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.08);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
 }
 
 .report-row h4 {
@@ -519,12 +519,71 @@ body {
 .report-row span {
     white-space: nowrap;
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
     border-radius: 999px;
     padding: .35rem .8rem;
     font-size: .85rem;
     font-weight: 800;
+}
+
+.player-pool-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.player-pool-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 22px;
+}
+
+.player-pool-card h4 {
+    margin-bottom: 16px;
+}
+
+.player-list {
+    display: grid;
+    gap: 12px;
+}
+
+.player-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.22);
+}
+
+.player-chip img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.player-chip strong {
+    display: block;
+    font-size: 0.95rem;
+}
+
+.player-chip span {
+    font-size: 0.78rem;
+    opacity: 0.7;
+}
+
+.empty-player-note {
+    opacity: 0.65;
+}
+
+@media (max-width: 800px) {
+    .player-pool-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* CTA */
@@ -534,10 +593,10 @@ body {
     margin: 0 auto;
     text-align: center;
     background: linear-gradient(145deg, #131A2A, #0B0F1A);
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 20px;
     padding: 4rem 2rem;
-    box-shadow: 0 0 22px rgba(102,255,153,.12);
+    box-shadow: 0 0 22px rgba(102, 255, 153, .12);
 }
 
 .final-cta h3 {
@@ -558,14 +617,14 @@ body {
     padding: 1rem 2rem;
     border-radius: 999px;
     font-weight: 900;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
     transition: .25s ease;
     display: inline-block;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 28px rgba(102,255,153,.7);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .7);
 }
 
 /* FOOTER */
@@ -574,7 +633,7 @@ footer {
     text-align: center;
     padding: 2rem 1rem;
     color: #A3AABF;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
 /* MOBILE */
