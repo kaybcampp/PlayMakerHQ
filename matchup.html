@@ -48,6 +48,28 @@
             <div class="matchup-search-card">
                 <label>Matchup Snapshot</label>
 
+                <div class="hero-game-overview">
+                    <div class="hero-game-card">
+                        <span>Date</span>
+                        <strong id="game-date-hero">Loading...</strong>
+                    </div>
+
+                    <div class="hero-game-card">
+                        <span>Week</span>
+                        <strong id="game-week-hero">Loading...</strong>
+                    </div>
+
+                    <div class="hero-game-card">
+                        <span>Away</span>
+                        <strong id="away-team-hero">Loading...</strong>
+                    </div>
+
+                    <div class="hero-game-card">
+                        <span>Home</span>
+                        <strong id="home-team-hero">Loading...</strong>
+                    </div>
+                </div>
+
                 <div class="opportunity-score">
                     <div class="opportunity-main">
                         <div class="opportunity-score-top">
@@ -84,30 +106,98 @@
 
         <section class="hq-section">
             <div class="section-header">
-                <h3>Game Overview</h3>
-                <p>Schedule and matchup context for this NFL game.</p>
+                <h3>Matchup Opportunities</h3>
+                <p id="opportunity-summary">Loading matchup-specific prop opportunities...</p>
             </div>
 
-            <div class="logic-grid">
-                <div class="logic-card">
-                    <h4>Game Date</h4>
-                    <p id="game-date">Loading...</p>
+            <div class="matchup-grid">
+                <article class="matchup-card">
+                    <div class="matchup-top">
+                        <span class="game-tag">Primary Opportunity</span>
+                        <span class="game-date" id="primary-opportunity-stars">★★★★★</span>
+                    </div>
+
+                    <h4 id="primary-opportunity-title">Loading primary opportunity...</h4>
+
+                    <ul class="matchup-points">
+                        <li id="primary-opportunity-1">Analyzing best prop path...</li>
+                        <li id="primary-opportunity-2">Checking defensive tiers...</li>
+                        <li id="primary-opportunity-3">Reviewing game script...</li>
+                    </ul>
+                </article>
+
+                <article class="matchup-card">
+                    <div class="matchup-top">
+                        <span class="game-tag">Secondary Opportunity</span>
+                        <span class="game-date" id="secondary-opportunity-stars">★★★★</span>
+                    </div>
+
+                    <h4 id="secondary-opportunity-title">Loading secondary opportunity...</h4>
+
+                    <ul class="matchup-points">
+                        <li id="secondary-opportunity-1">Building alternate prop angle...</li>
+                        <li id="secondary-opportunity-2">Checking player pool...</li>
+                        <li id="secondary-opportunity-3">Reviewing supporting markets...</li>
+                    </ul>
+                </article>
+
+                <article class="matchup-card">
+                    <div class="matchup-top">
+                        <span class="game-tag">Avoid / Use Caution</span>
+                        <span class="game-date" id="caution-opportunity-stars">★★</span>
+                    </div>
+
+                    <h4 id="caution-opportunity-title">Loading caution area...</h4>
+
+                    <ul class="matchup-points">
+                        <li id="caution-opportunity-1">Identifying lower-confidence angles...</li>
+                        <li id="caution-opportunity-2">Checking defensive resistance...</li>
+                        <li id="caution-opportunity-3">Reviewing volatility factors...</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>Why This Matchup?</h3>
+                <p id="why-matchup-summary">
+                    Breaking down the key factors driving this matchup's prop outlook.
+                </p>
+            </div>
+
+            <div class="report-list">
+
+                <div class="report-row">
+                    <div>
+                        <h4>Defense Analysis</h4>
+                        <p id="why-defense">
+                            Loading defensive analysis...
+                        </p>
+                    </div>
+                    <span id="why-defense-tag">Loading</span>
                 </div>
 
-                <div class="logic-card">
-                    <h4>Week</h4>
-                    <p id="game-week">Loading...</p>
+                <div class="report-row">
+                    <div>
+                        <h4>Best Prop Lane</h4>
+                        <p id="why-props">
+                            Loading preferred prop category...
+                        </p>
+                    </div>
+                    <span id="why-props-tag">Loading</span>
                 </div>
 
-                <div class="logic-card">
-                    <h4>Away Team</h4>
-                    <p id="away-team">Loading...</p>
+                <div class="report-row">
+                    <div>
+                        <h4>Additional Factors</h4>
+                        <p id="why-factors">
+                            Loading weather, injuries, and historical context...
+                        </p>
+                    </div>
+                    <span id="why-factors-tag">Review</span>
                 </div>
 
-                <div class="logic-card">
-                    <h4>Home Team</h4>
-                    <p id="home-team">Loading...</p>
-                </div>
             </div>
         </section>
 
@@ -179,6 +269,15 @@
             </div>
         </section>
 
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Historical PlayMaker Results</h3>
+                <p id="results-summary">Loading previous PlayMaker picks tied to this matchup...</p>
+            </div>
+
+            <div id="historical-results-list" class="matchup-grid"></div>
+        </section>
+
         <section class="hq-section hq-section-alt">
             <div class="section-header">
                 <h3>Player Pools</h3>
@@ -194,102 +293,6 @@
                 <div class="player-pool-card">
                     <h4 id="home-player-title">Home Players</h4>
                     <div id="home-player-list" class="player-list"></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="hq-section">
-            <div class="section-header">
-                <h3>Historical PlayMaker Results</h3>
-                <p id="results-summary">Loading previous PlayMaker picks tied to this matchup...</p>
-            </div>
-
-            <div id="historical-results-list" class="matchup-grid"></div>
-        </section>
-
-        <section class="hq-section">
-            <div class="section-header">
-                <h3>Matchup Opportunities</h3>
-                <p id="opportunity-summary">Loading matchup-specific prop opportunities...</p>
-            </div>
-
-            <div class="matchup-grid">
-                <article class="matchup-card">
-                    <div class="matchup-top">
-                        <span class="game-tag">Primary Opportunity</span>
-                        <span class="game-date" id="primary-opportunity-stars">★★★★★</span>
-                    </div>
-
-                    <h4 id="primary-opportunity-title">Loading primary opportunity...</h4>
-
-                    <ul class="matchup-points">
-                        <li id="primary-opportunity-1">Analyzing best prop path...</li>
-                        <li id="primary-opportunity-2">Checking defensive tiers...</li>
-                        <li id="primary-opportunity-3">Reviewing game script...</li>
-                    </ul>
-                </article>
-
-                <article class="matchup-card">
-                    <div class="matchup-top">
-                        <span class="game-tag">Secondary Opportunity</span>
-                        <span class="game-date" id="secondary-opportunity-stars">★★★★</span>
-                    </div>
-
-                    <h4 id="secondary-opportunity-title">Loading secondary opportunity...</h4>
-
-                    <ul class="matchup-points">
-                        <li id="secondary-opportunity-1">Building alternate prop angle...</li>
-                        <li id="secondary-opportunity-2">Checking player pool...</li>
-                        <li id="secondary-opportunity-3">Reviewing supporting markets...</li>
-                    </ul>
-                </article>
-
-                <article class="matchup-card">
-                    <div class="matchup-top">
-                        <span class="game-tag">Avoid / Use Caution</span>
-                        <span class="game-date" id="caution-opportunity-stars">★★</span>
-                    </div>
-
-                    <h4 id="caution-opportunity-title">Loading caution area...</h4>
-
-                    <ul class="matchup-points">
-                        <li id="caution-opportunity-1">Identifying lower-confidence angles...</li>
-                        <li id="caution-opportunity-2">Checking defensive resistance...</li>
-                        <li id="caution-opportunity-3">Reviewing volatility factors...</li>
-                    </ul>
-                </article>
-            </div>
-        </section>
-
-        <section class="hq-section hq-section-alt">
-            <div class="section-header">
-                <h3>Why This Matchup?</h3>
-                <p>This section turns the matchup into a starting point for prop research.</p>
-            </div>
-
-            <div class="report-list">
-                <div class="report-row">
-                    <div>
-                        <h4 id="primary-angle-title">Primary Angle</h4>
-                        <p id="primary-angle-copy">Loading primary matchup angle...</p>
-                    </div>
-                    <span id="primary-angle-tag">Loading</span>
-                </div>
-
-                <div class="report-row">
-                    <div>
-                        <h4 id="secondary-angle-title">Secondary Angle</h4>
-                        <p id="secondary-angle-copy">Loading secondary matchup angle...</p>
-                    </div>
-                    <span id="secondary-angle-tag">Review</span>
-                </div>
-
-                <div class="report-row">
-                    <div>
-                        <h4>Next Step</h4>
-                        <p id="next-step-copy">Open PlayMaker to test specific player lines from this matchup.</p>
-                    </div>
-                    <span>Tool Ready</span>
                 </div>
             </div>
         </section>
@@ -765,10 +768,10 @@
             document.getElementById("matchup-note").textContent =
                 `${awayCode} travels to ${homeCode}. This report uses schedule data plus defensive baseline tiers to shape the first prop research angle.`;
 
-            document.getElementById("game-date").textContent = readableDate;
-            document.getElementById("game-week").textContent = `Week ${game.week}`;
-            document.getElementById("away-team").textContent = awayName;
-            document.getElementById("home-team").textContent = homeName;
+            document.getElementById("game-date-hero").textContent = readableDate;
+            document.getElementById("game-week-hero").textContent = `Week ${game.week}`;
+            document.getElementById("away-team-hero").textContent = awayName;
+            document.getElementById("home-team-hero").textContent = homeName;
 
             if (defenseData) {
                 document.getElementById("defense-source-note").textContent =
@@ -927,19 +930,41 @@
                 document.getElementById("caution-opportunity-3").textContent =
                     `${homeCode} props affected by weather or injury uncertainty`;
             }
-            document.getElementById("primary-angle-title").textContent = bestAngle.title;
-            document.getElementById("primary-angle-copy").textContent = bestAngle.copy;
-            document.getElementById("primary-angle-tag").textContent = bestAngle.tag;
+            document.getElementById("why-defense").textContent =
+                homeDefense
+                    ? `${homeCode} enters this matchup with a ${homeDefense.passDefenseTier} pass defense grade and ${homeDefense.runDefenseTier} run defense grade. This creates the foundation for the preferred prop angles shown above.`
+                    : `Defensive tier data is unavailable for this matchup.`;
 
-            document.getElementById("secondary-angle-title").textContent = `${homeCode} Counter Angle`;
-            document.getElementById("secondary-angle-copy").textContent =
-                awayDefense
-                    ? `${homeCode} offensive props should be checked against ${awayCode}'s ${awayDefense.passDefenseTier} pass defense and ${awayDefense.runDefenseTier} run defense baseline.`
-                    : `${homeCode} offensive props should be reviewed once ${awayCode} defensive data is available.`;
-            document.getElementById("secondary-angle-tag").textContent = "Review";
+            document.getElementById("why-defense-tag").textContent =
+                homeDefense?.overallDefenseTier || "Review";
 
-            document.getElementById("next-step-copy").textContent =
-                `Use this report as the matchup layer, then open PlayMaker to test individual player lines from ${awayCode} vs ${homeCode}.`;
+            document.getElementById("why-props").textContent =
+                bestAngle.propType === "Rushing"
+                    ? `The strongest opportunity comes through rushing volume, quarterback rushing usage, red-zone carries, and rushing touchdown markets.`
+                    : `The strongest opportunity comes through passing volume, receiving production, receptions, and passing touchdown markets.`;
+
+            document.getElementById("why-props-tag").textContent =
+                bestAngle.propType;
+
+            const won = historicalResults.filter(r => r.result === "won").length;
+            const lost = historicalResults.filter(r => r.result === "lost").length;
+
+            document.getElementById("why-factors").textContent =
+                `${weather?.isDome
+                    ? "Controlled indoor environment. "
+                    : "Outdoor game conditions apply. "
+                }${totalInjuries > 0
+                    ? `${totalInjuries} injury flags should be reviewed. `
+                    : "No major injury concerns currently identified. "
+                }${historicalResults.length
+                    ? `Related PlayMaker picks are ${won}-${lost}.`
+                    : "No historical PlayMaker results found for this matchup yet."
+                }`;
+
+            document.getElementById("why-factors-tag").textContent =
+                historicalResults.length
+                    ? `${won}-${lost}`
+                    : "New";
 
             document.getElementById("cta-copy").textContent =
                 `Run ${awayCode} vs ${homeCode} through PlayMaker for prop-specific analysis.`;

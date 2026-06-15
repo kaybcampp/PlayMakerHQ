@@ -701,6 +701,42 @@ body {
     }
 }
 
+.hero-game-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 1.5rem 0;
+}
+
+.hero-game-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    padding: .9rem;
+    text-align: center;
+}
+
+.hero-game-card span {
+    display: block;
+    color: #A3AABF;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: .35rem;
+}
+
+.hero-game-card strong {
+    color: #fff;
+    font-size: .95rem;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .hero-game-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 /* CTA */
 
 .final-cta {
