@@ -826,6 +826,113 @@ body {
     box-shadow: 0 0 28px rgba(102, 255, 153, .7);
 }
 
+/* DEFENSIVE MATCHUP */
+
+.defense-matchup-grid {
+    max-width: 1150px;
+    margin: 0 auto 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.defense-team-card {
+    background: linear-gradient(145deg, #0B0F1A, #131A2A);
+    border: 1px solid rgba(102, 255, 153, .16);
+    border-radius: 20px;
+    padding: 1.6rem;
+    box-shadow: 0 0 22px rgba(102, 255, 153, .1);
+}
+
+.defense-team-card h4 {
+    color: #66FF99;
+    font-size: 1.35rem;
+    margin-bottom: 1.2rem;
+}
+
+.defense-stat {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 12px;
+    padding: .8rem 1rem;
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.defense-stat span {
+    color: #A3AABF;
+    font-size: .9rem;
+}
+
+.defense-stat strong {
+    color: #66FF99;
+    font-size: 1rem;
+}
+
+.defense-weaknesses {
+    margin-top: 1.25rem;
+    background: rgba(102, 255, 153, .06);
+    border: 1px solid rgba(102, 255, 153, .14);
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.defense-weaknesses h5 {
+    color: #E6F6EE;
+    font-size: .95rem;
+    margin-bottom: .8rem;
+}
+
+.defense-weaknesses ul {
+    list-style: none;
+    display: grid;
+    gap: .55rem;
+}
+
+.defense-weaknesses li {
+    color: #A3AABF;
+    border-left: 3px solid rgba(102, 255, 153, .55);
+    padding-left: .65rem;
+    font-size: .92rem;
+}
+
+.defense-prop-lanes {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.prop-lane-card {
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .16);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
+}
+
+.prop-lane-card h4 {
+    color: #66FF99;
+    margin-bottom: .5rem;
+}
+
+.prop-lane-card p {
+    color: #A3AABF;
+    font-size: .92rem;
+}
+
+@media (max-width: 900px) {
+
+    .defense-matchup-grid,
+    .defense-prop-lanes {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* TEAM COMPARISON */
 
 .team-comparison-grid {
@@ -839,10 +946,10 @@ body {
 
 .team-comparison-card {
     background: linear-gradient(145deg, #0B0F1A, #131A2A);
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 18px;
     padding: 1.6rem;
-    box-shadow: 0 0 20px rgba(102,255,153,.1);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .1);
 }
 
 .comparison-label {
@@ -850,8 +957,8 @@ body {
     color: #66FF99;
     font-size: .78rem;
     font-weight: 900;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
     border-radius: 999px;
     padding: .3rem .7rem;
     margin-bottom: .85rem;
@@ -869,8 +976,8 @@ body {
 }
 
 .comparison-stats div {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.07);
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 12px;
     padding: .8rem 1rem;
     display: flex;
@@ -889,10 +996,10 @@ body {
 .team-comparison-middle {
     min-width: 180px;
     background: #131A2A;
-    border: 1px solid rgba(102,255,153,.18);
+    border: 1px solid rgba(102, 255, 153, .18);
     border-radius: 18px;
     padding: 1.5rem;
-    box-shadow: 0 0 18px rgba(102,255,153,.1);
+    box-shadow: 0 0 18px rgba(102, 255, 153, .1);
     display: flex;
     flex-direction: column;
     justify-content: center;

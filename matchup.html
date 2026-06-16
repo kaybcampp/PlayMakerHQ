@@ -305,29 +305,115 @@
         <section class="hq-section hq-section-alt">
             <div class="section-header">
                 <h3>Defensive Matchup</h3>
-                <p id="defense-source-note">Loading defensive baseline...</p>
+                <p id="defense-source-note">
+                    Compare defensive strengths, weaknesses, pressure rates, and prop-specific opportunities.
+                </p>
             </div>
 
-            <div class="logic-grid">
-                <div class="logic-card">
-                    <h4 id="away-defense-title">Away Defense</h4>
-                    <p id="away-defense-copy">Loading...</p>
+            <div class="defense-matchup-grid">
+
+                <!-- Away Defense -->
+                <div class="defense-team-card">
+                    <h4 id="away-defense-team">Dallas Cowboys Defense</h4>
+
+                    <div class="defense-stat">
+                        <span>Overall Defense Tier</span>
+                        <strong id="away-overall-tier">A</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Pass Defense Tier</span>
+                        <strong id="away-pass-tier">B</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Run Defense Tier</span>
+                        <strong id="away-run-tier">D</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Pressure Rate</span>
+                        <strong id="away-pressure-rate">28.4%</strong>
+                    </div>
+
+                    <div class="defense-weaknesses">
+                        <h5>Defensive Weaknesses</h5>
+
+                        <ul id="away-weakness-list">
+                            <li>QB Rush Yards</li>
+                            <li>RB Rush Yards</li>
+                            <li>Rushing TDs</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="logic-card">
-                    <h4 id="home-defense-title">Home Defense</h4>
-                    <p id="home-defense-copy">Loading...</p>
+                <!-- Home Defense -->
+                <div class="defense-team-card">
+                    <h4 id="home-defense-team">Philadelphia Eagles Defense</h4>
+
+                    <div class="defense-stat">
+                        <span>Overall Defense Tier</span>
+                        <strong id="home-overall-tier">A</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Pass Defense Tier</span>
+                        <strong id="home-pass-tier">A</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Run Defense Tier</span>
+                        <strong id="home-run-tier">B</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Pressure Rate</span>
+                        <strong id="home-pressure-rate">31.2%</strong>
+                    </div>
+
+                    <div class="defense-weaknesses">
+                        <h5>Defensive Weaknesses</h5>
+
+                        <ul id="home-weakness-list">
+                            <li>Short Passing Game</li>
+                            <li>TE Receiving Yards</li>
+                            <li>Red Zone Passing TDs</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="logic-card">
-                    <h4>Passing Edge</h4>
-                    <p id="passing-edge-copy">Loading...</p>
+            </div>
+
+            <div class="defense-prop-lanes">
+
+                <div class="prop-lane-card">
+                    <h4>QB Props</h4>
+                    <p id="qb-prop-lane">
+                        Loading quarterback matchup analysis...
+                    </p>
                 </div>
 
-                <div class="logic-card">
-                    <h4>Rushing Edge</h4>
-                    <p id="rushing-edge-copy">Loading...</p>
+                <div class="prop-lane-card">
+                    <h4>RB Props</h4>
+                    <p id="rb-prop-lane">
+                        Loading running back matchup analysis...
+                    </p>
                 </div>
+
+                <div class="prop-lane-card">
+                    <h4>WR Props</h4>
+                    <p id="wr-prop-lane">
+                        Loading wide receiver matchup analysis...
+                    </p>
+                </div>
+
+                <div class="prop-lane-card">
+                    <h4>TE Props</h4>
+                    <p id="te-prop-lane">
+                        Loading tight end matchup analysis...
+                    </p>
+                </div>
+
             </div>
         </section>
 
@@ -692,36 +778,22 @@
     `).join("");
         }
 
-        function getTeamResultMatches(resultsData, awayCode, homeCode, awayName, homeName, awayPlayers, homePlayers) {
+        function getTeamResultMatches(resultsData, awayCode, homeCode) {
             if (!Array.isArray(resultsData)) return [];
 
-            const awayWords = awayName.split(" ");
-            const homeWords = homeName.split(" ");
+            return resultsData
+                .filter(item => {
+                    const status = String(item.enrichmentStatus || "").toLowerCase();
+                    const itemAway = String(item.awayTeam || "").toUpperCase();
+                    const itemHome = String(item.homeTeam || "").toUpperCase();
 
-            const awayNick = awayWords[awayWords.length - 1];
-            const homeNick = homeWords[homeWords.length - 1];
-
-            const playerNames = [
-                ...filterKeyPlayers(awayPlayers).map(p => p.name),
-                ...filterKeyPlayers(homePlayers).map(p => p.name)
-            ];
-
-            return resultsData.filter(item => {
-                const matchup = String(item.matchup || item.match || "").toLowerCase();
-                const pick = String(item.pick || `${item.player || ""} ${item.line || ""} ${item.market || ""}`).toLowerCase();
-
-                const teamMatch =
-                    matchup.includes(awayNick.toLowerCase()) ||
-                    matchup.includes(homeNick.toLowerCase()) ||
-                    matchup.includes(awayCode.toLowerCase()) ||
-                    matchup.includes(homeCode.toLowerCase());
-
-                const playerMatch = playerNames.some(name =>
-                    pick.includes(String(name).toLowerCase())
-                );
-
-                return teamMatch || playerMatch;
-            }).slice(0, 6);
+                    return (
+                        status === "matched" &&
+                        itemAway === awayCode &&
+                        itemHome === homeCode
+                    );
+                })
+                .slice(0, 6);
         }
 
         function renderHistoricalResults(results, awayCode, homeCode) {
@@ -889,6 +961,184 @@
             return "Mixed";
         }
 
+        function getDefenseWeaknesses(defense) {
+
+            if (!defense) return ["Data unavailable"];
+
+            const weaknesses = [];
+
+            if (defense.runDefenseTier === "D") {
+                weaknesses.push("RB Rush Yards");
+                weaknesses.push("QB Rush Yards");
+                weaknesses.push("Rushing TDs");
+            }
+
+            if (defense.runDefenseTier === "C") {
+                weaknesses.push("RB Rush Yards");
+            }
+
+            if (defense.passDefenseTier === "D") {
+                weaknesses.push("Passing Yards");
+                weaknesses.push("WR Receiving Yards");
+                weaknesses.push("Passing TDs");
+            }
+
+            if (defense.passDefenseTier === "C") {
+                weaknesses.push("WR Receiving Yards");
+                weaknesses.push("TE Receiving Yards");
+            }
+
+            return weaknesses.length
+                ? weaknesses
+                : ["No major statistical weakness identified"];
+        }
+
+        function getPropLane(defense, position) {
+
+            if (!defense) return "Defensive data unavailable.";
+
+            switch (position) {
+
+                case "QB":
+
+                    if (defense.passDefenseTier === "D")
+                        return "Quarterbacks have a strong passing matchup in this game.";
+
+                    if (defense.runDefenseTier === "D")
+                        return "Mobile quarterbacks receive additional rushing upside.";
+
+                    return "Quarterback production projects near league average.";
+
+                case "RB":
+
+                    if (defense.runDefenseTier === "D")
+                        return "Running backs receive the strongest matchup boost in this game.";
+
+                    return "Running back production projects as neutral.";
+
+                case "WR":
+
+                    if (defense.passDefenseTier === "D")
+                        return "Wide receivers have an elevated ceiling against this secondary.";
+
+                    return "Wide receiver production projects near expectation.";
+
+                case "TE":
+
+                    if (defense.passDefenseTier === "C")
+                        return "Tight ends may find favorable intermediate coverage opportunities.";
+
+                    return "Tight end production should be viewed as secondary exposure.";
+
+                default:
+                    return "No matchup analysis available.";
+            }
+        }
+
+        function pctToDisplay(value) {
+            if (value === null || value === undefined || Number.isNaN(Number(value))) return null;
+            const pct = Number(value) <= 1 ? Number(value) * 100 : Number(value);
+            return `${pct.toFixed(1)}%`;
+        }
+
+        function getDefensePropWeaknesses(defense) {
+            if (!defense || !defense.vs_props_split) return ["Data unavailable"];
+
+            const propMap = [
+                { key: "qb_passing_yards_hit_pct", label: "QB Passing Yards" },
+                { key: "qb_rushing_yards_hit_pct", label: "QB Rush Yards" },
+                { key: "rb_rushing_yards_hit_pct", label: "RB Rush Yards" },
+                { key: "rb_receiving_yards_hit_pct", label: "RB Receiving Yards" },
+                { key: "wr_receiving_yards_hit_pct", label: "WR Receiving Yards" },
+                { key: "te_receiving_yards_hit_pct", label: "TE Receiving Yards" },
+                { key: "passing_tds_hit_pct", label: "Passing TDs" },
+                { key: "rushing_tds_hit_pct", label: "Rushing TDs" }
+            ];
+
+            const weaknesses = propMap
+                .map(item => {
+                    const raw = defense.vs_props_split[item.key];
+                    if (raw === undefined || raw === null) return null;
+
+                    const pct = Number(raw) <= 1 ? Number(raw) * 100 : Number(raw);
+
+                    return {
+                        label: item.label,
+                        pct
+                    };
+                })
+                .filter(Boolean)
+                .filter(item => item.pct >= 55)
+                .sort((a, b) => b.pct - a.pct)
+                .slice(0, 5);
+
+            return weaknesses.length
+                ? weaknesses.map(w => `${w.label} (${w.pct.toFixed(1)}% over rate)`)
+                : ["No major prop weakness identified"];
+        }
+
+        function getBestPropSplit(defense, keys) {
+            if (!defense || !defense.vs_props_split) return null;
+
+            const options = keys
+                .map(item => {
+                    const raw = defense.vs_props_split[item.key];
+                    if (raw === undefined || raw === null) return null;
+
+                    const pct = Number(raw) <= 1 ? Number(raw) * 100 : Number(raw);
+
+                    return {
+                        label: item.label,
+                        pct
+                    };
+                })
+                .filter(Boolean)
+                .sort((a, b) => b.pct - a.pct);
+
+            return options[0] || null;
+        }
+
+        function getPropLaneFromSplits(defense, position) {
+            if (!defense || !defense.vs_props_split) {
+                return "Defensive prop split data is unavailable for this team.";
+            }
+
+            const maps = {
+                QB: [
+                    { key: "qb_passing_yards_hit_pct", label: "QB passing yards" },
+                    { key: "qb_rushing_yards_hit_pct", label: "QB rushing yards" },
+                    { key: "passing_tds_hit_pct", label: "passing TDs" }
+                ],
+                RB: [
+                    { key: "rb_rushing_yards_hit_pct", label: "RB rushing yards" },
+                    { key: "rb_receiving_yards_hit_pct", label: "RB receiving yards" },
+                    { key: "rushing_tds_hit_pct", label: "rushing TDs" }
+                ],
+                WR: [
+                    { key: "wr_receiving_yards_hit_pct", label: "WR receiving yards" },
+                    { key: "passing_tds_hit_pct", label: "passing TD support" }
+                ],
+                TE: [
+                    { key: "te_receiving_yards_hit_pct", label: "TE receiving yards" },
+                    { key: "passing_tds_hit_pct", label: "passing TD support" }
+                ]
+            };
+
+            const best = getBestPropSplit(defense, maps[position]);
+
+            if (!best) return `${position} prop split data is limited for this matchup.`;
+
+            if (best.pct >= 60) {
+                return `${position} props are a strong review point here, led by ${best.label} at a ${best.pct.toFixed(1)}% over rate allowed.`;
+            }
+
+            if (best.pct >= 55) {
+                return `${position} props are worth reviewing, with ${best.label} showing a ${best.pct.toFixed(1)}% over rate allowed.`;
+            }
+
+            return `${position} props project closer to neutral based on current defensive prop splits.`;
+        }
+
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
@@ -914,11 +1164,7 @@
             const historicalResults = getTeamResultMatches(
                 resultsData,
                 awayCode,
-                homeCode,
-                awayName,
-                homeName,
-                awayPlayers,
-                homePlayers
+                homeCode
             );
 
             const scoreData = calculateOpportunityScore(
@@ -1029,25 +1275,36 @@
                     `Defensive tiers use ${defenseData.sourceSeason} regular-season EPA baseline data. Status: ${defenseData.status}.`;
             }
 
-            document.getElementById("away-defense-title").textContent = `${awayCode} Defense`;
-            document.getElementById("home-defense-title").textContent = `${homeCode} Defense`;
+            document.getElementById("away-defense-team").textContent = `${awayCode} Defense`;
+            document.getElementById("home-defense-team").textContent = `${homeCode} Defense`;
 
-            document.getElementById("away-defense-copy").textContent = awayDefense
-                ? `Overall ${awayDefense.overallDefenseTier} · Pass ${awayDefense.passDefenseTier} · Run ${awayDefense.runDefenseTier} · Pressure ${formatPct(awayDefense.pressureRate)}`
-                : `Defense data unavailable for ${awayCode}.`;
+            document.getElementById("away-overall-tier").textContent = awayDefense?.overallDefenseTier || "N/A";
+            document.getElementById("away-pass-tier").textContent = awayDefense?.passDefenseTier || "N/A";
+            document.getElementById("away-run-tier").textContent = awayDefense?.runDefenseTier || "N/A";
+            document.getElementById("away-pressure-rate").textContent = awayDefense ? formatPct(awayDefense.pressureRate) : "N/A";
 
-            document.getElementById("home-defense-copy").textContent = homeDefense
-                ? `Overall ${homeDefense.overallDefenseTier} · Pass ${homeDefense.passDefenseTier} · Run ${homeDefense.runDefenseTier} · Pressure ${formatPct(homeDefense.pressureRate)}`
-                : `Defense data unavailable for ${homeCode}.`;
+            document.getElementById("home-overall-tier").textContent = homeDefense?.overallDefenseTier || "N/A";
+            document.getElementById("home-pass-tier").textContent = homeDefense?.passDefenseTier || "N/A";
+            document.getElementById("home-run-tier").textContent = homeDefense?.runDefenseTier || "N/A";
+            document.getElementById("home-pressure-rate").textContent = homeDefense ? formatPct(homeDefense.pressureRate) : "N/A";
 
-            document.getElementById("passing-edge-copy").textContent = homeDefense
-                ? `${awayCode} passing props face a ${homeDefense.passDefenseTier} pass defense baseline from ${homeCode}.`
-                : `Passing edge will update when ${homeCode} defense data is available.`;
+            document.getElementById("away-weakness-list").innerHTML =
+                getDefensePropWeaknesses(awayDefense).map(w => `<li>${w}</li>`).join("");
 
-            document.getElementById("rushing-edge-copy").textContent = homeDefense
-                ? `${awayCode} rushing props face a ${homeDefense.runDefenseTier} run defense baseline from ${homeCode}.`
-                : `Rushing edge will update when ${homeCode} defense data is available.`;
+            document.getElementById("home-weakness-list").innerHTML =
+                getDefensePropWeaknesses(homeDefense).map(w => `<li>${w}</li>`).join("");
 
+            document.getElementById("qb-prop-lane").textContent =
+                getPropLaneFromSplits(homeDefense, "QB");
+
+            document.getElementById("rb-prop-lane").textContent =
+                getPropLaneFromSplits(homeDefense, "RB");
+
+            document.getElementById("wr-prop-lane").textContent =
+                getPropLaneFromSplits(homeDefense, "WR");
+
+            document.getElementById("te-prop-lane").textContent =
+                getPropLaneFromSplits(homeDefense, "TE");
             document.getElementById("intelligence-summary").textContent =
                 `${awayName} vs ${homeName} is marked as a ${focus.toLowerCase()} prop research spot. The current first-look angle is ${bestAngle.propType.toLowerCase()} props.`;
 
