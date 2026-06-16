@@ -709,8 +709,8 @@ body {
 }
 
 .hero-game-card {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
     border-radius: 14px;
     padding: .9rem;
     text-align: center;
@@ -735,6 +735,54 @@ body {
     .hero-game-overview {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+/* AI MATCHUP SUMMARY */
+
+.ai-summary-section {
+    background: #0B0F1A;
+    padding: 2.5rem 1rem 1rem;
+}
+
+.ai-summary-card {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, #131A2A, #0B0F1A);
+    border: 1px solid rgba(102, 255, 153, .18);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 24px rgba(102, 255, 153, .12);
+}
+
+.ai-summary-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.summary-grade {
+    color: #66FF99;
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
+    border-radius: 999px;
+    padding: .4rem .8rem;
+    font-size: .85rem;
+    font-weight: 800;
+}
+
+.ai-summary-card h3 {
+    color: #66FF99;
+    font-size: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.ai-summary-card p {
+    color: #A3AABF;
+    font-size: 1.02rem;
+    line-height: 1.7;
 }
 
 /* CTA */

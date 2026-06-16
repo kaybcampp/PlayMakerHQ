@@ -102,6 +102,22 @@
         </div>
     </section>
 
+    <section class="ai-summary-section">
+        <div class="ai-summary-card">
+            <div class="ai-summary-top">
+                <span class="hq-pill">AI Matchup Summary</span>
+                <span id="ai-summary-grade" class="summary-grade">Building...</span>
+            </div>
+
+            <h3 id="ai-summary-title">Loading matchup summary...</h3>
+
+            <p id="ai-matchup-summary">
+                PlayMaker is reviewing the biggest edge, best prop category, major concerns, weather, injuries, and the
+                quick betting takeaway.
+            </p>
+        </div>
+    </section>
+
     <main>
 
         <section class="hq-section">
@@ -685,6 +701,54 @@
             return player?.name || fallback;
         }
 
+        function buildAIMatchupSummary({
+            awayCode,
+            homeCode,
+            awayName,
+            homeName,
+            bestAngle,
+            homeDefense,
+            weather,
+            totalInjuries,
+            scoreData
+        }) {
+            const propCategory = bestAngle?.propType || "balanced";
+
+            const biggestEdge =
+                propCategory === "Rushing"
+                    ? `${awayCode}'s rushing usage against ${homeCode}'s run defense`
+                    : `${awayCode}'s passing and receiving markets against ${homeCode}'s pass defense`;
+
+            const concernText =
+                totalInjuries > 0
+                    ? `${totalInjuries} injury flags need to be reviewed before locking anything in`
+                    : `injury risk is currently low`;
+
+            const weatherText =
+                weather
+                    ? weather.isDome
+                        ? `weather is not a major concern because this projects as a controlled environment`
+                        : weather.available
+                            ? `weather should be monitored, especially wind and outdoor conditions`
+                            : `weather data is limited right now`
+                    : `weather data has not fully loaded yet`;
+
+            const defenseText = homeDefense
+                ? `${homeCode} grades as a ${homeDefense.passDefenseTier} pass defense and ${homeDefense.runDefenseTier} run defense`
+                : `${homeCode}'s defensive tier data is still unavailable`;
+
+            const takeaway =
+                scoreData.score >= 78
+                    ? `The quick takeaway: this is a strong matchup to research inside PlayMaker, especially through ${propCategory.toLowerCase()} props.`
+                    : `The quick takeaway: this matchup is playable, but line value matters more than forcing a pick.`;
+
+            return {
+                title: `${awayCode} @ ${homeCode} First-Look Betting Read`,
+                grade: scoreData.tier,
+                copy: `${awayName} enter this matchup with the biggest edge coming through ${biggestEdge}. ${defenseText}, making ${propCategory.toLowerCase()} props the first category to review. The main concern is that ${concernText}, and ${weatherText}. ${takeaway}`
+            };
+        }
+
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
@@ -728,6 +792,22 @@
 
             const score = scoreData.label;
             const focus = getFocusByScore(scoreData.score);
+
+            const aiSummary = buildAIMatchupSummary({
+                awayCode,
+                homeCode,
+                awayName,
+                homeName,
+                bestAngle,
+                homeDefense,
+                weather,
+                totalInjuries,
+                scoreData
+            });
+
+            document.getElementById("ai-summary-title").textContent = aiSummary.title;
+            document.getElementById("ai-summary-grade").textContent = aiSummary.grade;
+            document.getElementById("ai-matchup-summary").textContent = aiSummary.copy;
 
             document.title = `${awayName} vs ${homeName} — PlayMaker Prime`;
 
@@ -932,7 +1012,7 @@
             }
             document.getElementById("why-defense").textContent =
                 homeDefense
-                    ? `${homeCode} enters this matchup with a ${homeDefense.passDefenseTier} pass defense grade and ${homeDefense.runDefenseTier} run defense grade. This creates the foundation for the preferred prop angles shown above.`
+                    ? `${homeCode} enter this matchup with a ${homeDefense.passDefenseTier} pass defense grade and ${homeDefense.runDefenseTier} run defense grade. This creates the foundation for the preferred prop angles shown above.`
                     : `Defensive tier data is unavailable for this matchup.`;
 
             document.getElementById("why-defense-tag").textContent =
