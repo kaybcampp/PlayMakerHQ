@@ -246,6 +246,62 @@
             </div>
         </section>
 
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Team Comparison & Recent Trends</h3>
+                <p id="team-comparison-summary">
+                    Loading team records, recent form, and matchup trend comparison...
+                </p>
+            </div>
+
+            <div class="team-comparison-grid">
+                <div class="team-comparison-card">
+                    <span class="comparison-label">Away Team</span>
+                    <h4 id="away-comparison-name">Loading...</h4>
+
+                    <div class="comparison-stats">
+                        <div>
+                            <span>Record</span>
+                            <strong id="away-record">--</strong>
+                        </div>
+                        <div>
+                            <span>Last 10</span>
+                            <strong id="away-last10-record">--</strong>
+                        </div>
+                        <div>
+                            <span>Trend</span>
+                            <strong id="away-trend">--</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-comparison-middle">
+                    <span id="comparison-matchup-code">VS</span>
+                    <p id="comparison-edge">Calculating edge...</p>
+                </div>
+
+                <div class="team-comparison-card">
+                    <span class="comparison-label">Home Team</span>
+                    <h4 id="home-comparison-name">Loading...</h4>
+
+                    <div class="comparison-stats">
+                        <div>
+                            <span>Record</span>
+                            <strong id="home-record">--</strong>
+                        </div>
+                        <div>
+                            <span>Last 10</span>
+                            <strong id="home-last10-record">--</strong>
+                        </div>
+                        <div>
+                            <span>Trend</span>
+                            <strong id="home-trend">--</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="hq-section hq-section-alt">
             <div class="section-header">
                 <h3>Defensive Matchup</h3>
@@ -778,7 +834,62 @@
             };
         }
 
-        function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData) {
+        function getTeamSchedule(schedule, code) {
+            return schedule.filter(g =>
+                String(g.away || "").toUpperCase() === code ||
+                String(g.home || "").toUpperCase() === code
+            );
+        }
+
+        function parseResult(result) {
+            const first = String(result || "").trim().charAt(0).toUpperCase();
+            return ["W", "L", "T"].includes(first) ? first : null;
+        }
+
+        function getTeamRecord(teamGames) {
+            let wins = 0;
+            let losses = 0;
+            let ties = 0;
+
+            teamGames.forEach(g => {
+                const r = parseResult(g.result);
+                if (r === "W") wins++;
+                if (r === "L") losses++;
+                if (r === "T") ties++;
+            });
+
+            return {
+                wins,
+                losses,
+                ties,
+                text: `${wins}-${losses}${ties ? `-${ties}` : ""}`
+            };
+        }
+
+        function getLast10Record(teamGames) {
+            const completed = teamGames
+                .filter(g => parseResult(g.result))
+                .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+                .slice(0, 10);
+
+            const record = getTeamRecord(completed);
+
+            return {
+                ...record,
+                games: completed.length,
+                text: completed.length ? record.text : "No games yet"
+            };
+        }
+
+        function getTrendLabel(record) {
+            if (!record.games) return "Preseason";
+            if (record.wins >= 7) return "Hot";
+            if (record.wins >= 5) return "Stable";
+            if (record.losses >= 7) return "Cold";
+            return "Mixed";
+        }
+
+        function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
 
@@ -821,6 +932,37 @@
 
             const score = scoreData.label;
             const focus = getFocusByScore(scoreData.score);
+
+            const awaySchedule = getTeamSchedule(schedule, awayCode);
+            const homeSchedule = getTeamSchedule(schedule, homeCode);
+
+            const awayRecord = getTeamRecord(awaySchedule);
+            const homeRecord = getTeamRecord(homeSchedule);
+
+            const awayLast10 = getLast10Record(awaySchedule);
+            const homeLast10 = getLast10Record(homeSchedule);
+
+            document.getElementById("away-comparison-name").textContent = awayName;
+            document.getElementById("home-comparison-name").textContent = homeName;
+
+            document.getElementById("away-record").textContent = awayRecord.text;
+            document.getElementById("home-record").textContent = homeRecord.text;
+
+            document.getElementById("away-last10-record").textContent = awayLast10.text;
+            document.getElementById("home-last10-record").textContent = homeLast10.text;
+
+            document.getElementById("away-trend").textContent = getTrendLabel(awayLast10);
+            document.getElementById("home-trend").textContent = getTrendLabel(homeLast10);
+
+            document.getElementById("comparison-matchup-code").textContent = `${awayCode} vs ${homeCode}`;
+
+            document.getElementById("comparison-edge").textContent =
+                awayLast10.games || homeLast10.games
+                    ? `${awayCode} last 10: ${awayLast10.text}. ${homeCode} last 10: ${homeLast10.text}. This comparison helps frame recent team form before reviewing props.`
+                    : `Recent team trend data will populate once completed games are available.`;
+
+            document.getElementById("team-comparison-summary").textContent =
+                `Compare overall records, recent performance, and team momentum heading into this week's matchup.`;
 
             const aiSummary = buildAIMatchupSummary({
                 awayCode,
@@ -1204,7 +1346,8 @@
                     injuriesData,
                     awayPlayers,
                     homePlayers,
-                    resultsData
+                    resultsData,
+                    schedule
                 );
             } catch (err) {
                 console.error("Failed to load matchup:", err);
