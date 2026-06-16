@@ -213,6 +213,35 @@
                     </div>
                     <span id="why-factors-tag">Review</span>
                 </div>
+                <div class="report-row">
+                    <div>
+                        <h4>Historical Context</h4>
+                        <p id="why-history">
+                            Loading previous PlayMaker results and related matchup history...
+                        </p>
+                    </div>
+                    <span id="why-history-tag">Loading</span>
+                </div>
+
+                <div class="report-row">
+                    <div>
+                        <h4>Weather Context</h4>
+                        <p id="why-weather">
+                            Loading stadium and weather context...
+                        </p>
+                    </div>
+                    <span id="why-weather-tag">Loading</span>
+                </div>
+
+                <div class="report-row">
+                    <div>
+                        <h4>Injury Context</h4>
+                        <p id="why-injuries">
+                            Loading injury context...
+                        </p>
+                    </div>
+                    <span id="why-injuries-tag">Loading</span>
+                </div>
 
             </div>
         </section>
@@ -1045,6 +1074,50 @@
                 historicalResults.length
                     ? `${won}-${lost}`
                     : "New";
+
+            document.getElementById("why-history").textContent =
+                historicalResults.length
+                    ? `PlayMaker has ${historicalResults.length} related historical picks tied to this matchup context. Related results currently sit at ${won}-${lost}, giving this game extra proof-log context before running new props.`
+                    : `No direct PlayMaker historical results were found for this matchup yet. This should be treated as a fresh research spot until more picks are logged.`;
+
+            document.getElementById("why-history-tag").textContent =
+                historicalResults.length
+                    ? `${won}-${lost}`
+                    : "New";
+
+            document.getElementById("why-weather").textContent =
+                weather
+                    ? weather.isDome
+                        ? `${weather.stadium} projects as a dome or controlled environment, which lowers weather volatility and keeps passing, receiving, kicking, and timing-based props cleaner.`
+                        : weather.available
+                            ? `${weather.stadium} is an outdoor setting. Current weather read: ${Math.round(weather.temperature)}°F, wind ${Math.round(weather.windMph)} mph, ${weather.description}. Wind and precipitation should be reviewed before locking passing or receiving props.`
+                            : `${weather.stadium || "This stadium"} has limited weather data available right now. Treat weather as a review item before locking props.`
+                    : `Weather data has not loaded for this matchup yet. Review stadium conditions before finalizing passing, receiving, or kicking props.`;
+
+            document.getElementById("why-weather-tag").textContent =
+                weather
+                    ? weather.isDome
+                        ? "Clean"
+                        : weather.available
+                            ? Number(weather.windMph || 0) >= 18
+                                ? "Wind Risk"
+                                : "Review"
+                            : "Limited"
+                    : "Pending";
+
+            document.getElementById("why-injuries").textContent =
+                injuriesData
+                    ? totalInjuries > 0
+                        ? `${awayCode} currently shows ${awayCount} injury flags and ${homeCode} shows ${homeCount}. These should be checked before trusting volume-based props, especially rushing attempts, target share, and touchdown markets.`
+                        : `No major injury concerns are currently flagged for ${awayCode} or ${homeCode}. This makes the matchup cleaner, but official injury reports should still be reviewed closer to kickoff.`
+                    : `Injury data is unavailable for this matchup. Treat player availability as a manual review item before locking anything in.`;
+
+            document.getElementById("why-injuries-tag").textContent =
+                injuriesData
+                    ? totalInjuries > 0
+                        ? `${totalInjuries} Flags`
+                        : "Clean"
+                    : "Pending";
 
             document.getElementById("cta-copy").textContent =
                 `Run ${awayCode} vs ${homeCode} through PlayMaker for prop-specific analysis.`;
