@@ -432,26 +432,32 @@
 
                 <div class="score-card">
                     <span>02</span>
-                    <h4>Player Trend Focus</h4>
-                    <p id="trend-copy">Player trend data will connect here next.</p>
+                    <h4>Weather Watch</h4>
+                    <p id="weather-copy">Loading weather context...</p>
                 </div>
 
                 <div class="score-card">
                     <span>03</span>
-                    <h4>Weather Watch</h4>
-                    <p id="weather-copy">Weather and stadium impact will connect here next.</p>
+                    <h4>Injury Context</h4>
+                    <p id="injury-copy">Loading injury context...</p>
                 </div>
 
                 <div class="score-card">
                     <span>04</span>
-                    <h4>Injury Context</h4>
-                    <p id="injury-copy">Injury and availability signals will connect here next.</p>
+                    <h4>Game Script Projection</h4>
+                    <p id="script-copy">Loading game script projection...</p>
                 </div>
 
                 <div class="score-card">
                     <span>05</span>
-                    <h4>Game Script</h4>
-                    <p id="script-copy">Loading projected game script focus...</p>
+                    <h4>Pace Expectations</h4>
+                    <p id="pace-copy">Loading pace expectations...</p>
+                </div>
+
+                <div class="score-card">
+                    <span>06</span>
+                    <h4>Matchup Risk Factors</h4>
+                    <p id="risk-copy">Loading matchup risk factors...</p>
                 </div>
             </div>
         </section>
@@ -1419,16 +1425,16 @@
             document.getElementById("te-prop-lane").textContent =
                 getPropLaneFromSplits(homeDefense, "TE");
             document.getElementById("intelligence-summary").textContent =
-                `${awayName} vs ${homeName} is marked as a ${focus.toLowerCase()} prop research spot. The current first-look angle is ${bestAngle.propType.toLowerCase()} props.`;
-
+                `PlayMaker analyst notes for ${awayCode} vs ${homeCode}: defense, weather, injuries, projected game script, pace expectations, and matchup risk factors.`;
             document.getElementById("defense-copy").textContent =
                 homeDefense
                     ? `${homeCode}'s baseline defense: Overall ${homeDefense.overallDefenseTier}, Pass ${homeDefense.passDefenseTier}, Run ${homeDefense.runDefenseTier}.`
                     : `Defense tiers will populate when available.`;
 
-            document.getElementById("trend-copy").textContent =
-                `Next layer: connect recent player usage for ${awayCode} and ${homeCode}.`;
-
+            document.getElementById("pace-copy").textContent =
+                awayLast10.games || homeLast10.games
+                    ? `${awayCode} recent form: ${awayLast10.text}. ${homeCode} recent form: ${homeLast10.text}. Pace should be reviewed through team momentum, expected pass volume, and whether either side can control possession.`
+                    : `Pace expectations are preseason-based right now. Review projected play volume, offensive tempo, and whether this matchup sets up as a pass-heavy or clock-control game.`;
             document.getElementById("player-pool-summary").textContent =
                 `Review each team's top offensive players, recent trends, career history against the opponent, and the best prop categories to research inside PlayMaker.`;
 
@@ -1451,6 +1457,15 @@
                         ? `${awayCode}: ${awayCount} clean injury flags · ${homeCode}: ${homeCount} clean injury flags. Review player availability before locking props.`
                         : `No major injury concerns currently exist. Official injury reports will begin populating closer to preseason and update automatically each week.`
                     : `Injury data unavailable.`;
+
+            document.getElementById("risk-copy").textContent =
+                totalInjuries >= 5
+                    ? `Risk level is elevated because this matchup currently has ${totalInjuries} injury flags. Volume-based props should be reviewed carefully.`
+                    : weather && !weather.isDome && weather.available && Number(weather.windMph || 0) >= 18
+                        ? `Risk level is elevated by outdoor wind conditions. Passing, receiving, and deep-ball props should be treated carefully.`
+                        : homeDefense
+                            ? `Primary risk comes from line value, role uncertainty, and whether ${homeCode}'s defense forces the matchup away from the preferred ${bestAngle.propType.toLowerCase()} angle.`
+                            : `Risk factors are limited by unavailable defensive data. Treat this matchup as a manual review spot.`;
 
             document.getElementById("script-copy").textContent =
                 `Game script will combine schedule spot, defense tier, weather, and injuries to prioritize prop types.`;
