@@ -120,6 +120,12 @@
 
     <main>
 
+        <div class="matchup-breadcrumb">
+            <a href="/matchups.html" class="hq-pill">
+                ← Back to Matchup Hub
+            </a>
+        </div>
+
         <section class="hq-section">
             <div class="section-header">
                 <h3>Matchup Opportunities</h3>
@@ -680,6 +686,19 @@
                 <h3 id="cta-title">Run this matchup in PlayMaker</h3>
                 <p id="cta-copy">Open PlayMaker with this matchup preloaded for prop-specific research.</p>
                 <a href="/tool/" id="tool-link" class="btn-primary">Run Matchup in PlayMaker</a>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Explore More Matchups</h3>
+                <p>Continue researching upcoming NFL games.</p>
+            </div>
+
+            <div id="related-matchups" class="related-matchups-grid">
+                <div class="related-matchup-card">
+                    Loading matchups...
+                </div>
             </div>
         </section>
 
@@ -1992,6 +2011,33 @@
 
             document.getElementById("tool-link").href =
                 `/tool/team.html?team=${encodeURIComponent(homeCode)}`;
+
+
+            /* ===========================
+               Explore More Matchups
+            =========================== */
+
+            const otherGames = schedule
+                .filter(g =>
+                    g.gameId !== game.gameId &&
+                    Number(g.week) === Number(game.week)
+                )
+                .slice(0, 4);
+
+            document.getElementById("related-matchups").innerHTML =
+                otherGames.length
+                    ? otherGames.map(g => `
+            <a
+                href="/matchup.html?game=${encodeURIComponent(`${g.away}-VS-${g.home}`)}"
+                class="related-matchup-card"
+            >
+                <h4>${g.away} @ ${g.home}</h4>
+                <p>Week ${g.week}</p>
+            </a>
+        `).join("")
+                    : `<div class="related-matchup-card">No related matchups found.</div>`;
+
+
         }
 
         async function loadJson(path) {
