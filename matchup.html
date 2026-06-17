@@ -676,9 +676,10 @@
 
         <section class="hq-section">
             <div class="final-cta">
-                <h3>Ready to run the matchup?</h3>
-                <p id="cta-copy">Open PlayMaker and generate the real prop projections.</p>
-                <a href="/tool/" id="tool-link" class="btn-primary">Launch PlayMaker</a>
+                <span class="hq-pill">Launch PlayMaker</span>
+                <h3 id="cta-title">Run this matchup in PlayMaker</h3>
+                <p id="cta-copy">Open PlayMaker with this matchup preloaded for prop-specific research.</p>
+                <a href="/tool/" id="tool-link" class="btn-primary">Run Matchup in PlayMaker</a>
             </div>
         </section>
 
@@ -1978,14 +1979,19 @@
                 `Where can I run ${awayCode} vs ${homeCode} prop projections?`;
 
             document.getElementById("faq-a5").textContent =
+                `Use PlayMaker to open the ${homeCode} team page, review player props, compare defensive tendencies, and continue matchup-specific research for ${awayCode} vs ${homeCode}.`;
 
-                `Use PlayMaker to generate matchup-specific prop research, compare defensive tendencies, review player trends, and identify the strongest betting opportunities for ${awayCode} vs ${homeCode}.`;
+            document.getElementById("cta-title").textContent =
+                `Research ${homeCode} in PlayMaker`;
 
             document.getElementById("cta-copy").textContent =
-                `Run ${awayCode} vs ${homeCode} through PlayMaker for prop-specific analysis.`;
+                `Open the ${homeCode} team page inside PlayMaker to review players, props, defensive context, and matchup research.`;
+
+            document.getElementById("tool-link").textContent =
+                `Open ${homeCode} in PlayMaker`;
 
             document.getElementById("tool-link").href =
-                `/tool/?away=${encodeURIComponent(awayCode)}&home=${encodeURIComponent(homeCode)}`;
+                `/tool/team.html?team=${encodeURIComponent(homeCode)}`;
         }
 
         async function loadJson(path) {
