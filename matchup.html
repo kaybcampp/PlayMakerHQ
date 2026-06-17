@@ -745,26 +745,41 @@
             document.getElementById("opportunity-score").textContent = "N/A";
         }
 
+        function hasRealPlayerData(player) {
+            return (
+                player?.last10Text &&
+                !player.last10Text.toLowerCase().includes("unavailable")
+            );
+        }
+
+        function playerDataScore(player) {
+            let score = 0;
+
+            if (hasRealPlayerData(player)) score += 10;
+            if (player?.careerSplits && Object.keys(player.careerSplits).length) score += 5;
+            if (player?.trend && !player.trend.toLowerCase().includes("limited")) score += 3;
+            if (player?.image && !player.image.includes("player-placeholder")) score += 1;
+
+            return score;
+        }
+
         function filterKeyPlayers(players) {
 
             if (!Array.isArray(players)) return [];
 
-            const qb = players.find(p => p.position === "QB");
-
-            const rb = players.find(p => p.position === "RB");
-
-            const wr = players
-                .filter(p => p.position === "WR")
-                .slice(0, 2);
-
-            const te = players.find(p => p.position === "TE");
+            function bestByPosition(position, count = 1) {
+                return players
+                    .filter(p => p.position === position)
+                    .sort((a, b) => playerDataScore(b) - playerDataScore(a))
+                    .slice(0, count);
+            }
 
             return [
-                qb,
-                rb,
-                ...wr,
-                te
-            ].filter(Boolean);
+                ...bestByPosition("QB", 1),
+                ...bestByPosition("RB", 1),
+                ...bestByPosition("WR", 2),
+                ...bestByPosition("TE", 1)
+            ];
         }
 
         function getFallbackPlayerImage(player) {
@@ -799,18 +814,11 @@
         }
 
         function getRecentTrendLabel(player) {
-
-            return (
-                player?.trend ||
-                "➖ Stable"
-            );
-
+            return player?.trend || "➖ Stable";
         }
 
         function getLast10Text(player) {
-
-            return player?.last10Text ||
-                "Recent production data unavailable";
+            return player?.last10Text || "Last 10 data unavailable";
         }
 
         function getCareerVsOpponentText(player, opponentCode) {
