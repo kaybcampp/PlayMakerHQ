@@ -82,14 +82,11 @@
 
       <span class="hq-pill">NFL Matchup Hub</span>
 
-      <h2>
-        Search Every NFL Matchup
-        <span>Built for prop research and game intelligence.</span>
-      </h2>
+      <h2>NFL Matchup Hub</h2>
 
       <p>
-        Search every 2026 NFL matchup, filter by week, and open PlayMaker matchup reports built for defensive context,
-        weather, injuries, player trends, and prop research.
+        Search every 2026 NFL matchup, filter by week,
+        and open detailed PlayMaker matchup reports.
       </p>
 
       <div class="matchup-search-card hub-search-card">
@@ -261,8 +258,133 @@
   <script>
     let scheduleData = [];
 
+    const TEAM_SEARCH_TERMS = {
+      ARI: ["ari", "cardinals", "arizona"],
+      ATL: ["atl", "falcons", "atlanta"],
+      BAL: ["bal", "ravens", "baltimore"],
+      BUF: ["buf", "bills", "buffalo"],
+      CAR: ["car", "panthers", "carolina"],
+      CHI: ["chi", "bears", "chicago"],
+      CIN: ["cin", "bengals", "cincinnati"],
+      CLE: ["cle", "browns", "cleveland"],
+      DAL: ["dal", "cowboys", "dallas"],
+      DEN: ["den", "broncos", "denver"],
+      DET: ["det", "lions", "detroit"],
+      GB: ["gb", "packers", "green bay"],
+      HOU: ["hou", "texans", "houston"],
+      IND: ["ind", "colts", "indianapolis"],
+      JAX: ["jax", "jaguars", "jacksonville"],
+      KC: ["kc", "chiefs", "kansas city"],
+      LV: ["lv", "raiders", "las vegas"],
+      LAC: ["lac", "chargers", "los angeles chargers"],
+      LAR: ["lar", "rams", "los angeles rams"],
+      MIA: ["mia", "dolphins", "miami"],
+      MIN: ["min", "vikings", "minnesota"],
+      NE: ["ne", "patriots", "new england"],
+      NO: ["no", "saints", "new orleans"],
+      NYG: ["nyg", "giants", "new york giants"],
+      NYJ: ["nyj", "jets", "new york jets"],
+      PHI: ["phi", "eagles", "philadelphia"],
+      PIT: ["pit", "steelers", "pittsburgh"],
+      SF: ["sf", "49ers", "niners", "san francisco"],
+      SEA: ["sea", "seahawks", "seattle"],
+      TB: ["tb", "bucs", "buccaneers", "tampa bay"],
+      TEN: ["ten", "titans", "tennessee"],
+      WAS: ["was", "wsh", "commanders", "washington"],
+      WSH: ["was", "wsh", "commanders", "washington"]
+    };
+
+    const TEAM_DISPLAY_NAMES = {
+      ARI: "Arizona Cardinals",
+      ATL: "Atlanta Falcons",
+      BAL: "Baltimore Ravens",
+      BUF: "Buffalo Bills",
+      CAR: "Carolina Panthers",
+      CHI: "Chicago Bears",
+      CIN: "Cincinnati Bengals",
+      CLE: "Cleveland Browns",
+      DAL: "Dallas Cowboys",
+      DEN: "Denver Broncos",
+      DET: "Detroit Lions",
+      GB: "Green Bay Packers",
+      HOU: "Houston Texans",
+      IND: "Indianapolis Colts",
+      JAX: "Jacksonville Jaguars",
+      KC: "Kansas City Chiefs",
+      LV: "Las Vegas Raiders",
+      LAC: "Los Angeles Chargers",
+      LAR: "Los Angeles Rams",
+      MIA: "Miami Dolphins",
+      MIN: "Minnesota Vikings",
+      NE: "New England Patriots",
+      NO: "New Orleans Saints",
+      NYG: "New York Giants",
+      NYJ: "New York Jets",
+      PHI: "Philadelphia Eagles",
+      PIT: "Pittsburgh Steelers",
+      SF: "San Francisco 49ers",
+      SEA: "Seattle Seahawks",
+      TB: "Tampa Bay Buccaneers",
+      TEN: "Tennessee Titans",
+      WAS: "Washington Commanders",
+      WSH: "Washington Commanders"
+    };
+
+    function teamDisplayName(code) {
+      return TEAM_DISPLAY_NAMES[String(code || "").toUpperCase()] || code;
+    }
+
+    function teamMatchesSearch(code, query) {
+      const teamCode = String(code || "").toUpperCase();
+      const terms = TEAM_SEARCH_TERMS[teamCode] || [teamCode.toLowerCase()];
+
+      return terms.some(term => term.includes(query));
+    }
+
+    function gameMatchesSearch(game, query) {
+      if (!query) return true;
+
+      const away = String(game.away || "").toUpperCase();
+      const home = String(game.home || "").toUpperCase();
+
+      const matchupText = [
+        `${away} vs ${home}`,
+        `${home} vs ${away}`,
+        `${away} @ ${home}`,
+        `${home} @ ${away}`
+      ].join(" ").toLowerCase();
+
+      return (
+        matchupText.includes(query) ||
+        teamMatchesSearch(away, query) ||
+        teamMatchesSearch(home, query)
+      );
+    }
+
+    function getFilteredGames() {
+      const selectedWeek = weekFilter?.value || "all";
+      const query = input?.value.toLowerCase().trim() || "";
+
+      return scheduleData.filter(game => {
+        const matchesWeek =
+          selectedWeek === "all" ||
+          Number(game.week) === Number(selectedWeek);
+
+        const matchesSearch =
+          gameMatchesSearch(game, query);
+
+        return matchesWeek && matchesSearch;
+      });
+    }
+
     function renderMatchupBoard(games) {
       const board = document.getElementById("matchup-board");
+      const countEl = document.querySelector(".matchup-count");
+
+      if (countEl) {
+        countEl.textContent =
+          `${games.length} matchup${games.length === 1 ? "" : "s"} shown.`;
+      }
 
       if (!board) return;
 
@@ -327,11 +449,17 @@
         const res = await fetch("/assets/data/schedule2026.json");
         scheduleData = await res.json();
 
-        renderMatchupBoard(scheduleData);
+        renderMatchupBoard(getFilteredGames());
       } catch (err) {
         console.error("Failed to load schedule:", err);
 
         renderMatchupBoard([]);
+      }
+
+      if (weekFilter) {
+        weekFilter.addEventListener("change", () => {
+          renderMatchupBoard(getFilteredGames());
+        });
       }
     }
 
@@ -339,6 +467,8 @@
 
     const input = document.getElementById("matchup-search");
     const box = document.getElementById("suggestions");
+
+    const weekFilter = document.getElementById("week-filter");
 
     // ---------------------------------------
     // MATCHUP NAVIGATION FUNCTION (NEW CORE)
@@ -360,17 +490,16 @@
     // INPUT AUTOCOMPLETE
     // ---------------------------------------
     input.addEventListener("input", function () {
-      const val = this.value.toLowerCase();
+      const val = this.value.toLowerCase().trim();
+
+      renderMatchupBoard(getFilteredGames());
+
       box.innerHTML = "";
 
       if (!val || !scheduleData.length) return;
 
       const matches = scheduleData
-        .filter(g => {
-          const a = `${g.away} vs ${g.home}`.toLowerCase();
-          const b = `${g.home} vs ${g.away}`.toLowerCase();
-          return a.includes(val) || b.includes(val);
-        })
+        .filter(g => gameMatchesSearch(g, val))
         .slice(0, 8);
 
       matches.forEach(game => {
@@ -378,15 +507,16 @@
         item.className = "suggestion-item";
 
         item.innerHTML = `
-        ${game.away} vs ${game.home}
-        <span class="suggestion-meta">(${game.date || "TBD"})</span>
-      `;
+  <strong>${teamDisplayName(game.away)} @ ${teamDisplayName(game.home)}</strong>
+  <span class="suggestion-meta">
+    ${game.away} @ ${game.home} · Week ${game.week} · ${game.date || "TBD"}
+  </span>
+`;
 
-        // CLICK → GO TO MATCHUP PAGE
         item.onclick = () => {
           input.value = `${game.away} vs ${game.home}`;
           box.innerHTML = "";
-          openMatchup(game);
+          renderMatchupBoard(getFilteredGames());
         };
 
         box.appendChild(item);

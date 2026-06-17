@@ -77,10 +77,10 @@ body {
 }
 
 .hero-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(102, 255, 153, .18), transparent 65%);
-    pointer-events: none;
+    background:
+        radial-gradient(circle at center,
+            rgba(102, 255, 153, .08),
+            transparent 70%);
 }
 
 .matchups-hero-content {
@@ -1613,48 +1613,113 @@ body {
 
 }
 
-/* ==========================
+/* ========================== 
    Matchups Hub Hero
 ========================== */
 
 .matchups-hub-hero {
     position: relative;
+    min-height: auto;
+    padding: 80px 24px 96px;
+    text-align: left;
+    align-items: center;
     overflow: visible;
 }
 
+.matchups-hub-hero .hero-glow {
+    background:
+        radial-gradient(circle at 22% 22%,
+            rgba(102, 255, 153, .20),
+            transparent 34%),
+        radial-gradient(circle at 72% 58%,
+            rgba(102, 255, 153, .10),
+            transparent 38%);
+    opacity: 1;
+}
+
 .matchups-hub-hero .matchups-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
     max-width: 1180px;
 }
 
+.matchups-hub-hero .hq-pill {
+    margin-bottom: 18px;
+}
+
 .matchups-hub-hero h2 {
-    max-width: 900px;
+    max-width: 820px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 22px rgba(102, 255, 153, .22);
+}
+
+.matchups-hub-hero h2 span {
+    margin-top: 10px;
 }
 
 .matchups-hub-hero p {
-    max-width: 820px;
+    max-width: 760px;
+    margin: 0 0 32px;
+    font-size: 1.05rem;
+    line-height: 1.8;
 }
 
 .hub-search-card {
-    margin-top: 34px;
+    position: relative;
+    overflow: visible;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0;
+    padding: 26px;
+    border-radius: 22px;
+    box-shadow:
+        0 0 28px rgba(102, 255, 153, .12),
+        0 24px 60px rgba(0, 0, 0, .28);
 }
 
 .hub-filter-row {
     display: grid;
-    grid-template-columns: 1fr 190px auto;
+    grid-template-columns: minmax(0, 1fr) 190px 130px;
     gap: 14px;
     align-items: center;
 }
 
 .hub-search-input {
-    min-width: 0;
+    position: relative;
+    z-index: 30;
+}
+
+.hub-search-input input {
+    width: 100%;
+    height: 54px;
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .28);
+    color: #fff;
+    border-radius: 14px;
+    padding: 0 16px;
+    outline: none;
+    font-size: .95rem;
+}
+
+.hub-search-input input:focus {
+    border-color: rgba(102, 255, 153, .65);
+    box-shadow: 0 0 0 3px rgba(102, 255, 153, .10);
+}
+
+.hub-search-input input::placeholder {
+    color: rgba(230, 246, 238, .48);
 }
 
 .week-filter-select {
     width: 100%;
     height: 54px;
     border-radius: 14px;
-    border: 1px solid rgba(102, 255, 153, .22);
-    background: #0f1726;
+    border: 1px solid rgba(102, 255, 153, .28);
+    background: #0B0F1A;
     color: #e6f6ee;
     padding: 0 16px;
     font-size: .95rem;
@@ -1663,16 +1728,92 @@ body {
 }
 
 .week-filter-select:focus {
-    border-color: rgba(102, 255, 153, .55);
+    border-color: rgba(102, 255, 153, .65);
     box-shadow: 0 0 0 3px rgba(102, 255, 153, .10);
 }
 
 .hub-filter-row button {
     height: 54px;
-    white-space: nowrap;
+    border: none;
+    border-radius: 14px;
+    background: #66FF99;
+    color: #07111f;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow:
+        0 0 18px rgba(102, 255, 153, .35),
+        0 12px 24px rgba(102, 255, 153, .16);
+}
+
+.hub-filter-row button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 0 26px rgba(102, 255, 153, .50),
+        0 16px 30px rgba(102, 255, 153, .18);
+}
+
+.matchup-count {
+    margin-top: 18px !important;
+    margin-bottom: 0 !important;
+    color: #66FF99 !important;
+    font-weight: 800;
+    font-size: .95rem;
+}
+
+/* Autocomplete dropdown polish */
+.matchups-hub-hero .autocomplete-wrapper {
+    position: relative;
+    z-index: 40;
+}
+
+.matchups-hub-hero .suggestions-box {
+    max-height: 340px;
+    overflow-y: auto;
+    z-index: 99999;
+    border-radius: 14px;
+    background: #101827;
+}
+
+.matchups-hub-hero .suggestion-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+}
+
+.matchups-hub-hero .suggestion-item strong {
+    color: #fff;
+    font-size: .95rem;
+}
+
+.matchups-hub-hero .suggestion-meta {
+    display: block;
+    margin-left: 0;
+    font-size: .78rem;
+    color: #A3AABF;
 }
 
 @media (max-width: 900px) {
+    .matchups-hub-hero {
+        padding: 56px 16px 88px;
+        text-align: center;
+    }
+
+    .matchups-hub-hero .hero-glow {
+        background:
+            radial-gradient(circle at center top,
+                rgba(102, 255, 153, .18),
+                transparent 42%);
+    }
+
+    .matchups-hub-hero p {
+        margin: 0 auto 28px;
+    }
+
+    .hub-search-card {
+        margin: 0 auto;
+    }
+
     .hub-filter-row {
         grid-template-columns: 1fr;
     }
