@@ -74,39 +74,72 @@
   </header>
 
   <!-- HERO -->
-  <section class="matchups-hero">
+  <section class="matchups-hero matchups-hub-hero">
+
+    <div class="hero-glow"></div>
 
     <div class="matchups-hero-content">
 
-      <span class="hq-pill">NFL Matchup Intelligence</span>
+      <span class="hq-pill">NFL Matchup Hub</span>
 
       <h2>
-        Start with the game.
-        <span>Then find the prop edge.</span>
+        Search Every NFL Matchup
+        <span>Built for prop research and game intelligence.</span>
       </h2>
 
       <p>
-        Explore weekly NFL matchups, team context, defensive matchups, weather impact, injury reports, and prop
-        opportunity scoring.
+        Search every 2026 NFL matchup, filter by week, and open PlayMaker matchup reports built for defensive context,
+        weather, injuries, player trends, and prop research.
       </p>
 
-      <!-- SEARCH -->
-      <div class="matchup-search-card">
+      <div class="matchup-search-card hub-search-card">
 
-        <label for="matchup-search">Search Matchups</label>
+        <label for="matchup-search">Find a Matchup Report</label>
 
-        <div class="search-row autocomplete-wrapper">
+        <div class="hub-filter-row">
 
-          <input type="text" id="matchup-search" placeholder="Search Eagles vs Giants, Chiefs vs Bills..." />
+          <div class="autocomplete-wrapper hub-search-input">
 
-          <button type="button" onclick="runSearch()">Search</button>
+            <input type="text" id="matchup-search" placeholder="Search Eagles vs Cowboys, PHI, Dallas..." />
 
-          <div id="suggestions" class="suggestions-box"></div>
+            <div id="suggestions" class="suggestions-box"></div>
+
+          </div>
+
+          <select id="week-filter" class="week-filter-select">
+            <option value="all">All Weeks</option>
+            <option value="1">Week 1</option>
+            <option value="2">Week 2</option>
+            <option value="3">Week 3</option>
+            <option value="4">Week 4</option>
+            <option value="5">Week 5</option>
+            <option value="6">Week 6</option>
+            <option value="7">Week 7</option>
+            <option value="8">Week 8</option>
+            <option value="9">Week 9</option>
+            <option value="10">Week 10</option>
+            <option value="11">Week 11</option>
+            <option value="12">Week 12</option>
+            <option value="13">Week 13</option>
+            <option value="14">Week 14</option>
+            <option value="15">Week 15</option>
+            <option value="16">Week 16</option>
+            <option value="17">Week 17</option>
+            <option value="18">Week 18</option>
+          </select>
+
+          <button type="button" onclick="runSearch()">
+            Search
+          </button>
 
         </div>
 
         <p class="search-note">
-          Search all 2026 NFL matchups instantly.
+          Search by team, abbreviation, or matchup. Every game links directly to a PlayMaker matchup report.
+        </p>
+
+        <p class="matchup-count">
+          272 regular season matchups available.
         </p>
 
       </div>
@@ -121,168 +154,17 @@
     <section class="hq-section week-board-section">
 
       <div class="section-header">
-        <h3>Weekly Matchup Board</h3>
-        <p>Scan matchups, compare teams, and identify prop opportunities.</p>
+        <h3>2026 Matchup Board</h3>
+        <p>Scan matchups, compare teams, and open full PlayMaker matchup reports.</p>
       </div>
 
-      <div class="week-controls">
-        <button type="button">Week 1</button>
-        <button type="button">Week 2</button>
-        <button type="button" class="active-week">Current Week</button>
-        <button type="button">Next Week</button>
-        <button type="button">Playoffs</button>
-      </div>
-
-      <div class="matchup-grid">
-
-        <!-- CARD 1 -->
-        <article class="matchup-card featured-matchup">
-          <div class="matchup-top">
-            <span class="game-tag">NFC East</span>
-            <span class="game-date">Upcoming</span>
-          </div>
-
-          <h4>Giants @ Eagles</h4>
-
-          <div class="team-row">
-            <span>NYG</span>
-            <strong>vs</strong>
-            <span>PHI</span>
-          </div>
-
-          <div class="opportunity-score">
-            <span>Prop Opportunity Score</span>
-            <strong>84/100</strong>
-          </div>
-
-          <div class="matchup-angle">
-            <span>PlayMaker Angle</span>
-            <p>PHI rushing props and short-yardage TD markets may be worth checking first.</p>
-          </div>
-
-          <ul class="matchup-points">
-            <li>NYG run defense tier: weak</li>
-            <li>PHI rushing trend: strong</li>
-            <li>Weather: clean conditions</li>
-            <li>Markets to check: QB rush, RB rush, anytime TD</li>
-          </ul>
-
-          <div class="card-actions">
-
-            <a href="/matchup.html?game=NYG-vs-PHI" class="card-link">
-
-              View Report →
-
-            </a>
-
-            <a href="/tool/?away=NYG&home=PHI" class="card-link secondary-link">
-
-              Analyze in PlayMaker
-
-            </a>
-
-          </div>
-        </article>
-
-        <!-- CARD 2 -->
+      <div id="matchup-board" class="matchup-grid">
         <article class="matchup-card">
-          <div class="matchup-top">
-            <span class="game-tag">AFC Spotlight</span>
-            <span class="game-date">Upcoming</span>
-          </div>
-
-          <h4>Jaguars @ Chiefs</h4>
-
-          <div class="team-row">
-            <span>JAX</span>
-            <strong>vs</strong>
-            <span>KC</span>
-          </div>
-
-          <div class="opportunity-score">
-            <span>Prop Opportunity Score</span>
-            <strong>78/100</strong>
-          </div>
-
-          <div class="matchup-angle">
-            <span>PlayMaker Angle</span>
-            <p>KC passing volume and TE usage create strong receiving prop angles.</p>
-          </div>
-
-          <ul class="matchup-points">
-            <li>JAX pressure rate: watchlist</li>
-            <li>KC passing trend: favorable</li>
-            <li>Weather: minimal impact</li>
-            <li>Markets: passing yards, receptions</li>
-          </ul>
-
-          <div class="card-actions">
-
-            <a href="/matchup.html?game=JAX-vs-KC" class="card-link">
-
-              View Report →
-
-            </a>
-
-            <a href="/tool/?away=JAX&home=KC" class="card-link secondary-link">
-
-              Analyze in PlayMaker
-
-            </a>
-
-          </div>
+          <h4>Loading matchups...</h4>
+          <p>Building the 2026 NFL matchup board.</p>
         </article>
-
-        <!-- CARD 3 -->
-        <article class="matchup-card">
-          <div class="matchup-top">
-            <span class="game-tag">Prime Prop Game</span>
-            <span class="game-date">Upcoming</span>
-          </div>
-
-          <h4>Falcons @ Bills</h4>
-
-          <div class="team-row">
-            <span>ATL</span>
-            <strong>vs</strong>
-            <span>BUF</span>
-          </div>
-
-          <div class="opportunity-score">
-            <span>Prop Opportunity Score</span>
-            <strong>81/100</strong>
-          </div>
-
-          <div class="matchup-angle">
-            <span>PlayMaker Angle</span>
-            <p>Dual-threat QB + RB usage creates multiple prop entry points.</p>
-          </div>
-
-          <ul class="matchup-points">
-            <li>BUF weather: monitor wind</li>
-            <li>ATL RB usage: strong</li>
-            <li>BUF QB rushing floor: elevated</li>
-            <li>Markets: rush + rec yards</li>
-          </ul>
-
-          <div class="card-actions">
-
-            <a href="/matchup.html?game=ATL-vs-BUF" class="card-link">
-
-              View Report →
-
-            </a>
-
-            <a href="/tool/?away=ATL&home=BUF" class="card-link secondary-link">
-
-              Analyze in PlayMaker
-
-            </a>
-
-          </div>
-        </article>
-
       </div>
+
     </section>
 
     <!-- LOGIC SECTION -->
@@ -379,12 +261,77 @@
   <script>
     let scheduleData = [];
 
+    function renderMatchupBoard(games) {
+      const board = document.getElementById("matchup-board");
+
+      if (!board) return;
+
+      if (!Array.isArray(games) || !games.length) {
+        board.innerHTML = `
+      <article class="matchup-card">
+        <h4>No matchups found</h4>
+        <p>Try another week or team search.</p>
+      </article>
+    `;
+        return;
+      }
+
+      board.innerHTML = games.map(game => {
+        const away = String(game.away || "").toUpperCase();
+        const home = String(game.home || "").toUpperCase();
+        const week = game.week || "TBD";
+        const date = game.date || "TBD";
+        const key = `${away}-VS-${home}`;
+
+        return `
+      <article class="matchup-card">
+        <div class="matchup-top">
+          <span class="game-tag">Week ${week}</span>
+          <span class="game-date">${date}</span>
+        </div>
+
+        <h4>${away} @ ${home}</h4>
+
+        <div class="team-row">
+          <span>${away}</span>
+          <strong>@</strong>
+          <span>${home}</span>
+        </div>
+
+        <div class="opportunity-score">
+          <span>PlayMaker Rating</span>
+          <strong>Pending</strong>
+        </div>
+
+        <div class="matchup-angle">
+          <span>Matchup Report</span>
+          <p>Open the full PlayMaker report for defensive context, player trends, weather, injuries, and prop research.</p>
+        </div>
+
+        <div class="card-actions">
+          <a href="/matchup.html?game=${encodeURIComponent(key)}" class="card-link">
+            View Report →
+          </a>
+
+          <a href="/tool/team.html?team=${encodeURIComponent(home)}" class="card-link secondary-link">
+            Open ${home} in PlayMaker
+          </a>
+        </div>
+      </article>
+    `;
+      }).join("");
+    }
+
     async function loadSchedule() {
       try {
         const res = await fetch("/assets/data/schedule2026.json");
         scheduleData = await res.json();
+
+        renderMatchupBoard(scheduleData);
       } catch (err) {
         console.error("Failed to load schedule:", err);
+
+        renderMatchupBoard([]);
       }
     }
 
@@ -403,7 +350,7 @@
       const home = String(game.home).toUpperCase();
       const away = String(game.away).toUpperCase();
 
-      const key = `${away}-vs-${home}`;
+      const key = `${away}-VS-${home}`;
 
       window.location.href = `/matchup.html?game=${encodeURIComponent(key)}`;
 
