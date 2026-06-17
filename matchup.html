@@ -462,6 +462,80 @@
             </div>
         </section>
 
+        <section class="hq-section hq-section-alt">
+
+            <div class="section-header">
+
+                <h3>Similar Matchup Profiles</h3>
+
+                <p id="similar-matchups-summary">
+                    PlayMaker compares defensive profiles to identify similar situations and uncover hidden prop
+                    opportunities.
+                </p>
+
+            </div>
+
+            <div class="similar-matchups-grid">
+
+                <div class="similar-card">
+
+                    <span class="comparison-label">
+                        Similar Defenses
+                    </span>
+
+                    <h4 id="similar-defense-title">
+
+                        Loading comparable defenses...
+
+                    </h4>
+
+                    <ul id="similar-defense-list">
+
+                        <li>Building defensive profile...</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="similar-card">
+
+                    <span class="comparison-label">Shared Characteristics</span>
+                    <h4>Why They're Similar</h4>
+
+                    <ul id="similar-prop-list">
+
+                        <li>Analyzing historical tendencies...</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="similar-card">
+
+                    <span class="comparison-label">
+
+                        PlayMaker Insight
+
+                    </span>
+
+                    <h4>
+
+                        Analyst Note
+
+                    </h4>
+
+                    <p id="similar-analyst-copy">
+
+                        Building analyst notes...
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
         <section class="hq-section">
             <div class="section-header">
                 <h3>Historical PlayMaker Results</h3>
@@ -1258,6 +1332,61 @@
             return `${position} props project closer to neutral based on current defensive prop splits.`;
         }
 
+        function getSimilarDefenses(defenseData, targetCode) {
+
+            const target = getDefense(defenseData, targetCode);
+
+            if (!target) return [];
+
+            return Object.entries(defenseData.teams)
+
+                .filter(([code]) => code !== targetCode)
+
+                .map(([code, defense]) => {
+
+                    let score = 0;
+
+                    if (
+                        defense.passDefenseTier === target.passDefenseTier
+                    ) score += 3;
+
+                    if (
+                        defense.runDefenseTier === target.runDefenseTier
+                    ) score += 3;
+
+                    const pressureDiff = Math.abs(
+
+                        Number(defense.pressureRate || 0) -
+                        Number(target.pressureRate || 0)
+
+                    );
+
+                    score += Math.max(
+
+                        0,
+
+                        3 - pressureDiff * 10
+
+                    );
+
+                    return {
+
+                        code,
+
+                        score,
+
+                        defense
+
+                    };
+
+                })
+
+                .sort((a, b) => b.score - a.score)
+
+                .slice(0, 3);
+
+        }
+
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
@@ -1458,6 +1587,53 @@
                         : `No major injury concerns currently exist. Official injury reports will begin populating closer to preseason and update automatically each week.`
                     : `Injury data unavailable.`;
 
+            const similarDefenses =
+                getSimilarDefenses(
+                    defenseData,
+                    homeCode
+                ) || [];
+
+            document.getElementById(
+                "similar-defense-title"
+            ).textContent =
+
+                `${homeCode} Defensive DNA`;
+
+            document.getElementById(
+                "similar-defense-list"
+            ).innerHTML =
+
+                similarDefenses.length
+
+                    ? similarDefenses.map(team => `
+
+<li>
+
+<strong>${team.code}</strong>
+
+• Pass ${team.defense.passDefenseTier}
+
+• Run ${team.defense.runDefenseTier}
+
+• ${formatPct(team.defense.pressureRate)} pressure
+
+</li>
+
+`).join("")
+
+                    : "<li>No comparable defenses found.</li>";
+
+            document.getElementById("similar-prop-list").innerHTML = `
+    <li>${homeCode} and these defenses share similar pass/run tier profiles.</li>
+    <li>Their pressure rates fall within a comparable range.</li>
+    <li>This profile suggests a similar offensive environment, not a guaranteed prop edge.</li>
+    <li>Use this as a research filter before reviewing individual player lines.</li>
+`;
+
+            document.getElementById("similar-analyst-copy").textContent =
+                similarDefenses.length
+                    ? `${homeCode}'s defensive profile closely matches ${similarDefenses.map(d => d.code).join(", ")}. PlayMaker uses defensive similarity to identify comparable game environments that traditional matchup pages often miss.`
+                    : `PlayMaker could not find enough comparable defensive profiles for ${homeCode} yet.`;
             document.getElementById("risk-copy").textContent =
                 totalInjuries >= 5
                     ? `Risk level is elevated because this matchup currently has ${totalInjuries} injury flags. Volume-based props should be reviewed carefully.`
