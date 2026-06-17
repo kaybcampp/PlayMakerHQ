@@ -575,6 +575,106 @@
         </section>
 
         <section class="hq-section">
+
+            <div class="section-header">
+
+                <h3>FAQ</h3>
+
+                <p id="faq-summary">
+
+                    Common questions bettors, fantasy players, and prop researchers ask before this matchup.
+
+                </p>
+
+            </div>
+
+            <div class="faq-container">
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+
+                        <span id="faq-q1"></span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p id="faq-a1"></p>
+
+                    </div>
+
+                </div>
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+
+                        <span id="faq-q2"></span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p id="faq-a2"></p>
+
+                    </div>
+
+                </div>
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+
+                        <span id="faq-q3"></span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p id="faq-a3"></p>
+
+                    </div>
+
+                </div>
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+
+                        <span id="faq-q4"></span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p id="faq-a4"></p>
+
+                    </div>
+
+                </div>
+
+                <div class="faq-item">
+
+                    <button class="faq-question">
+
+                        <span id="faq-q5"></span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <p id="faq-a5"></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="hq-section">
             <div class="final-cta">
                 <h3>Ready to run the matchup?</h3>
                 <p id="cta-copy">Open PlayMaker and generate the real prop projections.</p>
@@ -1821,6 +1921,65 @@
                         ? `${totalInjuries} Flags`
                         : "Clean"
                     : "Pending";
+
+            document.getElementById("faq-q1").textContent =
+                `Who has the advantage in ${awayCode} vs ${homeCode}?`;
+
+            document.getElementById("faq-a1").textContent =
+
+                `${homeCode}'s defensive profile, recent trends, injuries, weather, and game script all contribute to the overall matchup advantage. PlayMaker combines these factors to identify where the strongest betting and prop opportunities may exist.`;
+
+
+
+            document.getElementById("faq-q2").textContent =
+
+                `What player props should I research for ${awayCode} vs ${homeCode}?`;
+
+            document.getElementById("faq-a2").textContent =
+
+                `Start with ${bestAngle.propType.toLowerCase()} props, then review quarterback, running back, wide receiver, and touchdown markets using the defensive matchup and player research sections above.`;
+
+
+
+            document.getElementById("faq-q3").textContent =
+
+                `How does ${homeCode}'s defense match up against ${awayCode}?`;
+
+            document.getElementById("faq-a3").textContent =
+
+                homeDefense
+
+                    ? `${homeCode} grades as a ${homeDefense.overallDefenseTier} overall defense with a ${homeDefense.passDefenseTier} pass defense and ${homeDefense.runDefenseTier} run defense. These strengths and weaknesses help determine where offensive production is most likely to occur.`
+
+                    : `${homeCode}'s defensive profile is still being generated.`;
+
+
+
+            document.getElementById("faq-q4").textContent =
+
+                `Does weather matter for ${awayCode} vs ${homeCode}?`;
+
+            document.getElementById("faq-a4").textContent =
+
+                weather
+
+                    ? weather.isDome
+
+                        ? `This matchup takes place in a controlled environment, which lowers weather-related volatility for passing, receiving, and kicking props.`
+
+                        : `Weather can influence prop outcomes, especially passing and receiving production. Wind, rain, and temperature should be reviewed before locking in picks.`
+
+                    : `Weather data is still loading for this matchup.`;
+
+
+
+            document.getElementById("faq-q5").textContent =
+
+                `Where can I run ${awayCode} vs ${homeCode} prop projections?`;
+
+            document.getElementById("faq-a5").textContent =
+
+                `Use PlayMaker to generate matchup-specific prop research, compare defensive tendencies, review player trends, and identify the strongest betting opportunities for ${awayCode} vs ${homeCode}.`;
 
             document.getElementById("cta-copy").textContent =
                 `Run ${awayCode} vs ${homeCode} through PlayMaker for prop-specific analysis.`;
