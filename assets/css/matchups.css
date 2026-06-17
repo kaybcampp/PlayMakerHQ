@@ -1028,6 +1028,106 @@ body {
     }
 }
 
+/* KEY PLAYER MATCHUPS */
+
+.key-player-grid {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.key-player-team-card {
+    background: linear-gradient(145deg, #0B0F1A, #131A2A);
+    border: 1px solid rgba(102, 255, 153, .16);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 0 22px rgba(102, 255, 153, .1);
+}
+
+.key-player-team-header {
+    margin-bottom: 1rem;
+}
+
+.key-player-team-header h4 {
+    color: #66FF99;
+    font-size: 1.3rem;
+    margin-top: .6rem;
+}
+
+.key-player-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.key-player-card {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+.key-player-top {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    margin-bottom: 1rem;
+}
+
+.key-player-top img {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .3);
+}
+
+.key-player-top h4 {
+    color: #E6F6EE;
+    font-size: 1rem;
+    margin-bottom: .15rem;
+}
+
+.key-player-top span {
+    color: #A3AABF;
+    font-size: .85rem;
+}
+
+.key-player-details {
+    display: grid;
+    gap: .65rem;
+}
+
+.key-player-details div {
+    background: #0B0F1A;
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 12px;
+    padding: .75rem;
+}
+
+.key-player-details span {
+    display: block;
+    color: #66FF99;
+    font-size: .78rem;
+    font-weight: 800;
+    margin-bottom: .25rem;
+}
+
+.key-player-details strong {
+    color: #A3AABF;
+    font-size: .88rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+    .key-player-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* FOOTER */
 
 footer {
