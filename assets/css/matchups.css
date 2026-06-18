@@ -506,35 +506,74 @@ body {
     font-size: .95rem;
 }
 
+/* ==========================
+   Matchup Card Actions
+========================== */
+
 .card-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: .75rem;
-    flex-wrap: wrap;
+    margin-top: 1rem;
 }
 
 .card-link {
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+    width: 100%;
+
+    border: 1px solid rgba(102, 255, 153, .35);
+    border-radius: 999px;
+
+    background: rgba(102, 255, 153, .12);
     color: #66FF99;
+
     text-decoration: none;
-    font-weight: 800;
+    text-align: center;
+
+    font: inherit;
+    font-size: .88rem;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
 .card-link:hover {
-    text-shadow: 0 0 12px rgba(102, 255, 153, .5);
+    transform: translateY(-1px);
+    background: rgba(102, 255, 153, .20);
+    border-color: rgba(102, 255, 153, .60);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .20);
+    text-shadow: none;
 }
 
 .secondary-link {
+    background: transparent;
     color: #A3AABF;
-    border: 1px solid rgba(102, 255, 153, .25);
-    border-radius: 999px;
-    padding: .45rem .75rem;
-    font-size: .85rem;
+    border-color: rgba(255, 255, 255, .12);
 }
 
 .secondary-link:hover {
     color: #66FF99;
     background: rgba(102, 255, 153, .08);
+    border-color: rgba(102, 255, 153, .35);
+}
+
+@media (max-width: 768px) {
+    .card-actions {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* LOGIC CARDS */
@@ -1827,9 +1866,9 @@ body {
 .clickable-card {
     cursor: pointer;
     transition:
-      transform .2s ease,
-      box-shadow .2s ease,
-      border-color .2s ease;
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
 }
 
 .clickable-card:hover {
@@ -1837,19 +1876,15 @@ body {
     transform: translateY(-4px);
 
     border-color:
-      rgba(102,255,153,.28);
+        rgba(102, 255, 153, .28);
 
     box-shadow:
-      0 0 28px rgba(102,255,153,.12);
+        0 0 28px rgba(102, 255, 153, .12);
 }
 
 .card-link {
     border: none;
     cursor: pointer;
-}
-
-.card-link button {
-    all: unset;
 }
 
 /* ==========================
@@ -1886,6 +1921,35 @@ body {
     font-style: normal;
     font-size: .9rem;
     font-weight: 800;
+}
+
+.matchup-details {
+    display: grid;
+    gap: .75rem;
+    margin-bottom: 1rem;
+}
+
+.matchup-details div {
+    background: rgba(255, 255, 255, .035);
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 14px;
+    padding: .85rem;
+}
+
+.matchup-details span {
+    display: block;
+    color: #66FF99;
+    font-size: .72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: .25rem;
+}
+
+.matchup-details strong {
+    color: #A3AABF;
+    font-size: .9rem;
+    font-weight: 600;
 }
 
 /* FOOTER */

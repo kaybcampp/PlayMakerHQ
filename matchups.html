@@ -262,6 +262,7 @@
 
   <script>
     let scheduleData = [];
+    let defenseData = {};
 
     const TEAM_SEARCH_TERMS = {
       ARI: ["ari", "cardinals", "arizona"],
@@ -422,6 +423,72 @@
       };
     }
 
+    function formatGameDate(dateValue) {
+      if (!dateValue) return "Date TBD";
+
+      const parsed = new Date(dateValue);
+
+      if (Number.isNaN(parsed.getTime())) {
+        return dateValue;
+      }
+
+      return parsed.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+
+    function getPrimaryAngle(game) {
+      const home = String(game.home || "").toUpperCase();
+      const away = String(game.away || "").toUpperCase();
+
+      const passingTeams = ["KC", "BUF", "CIN", "DAL", "PHI", "DET", "MIA", "LAC"];
+      const rushingTeams = ["BAL", "PHI", "SF", "DET", "ATL", "CHI", "IND"];
+      const receiverTeams = ["MIN", "MIA", "CIN", "DAL", "LAR", "SEA"];
+
+      if (passingTeams.includes(home) || passingTeams.includes(away)) {
+        return "Passing Props";
+      }
+
+      if (rushingTeams.includes(home) || rushingTeams.includes(away)) {
+        return "Rushing Props";
+      }
+
+      if (receiverTeams.includes(home) || receiverTeams.includes(away)) {
+        return "Receiving Props";
+      }
+
+      return "Player Props";
+    }
+
+    function getDefenseNote(game) {
+      const home = String(game.home || "").toUpperCase();
+
+      const defense =
+        defenseData?.teams?.[home] ||
+        defenseData?.[home];
+
+      if (!defense) {
+        return "Defense profile pending";
+      }
+
+      const passTier =
+        defense.passDefenseTier ||
+        defense.passTier ||
+        defense.pass ||
+        "TBD";
+
+      const runTier =
+        defense.runDefenseTier ||
+        defense.runTier ||
+        defense.run ||
+        "TBD";
+
+      return `Pass ${passTier} • Run ${runTier}`;
+    }
+
     function renderMatchupBoard(games) {
       const board = document.getElementById("matchup-board");
       const countEl = document.querySelector(".matchup-count");
@@ -448,8 +515,18 @@
         const home = String(game.home || "").toUpperCase();
         const week = game.week || "TBD";
         const date = game.date || "TBD";
-        const key = `${away}-VS-${home}`;
         const rating = getRatingFromGame(game);
+        const formattedDate = formatGameDate(date);
+        const primaryAngle = getPrimaryAngle(game);
+        const defenseNote = getDefenseNote(game);
+        const featuredTeams = [
+          "KC", "BUF", "PHI", "DET", "BAL", "DAL", "SF", "CIN", "MIA", "LAC"
+        ];
+
+        const playmakerTeam =
+          featuredTeams.includes(home)
+            ? home
+            : away;
 
         return `
 
@@ -464,27 +541,15 @@
 
   <div class="matchup-top">
 
-    <span class="game-tag">
-      Week ${week}
-    </span>
+  <span class="game-tag">
 
-    <span class="game-date">
-      ${date}
-    </span>
+    Week ${week}
 
-  </div>
+  </span>
+
+</div>
 
   <h4>${away} @ ${home}</h4>
-
-  <div class="team-row">
-
-    <span>${away}</span>
-
-    <strong>@</strong>
-
-    <span>${home}</span>
-
-  </div>
 
   <div class="card-rating">
 
@@ -496,18 +561,24 @@
 
 </div>
 
-  <div class="matchup-angle">
+  <div class="matchup-details">
 
-    <span>Matchup Report</span>
-
-    <p>
-
-      Open the full PlayMaker report for defensive context,
-      player trends, weather, injuries, and prop research.
-
-    </p>
-
+  <div>
+    <span>Kickoff</span>
+    <strong>${formattedDate}</strong>
   </div>
+
+  <div>
+    <span>Primary Angle</span>
+    <strong>${primaryAngle}</strong>
+  </div>
+
+  <div>
+    <span>Defensive Focus</span>
+    <strong>${defenseNote}</strong>
+  </div>
+
+</div>
 
   <div class="card-actions">
 
@@ -528,17 +599,16 @@
 
     <a
 
-      href="/tool/team.html?team=${encodeURIComponent(home)}"
+  href="/tool/team.html?team=${encodeURIComponent(playmakerTeam)}"
+  class="card-link secondary-link"
 
-      class="card-link secondary-link"
+  onclick="event.stopPropagation();"
 
-      onclick="event.stopPropagation();"
+>
 
-    >
+  Open PlayMaker →
 
-      Open ${home} in PlayMaker
-
-    </a>
+</a>
 
   </div>
 
@@ -552,12 +622,17 @@
 
     async function loadSchedule() {
       try {
-        const res = await fetch("/assets/data/schedule2026.json");
-        scheduleData = await res.json();
+        const [scheduleRes, defenseRes] = await Promise.all([
+          fetch("/assets/data/schedule2026.json"),
+          fetch("/assets/data/defense-tiers.json")
+        ]);
+
+        scheduleData = await scheduleRes.json();
+        defenseData = await defenseRes.json();
 
         renderMatchupBoard(getFilteredGames());
       } catch (err) {
-        console.error("Failed to load schedule:", err);
+        console.error("Failed to load matchup hub data:", err);
 
         renderMatchupBoard([]);
       }
