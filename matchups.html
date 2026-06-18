@@ -156,10 +156,15 @@
       </div>
 
       <div id="matchup-board" class="matchup-grid">
+
         <article class="matchup-card">
+
           <h4>Loading matchups...</h4>
+
           <p>Building the 2026 NFL matchup board.</p>
+
         </article>
+
       </div>
 
     </section>
@@ -377,6 +382,46 @@
       });
     }
 
+    function getRatingFromGame(game) {
+      const week = Number(game.week || 1);
+      const away = String(game.away || "");
+      const home = String(game.home || "");
+
+      let score = 68;
+
+      score += week % 7;
+
+      if (away && home) score += 4;
+
+      if (game.date) score += 3;
+
+      const rivalryTeams = ["DAL", "PHI", "KC", "BUF", "BAL", "CIN", "SF", "SEA", "DET", "GB"];
+
+      if (
+        rivalryTeams.includes(away) ||
+        rivalryTeams.includes(home)
+      ) {
+        score += 5;
+      }
+
+      score = Math.max(58, Math.min(score, 92));
+
+      let tier = "Watch";
+
+      if (score >= 85) {
+        tier = "Elite Opportunity";
+      } else if (score >= 78) {
+        tier = "Strong Opportunity";
+      } else if (score >= 70) {
+        tier = "Moderate Opportunity";
+      }
+
+      return {
+        score,
+        tier
+      };
+    }
+
     function renderMatchupBoard(games) {
       const board = document.getElementById("matchup-board");
       const countEl = document.querySelector(".matchup-count");
@@ -404,44 +449,105 @@
         const week = game.week || "TBD";
         const date = game.date || "TBD";
         const key = `${away}-VS-${home}`;
+        const rating = getRatingFromGame(game);
 
         return `
-      <article class="matchup-card">
-        <div class="matchup-top">
-          <span class="game-tag">Week ${week}</span>
-          <span class="game-date">${date}</span>
-        </div>
 
-        <h4>${away} @ ${home}</h4>
+<article
+  class="matchup-card clickable-card"
 
-        <div class="team-row">
-          <span>${away}</span>
-          <strong>@</strong>
-          <span>${home}</span>
-        </div>
+  onclick="openMatchup({
+    away:'${away}',
+    home:'${home}'
+  })"
+>
 
-        <div class="opportunity-score">
-          <span>PlayMaker Rating</span>
-          <strong>Pending</strong>
-        </div>
+  <div class="matchup-top">
 
-        <div class="matchup-angle">
-          <span>Matchup Report</span>
-          <p>Open the full PlayMaker report for defensive context, player trends, weather, injuries, and prop research.</p>
-        </div>
+    <span class="game-tag">
+      Week ${week}
+    </span>
 
-        <div class="card-actions">
-          <a href="/matchup.html?game=${encodeURIComponent(key)}" class="card-link">
-            View Report →
-          </a>
+    <span class="game-date">
+      ${date}
+    </span>
 
-          <a href="/tool/team.html?team=${encodeURIComponent(home)}" class="card-link secondary-link">
-            Open ${home} in PlayMaker
-          </a>
-        </div>
-      </article>
-    `;
+  </div>
+
+  <h4>${away} @ ${home}</h4>
+
+  <div class="team-row">
+
+    <span>${away}</span>
+
+    <strong>@</strong>
+
+    <span>${home}</span>
+
+  </div>
+
+  <div class="card-rating">
+
+  <span>PlayMaker Rating</span>
+
+  <strong>${rating.score}%</strong>
+
+  <em>${rating.tier}</em>
+
+</div>
+
+  <div class="matchup-angle">
+
+    <span>Matchup Report</span>
+
+    <p>
+
+      Open the full PlayMaker report for defensive context,
+      player trends, weather, injuries, and prop research.
+
+    </p>
+
+  </div>
+
+  <div class="card-actions">
+
+    <button
+
+      class="card-link"
+
+      onclick="event.stopPropagation(); openMatchup({
+        away:'${away}',
+        home:'${home}'
+      })"
+
+    >
+
+      View Matchup →
+
+    </button>
+
+    <a
+
+      href="/tool/team.html?team=${encodeURIComponent(home)}"
+
+      class="card-link secondary-link"
+
+      onclick="event.stopPropagation();"
+
+    >
+
+      Open ${home} in PlayMaker
+
+    </a>
+
+  </div>
+
+</article>
+
+`;
+
       }).join("");
+
     }
 
     async function loadSchedule() {

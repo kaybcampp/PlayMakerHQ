@@ -1824,6 +1824,70 @@ body {
     }
 }
 
+.clickable-card {
+    cursor: pointer;
+    transition:
+      transform .2s ease,
+      box-shadow .2s ease,
+      border-color .2s ease;
+}
+
+.clickable-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color:
+      rgba(102,255,153,.28);
+
+    box-shadow:
+      0 0 28px rgba(102,255,153,.12);
+}
+
+.card-link {
+    border: none;
+    cursor: pointer;
+}
+
+.card-link button {
+    all: unset;
+}
+
+/* ==========================
+   Matchup Hub Card Rating
+========================== */
+
+.card-rating {
+    background: rgba(102, 255, 153, .08);
+    border: 1px solid rgba(102, 255, 153, .18);
+    border-radius: 16px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: grid;
+    gap: .35rem;
+}
+
+.card-rating span {
+    color: #A3AABF;
+    font-size: .78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.card-rating strong {
+    color: #66FF99;
+    font-size: 1.9rem;
+    line-height: 1;
+    text-shadow: 0 0 16px rgba(102, 255, 153, .35);
+}
+
+.card-rating em {
+    color: #E6F6EE;
+    font-style: normal;
+    font-size: .9rem;
+    font-weight: 800;
+}
+
 /* FOOTER */
 
 footer {
