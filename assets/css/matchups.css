@@ -1952,6 +1952,71 @@ body {
     font-weight: 600;
 }
 
+/* ==========================
+   MATCHUP HUB SEO INTRO
+========================== */
+
+.seo-intro-section {
+  padding-top: 0;
+}
+
+.seo-intro-card {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 28px 32px;
+
+  background: rgba(19, 26, 42, 0.9);
+
+  border: 1px solid rgba(102, 255, 153, 0.15);
+
+  border-radius: 20px;
+
+  text-align: center;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.seo-intro-card h3 {
+  font-size: 1.9rem;
+
+  margin-bottom: 18px;
+
+  color: #66FF99;
+}
+
+.seo-intro-card p {
+  color: #D4DCEA;
+
+  line-height: 1.8;
+
+  margin-bottom: 16px;
+
+  font-size: 1rem;
+}
+
+.seo-intro-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .seo-intro-card {
+    padding: 24px;
+  }
+
+  .seo-intro-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .seo-intro-card p {
+    font-size: 0.95rem;
+  }
+
+}
+
 /* FOOTER */
 
 footer {
