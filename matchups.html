@@ -262,7 +262,9 @@
     <section class="hq-section">
       <div class="section-header">
         <h3>PlayMaker Report Types</h3>
-        <p>This page will evolve into a full NFL matchup intelligence hub.</p>
+
+        <p>Every matchup report combines team trends, defensive analysis, prop opportunities, and PlayMaker
+          intelligence.</p>
       </div>
 
       <div class="report-list">
@@ -433,28 +435,50 @@
     }
 
     function getRatingFromGame(game) {
-      const week = Number(game.week || 1);
-      const away = String(game.away || "");
-      const home = String(game.home || "");
-
-      let score = 68;
-
-      score += week % 7;
-
-      if (away && home) score += 4;
-
-      if (game.date) score += 3;
-
-      const rivalryTeams = ["DAL", "PHI", "KC", "BUF", "BAL", "CIN", "SF", "SEA", "DET", "GB"];
-
-      if (
-        rivalryTeams.includes(away) ||
-        rivalryTeams.includes(home)
-      ) {
-        score += 5;
+      if (!game || !game.week) {
+        return {
+          score: 0,
+          tier: "Pending"
+        };
       }
 
-      score = Math.max(58, Math.min(score, 92));
+      const away = String(game.away || "").toUpperCase();
+      const home = String(game.home || "").toUpperCase();
+
+      const awayDefense = getDefenseForTeam(away);
+      const homeDefense = getDefenseForTeam(home);
+
+      let score = 58;
+
+      if (homeDefense) {
+
+        if (homeDefense.passDefenseTier === "D") score += 8;
+        else if (homeDefense.passDefenseTier === "C") score += 5;
+        else if (homeDefense.passDefenseTier === "B") score += 2;
+
+        if (homeDefense.runDefenseTier === "D") score += 8;
+        else if (homeDefense.runDefenseTier === "C") score += 5;
+        else if (homeDefense.runDefenseTier === "B") score += 2;
+
+      }
+
+      if (awayDefense) {
+
+        if (awayDefense.passDefenseTier === "D") score += 4;
+        else if (awayDefense.passDefenseTier === "C") score += 2;
+
+        if (awayDefense.runDefenseTier === "D") score += 4;
+        else if (awayDefense.runDefenseTier === "C") score += 2;
+
+      }
+
+      if (game.date) {
+        score += 3;
+      }
+
+      score += Number(game.week) % 4;
+
+      score = Math.max(45, Math.min(Math.round(score), 96));
 
       let tier = "Watch";
 
@@ -468,7 +492,7 @@
 
       return {
         score,
-        tier
+        tier,
       };
     }
 
@@ -489,51 +513,56 @@
       });
     }
 
-    function getPrimaryAngle(game) {
-      const home = String(game.home || "").toUpperCase();
+    function tierScore(tier) {
+      const scores = { A: 4, B: 3, C: 2, D: 1 };
+      return scores[tier] || 2;
+    }
+
+    function getDefenseForTeam(code) {
+      const teamCode = String(code || "").toUpperCase();
+
+      return (
+        defenseData?.teams?.[teamCode] ||
+        defenseData?.[teamCode] ||
+        null
+      );
+    }
+
+    function getBestAngleFromDefense(game) {
       const away = String(game.away || "").toUpperCase();
+      const home = String(game.home || "").toUpperCase();
 
-      const passingTeams = ["KC", "BUF", "CIN", "DAL", "PHI", "DET", "MIA", "LAC"];
-      const rushingTeams = ["BAL", "PHI", "SF", "DET", "ATL", "CHI", "IND"];
-      const receiverTeams = ["MIN", "MIA", "CIN", "DAL", "LAR", "SEA"];
+      const homeDefense = getDefenseForTeam(home);
 
-      if (passingTeams.includes(home) || passingTeams.includes(away)) {
-        return "Passing Props";
+      if (!homeDefense) {
+        return "Balanced Props";
       }
 
-      if (rushingTeams.includes(home) || rushingTeams.includes(away)) {
-        return "Rushing Props";
+      const passWeakness = tierScore(homeDefense.passDefenseTier);
+      const runWeakness = tierScore(homeDefense.runDefenseTier);
+
+      if (runWeakness <= passWeakness) {
+        return homeDefense.runDefenseTier === "D"
+          ? "Priority Rushing Props"
+          : "Rushing Props";
       }
 
-      if (receiverTeams.includes(home) || receiverTeams.includes(away)) {
-        return "Receiving Props";
-      }
-
-      return "Player Props";
+      return homeDefense.passDefenseTier === "D"
+        ? "Priority Passing Props"
+        : "Passing / Receiving Props";
     }
 
     function getDefenseNote(game) {
       const home = String(game.home || "").toUpperCase();
 
-      const defense =
-        defenseData?.teams?.[home] ||
-        defenseData?.[home];
+      const defense = getDefenseForTeam(home);
 
       if (!defense) {
         return "Defense profile pending";
       }
 
-      const passTier =
-        defense.passDefenseTier ||
-        defense.passTier ||
-        defense.pass ||
-        "TBD";
-
-      const runTier =
-        defense.runDefenseTier ||
-        defense.runTier ||
-        defense.run ||
-        "TBD";
+      const passTier = defense.passDefenseTier || "TBD";
+      const runTier = defense.runDefenseTier || "TBD";
 
       return `Pass ${passTier} • Run ${runTier}`;
     }
@@ -566,7 +595,7 @@
         const date = game.date || "TBD";
         const rating = getRatingFromGame(game);
         const formattedDate = formatGameDate(date);
-        const primaryAngle = getPrimaryAngle(game);
+        const primaryAngle = getBestAngleFromDefense(game);
         const defenseNote = getDefenseNote(game);
         const featuredTeams = [
           "KC", "BUF", "PHI", "DET", "BAL", "DAL", "SF", "CIN", "MIA", "LAC"
@@ -827,7 +856,7 @@
   </script>
 
   <script src="/assets/js/analytics-tracker.js"></script>
-  
+
 </body>
 
 </html>
