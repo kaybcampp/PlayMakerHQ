@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Analytics Dashboard — PlayMaker Prime</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="stylesheet" href="assets/css/matchups.css" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+</head>
+
+<body>
+
+<header class="pm-header">
+  <h1>PlayMaker Prime</h1>
+
+  <nav class="pm-nav">
+    <a href="index.html" class="pm-link">Home</a>
+    <a href="matchups.html" class="pm-link">Matchups</a>
+    <a href="/tool/" class="pm-link pm-link-cta">Open Tool</a>
+  </nav>
+</header>
+
+<section class="matchups-hero matchups-hub-hero">
+  <div class="hero-glow"></div>
+
+  <div class="matchups-hero-content">
+    <span class="hq-pill">Private Analytics</span>
+
+    <h2>Site Traffic Dashboard</h2>
+
+    <p>
+      Track visitors, pageviews, top pages, referrers, devices, locations,
+      session paths, and time spent across PlayMaker Prime.
+    </p>
+  </div>
+</section>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section class="hq-section">
+    <div class="section-header">
+      <h3>Traffic Overview</h3>
+      <p>High-level site performance across daily, weekly, and monthly windows.</p>
+    </div>
+
+    <div class="matchup-grid">
+      <article class="matchup-card">
+        <span class="game-tag">Today</span>
+        <h4 id="views-today">--</h4>
+        <p>Pageviews today</p>
+      </article>
+
+      <article class="matchup-card">
+        <span class="game-tag">7 Days</span>
+        <h4 id="views-week">--</h4>
+        <p>Pageviews this week</p>
+      </article>
+
+      <article class="matchup-card">
+        <span class="game-tag">30 Days</span>
+        <h4 id="views-month">--</h4>
+        <p>Pageviews this month</p>
+      </article>
+
+      <article class="matchup-card">
+        <span class="game-tag">Visitors</span>
+        <h4 id="unique-visitors">--</h4>
+        <p>Estimated unique visitors</p>
+      </article>
+
+      <article class="matchup-card">
+        <span class="game-tag">Sessions</span>
+        <h4 id="total-sessions">--</h4>
+        <p>Total browsing sessions</p>
+      </article>
+
+      <article class="matchup-card">
+        <span class="game-tag">Avg Time</span>
+        <h4 id="avg-time">--</h4>
+        <p>Average time on page</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- TOP PAGES -->
+  <section class="hq-section hq-section-alt">
+    <div class="section-header">
+      <h3>Top Pages</h3>
+      <p>See which pages are getting the most traffic.</p>
+    </div>
+
+    <div id="top-pages" class="report-list">
+      <div class="report-row">
+        <div>
+          <h4>Loading top pages...</h4>
+          <p>Waiting for analytics data.</p>
+        </div>
+        <span>--</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATCHUP PAGE PERFORMANCE -->
+  <section class="hq-section">
+    <div class="section-header">
+      <h3>Matchup Page Performance</h3>
+      <p>Track which matchup reports are pulling the most interest.</p>
+    </div>
+
+    <div id="top-matchups" class="report-list">
+      <div class="report-row">
+        <div>
+          <h4>Loading matchup pages...</h4>
+          <p>Dynamic matchup traffic will appear here.</p>
+        </div>
+        <span>--</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAFFIC SOURCES -->
+  <section class="hq-section hq-section-alt">
+    <div class="section-header">
+      <h3>Traffic Sources</h3>
+      <p>Where visitors are coming from before landing on PlayMaker Prime.</p>
+    </div>
+
+    <div id="traffic-sources" class="report-list">
+      <div class="report-row">
+        <div>
+          <h4>Loading referrers...</h4>
+          <p>Direct, Google, social, and external traffic sources.</p>
+        </div>
+        <span>--</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION / DEVICE -->
+  <section class="hq-section">
+    <div class="section-header">
+      <h3>Visitor Context</h3>
+      <p>Estimated location, device, and browser breakdown.</p>
+    </div>
+
+    <div class="matchup-grid">
+      <article class="matchup-card">
+        <h4>Top Locations</h4>
+        <div id="top-locations" class="report-list compact-report-list"></div>
+      </article>
+
+      <article class="matchup-card">
+        <h4>Devices</h4>
+        <div id="device-breakdown" class="report-list compact-report-list"></div>
+      </article>
+
+      <article class="matchup-card">
+        <h4>Browsers</h4>
+        <div id="browser-breakdown" class="report-list compact-report-list"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SESSION PATHS -->
+  <section class="hq-section hq-section-alt">
+    <div class="section-header">
+      <h3>Visitor Page Sequences</h3>
+      <p>See the order visitors move through pages during each session.</p>
+    </div>
+
+    <div id="session-paths" class="report-list">
+      <div class="report-row">
+        <div>
+          <h4>Loading visitor paths...</h4>
+          <p>Page sequence data will appear after session tracking is connected.</p>
+        </div>
+        <span>--</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECENT VISITS -->
+  <section class="hq-section">
+    <div class="section-header">
+      <h3>Recent Visits</h3>
+      <p>Latest pageviews tracked by PlayMaker Prime.</p>
+    </div>
+
+    <div id="recent-visits" class="report-list">
+      <div class="report-row">
+        <div>
+          <h4>Loading recent visits...</h4>
+          <p>Newest traffic events will appear here.</p>
+        </div>
+        <span>--</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 PlayMaker Prime. Private Analytics Dashboard.</p>
+</footer>
+
+<script>
+  function formatNumber(value) {
+    return Number(value || 0).toLocaleString();
+  }
+
+  function formatDuration(seconds) {
+    const total = Number(seconds || 0);
+
+    if (!total) return "0s";
+
+    const mins = Math.floor(total / 60);
+    const secs = Math.round(total % 60);
+
+    if (mins <= 0) return `${secs}s`;
+
+    return `${mins}m ${secs}s`;
+  }
+
+  function formatDateTime(value) {
+    if (!value) return "Unknown time";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) return value;
+
+    return date.toLocaleString();
+  }
+
+  function getPageLabel(page) {
+    if (!page) return "Unknown page";
+
+    if (page.includes("matchup.html?game=")) {
+      return page
+        .replace("/matchup.html?game=", "")
+        .replaceAll("%20", " ")
+        .replaceAll("%40", "@")
+        .replaceAll("-", " ");
+    }
+
+    if (page === "/" || page.includes("index.html")) return "Homepage";
+    if (page.includes("matchups.html")) return "Matchup Hub";
+    if (page.includes("players.html")) return "Players";
+    if (page.includes("teams.html")) return "Teams";
+    if (page.includes("pricing.html")) return "Pricing";
+    if (page.includes("/tool/")) return "PlayMaker Tool";
+
+    return page;
+  }
+
+  function renderRows(containerId, rows, emptyText, mapper) {
+    const container = document.getElementById(containerId);
+
+    if (!container) return;
+
+    if (!Array.isArray(rows) || !rows.length) {
+      container.innerHTML = `
+        <div class="report-row">
+          <div>
+            <h4>No data yet</h4>
+            <p>${emptyText}</p>
+          </div>
+          <span>--</span>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = rows.map(mapper).join("");
+  }
+
+  async function loadAnalytics() {
+    try {
+      const res = await fetch("/api/analytics/summary");
+
+      if (!res.ok) {
+        throw new Error("Analytics API unavailable");
+      }
+
+      const data = await res.json();
+
+      document.getElementById("views-today").textContent =
+        formatNumber(data.viewsToday);
+
+      document.getElementById("views-week").textContent =
+        formatNumber(data.viewsWeek);
+
+      document.getElementById("views-month").textContent =
+        formatNumber(data.viewsMonth);
+
+      document.getElementById("unique-visitors").textContent =
+        formatNumber(data.uniqueVisitors);
+
+      document.getElementById("total-sessions").textContent =
+        formatNumber(data.totalSessions);
+
+      document.getElementById("avg-time").textContent =
+        formatDuration(data.avgTimeOnPageSeconds);
+
+      renderRows(
+        "top-pages",
+        data.topPages,
+        "No pageview data has been collected yet.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${getPageLabel(item.page)}</h4>
+              <p>${item.page}</p>
+            </div>
+            <span>${formatNumber(item.views)} views</span>
+          </div>
+        `
+      );
+
+      renderRows(
+        "top-matchups",
+        data.topMatchups,
+        "No dynamic matchup pages have traffic yet.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${getPageLabel(item.page)}</h4>
+              <p>Avg time: ${formatDuration(item.avgTimeOnPageSeconds)}</p>
+            </div>
+            <span>${formatNumber(item.views)} views</span>
+          </div>
+        `
+      );
+
+      renderRows(
+        "traffic-sources",
+        data.referrers,
+        "No referrer data has been collected yet.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${item.source || "Direct"}</h4>
+              <p>${item.type || "Traffic source"}</p>
+            </div>
+            <span>${formatNumber(item.visits)} visits</span>
+          </div>
+        `
+      );
+
+      renderRows(
+        "top-locations",
+        data.locations,
+        "Location data will appear once backend tracking supports it.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${item.location || "Unknown"}</h4>
+              <p>${item.region || "Visitor location"}</p>
+            </div>
+            <span>${formatNumber(item.visits)}</span>
+          </div>
+        `
+      );
+
+      renderRows(
+        "device-breakdown",
+        data.devices,
+        "Device data will appear once user-agent parsing is connected.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${item.device || "Unknown"}</h4>
+              <p>${item.percent || 0}% of traffic</p>
+            </div>
+            <span>${formatNumber(item.visits)}</span>
+          </div>
+        `
+      );
+
+      renderRows(
+        "browser-breakdown",
+        data.browsers,
+        "Browser data will appear once user-agent parsing is connected.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${item.browser || "Unknown"}</h4>
+              <p>${item.percent || 0}% of traffic</p>
+            </div>
+            <span>${formatNumber(item.visits)}</span>
+          </div>
+        `
+      );
+
+      renderRows(
+        "session-paths",
+        data.sessionPaths,
+        "Session sequence tracking has not collected enough data yet.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${item.sessionLabel || "Visitor Session"}</h4>
+              <p>${Array.isArray(item.path) ? item.path.map(getPageLabel).join(" → ") : "Path unavailable"}</p>
+            </div>
+            <span>${formatDuration(item.durationSeconds)}</span>
+          </div>
+        `
+      );
+
+      renderRows(
+        "recent-visits",
+        data.recent,
+        "No recent visits have been tracked yet.",
+        item => `
+          <div class="report-row">
+            <div>
+              <h4>${getPageLabel(item.page)}</h4>
+              <p>
+                ${formatDateTime(item.timestamp)}
+                · ${item.referrer || "Direct"}
+                · ${item.device || "Unknown device"}
+              </p>
+            </div>
+            <span>${formatDuration(item.timeOnPageSeconds)}</span>
+          </div>
+        `
+      );
+
+    } catch (err) {
+      console.error(err);
+
+      document.getElementById("views-today").textContent = "0";
+      document.getElementById("views-week").textContent = "0";
+      document.getElementById("views-month").textContent = "0";
+      document.getElementById("unique-visitors").textContent = "0";
+      document.getElementById("total-sessions").textContent = "0";
+      document.getElementById("avg-time").textContent = "--";
+
+      document.getElementById("top-pages").innerHTML = `
+        <div class="report-row">
+          <div>
+            <h4>Analytics API not connected yet</h4>
+            <p>Once the backend routes are added, this dashboard will populate automatically.</p>
+          </div>
+          <span>Setup</span>
+        </div>
+      `;
+    }
+  }
+
+  loadAnalytics();
+</script>
+
+</body>
+</html>
