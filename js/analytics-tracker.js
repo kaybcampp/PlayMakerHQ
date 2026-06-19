@@ -1,4 +1,8 @@
 (function () {
+  if (localStorage.getItem("pm_ignore_analytics") === "true") {
+    return;
+  }
+
   const API_URL = "/api/analytics/track";
   const SESSION_KEY = "pm_session_id";
   const VISITOR_KEY = "pm_visitor_id";
@@ -6,6 +10,7 @@
   const SESSION_STARTED_KEY = "pm_session_started_at";
 
   const pageLoadedAt = Date.now();
+  let exitTracked = false;
 
   function createId(prefix) {
     return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
@@ -38,8 +43,8 @@
   function getDeviceType() {
     const ua = navigator.userAgent.toLowerCase();
 
-    if (/mobile|iphone|android/.test(ua)) return "Mobile";
     if (/ipad|tablet/.test(ua)) return "Tablet";
+    if (/mobile|iphone|android/.test(ua)) return "Mobile";
 
     return "Desktop";
   }
@@ -59,12 +64,20 @@
     const path = window.location.pathname;
     const search = window.location.search;
 
+    if (path.includes("/matchups/")) {
+      return "dynamic_matchup";
+    }
+
     if (path.includes("matchup.html") && search.includes("game=")) {
       return "dynamic_matchup";
     }
 
     if (path.includes("matchups.html")) {
       return "matchup_hub";
+    }
+
+    if (path.includes("all-matchups.html")) {
+      return "all_matchups";
     }
 
     if (path.includes("/tool/")) {
@@ -126,7 +139,7 @@
         },
         body,
         keepalive: true
-      }).catch(() => {});
+      }).catch(() => { });
     } catch (err) {
       // Fail silently. Analytics should never break the site.
     }
@@ -141,7 +154,12 @@
   }
 
   function trackPageExit() {
-    const timeOnPageSeconds = Math.round((Date.now() - pageLoadedAt) / 1000);
+    if (exitTracked) return;
+
+    exitTracked = true;
+
+    const rawSeconds = Math.round((Date.now() - pageLoadedAt) / 1000);
+    const timeOnPageSeconds = Math.min(rawSeconds, 1800);
 
     sendAnalytics(
       buildPayload("page_exit", {
