@@ -1,0 +1,9 @@
+User-agent: *
+
+Allow: /
+
+Disallow: /tool/
+
+Disallow: /analytics.html
+
+Sitemap: https://playmakerprime.com/sitemap.xml

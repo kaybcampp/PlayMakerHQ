@@ -204,6 +204,10 @@
         <p>Scan matchups, compare teams, and open full PlayMaker matchup reports.</p>
       </div>
 
+      <a href="/all-matchups.html" class="btn-primary">
+        View All 272 Matchups
+      </a>
+
       <div id="matchup-board" class="matchup-grid">
 
         <article class="matchup-card">
@@ -729,20 +733,31 @@
 
     const weekFilter = document.getElementById("week-filter");
 
+
+    function slugifyTeamName(code) {
+      return teamDisplayName(code)
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+    }
+
+    function matchupSlug(game) {
+      const awaySlug = slugifyTeamName(game.away);
+      const homeSlug = slugifyTeamName(game.home);
+
+      return `${awaySlug}-vs-${homeSlug}`;
+    }
+
     // ---------------------------------------
     // MATCHUP NAVIGATION FUNCTION (NEW CORE)
     // ---------------------------------------
     function openMatchup(game) {
-
       if (!game) return;
 
-      const home = String(game.home).toUpperCase();
-      const away = String(game.away).toUpperCase();
+      const slug = matchupSlug(game);
 
-      const key = `${away}-VS-${home}`;
-
-      window.location.href = `/matchup.html?game=${encodeURIComponent(key)}`;
-
+      window.location.href = `/matchups/${slug}`;
     }
 
     // ---------------------------------------

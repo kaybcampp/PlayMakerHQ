@@ -731,8 +731,18 @@
     </footer>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const gameParam = params.get("game");
+        function getMatchupSlugFromUrl() {
+            const path = window.location.pathname;
+
+            if (path.includes("/matchups/")) {
+                return path.split("/matchups/")[1]?.replace(/\/$/, "") || null;
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            return params.get("game");
+        }
+
+        const gameParam = getMatchupSlugFromUrl();
 
         const TEAM_NAMES = {
             ARI: "Arizona Cardinals",
@@ -788,15 +798,39 @@
         function matchupMatches(game, key) {
             if (!game || !key) return false;
 
+            const normalizedKey = String(key || "").toLowerCase();
+
+            const slug = matchupSlug(game);
+
             const direct = `${game.away}-VS-${game.home}`.toUpperCase();
             const reverse = `${game.home}-VS-${game.away}`.toUpperCase();
             const matchupKey = String(game.matchupKey || "").toUpperCase();
 
-            return key === direct || key === reverse || key === matchupKey;
+            return (
+                normalizedKey === slug ||
+                normalizeParam(key) === direct ||
+                normalizeParam(key) === reverse ||
+                normalizeParam(key) === matchupKey
+            );
         }
 
         function formatTeam(code) {
             return TEAM_NAMES[code] || code;
+        }
+
+        function slugifyTeamName(code) {
+            return formatTeam(code)
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]/g, "")
+                .trim()
+                .replace(/\s+/g, "-");
+        }
+
+        function matchupSlug(game) {
+            const awaySlug = slugifyTeamName(game.away);
+            const homeSlug = slugifyTeamName(game.home);
+
+            return `${awaySlug}-vs-${homeSlug}`;
         }
 
         function formatDate(dateString) {
@@ -2108,7 +2142,7 @@
                 otherGames.length
                     ? otherGames.map(g => `
             <a
-                href="/matchup.html?game=${encodeURIComponent(`${g.away}-VS-${g.home}`)}"
+                href="/matchups/${matchupSlug(g)}"
                 class="related-matchup-card"
             >
                 <h4>${g.away} @ ${g.home}</h4>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>All 2026 NFL Matchups | PlayMaker Prime</title>
+
+    <meta name="description"
+        content="View all 272 2026 NFL regular season matchups and open matchup-specific PlayMaker Prime NFL prop research reports." />
+
+    <meta property="og:title" content="All 2026 NFL Matchups | PlayMaker Prime">
+    <meta property="og:description"
+        content="Browse every 2026 NFL regular season matchup and open detailed PlayMaker Prime matchup reports.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
+    <meta property="og:url" content="https://playmakerprime.com/all-matchups.html">
+
+    <link rel="stylesheet" href="assets/css/matchups.css" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+</head>
+
+<body>
+
+    <header class="pm-header">
+        <h1>PlayMaker Prime</h1>
+
+        <nav class="pm-nav">
+            <a href="index.html" class="pm-link">Home</a>
+            <a href="matchups.html" class="pm-link active">Matchups</a>
+            <a href="/tool/" class="pm-link pm-link-cta">Open Tool</a>
+        </nav>
+    </header>
+
+    <section class="matchups-hero matchups-hub-hero">
+        <div class="hero-glow"></div>
+
+        <div class="matchups-hero-content">
+            <span class="hq-pill">All NFL Matchups</span>
+
+            <h2>All 2026 NFL Matchups</h2>
+
+            <p>
+                Browse every 2026 NFL regular season matchup and open detailed
+                PlayMaker Prime matchup reports.
+            </p>
+        </div>
+    </section>
+
+    <main>
+
+        <section class="hq-section seo-intro-section">
+            <div class="seo-intro-card">
+                <h3>Every 2026 NFL Matchup in One Place</h3>
+
+                <p>
+                    Use this page to access all 272 NFL regular season matchup reports.
+                    Each game links to a PlayMaker Prime matchup page with defensive tiers,
+                    prop angles, player research, team trends, weather context, injury notes,
+                    and matchup intelligence.
+                </p>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>2026 NFL Matchup Index</h3>
+                <p id="matchup-count">Loading all matchups...</p>
+            </div>
+
+            <div id="all-matchups-list" class="report-list">
+                <div class="report-row">
+                    <div>
+                        <h4>Loading matchups...</h4>
+                        <p>Building full matchup index.</p>
+                    </div>
+                    <span>Loading</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PlayMaker Prime. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const TEAM_DISPLAY_NAMES = {
+            ARI: "Arizona Cardinals",
+            ATL: "Atlanta Falcons",
+            BAL: "Baltimore Ravens",
+            BUF: "Buffalo Bills",
+            CAR: "Carolina Panthers",
+            CHI: "Chicago Bears",
+            CIN: "Cincinnati Bengals",
+            CLE: "Cleveland Browns",
+            DAL: "Dallas Cowboys",
+            DEN: "Denver Broncos",
+            DET: "Detroit Lions",
+            GB: "Green Bay Packers",
+            HOU: "Houston Texans",
+            IND: "Indianapolis Colts",
+            JAX: "Jacksonville Jaguars",
+            KC: "Kansas City Chiefs",
+            LV: "Las Vegas Raiders",
+            LAC: "Los Angeles Chargers",
+            LAR: "Los Angeles Rams",
+            MIA: "Miami Dolphins",
+            MIN: "Minnesota Vikings",
+            NE: "New England Patriots",
+            NO: "New Orleans Saints",
+            NYG: "New York Giants",
+            NYJ: "New York Jets",
+            PHI: "Philadelphia Eagles",
+            PIT: "Pittsburgh Steelers",
+            SF: "San Francisco 49ers",
+            SEA: "Seattle Seahawks",
+            TB: "Tampa Bay Buccaneers",
+            TEN: "Tennessee Titans",
+            WAS: "Washington Commanders",
+            WSH: "Washington Commanders"
+        };
+
+        function teamName(code) {
+            return TEAM_DISPLAY_NAMES[String(code || "").toUpperCase()] || code;
+        }
+
+        function formatDate(dateValue) {
+            if (!dateValue) return "Date TBD";
+
+            const date = new Date(dateValue);
+
+            if (Number.isNaN(date.getTime())) return dateValue;
+
+            return date.toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            });
+        }
+
+        function slugifyTeamName(code) {
+            return teamName(code)
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]/g, "")
+                .trim()
+                .replace(/\s+/g, "-");
+        }
+
+        function matchupSlug(game) {
+            const awaySlug = slugifyTeamName(game.away);
+            const homeSlug = slugifyTeamName(game.home);
+
+            return `${awaySlug}-vs-${homeSlug}`;
+        }
+
+        function matchupUrl(game) {
+            return `/matchups/${matchupSlug(game)}`;
+        }
+
+        async function loadAllMatchups() {
+            const list = document.getElementById("all-matchups-list");
+            const count = document.getElementById("matchup-count");
+
+            try {
+                const res = await fetch("/assets/data/schedule2026.json");
+
+                if (!res.ok) {
+                    throw new Error("Failed to load schedule.");
+                }
+
+                const schedule = await res.json();
+
+                const games = schedule
+                    .filter(game => game.away && game.home && game.week)
+                    .sort((a, b) => {
+                        const weekDiff = Number(a.week) - Number(b.week);
+
+                        if (weekDiff !== 0) return weekDiff;
+
+                        return new Date(a.date || 0) - new Date(b.date || 0);
+                    });
+
+                count.textContent = `${games.length} regular season matchups available.`;
+
+                const gamesByWeek = {};
+
+                games.forEach(game => {
+                    const week = game.week || "TBD";
+
+                    if (!gamesByWeek[week]) {
+                        gamesByWeek[week] = [];
+                    }
+
+                    gamesByWeek[week].push(game);
+                });
+
+                list.innerHTML = Object.entries(gamesByWeek).map(([week, weekGames]) => `
+        <div class="report-row week-index-row">
+          <div>
+            <h4>Week ${week}</h4>
+            <p>${weekGames.length} matchup${weekGames.length === 1 ? "" : "s"}</p>
+          </div>
+          <span>${weekGames.length}</span>
+        </div>
+
+        ${weekGames.map(game => {
+                    const away = String(game.away || "").toUpperCase();
+                    const home = String(game.home || "").toUpperCase();
+
+                    return `
+            <a href="${matchupUrl(game)}" class="report-row matchup-index-link">
+              <div>
+                <h4>${teamName(away)} @ ${teamName(home)}</h4>
+                <p>${away} @ ${home} · ${formatDate(game.date)}</p>
+              </div>
+              <span>Open Report</span>
+            </a>
+          `;
+                }).join("")}
+      `).join("");
+
+            } catch (err) {
+                console.error(err);
+
+                count.textContent = "Unable to load matchup index.";
+
+                list.innerHTML = `
+        <div class="report-row">
+          <div>
+            <h4>Matchups unavailable</h4>
+            <p>Could not load schedule data.</p>
+          </div>
+          <span>Error</span>
+        </div>
+      `;
+            }
+        }
+
+        loadAllMatchups();
+    </script>
+
+    <script src="/assets/js/analytics-tracker.js"></script>
+
+</body>
+
+</html>

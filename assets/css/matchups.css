@@ -2017,6 +2017,21 @@ body {
 
 }
 
+.week-index-row {
+  background: rgba(102, 255, 153, 0.08);
+  border-color: rgba(102, 255, 153, 0.22);
+}
+
+.matchup-index-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.matchup-index-link:hover {
+  border-color: rgba(102, 255, 153, 0.45);
+  transform: translateY(-1px);
+}
+
 /* FOOTER */
 
 footer {
