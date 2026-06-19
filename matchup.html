@@ -19,8 +19,8 @@
 
     <meta property="og:url" content="https://playmakerprime.com/matchup.html">
 
-    <link rel="stylesheet" href="assets/css/matchups.css" />
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="/assets/css/matchups.css" />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 </head>
 
 <body>
@@ -2162,7 +2162,7 @@
 
         async function loadMatchup() {
             try {
-                const key = normalizeParam(gameParam);
+                const key = gameParam;
 
                 if (!key) {
                     renderNotFound();
