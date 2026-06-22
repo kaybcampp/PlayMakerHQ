@@ -133,6 +133,20 @@
       <div id="team-browser-grid" class="team-browser-grid"></div>
     </section>
 
+    <section class="hq-section hq-section-alt">
+      <div class="section-header">
+        <h3>Rising Players</h3>
+        <p>Opportunity-based player rankings built around usage, matchup, and role changes.</p>
+      </div>
+
+      <div id="rising-players-grid" class="player-grid">
+        <article class="player-card">
+          <h4>Loading rising players...</h4>
+          <p class="player-role">Building opportunity watchlist.</p>
+        </article>
+      </div>
+    </section>
+
     <section class="hq-section hq-section-alt" id="filtered-player-section" style="display:none;">
       <div class="section-header">
         <h3 id="filtered-player-title">Filtered Players</h3>
@@ -498,6 +512,76 @@
       return "Usage-based props";
     }
 
+    const RISING_DEFAULTS = [
+      { name: "Jayden Daniels", reason: "Dual-threat volume and rushing upside" },
+      { name: "Bijan Robinson", reason: "Volume increase and red-zone usage" },
+      { name: "Jahmyr Gibbs", reason: "Explosive usage and receiving role" },
+      { name: "Lamar Jackson", reason: "Defensive matchup and rushing floor" },
+      { name: "Saquon Barkley", reason: "Workload stability and TD opportunity" },
+      { name: "Ja'Marr Chase", reason: "Target share and matchup leverage" }
+    ];
+
+    function renderRisingPlayers() {
+      const grid = document.getElementById("rising-players-grid");
+      if (!grid) return;
+
+      const risingPlayers = RISING_DEFAULTS
+        .map(item => {
+          const target = playerSlug(item.name);
+          const player = allPlayers.find(p => playerSlug(p.name) === target);
+          return player ? { ...player, risingReason: item.reason } : null;
+        })
+        .filter(Boolean);
+
+      if (!risingPlayers.length) {
+        grid.innerHTML = `
+      <article class="player-card">
+        <h4>Rising players unavailable</h4>
+        <p class="player-role">Player data could not be loaded.</p>
+      </article>
+    `;
+        return;
+      }
+
+      grid.innerHTML = risingPlayers.map(player => `
+    <article class="player-card trending-player-card">
+      <div class="trending-player-photo">
+        <img
+          src="${getPlayerImage(player)}"
+          alt="${player.name}"
+          loading="lazy"
+          onerror="this.src='/assets/images/player-placeholder.png'"
+        >
+      </div>
+
+      <div class="player-top">
+        <span class="team-tag">${player.team}</span>
+        <span class="position-tag">${player.position}</span>
+      </div>
+
+      <h4>${player.name}</h4>
+      <p class="player-role">${player.position} · ${teamName(player.team)}</p>
+
+      <ul class="player-points">
+        <li>Why Rising: ${player.risingReason}</li>
+        <li>${getNextOpponentText(player)}</li>
+        <li>Prop Focus: ${getPropFocus(player.position)}</li>
+      </ul>
+
+      <button type="button" class="card-link player-card-button" data-player="${player.name}">
+        View player →
+      </button>
+    </article>
+  `).join("");
+
+      document.querySelectorAll("#rising-players-grid .player-card-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const player = allPlayers.find(p => p.name === button.dataset.player);
+          if (player) openPlayer(player);
+        });
+      });
+    }
+
     function renderTeamBrowser() {
       const grid = document.getElementById("team-browser-grid");
       if (!grid) return;
@@ -679,6 +763,7 @@
 
       renderTrendingPlayers();
       initBrowseFilters();
+      renderRisingPlayers();
 
       input.addEventListener("input", e => {
         renderPlayerSuggestions(e.target.value);
