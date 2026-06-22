@@ -93,6 +93,57 @@
 
     <section class="hq-section hq-section-alt">
       <div class="section-header">
+        <h3>Browse By Position</h3>
+        <p>Explore 2026 NFL players by prop-relevant position group.</p>
+      </div>
+
+      <div class="browse-position-grid">
+        <button class="browse-card position-filter-card" data-position="QB">
+          <span>QB</span>
+          <h4>Quarterbacks</h4>
+          <p>Passing yards, completions, passing TDs, rushing yards.</p>
+        </button>
+
+        <button class="browse-card position-filter-card" data-position="RB">
+          <span>RB</span>
+          <h4>Running Backs</h4>
+          <p>Rushing yards, carries, receiving usage, rush + rec TDs.</p>
+        </button>
+
+        <button class="browse-card position-filter-card" data-position="WR">
+          <span>WR</span>
+          <h4>Wide Receivers</h4>
+          <p>Targets, receptions, receiving yards, receiving TDs.</p>
+        </button>
+
+        <button class="browse-card position-filter-card" data-position="TE">
+          <span>TE</span>
+          <h4>Tight Ends</h4>
+          <p>Receptions, receiving yards, red-zone role, TD props.</p>
+        </button>
+      </div>
+    </section>
+
+    <section class="hq-section">
+      <div class="section-header">
+        <h3>Browse By Team</h3>
+        <p>Open a filtered player view for all 32 NFL teams.</p>
+      </div>
+
+      <div id="team-browser-grid" class="team-browser-grid"></div>
+    </section>
+
+    <section class="hq-section hq-section-alt" id="filtered-player-section" style="display:none;">
+      <div class="section-header">
+        <h3 id="filtered-player-title">Filtered Players</h3>
+        <p id="filtered-player-summary">Select a position or team to browse players.</p>
+      </div>
+
+      <div id="filtered-player-grid" class="player-grid"></div>
+    </section>
+
+    <section class="hq-section hq-section-alt">
+      <div class="section-header">
         <h3>Player Data PlayMaker Cares About</h3>
         <p>Each player profile is built around the same prop logic used inside the prediction tool.</p>
       </div>
@@ -447,6 +498,124 @@
       return "Usage-based props";
     }
 
+    function renderTeamBrowser() {
+      const grid = document.getElementById("team-browser-grid");
+      if (!grid) return;
+
+      grid.innerHTML = PLAYER_FILES.map(team => `
+    <button type="button" class="team-browser-card" data-team="${team}">
+      <span>${team}</span>
+      <strong>${teamName(team)}</strong>
+    </button>
+  `).join("");
+
+      document.querySelectorAll(".team-browser-card").forEach(button => {
+        button.addEventListener("click", () => {
+          renderFilteredPlayers({
+            type: "team",
+            value: button.dataset.team
+          });
+        });
+      });
+    }
+
+    function renderFilteredPlayers({ type, value }) {
+      const section = document.getElementById("filtered-player-section");
+      const title = document.getElementById("filtered-player-title");
+      const summary = document.getElementById("filtered-player-summary");
+      const grid = document.getElementById("filtered-player-grid");
+
+      if (!section || !title || !summary || !grid) return;
+
+      let players = [];
+
+      if (type === "position") {
+        players = allPlayers.filter(player =>
+          String(player.position || "").toUpperCase() === value
+        );
+
+        title.textContent = `${value} Player Intelligence`;
+        summary.textContent = `${players.length} ${value} players available in the 2026 PlayMaker player database.`;
+      }
+
+      if (type === "team") {
+        players = allPlayers.filter(player =>
+          String(player.team || "").toUpperCase() === value
+        );
+
+        title.textContent = `${teamName(value)} Player Intelligence`;
+        summary.textContent = `${players.length} offensive players available for ${teamName(value)}.`;
+      }
+
+      section.style.display = "block";
+
+      if (!players.length) {
+        grid.innerHTML = `
+      <article class="player-card">
+        <h4>No players found</h4>
+        <p class="player-role">Try another team or position.</p>
+      </article>
+    `;
+        return;
+      }
+
+      grid.innerHTML = players.slice(0, 24).map(player => `
+    <article class="player-card trending-player-card">
+      <div class="trending-player-photo">
+        <img
+          src="${getPlayerImage(player)}"
+          alt="${player.name}"
+          loading="lazy"
+          onerror="this.src='/assets/images/player-placeholder.png'"
+        >
+      </div>
+
+      <div class="player-top">
+        <span class="team-tag">${player.team}</span>
+        <span class="position-tag">${player.position}</span>
+      </div>
+
+      <h4>${player.name}</h4>
+
+      <p class="player-role">${player.position} · ${teamName(player.team)}</p>
+
+      <ul class="player-points">
+        <li>${getNextOpponentText(player)}</li>
+        <li>Prop Focus: ${getPropFocus(player.position)}</li>
+      </ul>
+
+      <button type="button" class="card-link player-card-button" data-player="${player.name}">
+        View player →
+      </button>
+    </article>
+  `).join("");
+
+      grid.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      document.querySelectorAll("#filtered-player-grid .player-card-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const player = allPlayers.find(p => p.name === button.dataset.player);
+          if (player) openPlayer(player);
+        });
+      });
+    }
+
+    function initBrowseFilters() {
+      document.querySelectorAll(".position-filter-card").forEach(button => {
+        button.addEventListener("click", () => {
+          renderFilteredPlayers({
+            type: "position",
+            value: button.dataset.position
+          });
+        });
+      });
+
+      renderTeamBrowser();
+    }
+
     function renderPlayerSuggestions(query) {
       const box = document.getElementById("player-suggestions");
 
@@ -509,6 +678,7 @@
       ]);
 
       renderTrendingPlayers();
+      initBrowseFilters();
 
       input.addEventListener("input", e => {
         renderPlayerSuggestions(e.target.value);
