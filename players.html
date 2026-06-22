@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Players — PlayMaker HQ</title>
-  <meta name="description" content="Explore NFL player intelligence, prop trends, recent performance, matchup context, injuries, and PlayMaker angles before opening the prediction tool." />
+  <meta name="description"
+    content="Explore NFL player intelligence, prop trends, recent performance, matchup context, injuries, and PlayMaker angles before opening the prediction tool." />
 
   <link rel="stylesheet" href="assets/css/players.css" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
@@ -29,29 +31,48 @@
   </header>
 
   <section class="players-hero">
+
     <div class="hero-glow"></div>
 
     <div class="players-hero-content">
-      <span class="hq-pill">NFL Player Intelligence</span>
+
+      <span class="hq-pill">
+        NFL Player Intelligence
+      </span>
 
       <h2>
-        Player props start with player context.
-        <span>PlayMaker tracks the details.</span>
+        NFL Player Intelligence Portal
       </h2>
 
       <p>
-        Review player trends, recent usage, matchup difficulty, injury notes, and prop categories before running the full PlayMaker prediction tool.
+        Search 2026 NFL players and explore trends, matchups,
+        prop intelligence, historical performance, and
+        PlayMaker research reports.
       </p>
 
       <div class="player-search-card">
+
         <label for="player-search">Search Players</label>
+
         <div class="search-row">
-          <input type="text" id="player-search" placeholder="Search Jalen Hurts, Saquon Barkley, CeeDee Lamb..." />
-          <button type="button">Search</button>
+          <input type="text" id="player-search" placeholder="Search Jalen Hurts, Saquon Barkley, Ja'Marr Chase..."
+            autocomplete="off" />
+
+          <button type="button" id="player-search-btn">
+            Search Player
+          </button>
         </div>
-        <p class="search-note">Player profiles and live prop pages coming soon.</p>
+
+        <div id="player-suggestions" class="player-suggestions"></div>
+
+        <p class="search-note">
+          Search by player name, team, or position to open a Player Intelligence Report.
+        </p>
+
       </div>
+
     </div>
+
   </section>
 
   <main>
@@ -230,5 +251,126 @@
     <p>&copy; 2025 PlayMaker HQ. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    const PLAYER_FILES = [
+      "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE",
+      "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC",
+      "LV", "LAC", "LAR", "MIA", "MIN", "NE", "NO", "NYG",
+      "NYJ", "PHI", "PIT", "SF", "SEA", "TB", "TEN", "WAS"
+    ];
+
+    let allPlayers = [];
+
+    function playerSlug(name) {
+      return String(name || "")
+        .toLowerCase()
+        .replace(/[.'’]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+    }
+
+    async function loadPlayers() {
+      const playerSets = await Promise.allSettled(
+        PLAYER_FILES.map(team =>
+          fetch(`/assets/data/players/players-${team}.json`)
+            .then(res => res.ok ? res.json() : [])
+            .then(players => players.map(p => ({ ...p, team })))
+        )
+      );
+
+      allPlayers = playerSets
+        .filter(result => result.status === "fulfilled")
+        .flatMap(result => result.value)
+        .filter(player => player.name && player.position);
+    }
+
+    function openPlayer(player) {
+      window.location.href = `/players/${playerSlug(player.name)}`;
+    }
+
+    function renderPlayerSuggestions(query) {
+      const box = document.getElementById("player-suggestions");
+
+      if (!query.trim()) {
+        box.innerHTML = "";
+        box.style.display = "none";
+        return;
+      }
+
+      const q = query.toLowerCase();
+
+      const matches = allPlayers
+        .filter(player => {
+          return (
+            player.name.toLowerCase().includes(q) ||
+            String(player.team || "").toLowerCase().includes(q) ||
+            String(player.position || "").toLowerCase().includes(q)
+          );
+        })
+        .slice(0, 10);
+
+      if (!matches.length) {
+        box.innerHTML = `<div class="player-suggestion-empty">No players found.</div>`;
+        box.style.display = "block";
+        return;
+      }
+
+      box.innerHTML = matches.map(player => `
+      <button type="button" class="player-suggestion" data-player="${player.name}">
+        <img
+          src="${player.image || "/assets/images/player-placeholder.png"}"
+          alt="${player.name}"
+          onerror="this.src='/assets/images/player-placeholder.png'"
+        >
+
+        <span>
+          <strong>${player.name}</strong>
+          <small>${player.position} · ${player.team}</small>
+        </span>
+      </button>
+    `).join("");
+
+      box.style.display = "grid";
+
+      document.querySelectorAll(".player-suggestion").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const player = allPlayers.find(p => p.name === btn.dataset.player);
+          if (player) openPlayer(player);
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const input = document.getElementById("player-search");
+      const button = document.getElementById("player-search-btn");
+
+      await loadPlayers();
+
+      input.addEventListener("input", e => {
+        renderPlayerSuggestions(e.target.value);
+      });
+
+      input.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+          const firstMatch = allPlayers.find(player =>
+            player.name.toLowerCase().includes(input.value.toLowerCase())
+          );
+
+          if (firstMatch) openPlayer(firstMatch);
+        }
+      });
+
+      button.addEventListener("click", () => {
+        const firstMatch = allPlayers.find(player =>
+          player.name.toLowerCase().includes(input.value.toLowerCase())
+        );
+
+        if (firstMatch) openPlayer(firstMatch);
+      });
+    });
+  </script>
+
 </body>
+
 </html>
