@@ -147,6 +147,41 @@
       </div>
     </section>
 
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>Recent Intelligence Reports</h3>
+
+        <p>
+
+          AI-generated player intelligence built around trends,
+          opportunities, defensive matchups, and role changes.
+
+        </p>
+
+      </div>
+
+      <div id="intelligence-report-grid" class="report-list">
+
+        <div class="report-row">
+
+          <div>
+
+            <h4>Loading intelligence reports...</h4>
+
+            <p>Building player intelligence feed.</p>
+
+          </div>
+
+          <span>Loading</span>
+
+        </div>
+
+      </div>
+
+    </section>
+
     <section class="hq-section hq-section-alt" id="filtered-player-section" style="display:none;">
       <div class="section-header">
         <h3 id="filtered-player-title">Filtered Players</h3>
@@ -211,41 +246,6 @@
         <div class="prop-card">
           <h4>TD Props</h4>
           <p>Anytime touchdown angles, short-yardage usage, red-zone share, and defensive weakness.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="hq-section">
-      <div class="section-header">
-        <h3>Upcoming Player Tools</h3>
-        <p>This section will grow into a full player research hub for weekly NFL prop analysis.</p>
-      </div>
-
-      <div class="report-list">
-
-        <div class="report-row">
-          <div>
-            <h4>Player Profile Pages</h4>
-            <p>Dedicated pages for player trends, recent games, matchup notes, and prop history.</p>
-          </div>
-          <span>Coming Soon</span>
-        </div>
-
-        <div class="report-row">
-          <div>
-            <h4>Player Prop Dashboards</h4>
-            <p>Quick views for passing, rushing, receiving, receptions, TDs, and defensive context.</p>
-          </div>
-          <span>Coming Soon</span>
-        </div>
-
-        <div class="report-row">
-          <div>
-            <h4>Ride or Fade Player Results</h4>
-            <p>Track how PlayMaker calls performed by player and prop category over time.</p>
-          </div>
-          <span>Planned</span>
         </div>
 
       </div>
@@ -521,6 +521,40 @@
       { name: "Ja'Marr Chase", reason: "Target share and matchup leverage" }
     ];
 
+    const INTELLIGENCE_REPORTS = [
+
+      {
+        player: "Jalen Hurts",
+        type: "Last 10 Trend Report"
+      },
+
+      {
+        player: "Saquon Barkley",
+        type: "Opportunity Report"
+      },
+
+      {
+        player: "Jayden Daniels",
+        type: "Prime Time Report"
+      },
+
+      {
+        player: "Lamar Jackson",
+        type: "Defensive Matchup Report"
+      },
+
+      {
+        player: "Josh Allen",
+        type: "Red Zone Report"
+      },
+
+      {
+        player: "Ja'Marr Chase",
+        type: "Target Share Report"
+      }
+
+    ];
+
     function renderRisingPlayers() {
       const grid = document.getElementById("rising-players-grid");
       if (!grid) return;
@@ -580,6 +614,164 @@
           if (player) openPlayer(player);
         });
       });
+    }
+
+    function renderIntelligenceReports() {
+
+      const grid = document.getElementById(
+        "intelligence-report-grid"
+      );
+
+      if (!grid) return;
+
+      const reports = INTELLIGENCE_REPORTS
+
+        .map(item => {
+
+          const target = playerSlug(
+            item.player
+          );
+
+          const player = allPlayers.find(p =>
+
+            playerSlug(p.name) === target
+
+          );
+
+          return player
+
+            ? {
+              ...player,
+              reportType: item.type
+            }
+
+            : null;
+
+        })
+
+        .filter(Boolean);
+
+      if (!reports.length) {
+
+        grid.innerHTML = `
+
+      <div class="report-row">
+
+        <div>
+
+          <h4>
+
+            Reports unavailable
+
+          </h4>
+
+          <p>
+
+            Player intelligence data could not be loaded.
+
+          </p>
+
+        </div>
+
+        <span>
+
+          Unavailable
+
+        </span>
+
+      </div>
+
+    `;
+
+        return;
+      }
+
+      grid.innerHTML = reports.map(player => `
+
+    <button
+
+      type="button"
+
+      class="report-row intelligence-report-row"
+
+      data-player="${player.name}"
+
+    >
+
+      <div>
+
+        <h4>
+
+          ${player.name}
+
+          ${player.reportType}
+
+        </h4>
+
+        <p>
+
+          ${player.position}
+
+          ·
+
+          ${teamName(player.team)}
+
+          ·
+
+          ${getNextOpponentText(player)}
+
+        </p>
+
+      </div>
+
+      <span>
+
+        Open Report →
+
+      </span>
+
+    </button>
+
+  `).join("");
+
+      document
+
+        .querySelectorAll(
+
+          ".intelligence-report-row"
+
+        )
+
+        .forEach(button => {
+
+          button.addEventListener(
+
+            "click",
+
+            () => {
+
+              const player = allPlayers.find(
+
+                p =>
+
+                  p.name ===
+
+                  button.dataset.player
+
+              );
+
+              if (player) {
+
+                openPlayer(player);
+
+              }
+
+            }
+
+          );
+
+        });
+
     }
 
     function renderTeamBrowser() {
@@ -764,6 +956,7 @@
       renderTrendingPlayers();
       initBrowseFilters();
       renderRisingPlayers();
+      renderIntelligenceReports();
 
       input.addEventListener("input", e => {
         renderPlayerSuggestions(e.target.value);
