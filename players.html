@@ -79,66 +79,15 @@
 
     <section class="hq-section">
       <div class="section-header">
-        <h3>Featured Players</h3>
-        <p>Popular NFL players with prop angles, recent trends, and matchup context.</p>
+        <h3>Trending Players</h3>
+        <p>Weekly player intelligence watchlist powered by PlayMaker player data.</p>
       </div>
 
-      <div class="player-grid">
-
+      <div id="trending-players-grid" class="player-grid">
         <article class="player-card">
-          <div class="player-top">
-            <span class="team-tag">PHI</span>
-            <span class="position-tag">QB</span>
-          </div>
-
-          <h4>Jalen Hurts</h4>
-          <p class="player-role">Quarterback · Philadelphia Eagles</p>
-
-          <ul class="player-points">
-            <li>Passing yards</li>
-            <li>Rushing yards</li>
-            <li>Anytime TD trends</li>
-          </ul>
-
-          <a href="#" class="card-link">View player →</a>
+          <h4>Loading trending players...</h4>
+          <p class="player-role">Building weekly player watchlist.</p>
         </article>
-
-        <article class="player-card">
-          <div class="player-top">
-            <span class="team-tag">PHI</span>
-            <span class="position-tag">RB</span>
-          </div>
-
-          <h4>Saquon Barkley</h4>
-          <p class="player-role">Running Back · Philadelphia Eagles</p>
-
-          <ul class="player-points">
-            <li>Rushing volume</li>
-            <li>Receiving usage</li>
-            <li>Red-zone workload</li>
-          </ul>
-
-          <a href="#" class="card-link">View player →</a>
-        </article>
-
-        <article class="player-card">
-          <div class="player-top">
-            <span class="team-tag">DAL</span>
-            <span class="position-tag">WR</span>
-          </div>
-
-          <h4>CeeDee Lamb</h4>
-          <p class="player-role">Wide Receiver · Dallas Cowboys</p>
-
-          <ul class="player-points">
-            <li>Target share</li>
-            <li>Receiving yards</li>
-            <li>Reception trends</li>
-          </ul>
-
-          <a href="#" class="card-link">View player →</a>
-        </article>
-
       </div>
     </section>
 
@@ -259,7 +208,78 @@
       "NYJ", "PHI", "PIT", "SF", "SEA", "TB", "TEN", "WAS"
     ];
 
+    const TEAM_NAMES = {
+
+      ARI: "Arizona Cardinals",
+
+      ATL: "Atlanta Falcons",
+
+      BAL: "Baltimore Ravens",
+
+      BUF: "Buffalo Bills",
+
+      CAR: "Carolina Panthers",
+
+      CHI: "Chicago Bears",
+
+      CIN: "Cincinnati Bengals",
+
+      CLE: "Cleveland Browns",
+
+      DAL: "Dallas Cowboys",
+
+      DEN: "Denver Broncos",
+
+      DET: "Detroit Lions",
+
+      GB: "Green Bay Packers",
+
+      HOU: "Houston Texans",
+
+      IND: "Indianapolis Colts",
+
+      JAX: "Jacksonville Jaguars",
+
+      KC: "Kansas City Chiefs",
+
+      LV: "Las Vegas Raiders",
+
+      LAC: "Los Angeles Chargers",
+
+      LAR: "Los Angeles Rams",
+
+      MIA: "Miami Dolphins",
+
+      MIN: "Minnesota Vikings",
+
+      NE: "New England Patriots",
+
+      NO: "New Orleans Saints",
+
+      NYG: "New York Giants",
+
+      NYJ: "New York Jets",
+
+      PHI: "Philadelphia Eagles",
+
+      PIT: "Pittsburgh Steelers",
+
+      SF: "San Francisco 49ers",
+
+      SEA: "Seattle Seahawks",
+
+      TB: "Tampa Bay Buccaneers",
+
+      TEN: "Tennessee Titans",
+
+      WSH: "Washington Commanders",
+
+      WAS: "Washington Commanders"
+
+    };
+
     let allPlayers = [];
+    let schedule2026 = [];
 
     function playerSlug(name) {
       return String(name || "")
@@ -268,6 +288,14 @@
         .replace(/[^a-z0-9\s-]/g, "")
         .trim()
         .replace(/\s+/g, "-");
+    }
+
+    function teamName(code) {
+
+      return TEAM_NAMES[
+        String(code || "").toUpperCase()
+      ] || code;
+
     }
 
     async function loadPlayers() {
@@ -285,8 +313,138 @@
         .filter(player => player.name && player.position);
     }
 
+    async function loadSchedule() {
+      try {
+        const res = await fetch("/assets/data/schedule2026.json");
+        schedule2026 = res.ok ? await res.json() : [];
+      } catch (err) {
+        console.warn("Schedule unavailable:", err);
+        schedule2026 = [];
+      }
+    }
+
     function openPlayer(player) {
       window.location.href = `/players/${playerSlug(player.name)}`;
+    }
+
+    function getNextOpponent(player) {
+      const team = String(player.team || "").toUpperCase();
+
+      const nextGame = schedule2026.find(game => {
+        const away = String(game.away || "").toUpperCase();
+        const home = String(game.home || "").toUpperCase();
+
+        return away === team || home === team;
+      });
+
+      if (!nextGame) return "TBD";
+
+      const away = String(nextGame.away || "").toUpperCase();
+      const home = String(nextGame.home || "").toUpperCase();
+
+      return away === team
+
+        ? `@ ${teamName(home)}`
+
+        : `vs ${teamName(away)}`;
+    }
+
+    function getNextOpponentText(player) {
+      return `Next Opponent: ${getNextOpponent(player)}`;
+    }
+
+    const TRENDING_DEFAULTS = [
+      "Jalen Hurts",
+      "Saquon Barkley",
+      "Lamar Jackson",
+      "Jayden Daniels",
+      "Josh Allen",
+      "Ja'Marr Chase",
+      "Bijan Robinson",
+      "Jahmyr Gibbs",
+      "Justin Jefferson",
+      "CeeDee Lamb"
+    ];
+
+    function getPlayerImage(player) {
+      return player?.image || "/assets/images/player-placeholder.png";
+    }
+
+    function renderTrendingPlayers() {
+      const grid = document.getElementById("trending-players-grid");
+      if (!grid) return;
+
+      const trendingPlayers = TRENDING_DEFAULTS
+        .map(name => {
+          const target = playerSlug(name);
+
+          return allPlayers.find(player =>
+            playerSlug(player.name) === target
+          );
+        })
+        .filter(Boolean)
+        .slice(0, 12);
+
+      if (!trendingPlayers.length) {
+        grid.innerHTML = `
+      <article class="player-card">
+        <h4>Trending players unavailable</h4>
+        <p class="player-role">Player data could not be loaded.</p>
+      </article>
+    `;
+        return;
+      }
+
+      grid.innerHTML = trendingPlayers.map(player => `
+    <article class="player-card trending-player-card">
+      <div class="trending-player-photo">
+        <img 
+          src="${getPlayerImage(player)}" 
+          alt="${player.name}"
+          loading="lazy"
+          onerror="this.src='/assets/images/player-placeholder.png'"
+        >
+      </div>
+
+      <div class="player-top">
+        <span class="team-tag">${player.team}</span>
+        <span class="position-tag">${player.position}</span>
+      </div>
+
+      <h4>${player.name}</h4>
+
+      <p class="player-role">
+        ${player.position} · ${player.team}
+      </p>
+
+      <ul class="player-points">
+        <li>${getNextOpponentText(player)}</li>
+        <li>Prop Focus: ${getPropFocus(player.position)}</li>
+      </ul>
+
+      <button type="button" class="card-link player-card-button" data-player="${player.name}">
+        View player →
+      </button>
+    </article>
+  `).join("");
+
+      document.querySelectorAll(".player-card-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const player = allPlayers.find(p => p.name === button.dataset.player);
+          if (player) openPlayer(player);
+        });
+      });
+    }
+
+    function getPropFocus(position) {
+      const pos = String(position || "").toUpperCase();
+
+      if (pos === "QB") return "Passing + rushing props";
+      if (pos === "RB") return "Rushing + receiving usage";
+      if (pos === "WR") return "Targets + receiving yards";
+      if (pos === "TE") return "Receptions + red-zone role";
+
+      return "Usage-based props";
     }
 
     function renderPlayerSuggestions(query) {
@@ -345,7 +503,12 @@
       const input = document.getElementById("player-search");
       const button = document.getElementById("player-search-btn");
 
-      await loadPlayers();
+      await Promise.all([
+        loadPlayers(),
+        loadSchedule()
+      ]);
+
+      renderTrendingPlayers();
 
       input.addEventListener("input", e => {
         renderPlayerSuggestions(e.target.value);
