@@ -1614,6 +1614,58 @@
 
         }
 
+        function updateCanonical(url) {
+
+            let link = document.querySelector(
+                'link[rel="canonical"]'
+            );
+
+            if (!link) {
+
+                link = document.createElement("link");
+
+                link.setAttribute(
+                    "rel",
+                    "canonical"
+                );
+
+                document.head.appendChild(link);
+
+            }
+
+            link.setAttribute(
+                "href",
+                url
+            );
+
+        }
+
+        function updateMetaName(name, value) {
+
+            let tag = document.querySelector(
+                `meta[name="${name}"]`
+            );
+
+            if (!tag) {
+
+                tag = document.createElement("meta");
+
+                tag.setAttribute(
+                    "name",
+                    name
+                );
+
+                document.head.appendChild(tag);
+
+            }
+
+            tag.setAttribute(
+                "content",
+                value
+            );
+
+        }
+
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
@@ -1735,6 +1787,21 @@
                 "og:url",
                 window.location.href
             );
+
+            updateCanonical(
+                window.location.href
+            );
+
+            updateMetaName(
+                "twitter:title",
+                `${awayName} vs ${homeName} NFL Matchup Report | PlayMaker Prime`
+            );
+
+            updateMetaName(
+                "twitter:description",
+                `${awayName} vs ${homeName} Week ${game.week}. Compare player props, defensive tiers, weather, injuries, trends, and matchup intelligence.`
+            );
+
             document.getElementById("matchup-week").textContent = `Week ${game.week} Matchup`;
 
             document.getElementById("matchup-title").innerHTML = `
