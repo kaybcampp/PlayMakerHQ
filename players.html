@@ -309,11 +309,34 @@
     </section>
 
     <section class="hq-section">
+
       <div class="final-cta">
-        <h3>Ready to run a player prop?</h3>
-        <p>Open PlayMaker, choose the player, enter the line, and let the tool do the matchup work.</p>
-        <a href="/playmaker/" class="btn-primary">Launch PlayMaker</a>
+
+        <span class="hq-pill">
+
+          PlayMaker Tool
+
+        </span>
+
+        <h3>
+
+          Ready to run a player prop?
+
+        </h3>
+
+        <p>
+
+          Open PlayMaker, choose the player, enter the line,
+          and let the tool do the matchup analysis.
+
+        </p>
+
+        <a href="/tool/" id="launch-player-tool" class="btn-primary">
+          Launch PlayMaker
+        </a>
+
       </div>
+
     </section>
 
   </main>
@@ -553,7 +576,9 @@
       document.querySelectorAll(".player-card-button").forEach(button => {
         button.addEventListener("click", () => {
           const player = allPlayers.find(p => p.name === button.dataset.player);
-          if (player) openPlayer(player);
+          if (player) {
+            openPlayer(player);
+          }
         });
       });
     }
@@ -668,7 +693,9 @@
       document.querySelectorAll("#rising-players-grid .player-card-button").forEach(button => {
         button.addEventListener("click", () => {
           const player = allPlayers.find(p => p.name === button.dataset.player);
-          if (player) openPlayer(player);
+          if (player) {
+            openPlayer(player);
+          }
         });
       });
     }
@@ -818,9 +845,7 @@
               );
 
               if (player) {
-
                 openPlayer(player);
-
               }
 
             }
@@ -931,7 +956,9 @@
       document.querySelectorAll("#filtered-player-grid .player-card-button").forEach(button => {
         button.addEventListener("click", () => {
           const player = allPlayers.find(p => p.name === button.dataset.player);
-          if (player) openPlayer(player);
+          if (player) {
+            openPlayer(player);
+          }
         });
       });
     }
@@ -996,7 +1023,9 @@
       document.querySelectorAll(".player-suggestion").forEach(btn => {
         btn.addEventListener("click", () => {
           const player = allPlayers.find(p => p.name === btn.dataset.player);
-          if (player) openPlayer(player);
+          if (player) {
+            openPlayer(player);
+          }
         });
       });
     }
@@ -1025,7 +1054,9 @@
             player.name.toLowerCase().includes(input.value.toLowerCase())
           );
 
-          if (firstMatch) openPlayer(firstMatch);
+          if (firstMatch) {
+            openPlayer(firstMatch);
+          }
         }
       });
 
@@ -1034,7 +1065,9 @@
           player.name.toLowerCase().includes(input.value.toLowerCase())
         );
 
-        if (firstMatch) openPlayer(firstMatch);
+        if (firstMatch) {
+          openPlayer(firstMatch);
+        }
       });
     });
   </script>
