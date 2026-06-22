@@ -60,6 +60,22 @@ body {
     border-radius: 999px;
 }
 
+.pm-logo {
+    text-decoration: none;
+}
+
+.pm-logo h1 {
+    color: #66FF99;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(102, 255, 153, .4);
+    transition: .2s ease;
+}
+
+.pm-logo:hover h1 {
+    text-shadow: 0 0 18px rgba(102, 255, 153, .65);
+}
+
 /* HERO */
 
 .matchups-hero {
@@ -1957,79 +1973,79 @@ body {
 ========================== */
 
 .seo-intro-section {
-  padding-top: 0;
+    padding-top: 0;
 }
 
 .seo-intro-card {
-  max-width: 950px;
-  margin: 0 auto;
-  padding: 28px 32px;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 28px 32px;
 
-  background: rgba(19, 26, 42, 0.9);
+    background: rgba(19, 26, 42, 0.9);
 
-  border: 1px solid rgba(102, 255, 153, 0.15);
+    border: 1px solid rgba(102, 255, 153, 0.15);
 
-  border-radius: 20px;
+    border-radius: 20px;
 
-  text-align: center;
+    text-align: center;
 
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.25);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
 .seo-intro-card h3 {
-  font-size: 1.9rem;
+    font-size: 1.9rem;
 
-  margin-bottom: 18px;
+    margin-bottom: 18px;
 
-  color: #66FF99;
+    color: #66FF99;
 }
 
 .seo-intro-card p {
-  color: #D4DCEA;
+    color: #D4DCEA;
 
-  line-height: 1.8;
+    line-height: 1.8;
 
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
 .seo-intro-card p:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 /* MOBILE */
 
 @media (max-width: 768px) {
 
-  .seo-intro-card {
-    padding: 24px;
-  }
+    .seo-intro-card {
+        padding: 24px;
+    }
 
-  .seo-intro-card h3 {
-    font-size: 1.5rem;
-  }
+    .seo-intro-card h3 {
+        font-size: 1.5rem;
+    }
 
-  .seo-intro-card p {
-    font-size: 0.95rem;
-  }
+    .seo-intro-card p {
+        font-size: 0.95rem;
+    }
 
 }
 
 .week-index-row {
-  background: rgba(102, 255, 153, 0.08);
-  border-color: rgba(102, 255, 153, 0.22);
+    background: rgba(102, 255, 153, 0.08);
+    border-color: rgba(102, 255, 153, 0.22);
 }
 
 .matchup-index-link {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .matchup-index-link:hover {
-  border-color: rgba(102, 255, 153, 0.45);
-  transform: translateY(-1px);
+    border-color: rgba(102, 255, 153, 0.45);
+    transform: translateY(-1px);
 }
 
 /* FOOTER */
