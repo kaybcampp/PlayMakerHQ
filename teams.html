@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Teams — PlayMaker HQ</title>
-  <meta name="description" content="Explore NFL team intelligence including schedules, offensive trends, defensive rankings, injuries, weather impact, and PlayMaker matchup data." />
+  <title>NFL Team Intelligence Hub | PlayMaker Prime</title>
+  <meta name="description"
+    content="Explore all 32 NFL teams, defensive profiles, offensive tendencies, player groups, schedules, and PlayMaker matchup intelligence." />
 
-  <link rel="stylesheet" href="assets/css/teams.css" />
-  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="canonical" href="https://playmakerprime.com/teams.html" />
+
+  <meta property="og:title" content="NFL Team Intelligence Hub | PlayMaker Prime">
+  <meta property="og:description"
+    content="Explore all 32 NFL teams, defensive profiles, offensive tendencies, player groups, and matchup intelligence.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://playmakerprime.com/teams.html">
+  <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NFL Team Intelligence Hub | PlayMaker Prime">
+  <meta name="twitter:description"
+    content="Explore all 32 NFL teams, team trends, defensive tiers, schedules, and PlayMaker matchup intelligence.">
+  <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
+
+  <link rel="stylesheet" href="/assets/css/teams.css" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+  <script src="/assets/js/site-header.js" defer></script>
 </head>
 
 <body>
 
-  <header class="pm-header">
-    <h1>PlayMaker HQ</h1>
-
-    <nav class="pm-nav">
-      <a href="index.html" class="pm-link">Home</a>
-      <a href="players.html" class="pm-link">Players</a>
-      <a href="teams.html" class="pm-link active">Teams</a>
-      <a href="matchups.html" class="pm-link">Matchups</a>
-      <a href="research.html" class="pm-link">Research</a>
-      <a href="results.html" class="pm-link">Results</a>
-      <a href="pricing.html" class="pm-link">Pricing</a>
-      <a href="/playmaker/" class="pm-link pm-link-cta">Open Tool</a>
-    </nav>
-  </header>
+  <div id="site-header"></div>
 
   <section class="teams-hero">
     <div class="hero-glow"></div>
@@ -35,21 +41,27 @@
       <span class="hq-pill">NFL Team Intelligence</span>
 
       <h2>
-        Team context drives player props.
-        <span>Know the matchup before the line.</span>
+        NFL Team Intelligence Hub
       </h2>
 
       <p>
-        Analyze offensive tendencies, defensive rankings, schedules, injuries, weather conditions, and team-specific trends before running PlayMaker predictions.
+        Explore all 32 NFL teams, defensive profiles, offensive tendencies,
+        player groups, schedules, and PlayMaker matchup intelligence.
       </p>
 
       <div class="team-search-card">
         <label for="team-search">Search Teams</label>
+
         <div class="search-row">
-          <input type="text" id="team-search" placeholder="Search Eagles, Chiefs, Bills, Ravens..." />
-          <button type="button">Search</button>
+          <input type="text" id="team-search" placeholder="Search Eagles, Chiefs, Bills, Ravens..." autocomplete="off" />
+          <button type="button" id="team-search-btn">Search Team</button>
         </div>
-        <p class="search-note">Team dashboards and live analytics coming soon.</p>
+
+        <div id="team-suggestions" class="team-suggestions"></div>
+
+        <p class="search-note">
+          Search by team, conference, or division to open team intelligence.
+        </p>
       </div>
     </div>
   </section>
@@ -58,184 +70,426 @@
 
     <section class="hq-section">
       <div class="section-header">
-        <h3>Featured Teams</h3>
-        <p>Popular NFL teams with matchup intelligence and prop-related trends.</p>
+        <h3>Trending Teams</h3>
+        <p>Popular NFL teams with matchup intelligence, defensive context, and prop-related trends.</p>
       </div>
 
-      <div class="team-grid">
+      <div id="trending-teams-grid" class="team-grid"></div>
+    </section>
 
-        <article class="team-card">
-          <div class="team-top">
-            <span class="division-tag">NFC East</span>
-            <span class="team-record">13-4</span>
-          </div>
-
-          <h4>Philadelphia Eagles</h4>
-
-          <ul class="team-points">
-            <li>Elite rushing attack</li>
-            <li>Strong red-zone efficiency</li>
-            <li>Mobile QB prop opportunities</li>
-          </ul>
-
-          <a href="#" class="card-link">View team →</a>
-        </article>
-
-        <article class="team-card">
-          <div class="team-top">
-            <span class="division-tag">AFC West</span>
-            <span class="team-record">15-2</span>
-          </div>
-
-          <h4>Kansas City Chiefs</h4>
-
-          <ul class="team-points">
-            <li>High passing volume</li>
-            <li>Consistent scoring environment</li>
-            <li>Strong QB prop profile</li>
-          </ul>
-
-          <a href="#" class="card-link">View team →</a>
-        </article>
-
-        <article class="team-card">
-          <div class="team-top">
-            <span class="division-tag">AFC East</span>
-            <span class="team-record">11-6</span>
-          </div>
-
-          <h4>Buffalo Bills</h4>
-
-          <ul class="team-points">
-            <li>Dual-threat QB impact</li>
-            <li>Aggressive offensive scheme</li>
-            <li>Weather-sensitive home games</li>
-          </ul>
-
-          <a href="#" class="card-link">View team →</a>
-        </article>
-
+    <section class="hq-section hq-section-alt">
+      <div class="section-header">
+        <h3>Browse By Conference</h3>
+        <p>Explore teams by AFC and NFC conference groups.</p>
       </div>
+
+      <div class="browse-conference-grid">
+        <button class="browse-card conference-filter-card" data-conference="AFC">
+          <span>AFC</span>
+          <h4>AFC Teams</h4>
+          <p>Browse AFC teams, divisions, player groups, and defensive profiles.</p>
+        </button>
+
+        <button class="browse-card conference-filter-card" data-conference="NFC">
+          <span>NFC</span>
+          <h4>NFC Teams</h4>
+          <p>Browse NFC teams, divisions, player groups, and matchup intelligence.</p>
+        </button>
+      </div>
+    </section>
+
+    <section class="hq-section">
+      <div class="section-header">
+        <h3>Browse By Division</h3>
+        <p>Open filtered team views across every NFL division.</p>
+      </div>
+
+      <div id="division-browser-grid" class="division-browser-grid"></div>
+    </section>
+
+    <section class="hq-section hq-section-alt" id="filtered-team-section" style="display:none;">
+      <div class="section-header">
+        <h3 id="filtered-team-title">Filtered Teams</h3>
+        <p id="filtered-team-summary">Select a conference or division to browse teams.</p>
+      </div>
+
+      <div id="filtered-team-grid" class="team-grid"></div>
+    </section>
+
+    <section class="hq-section">
+      <div class="section-header">
+        <h3>Team Intelligence Reports</h3>
+        <p>Team research built around offense, defense, trends, player groups, and matchup context.</p>
+      </div>
+
+      <div id="team-report-list" class="report-list"></div>
     </section>
 
     <section class="hq-section hq-section-alt">
       <div class="section-header">
         <h3>What PlayMaker Tracks</h3>
-        <p>Every team page is built around factors that directly influence player props.</p>
+        <p>Every team profile is built around factors that influence player props and matchup outcomes.</p>
       </div>
 
       <div class="intel-grid">
-
         <div class="intel-card">
-          <h4>Offensive Tendencies</h4>
-          <p>Pass rate, rush rate, scoring frequency, pace of play, and game script tendencies.</p>
+          <h4>Offensive Identity</h4>
+          <p>Pass rate, rush rate, scoring frequency, pace, play style, and game script tendencies.</p>
         </div>
 
         <div class="intel-card">
-          <h4>Defensive Rankings</h4>
-          <p>Pass defense, run defense, pressure rate, explosive plays allowed, and matchup difficulty.</p>
+          <h4>Defensive Profile</h4>
+          <p>Overall defense tier, pass defense, run defense, pressure rate, and matchup difficulty.</p>
         </div>
 
         <div class="intel-card">
-          <h4>Injury Impact</h4>
-          <p>Key injuries affecting offensive production, defensive strength, and prop environments.</p>
+          <h4>Player Groups</h4>
+          <p>Quarterbacks, running backs, wide receivers, tight ends, and opportunity-based player pools.</p>
         </div>
 
         <div class="intel-card">
-          <h4>Weather Conditions</h4>
-          <p>Outdoor stadiums, wind patterns, cold-weather games, and environmental impacts.</p>
+          <h4>Schedule Context</h4>
+          <p>Weekly opponents, home/away splits, divisional games, travel spots, and matchup sequencing.</p>
         </div>
-
       </div>
     </section>
 
     <section class="hq-section">
       <div class="section-header">
-        <h3>Team Research Categories</h3>
-        <p>The core data that powers matchup and player prop analysis.</p>
+        <h3>Teams Hub FAQ</h3>
+        <p>Common questions about PlayMaker team trends, defensive tiers, and matchup intelligence.</p>
       </div>
 
-      <div class="category-grid">
+      <div class="faq-grid">
+        <details class="faq-card" open>
+          <summary>How are PlayMaker team trends calculated?</summary>
+          <p>
+            Team trends are built from schedule context, offensive tendencies, defensive profiles,
+            player pools, historical results, and matchup-specific indicators.
+          </p>
+        </details>
 
-        <div class="category-card">
-          <h4>Schedules</h4>
-          <p>Weekly opponents, home/away splits, travel situations, and divisional matchups.</p>
-        </div>
+        <details class="faq-card">
+          <summary>How are defensive tiers measured?</summary>
+          <p>
+            Defensive tiers use team-level defensive performance, pass defense, run defense,
+            EPA allowed, pressure rate, and position-specific prop tendencies.
+          </p>
+        </details>
 
-        <div class="category-card">
-          <h4>Offense</h4>
-          <p>Passing efficiency, rushing efficiency, scoring trends, and volume metrics.</p>
-        </div>
+        <details class="faq-card">
+          <summary>How often are team reports updated?</summary>
+          <p>
+            Team reports are designed to refresh during the NFL season as schedules, injuries,
+            defensive data, player roles, and PlayMaker results update.
+          </p>
+        </details>
 
-        <div class="category-card">
-          <h4>Defense</h4>
-          <p>Defensive tiers, matchup difficulty, pressure rates, and stat-specific rankings.</p>
-        </div>
-
-        <div class="category-card">
-          <h4>Injuries</h4>
-          <p>Player availability, offensive line health, and defensive personnel changes.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="hq-section hq-section-alt">
-      <div class="section-header">
-        <h3>Upcoming Team Features</h3>
-        <p>This section will expand into a complete NFL team intelligence hub.</p>
-      </div>
-
-      <div class="report-list">
-
-        <div class="report-row">
-          <div>
-            <h4>Full Team Dashboards</h4>
-            <p>Schedules, standings, offensive production, defensive rankings, and team trends.</p>
-          </div>
-          <span>Coming Soon</span>
-        </div>
-
-        <div class="report-row">
-          <div>
-            <h4>Defense Tier Rankings</h4>
-            <p>The same defensive tier system used by PlayMaker for matchup analysis.</p>
-          </div>
-          <span>Coming Soon</span>
-        </div>
-
-        <div class="report-row">
-          <div>
-            <h4>Weather & Stadium Profiles</h4>
-            <p>Quick-reference environmental data for every NFL stadium and team.</p>
-          </div>
-          <span>Planned</span>
-        </div>
-
-        <div class="report-row">
-          <div>
-            <h4>Schedule Strength Reports</h4>
-            <p>Analyze upcoming stretches of favorable and difficult matchups.</p>
-          </div>
-          <span>Planned</span>
-        </div>
-
+        <details class="faq-card">
+          <summary>What data powers PlayMaker team pages?</summary>
+          <p>
+            PlayMaker uses schedule data, roster data, defensive tiers, player research,
+            historical PlayMaker results, and matchup intelligence.
+          </p>
+        </details>
       </div>
     </section>
 
     <section class="hq-section">
       <div class="final-cta">
-        <h3>Ready to analyze a matchup?</h3>
-        <p>Use PlayMaker to combine team intelligence with player prop data.</p>
-        <a href="/playmaker/" class="btn-primary">Launch PlayMaker</a>
+        <span class="hq-pill">PlayMaker Tool</span>
+
+        <h3>Ready to analyze a team matchup?</h3>
+
+        <p>
+          Open PlayMaker, choose a team, enter the player prop line,
+          and let the tool do the matchup analysis.
+        </p>
+
+        <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
       </div>
     </section>
 
   </main>
 
   <footer>
-    <p>&copy; 2025 PlayMaker HQ. All Rights Reserved.</p>
+    <p>&copy; 2026 PlayMaker Prime. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    const TEAMS = [
+      { code: "ARI", name: "Arizona Cardinals", conference: "NFC", division: "NFC West" },
+      { code: "ATL", name: "Atlanta Falcons", conference: "NFC", division: "NFC South" },
+      { code: "BAL", name: "Baltimore Ravens", conference: "AFC", division: "AFC North" },
+      { code: "BUF", name: "Buffalo Bills", conference: "AFC", division: "AFC East" },
+      { code: "CAR", name: "Carolina Panthers", conference: "NFC", division: "NFC South" },
+      { code: "CHI", name: "Chicago Bears", conference: "NFC", division: "NFC North" },
+      { code: "CIN", name: "Cincinnati Bengals", conference: "AFC", division: "AFC North" },
+      { code: "CLE", name: "Cleveland Browns", conference: "AFC", division: "AFC North" },
+      { code: "DAL", name: "Dallas Cowboys", conference: "NFC", division: "NFC East" },
+      { code: "DEN", name: "Denver Broncos", conference: "AFC", division: "AFC West" },
+      { code: "DET", name: "Detroit Lions", conference: "NFC", division: "NFC North" },
+      { code: "GB", name: "Green Bay Packers", conference: "NFC", division: "NFC North" },
+      { code: "HOU", name: "Houston Texans", conference: "AFC", division: "AFC South" },
+      { code: "IND", name: "Indianapolis Colts", conference: "AFC", division: "AFC South" },
+      { code: "JAX", name: "Jacksonville Jaguars", conference: "AFC", division: "AFC South" },
+      { code: "KC", name: "Kansas City Chiefs", conference: "AFC", division: "AFC West" },
+      { code: "LV", name: "Las Vegas Raiders", conference: "AFC", division: "AFC West" },
+      { code: "LAC", name: "Los Angeles Chargers", conference: "AFC", division: "AFC West" },
+      { code: "LAR", name: "Los Angeles Rams", conference: "NFC", division: "NFC West" },
+      { code: "MIA", name: "Miami Dolphins", conference: "AFC", division: "AFC East" },
+      { code: "MIN", name: "Minnesota Vikings", conference: "NFC", division: "NFC North" },
+      { code: "NE", name: "New England Patriots", conference: "AFC", division: "AFC East" },
+      { code: "NO", name: "New Orleans Saints", conference: "NFC", division: "NFC South" },
+      { code: "NYG", name: "New York Giants", conference: "NFC", division: "NFC East" },
+      { code: "NYJ", name: "New York Jets", conference: "AFC", division: "AFC East" },
+      { code: "PHI", name: "Philadelphia Eagles", conference: "NFC", division: "NFC East" },
+      { code: "PIT", name: "Pittsburgh Steelers", conference: "AFC", division: "AFC North" },
+      { code: "SF", name: "San Francisco 49ers", conference: "NFC", division: "NFC West" },
+      { code: "SEA", name: "Seattle Seahawks", conference: "NFC", division: "NFC West" },
+      { code: "TB", name: "Tampa Bay Buccaneers", conference: "NFC", division: "NFC South" },
+      { code: "TEN", name: "Tennessee Titans", conference: "AFC", division: "AFC South" },
+      { code: "WSH", name: "Washington Commanders", conference: "NFC", division: "NFC East" }
+    ];
+
+    const TRENDING_TEAMS = ["PHI", "KC", "BUF", "BAL", "DET", "DAL", "CIN", "SF"];
+
+    const TEAM_REPORTS = [
+      { code: "PHI", type: "Offensive Identity Report" },
+      { code: "BUF", type: "Defensive Matchup Report" },
+      { code: "DET", type: "Trend Report" },
+      { code: "BAL", type: "Rushing Environment Report" },
+      { code: "KC", type: "Red Zone Report" },
+      { code: "WSH", type: "Opportunity Report" }
+    ];
+
+    function teamSlug(name) {
+      return String(name || "")
+        .toLowerCase()
+        .replace(/[.'’]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+    }
+
+    function teamUrl(team) {
+      return `/teams/${teamSlug(team.name)}`;
+    }
+
+    function findTeam(value) {
+      const q = String(value || "").toLowerCase();
+
+      return TEAMS.find(team =>
+        team.code.toLowerCase() === q ||
+        team.name.toLowerCase().includes(q)
+      );
+    }
+
+    function openTeam(team) {
+      window.location.href = teamUrl(team);
+    }
+
+    function renderTeamCard(team) {
+      return `
+        <article class="team-card">
+          <div class="team-top">
+            <span class="division-tag">${team.division}</span>
+            <span class="team-record">${team.code}</span>
+          </div>
+
+          <h4>${team.name}</h4>
+
+          <ul class="team-points">
+            <li>${team.conference} team profile</li>
+            <li>Division: ${team.division}</li>
+            <li>Team intelligence report available</li>
+          </ul>
+
+          <button type="button" class="card-link team-card-button" data-team="${team.code}">
+            View team →
+          </button>
+        </article>
+      `;
+    }
+
+    function bindTeamButtons(scope = document) {
+      scope.querySelectorAll(".team-card-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const team = TEAMS.find(t => t.code === button.dataset.team);
+          if (team) openTeam(team);
+        });
+      });
+    }
+
+    function renderTrendingTeams() {
+      const grid = document.getElementById("trending-teams-grid");
+      if (!grid) return;
+
+      const teams = TRENDING_TEAMS
+        .map(code => TEAMS.find(team => team.code === code))
+        .filter(Boolean);
+
+      grid.innerHTML = teams.map(renderTeamCard).join("");
+      bindTeamButtons(grid);
+    }
+
+    function renderDivisionBrowser() {
+      const grid = document.getElementById("division-browser-grid");
+      if (!grid) return;
+
+      const divisions = [...new Set(TEAMS.map(team => team.division))];
+
+      grid.innerHTML = divisions.map(division => `
+        <button type="button" class="division-browser-card" data-division="${division}">
+          <span>${division}</span>
+          <strong>${TEAMS.filter(team => team.division === division).length} teams</strong>
+        </button>
+      `).join("");
+
+      grid.querySelectorAll(".division-browser-card").forEach(button => {
+        button.addEventListener("click", () => {
+          renderFilteredTeams("division", button.dataset.division);
+        });
+      });
+    }
+
+    function renderFilteredTeams(type, value) {
+      const section = document.getElementById("filtered-team-section");
+      const title = document.getElementById("filtered-team-title");
+      const summary = document.getElementById("filtered-team-summary");
+      const grid = document.getElementById("filtered-team-grid");
+
+      let teams = [];
+
+      if (type === "conference") {
+        teams = TEAMS.filter(team => team.conference === value);
+        title.textContent = `${value} Team Intelligence`;
+        summary.textContent = `${teams.length} teams available in the ${value}.`;
+      }
+
+      if (type === "division") {
+        teams = TEAMS.filter(team => team.division === value);
+        title.textContent = `${value} Team Intelligence`;
+        summary.textContent = `${teams.length} teams available in the ${value}.`;
+      }
+
+      section.style.display = "block";
+      grid.innerHTML = teams.map(renderTeamCard).join("");
+      bindTeamButtons(grid);
+
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function renderTeamReports() {
+      const list = document.getElementById("team-report-list");
+      if (!list) return;
+
+      list.innerHTML = TEAM_REPORTS.map(item => {
+        const team = TEAMS.find(t => t.code === item.code);
+
+        return `
+          <button type="button" class="report-row team-report-row" data-team="${team.code}">
+            <div>
+              <h4>${team.name} ${item.type}</h4>
+              <p>${team.conference} · ${team.division} · Team intelligence</p>
+            </div>
+            <span>Open Report →</span>
+          </button>
+        `;
+      }).join("");
+
+      list.querySelectorAll(".team-report-row").forEach(button => {
+        button.addEventListener("click", () => {
+          const team = TEAMS.find(t => t.code === button.dataset.team);
+          if (team) openTeam(team);
+        });
+      });
+    }
+
+    function renderTeamSuggestions(query) {
+      const box = document.getElementById("team-suggestions");
+
+      if (!box) return;
+
+      if (!query.trim()) {
+        box.innerHTML = "";
+        box.style.display = "none";
+        return;
+      }
+
+      const q = query.toLowerCase();
+
+      const matches = TEAMS
+        .filter(team =>
+          team.name.toLowerCase().includes(q) ||
+          team.code.toLowerCase().includes(q) ||
+          team.conference.toLowerCase().includes(q) ||
+          team.division.toLowerCase().includes(q)
+        )
+        .slice(0, 10);
+
+      if (!matches.length) {
+        box.innerHTML = `<div class="team-suggestion-empty">No teams found.</div>`;
+        box.style.display = "block";
+        return;
+      }
+
+      box.innerHTML = matches.map(team => `
+        <button type="button" class="team-suggestion" data-team="${team.code}">
+          <span>
+            <strong>${team.name}</strong>
+            <small>${team.conference} · ${team.division}</small>
+          </span>
+        </button>
+      `).join("");
+
+      box.style.display = "grid";
+
+      box.querySelectorAll(".team-suggestion").forEach(button => {
+        button.addEventListener("click", () => {
+          const team = TEAMS.find(t => t.code === button.dataset.team);
+          if (team) openTeam(team);
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("team-search");
+      const button = document.getElementById("team-search-btn");
+
+      renderTrendingTeams();
+      renderDivisionBrowser();
+      renderTeamReports();
+
+      document.querySelectorAll(".conference-filter-card").forEach(button => {
+        button.addEventListener("click", () => {
+          renderFilteredTeams("conference", button.dataset.conference);
+        });
+      });
+
+      input.addEventListener("input", e => {
+        renderTeamSuggestions(e.target.value);
+      });
+
+      input.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+          const team = findTeam(input.value);
+          if (team) openTeam(team);
+        }
+      });
+
+      button.addEventListener("click", () => {
+        const team = findTeam(input.value);
+        if (team) openTeam(team);
+      });
+    });
+  </script>
+
+  <script src="/assets/js/analytics-tracker.js"></script>
+
 </body>
+
 </html>
