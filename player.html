@@ -267,8 +267,11 @@
 
         <section class="hq-section hq-section-alt">
             <div class="section-header">
-                <h3>FAQ</h3>
-                <p>Common questions about this player, matchup, and PlayMaker prop research.</p>
+                <h3>Player FAQ</h3>
+
+                <p>
+                    Answers to common questions about this player, matchup context, and PlayMaker analysis.
+                </p>
             </div>
 
             <div class="faq-grid">
@@ -301,11 +304,13 @@
                 <h3 id="cta-title">Ready to run this player in PlayMaker?</h3>
 
                 <p id="cta-copy">
-                    Open PlayMaker, select this player's team, enter the prop line, and let the tool do the matchup
-                    analysis.
+                    Open this player’s team page inside PlayMaker, choose the player,
+                    enter the prop line, and let the tool do the matchup analysis.
                 </p>
 
-                <a href="/tool/" id="cta-tool-link" class="btn-primary">Launch PlayMaker</a>
+                <a href="/tool/" id="cta-tool-link" class="btn-primary">
+                    Open in PlayMaker
+                </a>
             </div>
         </section>
 
@@ -826,30 +831,30 @@
             renderFrequentlyHitProps(player);
 
             document.getElementById("faq-q1").textContent =
-                `What props should I research for ${playerName}?`;
+                `What prop categories work best for ${playerName}?`;
 
             document.getElementById("faq-a1").textContent =
-                `Start with ${getPropFocus(position).toLowerCase()}, then compare the line against recent trend data, opponent defense, and PlayMaker's matchup context.`;
+                `${playerName}'s primary prop focus includes ${getPropFocus(position).toLowerCase()}. PlayMaker uses recent trends, defensive context, and historical data to identify potential opportunities before evaluating a specific line.`;
 
             document.getElementById("faq-q2").textContent =
-                `Who does ${playerName} play next?`;
+                `How does PlayMaker evaluate ${playerName}'s matchup?`;
 
             document.getElementById("faq-a2").textContent =
                 opponentCode
-                    ? `${playerName}'s next listed opponent is ${opponentName}.`
-                    : `The next opponent is not available yet in the current schedule data.`;
+                    ? `PlayMaker compares ${playerName}'s role against ${opponentName}'s defensive profile, including pass defense, run defense, pressure rate, and historical prop performance against similar situations.`
+                    : `PlayMaker will evaluate this matchup once the next opponent becomes available.`;
 
             document.getElementById("faq-q3").textContent =
-                `How does PlayMaker score ${playerName}'s opportunity?`;
+                `What factors influence ${playerName}'s Opportunity Score?`;
 
             document.getElementById("faq-a3").textContent =
-                `PlayMaker looks at position, team context, next opponent, defensive tiers, recent trend availability, prop category, and historical result data when available.`;
+                `Opportunity Scores are built from multiple data sources, including position, opponent defensive tiers, historical PlayMaker prop lanes, recent trends, and available matchup context.`;
 
             document.getElementById("faq-q4").textContent =
-                `Where can I run ${playerName} in PlayMaker?`;
+                `How often is ${playerName}'s intelligence report updated?`;
 
             document.getElementById("faq-a4").textContent =
-                `Open PlayMaker, select ${teamName(team)}, choose ${playerName}, enter the line, and review the matchup analysis.`;
+                `Player intelligence reports refresh whenever PlayMaker updates schedules, player databases, matchup context, defensive profiles, and historical results throughout the NFL season.`;
 
             document.getElementById("cta-title").textContent =
                 `Ready to run ${playerName} in PlayMaker?`;
@@ -865,6 +870,8 @@
 
             document.getElementById("player-tool-link").href =
                 `/tool/team.html?team=${encodeURIComponent(team)}`;
+            document.getElementById("player-tool-link").textContent =
+                `Open ${team} in PlayMaker`;
         }
 
         async function loadPlayerPage() {
