@@ -158,8 +158,10 @@
             SEA: "Seattle Seahawks",
             TB: "Tampa Bay Buccaneers",
             TEN: "Tennessee Titans",
-            WAS: "Washington Commanders",
-            WSH: "Washington Commanders"
+
+            // Keep both aliases
+            WSH: "Washington Commanders",
+            WAS: "Washington Commanders"
         };
 
         function teamName(code) {
@@ -253,8 +255,9 @@
                     return `
             <a href="${matchupUrl(game)}" class="report-row matchup-index-link">
               <div>
-                <h4>${teamName(away)} @ ${teamName(home)}</h4>
-                <p>${away} @ ${home} · ${formatDate(game.date)}</p>
+                <h4>${teamName(away)} vs ${teamName(home)}</h4>
+
+<p>${away} @ ${home} · ${formatDate(game.date)}</p>
               </div>
               <span>Open Report</span>
             </a>
