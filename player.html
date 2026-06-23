@@ -705,14 +705,15 @@
             document.getElementById("player-team").textContent = teamName(team);
             document.getElementById("player-position").textContent = position;
             document.getElementById("player-next-opponent").textContent = getNextOpponentText(player);
-            document.getElementById("player-prop-focus").textContent = getPropFocus(position);
 
             document.getElementById("player-summary-grade").textContent = opportunity.tier;
             document.getElementById("ai-player-summary-title").textContent =
-                `${playerName} First-Look Player Read`;
+                `${playerName} Player Intelligence Summary`;
 
             document.getElementById("ai-player-summary").textContent =
-                `${playerName} enters the current PlayMaker player pool as a ${position} for ${teamName(team)}. The primary prop focus is ${getPropFocus(position).toLowerCase()}. ${opponentCode ? `The next matchup is ${getNextOpponentText(player)}, with ${opponentName}'s defensive profile shaping the first research angle.` : "The next opponent is still pending."}`;
+                opponentCode
+                    ? `${playerName} profiles as a ${position} for ${teamName(team)} with a primary prop focus around ${getPropFocus(position).toLowerCase()}. The next matchup is ${getNextOpponentText(player)}, where ${opponentName}'s defensive profile helps shape the early PlayMaker read. Use this page to review trend context, matchup fit, opportunity score, and historical PlayMaker results before running the final prop line inside the tool.`
+                    : `${playerName} profiles as a ${position} for ${teamName(team)} with a primary prop focus around ${getPropFocus(position).toLowerCase()}. Next-opponent data is still pending, but this page will continue to organize trend context, opportunity scoring, and historical PlayMaker results as more data becomes available.`;
 
             document.getElementById("opportunity-score").textContent = opportunity.label;
             document.getElementById("opportunity-fill").style.width = `${opportunity.score}%`;
