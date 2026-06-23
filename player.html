@@ -253,7 +253,7 @@
 
         <section class="hq-section">
             <div class="section-header">
-                <h3>Frequently Hit Props</h3>
+                <h3>Common PlayMaker Prop Results</h3>
                 <p id="frequent-props-summary">Loading prop category history...</p>
             </div>
 
@@ -651,7 +651,7 @@
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 4);
 
-            summary.textContent = `Most common PlayMaker result categories for ${player.name}.`;
+            summary.textContent = `Most common logged PlayMaker prop categories for ${player.name}.`;
 
             grid.innerHTML = markets.map(([market, count]) => `
         <div class="prop-card">
