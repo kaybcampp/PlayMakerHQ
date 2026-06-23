@@ -479,48 +479,85 @@
         }
 
         function calculatePlayerOpportunity(player, opponentDefense) {
-            let score = 58;
+            let score = 50;
             const reasons = [];
 
             const pos = String(player.position || "").toUpperCase();
+            const splits = opponentDefense?.vs_props_split || {};
+            const samples = opponentDefense?.vs_props_sample || {};
+
+            function addReason(label, points) {
+                score += points;
+                reasons.push(label);
+            }
+
+            function splitScore(key, label) {
+                const rate = Number(splits[key]);
+                const sample = Number(samples[key] || 0);
+
+                if (!Number.isFinite(rate) || sample < 2) return;
+
+                if (rate >= 0.65) {
+                    addReason(`${label}: ${(rate * 100).toFixed(0)}% PlayMaker hit rate vs this defense`, 8);
+                } else if (rate >= 0.55) {
+                    addReason(`${label}: positive PlayMaker prop lane vs this defense`, 5);
+                } else if (rate <= 0.35) {
+                    addReason(`${label}: limited PlayMaker hit rate vs this defense`, -5);
+                }
+            }
 
             if (opponentDefense) {
                 if (pos === "QB") {
-                    score += opponentDefense.passDefenseTier === "D" ? 14 : 0;
-                    score += opponentDefense.passDefenseTier === "C" ? 8 : 0;
-                    score += opponentDefense.runDefenseTier === "D" ? 6 : 0;
-                    reasons.push(`Opponent pass defense tier: ${opponentDefense.passDefenseTier}`);
+                    if (opponentDefense.passDefenseTier === "D") addReason("Favorable pass defense matchup", 12);
+                    if (opponentDefense.passDefenseTier === "C") addReason("Moderate pass defense opportunity", 7);
+                    if (opponentDefense.runDefenseTier === "D") addReason("Mobile QB rushing lane available", 6);
+
+                    splitScore("qb_passing_yards_hit_pct", "QB passing yards");
+                    splitScore("passing_tds_hit_pct", "Passing TDs");
+                    splitScore("qb_rushing_yards_hit_pct", "QB rushing yards");
                 }
 
                 if (pos === "RB") {
-                    score += opponentDefense.runDefenseTier === "D" ? 14 : 0;
-                    score += opponentDefense.runDefenseTier === "C" ? 8 : 0;
-                    reasons.push(`Opponent run defense tier: ${opponentDefense.runDefenseTier}`);
+                    if (opponentDefense.runDefenseTier === "D") addReason("Favorable run defense matchup", 12);
+                    if (opponentDefense.runDefenseTier === "C") addReason("Moderate rushing opportunity", 7);
+
+                    splitScore("rb_rushing_yards_hit_pct", "RB rushing yards");
+                    splitScore("rushing_tds_hit_pct", "Rushing TDs");
+                    splitScore("receiving_yards_hit_pct", "RB receiving usage");
                 }
 
-                if (pos === "WR" || pos === "TE") {
-                    score += opponentDefense.passDefenseTier === "D" ? 14 : 0;
-                    score += opponentDefense.passDefenseTier === "C" ? 8 : 0;
-                    reasons.push(`Opponent pass defense tier: ${opponentDefense.passDefenseTier}`);
+                if (pos === "WR") {
+                    if (opponentDefense.passDefenseTier === "D") addReason("Favorable pass defense matchup", 12);
+                    if (opponentDefense.passDefenseTier === "C") addReason("Moderate receiving opportunity", 7);
+
+                    splitScore("wr_receiving_yards_hit_pct", "WR receiving yards");
+                    splitScore("receiving_tds_hit_pct", "Receiving TDs");
+                    splitScore("receptions_hit_pct", "Reception volume");
+                }
+
+                if (pos === "TE") {
+                    if (opponentDefense.passDefenseTier === "D") addReason("Favorable pass defense matchup", 10);
+                    if (opponentDefense.passDefenseTier === "C") addReason("Moderate TE receiving opportunity", 6);
+
+                    splitScore("te_receiving_yards_hit_pct", "TE receiving yards");
+                    splitScore("receiving_tds_hit_pct", "Receiving TDs");
+                    splitScore("receptions_hit_pct", "Reception volume");
                 }
             }
 
             if (player.trend && !String(player.trend).toLowerCase().includes("limited")) {
-                score += 5;
-                reasons.push(`Recent trend: ${player.trend}`);
+                addReason(`Recent trend: ${player.trend}`, 5);
             }
 
             if (player.last10Text && !String(player.last10Text).toLowerCase().includes("unavailable")) {
-                score += 4;
-                reasons.push("Last 10 profile available");
+                addReason("Last 10 profile available", 4);
             }
 
             if (["QB", "RB", "WR", "TE"].includes(pos)) {
-                score += 3;
-                reasons.push(`${pos} prop category is supported`);
+                addReason(`${pos} prop category is supported`, 3);
             }
 
-            score = Math.max(45, Math.min(Math.round(score), 96));
+            score = Math.max(40, Math.min(Math.round(score), 96));
 
             let tier = "Watch";
             if (score >= 85) tier = "Elite Opportunity";
