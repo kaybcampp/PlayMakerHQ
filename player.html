@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Player Intelligence Report | PlayMaker Prime</title>
+    <meta name="description"
+        content="Dynamic NFL player intelligence report with trends, matchup context, defensive analysis, prop focus, historical results, and PlayMaker research." />
+
+    <link rel="canonical" href="https://playmakerprime.com/player.html" />
+
+    <meta property="og:title" content="Player Intelligence Report | PlayMaker Prime">
+    <meta property="og:description"
+        content="Explore NFL player trends, prop focus, defensive matchup context, and PlayMaker intelligence.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://playmakerprime.com/player.html">
+    <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Player Intelligence Report | PlayMaker Prime">
+    <meta name="twitter:description"
+        content="Explore NFL player trends, prop focus, defensive matchup context, and PlayMaker intelligence.">
+    <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
+
+    <link rel="stylesheet" href="/assets/css/players.css" />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+    <script src="/assets/js/site-header.js" defer></script>
+</head>
+
+<body>
+
+    <div id="site-header"></div>
+
+    <section class="player-hero">
+        <div class="hero-glow"></div>
+
+        <div class="player-hero-content">
+            <span class="hq-pill" id="player-report-label">Player Intelligence Report</span>
+
+            <div class="player-hero-grid">
+
+                <div class="player-hero-copy">
+                    <h2 id="player-title">
+                        Loading player...
+                        <span>PlayMaker Prime</span>
+                    </h2>
+
+                    <p id="player-subtitle">
+                        Building player trends, prop focus, matchup context, defensive profile, and PlayMaker
+                        intelligence.
+                    </p>
+
+                    <div class="player-hero-actions">
+                        <a href="/players.html" class="btn-secondary">← Back to Players</a>
+                        <a href="/tool/" id="player-tool-link" class="btn-primary">Open in PlayMaker</a>
+                    </div>
+                </div>
+
+                <div class="player-hero-card">
+                    <div class="player-image-wrap">
+                        <img id="player-image" src="/assets/images/player-placeholder.png" alt="NFL player">
+                    </div>
+
+                    <div class="player-snapshot-grid">
+                        <div>
+                            <span>Team</span>
+                            <strong id="player-team">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Position</span>
+                            <strong id="player-position">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Next Opponent</span>
+                            <strong id="player-next-opponent">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Opportunity</span>
+                            <strong id="player-hero-opportunity">--</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <main>
+
+        <section class="hq-section ai-player-summary-section">
+            <div class="ai-summary-card">
+                <div class="ai-summary-top">
+                    <span class="hq-pill">AI Player Summary</span>
+                    <span id="player-summary-grade" class="summary-grade">Building...</span>
+                </div>
+
+                <h3 id="ai-player-summary-title">Loading player summary...</h3>
+
+                <p id="ai-player-summary">
+                    PlayMaker is reviewing role, recent trend, matchup context, prop focus, and defensive opportunity.
+                </p>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>Opportunity Score</h3>
+                <p id="opportunity-summary">Scoring this player's opportunity using team, position, matchup, and
+                    defensive context.</p>
+            </div>
+
+            <div class="opportunity-score-card">
+                <div class="opportunity-main">
+                    <span>PlayMaker Opportunity Score</span>
+                    <strong id="opportunity-score">Pending</strong>
+
+                    <div class="opportunity-bar">
+                        <div id="opportunity-fill" class="opportunity-fill"></div>
+                    </div>
+
+                    <em id="opportunity-tier">Calculating...</em>
+                </div>
+
+                <div class="opportunity-drivers">
+                    <h4>Why This Player Matters</h4>
+                    <ul id="opportunity-drivers-list">
+                        <li>Building player opportunity profile...</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Player Snapshot</h3>
+                <p>Quick player context before opening the full PlayMaker tool.</p>
+            </div>
+
+            <div class="report-list">
+                <div class="report-row">
+                    <div>
+                        <h4>Recent Trend</h4>
+                        <p id="recent-trend">Loading trend data...</p>
+                    </div>
+                    <span id="recent-trend-tag">Loading</span>
+                </div>
+
+                <div class="report-row">
+                    <div>
+                        <h4>Last 10 Games</h4>
+                        <p id="last10-games">Loading last 10 games...</p>
+                    </div>
+                    <span>Last 10</span>
+                </div>
+
+                <div class="report-row">
+                    <div>
+                        <h4>Career vs Opponent</h4>
+                        <p id="career-vs-opponent">Loading career splits...</p>
+                    </div>
+                    <span id="career-opponent-tag">Opponent</span>
+                </div>
+
+                <div class="report-row">
+                    <div>
+                        <h4>Prop Focus</h4>
+                        <p id="prop-focus-copy">Loading prop focus...</p>
+                    </div>
+                    <span id="prop-focus-tag">Props</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>Defensive Matchup</h3>
+                <p id="defensive-matchup-summary">Loading opponent defensive profile...</p>
+            </div>
+
+            <div class="defense-player-grid">
+                <div class="defense-player-card">
+                    <h4 id="opponent-defense-title">Opponent Defense</h4>
+
+                    <div class="defense-stat">
+                        <span>Overall Defense Tier</span>
+                        <strong id="overall-defense-tier">--</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Pass Defense Tier</span>
+                        <strong id="pass-defense-tier">--</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Run Defense Tier</span>
+                        <strong id="run-defense-tier">--</strong>
+                    </div>
+
+                    <div class="defense-stat">
+                        <span>Pressure Rate</span>
+                        <strong id="pressure-rate">--</strong>
+                    </div>
+                </div>
+
+                <div class="defense-player-card">
+                    <h4>Prop Lane Read</h4>
+
+                    <ul class="player-points" id="defensive-prop-lanes">
+                        <li>Loading prop lane context...</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Similar Matchups</h3>
+                <p id="similar-matchups-summary">Comparable player and defensive situations will populate here.</p>
+            </div>
+
+            <div class="logic-grid">
+                <div class="logic-card">
+                    <h4>Similar Defensive Profile</h4>
+                    <p id="similar-defense-copy">Loading similar defensive context...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4>Similar Prop Environment</h4>
+                    <p id="similar-prop-copy">Loading similar prop environment...</p>
+                </div>
+
+                <div class="logic-card">
+                    <h4>PlayMaker Note</h4>
+                    <p id="similar-note-copy">Loading analyst note...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>Historical PlayMaker Results</h3>
+                <p id="historical-results-summary">Loading previous PlayMaker results for this player...</p>
+            </div>
+
+            <div id="historical-results-list" class="matchup-grid"></div>
+        </section>
+
+        <section class="hq-section">
+            <div class="section-header">
+                <h3>Frequently Hit Props</h3>
+                <p id="frequent-props-summary">Loading prop category history...</p>
+            </div>
+
+            <div id="frequent-props-grid" class="prop-grid">
+                <div class="prop-card">
+                    <h4>Loading props...</h4>
+                    <p>Building player prop profile.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>FAQ</h3>
+                <p>Common questions about this player, matchup, and PlayMaker prop research.</p>
+            </div>
+
+            <div class="faq-grid">
+                <details class="faq-card" open>
+                    <summary id="faq-q1">Loading question...</summary>
+                    <p id="faq-a1">Loading answer...</p>
+                </details>
+
+                <details class="faq-card">
+                    <summary id="faq-q2">Loading question...</summary>
+                    <p id="faq-a2">Loading answer...</p>
+                </details>
+
+                <details class="faq-card">
+                    <summary id="faq-q3">Loading question...</summary>
+                    <p id="faq-a3">Loading answer...</p>
+                </details>
+
+                <details class="faq-card">
+                    <summary id="faq-q4">Loading question...</summary>
+                    <p id="faq-a4">Loading answer...</p>
+                </details>
+            </div>
+        </section>
+
+        <section class="hq-section">
+            <div class="final-cta">
+                <span class="hq-pill">PlayMaker Tool</span>
+
+                <h3 id="cta-title">Ready to run this player in PlayMaker?</h3>
+
+                <p id="cta-copy">
+                    Open PlayMaker, select this player's team, enter the prop line, and let the tool do the matchup
+                    analysis.
+                </p>
+
+                <a href="/tool/" id="cta-tool-link" class="btn-primary">Launch PlayMaker</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PlayMaker Prime. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const PLAYER_FILES = [
+            "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE",
+            "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC",
+            "LV", "LAC", "LAR", "MIA", "MIN", "NE", "NO", "NYG",
+            "NYJ", "PHI", "PIT", "SF", "SEA", "TB", "TEN", "WAS"
+        ];
+
+        const TEAM_NAMES = {
+            ARI: "Arizona Cardinals",
+            ATL: "Atlanta Falcons",
+            BAL: "Baltimore Ravens",
+            BUF: "Buffalo Bills",
+            CAR: "Carolina Panthers",
+            CHI: "Chicago Bears",
+            CIN: "Cincinnati Bengals",
+            CLE: "Cleveland Browns",
+            DAL: "Dallas Cowboys",
+            DEN: "Denver Broncos",
+            DET: "Detroit Lions",
+            GB: "Green Bay Packers",
+            HOU: "Houston Texans",
+            IND: "Indianapolis Colts",
+            JAX: "Jacksonville Jaguars",
+            KC: "Kansas City Chiefs",
+            LV: "Las Vegas Raiders",
+            LAC: "Los Angeles Chargers",
+            LAR: "Los Angeles Rams",
+            MIA: "Miami Dolphins",
+            MIN: "Minnesota Vikings",
+            NE: "New England Patriots",
+            NO: "New Orleans Saints",
+            NYG: "New York Giants",
+            NYJ: "New York Jets",
+            PHI: "Philadelphia Eagles",
+            PIT: "Pittsburgh Steelers",
+            SF: "San Francisco 49ers",
+            SEA: "Seattle Seahawks",
+            TB: "Tampa Bay Buccaneers",
+            TEN: "Tennessee Titans",
+            WSH: "Washington Commanders",
+            WAS: "Washington Commanders"
+        };
+
+        const TEAM_ALIAS = {
+            WSH: "WAS"
+        };
+
+        let allPlayers = [];
+        let schedule2026 = [];
+        let defenseData = null;
+        let resultsData = [];
+
+        function teamKey(code) {
+            const raw = String(code || "").toUpperCase();
+            return TEAM_ALIAS[raw] || raw;
+        }
+
+        function teamName(code) {
+            return TEAM_NAMES[String(code || "").toUpperCase()] || code;
+        }
+
+        function playerSlug(name) {
+            return String(name || "")
+                .toLowerCase()
+                .replace(/[.'’]/g, "")
+                .replace(/[^a-z0-9\s-]/g, "")
+                .trim()
+                .replace(/\s+/g, "-");
+        }
+
+        function getPlayerSlugFromUrl() {
+            const path = window.location.pathname;
+
+            if (path.includes("/players/")) {
+                return path.split("/players/")[1]?.replace(/\/$/, "") || null;
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            return params.get("player");
+        }
+
+        function getPlayerImage(player) {
+            return player?.image || "/assets/images/player-placeholder.png";
+        }
+
+        function formatPct(value) {
+            if (value === null || value === undefined || Number.isNaN(Number(value))) return "N/A";
+            return `${(Number(value) * 100).toFixed(1)}%`;
+        }
+
+        function getPropFocus(position) {
+            const pos = String(position || "").toUpperCase();
+
+            if (pos === "QB") return "Passing yards, passing TDs, QB rushing yards";
+            if (pos === "RB") return "Rushing yards, receiving usage, anytime TDs";
+            if (pos === "WR") return "Targets, receptions, receiving yards, receiving TDs";
+            if (pos === "TE") return "Receptions, receiving yards, red-zone role";
+
+            return "Usage-based prop markets";
+        }
+
+        async function loadJson(path) {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error(`Failed to load ${path}`);
+            return await res.json();
+        }
+
+        async function loadPlayers() {
+            const playerSets = await Promise.allSettled(
+                PLAYER_FILES.map(team =>
+                    fetch(`/assets/data/players/players-${team}.json`)
+                        .then(res => res.ok ? res.json() : [])
+                        .then(players => players.map(p => ({ ...p, team })))
+                )
+            );
+
+            allPlayers = playerSets
+                .filter(result => result.status === "fulfilled")
+                .flatMap(result => result.value)
+                .filter(player => player.name && player.position);
+        }
+
+        function getNextGame(player) {
+            const team = String(player.team || "").toUpperCase();
+
+            return schedule2026.find(game => {
+                const away = String(game.away || "").toUpperCase();
+                const home = String(game.home || "").toUpperCase();
+
+                return away === team || home === team;
+            }) || null;
+        }
+
+        function getOpponentCode(player) {
+            const game = getNextGame(player);
+            if (!game) return null;
+
+            const team = String(player.team || "").toUpperCase();
+            const away = String(game.away || "").toUpperCase();
+            const home = String(game.home || "").toUpperCase();
+
+            return away === team ? home : away;
+        }
+
+        function getNextOpponentText(player) {
+            const opponent = getOpponentCode(player);
+            if (!opponent) return "TBD";
+
+            const game = getNextGame(player);
+            const team = String(player.team || "").toUpperCase();
+
+            return String(game.away).toUpperCase() === team
+                ? `@ ${teamName(opponent)}`
+                : `vs ${teamName(opponent)}`;
+        }
+
+        function getDefense(code) {
+            if (!defenseData || !defenseData.teams) return null;
+
+            return defenseData.teams[teamKey(code)] || defenseData.teams[code] || null;
+        }
+
+        function calculatePlayerOpportunity(player, opponentDefense) {
+            let score = 58;
+            const reasons = [];
+
+            const pos = String(player.position || "").toUpperCase();
+
+            if (opponentDefense) {
+                if (pos === "QB") {
+                    score += opponentDefense.passDefenseTier === "D" ? 14 : 0;
+                    score += opponentDefense.passDefenseTier === "C" ? 8 : 0;
+                    score += opponentDefense.runDefenseTier === "D" ? 6 : 0;
+                    reasons.push(`Opponent pass defense tier: ${opponentDefense.passDefenseTier}`);
+                }
+
+                if (pos === "RB") {
+                    score += opponentDefense.runDefenseTier === "D" ? 14 : 0;
+                    score += opponentDefense.runDefenseTier === "C" ? 8 : 0;
+                    reasons.push(`Opponent run defense tier: ${opponentDefense.runDefenseTier}`);
+                }
+
+                if (pos === "WR" || pos === "TE") {
+                    score += opponentDefense.passDefenseTier === "D" ? 14 : 0;
+                    score += opponentDefense.passDefenseTier === "C" ? 8 : 0;
+                    reasons.push(`Opponent pass defense tier: ${opponentDefense.passDefenseTier}`);
+                }
+            }
+
+            if (player.trend && !String(player.trend).toLowerCase().includes("limited")) {
+                score += 5;
+                reasons.push(`Recent trend: ${player.trend}`);
+            }
+
+            if (player.last10Text && !String(player.last10Text).toLowerCase().includes("unavailable")) {
+                score += 4;
+                reasons.push("Last 10 profile available");
+            }
+
+            if (["QB", "RB", "WR", "TE"].includes(pos)) {
+                score += 3;
+                reasons.push(`${pos} prop category is supported`);
+            }
+
+            score = Math.max(45, Math.min(Math.round(score), 96));
+
+            let tier = "Watch";
+            if (score >= 85) tier = "Elite Opportunity";
+            else if (score >= 78) tier = "Strong Opportunity";
+            else if (score >= 70) tier = "Moderate Opportunity";
+
+            return {
+                score,
+                label: `${score}%`,
+                tier,
+                reasons
+            };
+        }
+
+        function getHistoricalResults(player) {
+            return resultsData
+                .filter(item =>
+                    playerSlug(item.player) === playerSlug(player.name)
+                )
+                .slice(0, 6);
+        }
+
+        function renderHistoricalResults(player) {
+            const summary = document.getElementById("historical-results-summary");
+            const list = document.getElementById("historical-results-list");
+
+            const results = getHistoricalResults(player);
+
+            if (!results.length) {
+                summary.textContent = `No historical PlayMaker results found yet for ${player.name}.`;
+
+                list.innerHTML = `
+          <article class="matchup-card">
+            <h4>No Results Logged Yet</h4>
+            <p>This section will populate once PlayMaker results are logged for ${player.name}.</p>
+          </article>
+        `;
+                return;
+            }
+
+            const won = results.filter(r => String(r.result).toLowerCase() === "won").length;
+            const lost = results.filter(r => String(r.result).toLowerCase() === "lost").length;
+
+            summary.textContent =
+                `${results.length} previous PlayMaker results found for ${player.name}. Current proof log: ${won}-${lost}.`;
+
+            list.innerHTML = results.map(item => `
+        <article class="matchup-card">
+          <div class="matchup-top">
+            <span class="game-tag">${String(item.result || "Result").toUpperCase()}</span>
+            <span class="game-date">${item.date || "TBD"}</span>
+          </div>
+
+          <h4>${item.pick || item.market || "PlayMaker Result"}</h4>
+
+          <ul class="matchup-points">
+            <li>${item.matchup || "Matchup unavailable"}</li>
+            <li>Confidence: ${item.confidence || "N/A"}%</li>
+            <li>Final: ${item.score || "Score unavailable"}</li>
+          </ul>
+        </article>
+      `).join("");
+        }
+
+        function renderFrequentlyHitProps(player) {
+            const grid = document.getElementById("frequent-props-grid");
+            const summary = document.getElementById("frequent-props-summary");
+
+            const results = getHistoricalResults(player);
+
+            if (!results.length) {
+                summary.textContent = `Frequently hit props will populate as PlayMaker logs more ${player.name} results.`;
+
+                grid.innerHTML = `
+          <div class="prop-card">
+            <h4>${getPropFocus(player.position)}</h4>
+            <p>Primary prop focus based on position and player role.</p>
+          </div>
+        `;
+                return;
+            }
+
+            const marketCounts = {};
+
+            results.forEach(item => {
+                const market = item.market || item.propFamily || "Player Props";
+                marketCounts[market] = (marketCounts[market] || 0) + 1;
+            });
+
+            const markets = Object.entries(marketCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 4);
+
+            summary.textContent = `Most common PlayMaker result categories for ${player.name}.`;
+
+            grid.innerHTML = markets.map(([market, count]) => `
+        <div class="prop-card">
+          <h4>${market}</h4>
+          <p>${count} logged PlayMaker result${count === 1 ? "" : "s"} for this player.</p>
+        </div>
+      `).join("");
+        }
+
+        function updateMeta(property, value) {
+            let tag = document.querySelector(`meta[property="${property}"]`);
+
+            if (!tag) {
+                tag = document.createElement("meta");
+                tag.setAttribute("property", property);
+                document.head.appendChild(tag);
+            }
+
+            tag.setAttribute("content", value);
+        }
+
+        function updateMetaName(name, value) {
+            let tag = document.querySelector(`meta[name="${name}"]`);
+
+            if (!tag) {
+                tag = document.createElement("meta");
+                tag.setAttribute("name", name);
+                document.head.appendChild(tag);
+            }
+
+            tag.setAttribute("content", value);
+        }
+
+        function updateCanonical(url) {
+            let link = document.querySelector('link[rel="canonical"]');
+
+            if (!link) {
+                link = document.createElement("link");
+                link.setAttribute("rel", "canonical");
+                document.head.appendChild(link);
+            }
+
+            link.setAttribute("href", url);
+        }
+
+        function renderNotFound() {
+            document.getElementById("player-title").innerHTML = `Player unavailable <span>Try another search</span>`;
+            document.getElementById("player-subtitle").textContent =
+                "We could not find this player in the current PlayMaker player database.";
+        }
+
+        function renderPlayer(player) {
+            const opponentCode = getOpponentCode(player);
+            const opponentName = opponentCode ? teamName(opponentCode) : "TBD";
+            const opponentDefense = opponentCode ? getDefense(opponentCode) : null;
+            const opportunity = calculatePlayerOpportunity(player, opponentDefense);
+
+            const playerName = player.name;
+            const team = String(player.team || "").toUpperCase();
+            const position = String(player.position || "").toUpperCase();
+
+            document.title = `${playerName} Player Intelligence Report | PlayMaker Prime`;
+
+            const description =
+                `${playerName} player intelligence report featuring recent trends, prop focus, next opponent, defensive matchup context, historical PlayMaker results, and prop research.`;
+
+            updateMetaName("description", description);
+            updateCanonical(`https://playmakerprime.com/players/${playerSlug(playerName)}`);
+            updateMeta("og:title", `${playerName} Player Intelligence Report | PlayMaker Prime`);
+            updateMeta("og:description", description);
+            updateMeta("og:url", `https://playmakerprime.com/players/${playerSlug(playerName)}`);
+            updateMetaName("twitter:title", `${playerName} Player Intelligence Report | PlayMaker Prime`);
+            updateMetaName("twitter:description", description);
+
+            document.getElementById("player-report-label").textContent = `${position} Intelligence Report`;
+
+            document.getElementById("player-title").innerHTML = `
+        ${playerName}
+        <span>${teamName(team)}</span>
+      `;
+
+            document.getElementById("player-subtitle").textContent =
+                `${playerName} player report with trend context, prop focus, next opponent, defensive matchup, and PlayMaker intelligence.`;
+
+            document.getElementById("player-image").src = getPlayerImage(player);
+            document.getElementById("player-image").alt = playerName;
+
+            document.getElementById("player-team").textContent = teamName(team);
+            document.getElementById("player-position").textContent = position;
+            document.getElementById("player-next-opponent").textContent = getNextOpponentText(player);
+            document.getElementById("player-prop-focus").textContent = getPropFocus(position);
+
+            document.getElementById("player-summary-grade").textContent = opportunity.tier;
+            document.getElementById("ai-player-summary-title").textContent =
+                `${playerName} First-Look Player Read`;
+
+            document.getElementById("ai-player-summary").textContent =
+                `${playerName} enters the current PlayMaker player pool as a ${position} for ${teamName(team)}. The primary prop focus is ${getPropFocus(position).toLowerCase()}. ${opponentCode ? `The next matchup is ${getNextOpponentText(player)}, with ${opponentName}'s defensive profile shaping the first research angle.` : "The next opponent is still pending."}`;
+
+            document.getElementById("opportunity-score").textContent = opportunity.label;
+            document.getElementById("opportunity-fill").style.width = `${opportunity.score}%`;
+            document.getElementById("opportunity-tier").textContent = opportunity.tier;
+            document.getElementById("player-hero-opportunity").textContent =
+                opportunity.tier;
+
+            document.getElementById("opportunity-drivers-list").innerHTML =
+                opportunity.reasons.length
+                    ? opportunity.reasons.map(reason => `<li>✓ ${reason}</li>`).join("")
+                    : `<li>✓ Player profile generated successfully.</li>`;
+
+            document.getElementById("recent-trend").textContent =
+                player.trend || "Recent trend data is limited until more game-level data is connected.";
+
+            document.getElementById("recent-trend-tag").textContent =
+                player.trend ? "Available" : "Limited";
+
+            document.getElementById("last10-games").textContent =
+                player.last10Text || "Last 10 game data is not available yet for this player.";
+
+            document.getElementById("career-vs-opponent").textContent =
+                player.careerSplits && opponentCode
+                    ? player.careerSplits[opponentCode] || `No logged career split found vs ${opponentCode}.`
+                    : `Career vs opponent data will populate when available.`;
+
+            document.getElementById("career-opponent-tag").textContent =
+                opponentCode || "TBD";
+
+            document.getElementById("prop-focus-copy").textContent =
+                `${playerName}'s primary prop research lanes include ${getPropFocus(position).toLowerCase()}.`;
+
+            document.getElementById("prop-focus-tag").textContent = position;
+
+            document.getElementById("defensive-matchup-summary").textContent =
+                opponentCode
+                    ? `${playerName}'s next defensive matchup is against ${opponentName}.`
+                    : `Opponent defensive context will populate once a next matchup is available.`;
+
+            document.getElementById("opponent-defense-title").textContent =
+                opponentCode ? `${opponentCode} Defense` : "Opponent Defense";
+
+            document.getElementById("overall-defense-tier").textContent =
+                opponentDefense?.overallDefenseTier || "N/A";
+
+            document.getElementById("pass-defense-tier").textContent =
+                opponentDefense?.passDefenseTier || "N/A";
+
+            document.getElementById("run-defense-tier").textContent =
+                opponentDefense?.runDefenseTier || "N/A";
+
+            document.getElementById("pressure-rate").textContent =
+                opponentDefense ? formatPct(opponentDefense.pressureRate) : "N/A";
+
+            document.getElementById("defensive-prop-lanes").innerHTML = `
+        <li>${position} matchup focus: ${getPropFocus(position)}</li>
+        <li>${opponentDefense ? `Opponent defense: Pass ${opponentDefense.passDefenseTier}, Run ${opponentDefense.runDefenseTier}` : "Opponent defense data unavailable"}</li>
+        <li>Review line value inside PlayMaker before locking any prop.</li>
+      `;
+
+            document.getElementById("similar-defense-copy").textContent =
+                opponentDefense
+                    ? `${opponentName} grades as a ${opponentDefense.overallDefenseTier} overall defense with ${opponentDefense.passDefenseTier} pass defense and ${opponentDefense.runDefenseTier} run defense.`
+                    : `Similar defensive profiles will populate when opponent defense data is available.`;
+
+            document.getElementById("similar-prop-copy").textContent =
+                `${position} prop environments should be compared through usage, matchup, line value, and recent trend data.`;
+
+            document.getElementById("similar-note-copy").textContent =
+                `Use this player page as the research layer, then run the actual line inside PlayMaker for the final tool read.`;
+
+            renderHistoricalResults(player);
+            renderFrequentlyHitProps(player);
+
+            document.getElementById("faq-q1").textContent =
+                `What props should I research for ${playerName}?`;
+
+            document.getElementById("faq-a1").textContent =
+                `Start with ${getPropFocus(position).toLowerCase()}, then compare the line against recent trend data, opponent defense, and PlayMaker's matchup context.`;
+
+            document.getElementById("faq-q2").textContent =
+                `Who does ${playerName} play next?`;
+
+            document.getElementById("faq-a2").textContent =
+                opponentCode
+                    ? `${playerName}'s next listed opponent is ${opponentName}.`
+                    : `The next opponent is not available yet in the current schedule data.`;
+
+            document.getElementById("faq-q3").textContent =
+                `How does PlayMaker score ${playerName}'s opportunity?`;
+
+            document.getElementById("faq-a3").textContent =
+                `PlayMaker looks at position, team context, next opponent, defensive tiers, recent trend availability, prop category, and historical result data when available.`;
+
+            document.getElementById("faq-q4").textContent =
+                `Where can I run ${playerName} in PlayMaker?`;
+
+            document.getElementById("faq-a4").textContent =
+                `Open PlayMaker, select ${teamName(team)}, choose ${playerName}, enter the line, and review the matchup analysis.`;
+
+            document.getElementById("cta-title").textContent =
+                `Ready to run ${playerName} in PlayMaker?`;
+
+            document.getElementById("cta-copy").textContent =
+                `Open the ${teamName(team)} team page inside PlayMaker, choose ${playerName}, enter the prop line, and let the tool do the matchup analysis.`;
+
+            document.getElementById("cta-tool-link").textContent =
+                `Open ${team} in PlayMaker`;
+
+            document.getElementById("cta-tool-link").href =
+                `/tool/team.html?team=${encodeURIComponent(team)}`;
+
+            document.getElementById("player-tool-link").href =
+                `/tool/team.html?team=${encodeURIComponent(team)}`;
+        }
+
+        async function loadPlayerPage() {
+            try {
+                const slug = getPlayerSlugFromUrl();
+
+                if (!slug) {
+                    renderNotFound();
+                    return;
+                }
+
+                await loadPlayers();
+
+                try {
+                    schedule2026 = await loadJson("/assets/data/schedule2026.json");
+                } catch (err) {
+                    console.warn("Schedule unavailable:", err.message);
+                }
+
+                try {
+                    defenseData = await loadJson("/assets/data/defense-tiers.json");
+                } catch (err) {
+                    console.warn("Defense tiers unavailable:", err.message);
+                }
+
+                try {
+                    resultsData = await loadJson("/assets/data/results.json");
+                } catch (err) {
+                    console.warn("Results unavailable:", err.message);
+                }
+
+                const player = allPlayers.find(p => playerSlug(p.name) === slug);
+
+                if (!player) {
+                    renderNotFound();
+                    return;
+                }
+
+                renderPlayer(player);
+
+            } catch (err) {
+                console.error("Failed to load player page:", err);
+                renderNotFound();
+            }
+        }
+
+        loadPlayerPage();
+    </script>
+
+    <script src="/assets/js/analytics-tracker.js"></script>
+
+</body>
+
+</html>
