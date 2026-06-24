@@ -684,6 +684,35 @@ button.report-row:hover {
   align-items: flex-end;
 }
 
+.team-report-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.team-report-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 10px rgba(102,255,153,.18));
+}
+
+.team-intel-report-row:hover .team-report-logo {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .team-report-left {
+        align-items: flex-start;
+    }
+
+    .team-report-logo {
+        width: 36px;
+        height: 36px;
+    }
+}
+
 /* FOOTER */
 
 footer {

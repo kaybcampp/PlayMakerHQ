@@ -143,8 +143,13 @@
 
     <section class="hq-section">
       <div class="section-header">
-        <h3>Team Intelligence Reports</h3>
-        <p>Team research built around offense, defense, trends, player groups, and matchup context.</p>
+        <h3>Featured Team Reports</h3>
+
+        <p>
+          Explore full PlayMaker intelligence reports for NFL teams,
+          including schedules, defense, offense, players, trends,
+          and matchup analysis.
+        </p>
       </div>
 
       <div id="team-report-list" class="report-list"></div>
@@ -280,12 +285,12 @@
     let TRENDING_TEAMS = [];
 
     const TEAM_REPORTS = [
-      { code: "PHI", type: "Offensive Identity Report" },
-      { code: "BUF", type: "Defensive Matchup Report" },
-      { code: "DET", type: "Trend Report" },
-      { code: "BAL", type: "Rushing Environment Report" },
-      { code: "KC", type: "Red Zone Report" },
-      { code: "WSH", type: "Opportunity Report" }
+      { code: "PHI" },
+      { code: "BUF" },
+      { code: "DET" },
+      { code: "BAL" },
+      { code: "KC" },
+      { code: "WSH" }
     ];
 
     function teamSlug(name) {
@@ -601,16 +606,30 @@
 
       list.innerHTML = TEAM_REPORTS.map(item => {
         const team = TEAMS.find(t => t.code === item.code);
+        if (!team) return "";
 
         return `
-          <button type="button" class="report-row team-report-row" data-team="${team.code}">
-            <div>
-              <h4>${team.name} ${item.type}</h4>
-              <p>${team.conference} · ${team.division} · Team intelligence</p>
-            </div>
-            <span>Open Report →</span>
-          </button>
-        `;
+      <button type="button" class="report-row team-report-row team-intel-report-row" data-team="${team.code}">
+        <div class="team-report-left">
+          <img
+            src="${team.logo}"
+            alt="${team.name}"
+            class="team-report-logo"
+            loading="lazy"
+          />
+
+          <div>
+            <h4>${team.name} Team Report</h4>
+
+<p>
+  Offense • Defense • Trends • Players • Schedule
+</p>
+          </div>
+        </div>
+
+        <span>Open Report →</span>
+      </button>
+    `;
       }).join("");
 
       list.querySelectorAll(".team-report-row").forEach(button => {
