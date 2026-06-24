@@ -444,7 +444,7 @@
         }
 
         function getNextGame(player) {
-            const team = String(player.team || "").toUpperCase();
+            const team = String(player.team.code || "").toUpperCase();
 
             return schedule2026.find(game => {
                 const away = String(game.away || "").toUpperCase();
@@ -458,7 +458,7 @@
             const game = getNextGame(player);
             if (!game) return null;
 
-            const team = String(player.team || "").toUpperCase();
+            const team = String(player.team.code || "").toUpperCase();
             const away = String(game.away || "").toUpperCase();
             const home = String(game.home || "").toUpperCase();
 
@@ -470,7 +470,7 @@
             if (!opponent) return "TBD";
 
             const game = getNextGame(player);
-            const team = String(player.team || "").toUpperCase();
+            const team = String(player.team.code || "").toUpperCase();
 
             return String(game.away).toUpperCase() === team
                 ? `@ ${teamName(opponent)}`
@@ -715,7 +715,7 @@
             const opportunity = calculatePlayerOpportunity(player, opponentDefense);
 
             const playerName = player.name;
-            const team = String(player.team || "").toUpperCase();
+            const team = String(player.team.code || "").toUpperCase();
             const position = String(player.position || "").toUpperCase();
 
             document.title = `${playerName} Player Intelligence Report | PlayMaker Prime`;

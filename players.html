@@ -473,7 +473,7 @@
     }
 
     function getNextOpponent(player) {
-      const team = String(player.team || "").toUpperCase();
+      const team = String(player.team.code || "").toUpperCase();
 
       const nextGame = schedule2026.find(game => {
         const away = String(game.away || "").toUpperCase();
@@ -552,14 +552,14 @@
       </div>
 
       <div class="player-top">
-        <span class="team-tag">${player.team}</span>
+        <span class="team-tag">${player.team.code}</span>
         <span class="position-tag">${player.position}</span>
       </div>
 
       <h4>${player.name}</h4>
 
       <p class="player-role">
-        ${player.position} · ${player.team}
+        ${player.position} · ${player.team.code}
       </p>
 
       <ul class="player-points">
@@ -671,12 +671,12 @@
       </div>
 
       <div class="player-top">
-        <span class="team-tag">${player.team}</span>
+        <span class="team-tag">${player.team.code}</span>
         <span class="position-tag">${player.position}</span>
       </div>
 
       <h4>${player.name}</h4>
-      <p class="player-role">${player.position} · ${teamName(player.team)}</p>
+      <p class="player-role">${player.position} · ${teamName(player.team.code)}</p>
 
       <ul class="player-points">
         <li>Why Rising: ${player.risingReason}</li>
@@ -798,7 +798,7 @@
 
           ·
 
-          ${teamName(player.team)}
+          ${teamName(player.team.code)}
 
           ·
 
@@ -898,7 +898,7 @@
 
       if (type === "team") {
         players = allPlayers.filter(player =>
-          String(player.team || "").toUpperCase() === value
+          String(player.team.code || "").toUpperCase() === value
         );
 
         title.textContent = `${teamName(value)} Player Intelligence`;
@@ -929,13 +929,13 @@
       </div>
 
       <div class="player-top">
-        <span class="team-tag">${player.team}</span>
+        <span class="team-tag">${player.team.code}</span>
         <span class="position-tag">${player.position}</span>
       </div>
 
       <h4>${player.name}</h4>
 
-      <p class="player-role">${player.position} · ${teamName(player.team)}</p>
+      <p class="player-role">${player.position} · ${teamName(player.team.code)}</p>
 
       <ul class="player-points">
         <li>${getNextOpponentText(player)}</li>
@@ -991,7 +991,7 @@
         .filter(player => {
           return (
             player.name.toLowerCase().includes(q) ||
-            String(player.team || "").toLowerCase().includes(q) ||
+            String(player.team.code || "").toLowerCase().includes(q) ||
             String(player.position || "").toLowerCase().includes(q)
           );
         })
@@ -1013,7 +1013,7 @@
 
         <span>
           <strong>${player.name}</strong>
-          <small>${player.position} · ${player.team}</small>
+          <small>${player.position} · ${player.team.code}</small>
         </span>
       </button>
     `).join("");

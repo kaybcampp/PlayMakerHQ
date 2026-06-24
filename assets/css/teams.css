@@ -609,6 +609,56 @@ button.report-row:hover {
     margin: 0;
 }
 
+.team-suggestions {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.team-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 255, 153, .15);
+    background: #0B0F1A;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.team-suggestion:hover {
+    border-color: rgba(102, 255, 153, .5);
+    background: rgba(102, 255, 153, .06);
+    transform: translateY(-1px);
+}
+
+.team-suggestion-logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.team-suggestion-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.team-suggestion-text strong {
+    color: #E6F6EE;
+    font-size: 0.95rem;
+}
+
+.team-suggestion-text small {
+    color: #A3AABF;
+    font-size: 0.8rem;
+}
+
 /* FOOTER */
 
 footer {
