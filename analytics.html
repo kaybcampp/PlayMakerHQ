@@ -231,6 +231,12 @@
     function getPageLabel(page) {
       if (!page) return "Unknown page";
 
+      if (page.includes("/matchups/")) {
+        return page
+          .split("/matchups/")[1]
+          .replaceAll("-", " ");
+      }
+
       if (page.includes("matchup.html?game=")) {
         return page
           .replace("/matchup.html?game=", "")
