@@ -367,25 +367,34 @@
 
     function renderTeamCard(team) {
       return `
-        <article class="team-card">
-          <div class="team-top">
-            <span class="division-tag">${team.division}</span>
-            <span class="team-record">${team.code}</span>
-          </div>
+    <article class="team-card">
+      <div class="trending-top">
+        <img 
+          src="${team.logo}" 
+          alt="${team.name}"
+          class="trending-logo"
+          loading="lazy"
+        />
 
-          <h4>${team.name}</h4>
+        <div class="trending-meta">
+          <span class="division-tag">${team.division}</span>
+          <span class="team-record">${team.code}</span>
+        </div>
+      </div>
 
-          <ul class="team-points">
-  <li>${team.conference} · ${team.division}</li>
-  <li>Team Intelligence Report</li>
-  <li>View schedule, defense, players, and trends</li>
-</ul>
+      <h4>${team.name}</h4>
 
-          <button type="button" class="card-link team-card-button" data-team="${team.code}">
-            View team →
-          </button>
-        </article>
-      `;
+      <ul class="team-points">
+        <li>${team.conference} · ${team.division}</li>
+        <li>Team Intelligence Report</li>
+        <li>View schedule, defense, players, and trends</li>
+      </ul>
+
+      <button type="button" class="card-link team-card-button" data-team="${team.code}">
+        View team →
+      </button>
+    </article>
+  `;
     }
 
     function bindTeamButtons(scope = document) {
