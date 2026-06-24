@@ -277,7 +277,7 @@
       { code: "WSH", name: "Washington Commanders", conference: "NFC", division: "NFC East", logo: "/assets/images/teams/was.png" }
     ];
 
-    const TRENDING_TEAMS = ["PHI", "KC", "BUF", "BAL", "DET", "DAL", "CIN", "SF"];
+    let TRENDING_TEAMS = [];
 
     const TEAM_REPORTS = [
       { code: "PHI", type: "Offensive Identity Report" },
@@ -328,7 +328,11 @@
       }
 
       // FALLBACK → TEAM PAGE
-      routeTeamSearch(input.value);
+      const team = findTeam(q);
+      if (team) {
+        openTeam(team);
+        return;
+      }
     }
 
     function findTeam(value) {
@@ -372,10 +376,10 @@
           <h4>${team.name}</h4>
 
           <ul class="team-points">
-            <li>${team.conference} team profile</li>
-            <li>Division: ${team.division}</li>
-            <li>Team intelligence report available</li>
-          </ul>
+  <li>${team.conference} · ${team.division}</li>
+  <li>Team Intelligence Report</li>
+  <li>View schedule, defense, players, and trends</li>
+</ul>
 
           <button type="button" class="card-link team-card-button" data-team="${team.code}">
             View team →
@@ -401,8 +405,135 @@
         .map(code => TEAMS.find(team => team.code === code))
         .filter(Boolean);
 
-      grid.innerHTML = teams.map(renderTeamCard).join("");
+      grid.innerHTML = teams.map(team => `
+    <article class="team-card trending-team-card">
+
+      <div class="trending-top">
+        <img 
+          src="${team.logo}" 
+          alt="${team.name}"
+          class="trending-logo"
+          loading="lazy"
+        />
+
+        <div class="trending-meta">
+          <span class="division-tag">${team.division}</span>
+          <span class="team-record">${team.code}</span>
+        </div>
+      </div>
+
+      <h4>${team.name}</h4>
+
+      <ul class="team-points">
+  <li>${team.conference} · ${team.division}</li>
+  <li>Top PlayMaker research team</li>
+  <li>View schedule, defense, players, and trends</li>
+</ul>
+      <button type="button"
+        class="card-link team-card-button"
+        data-team="${team.code}">
+        Open Team →
+      </button>
+
+    </article>
+  `).join("");
+
       bindTeamButtons(grid);
+    }
+
+    async function loadJson(path) {
+      const res = await fetch(path);
+      if (!res.ok) throw new Error(`Failed to load ${path}`);
+      return await res.json();
+    }
+
+    async function buildTrendingTeams() {
+      try {
+        const results = await loadJson("/assets/data/results.json");
+        const defenseData = await loadJson("/assets/data/defense-tiers.json");
+
+        const teamScores = {};
+
+        function initTeam(team) {
+          if (!teamScores[team]) {
+            teamScores[team] = {
+              wins: 0,
+              losses: 0,
+              confidence: 0,
+              count: 0,
+              score: 50
+            };
+          }
+        }
+
+        // -----------------------------
+        // 1. Aggregate PlayMaker Results
+        // -----------------------------
+        results.forEach(r => {
+          const team = String(
+            r.playerTeam ||
+            r.team ||
+            r.teamCode ||
+            ""
+          ).toUpperCase();
+          if (!team) return;
+
+          initTeam(team);
+
+          const isWin = String(r.result || "").toLowerCase() === "won";
+          const confidence = Number(r.confidence || 0);
+
+          teamScores[team].count += 1;
+          teamScores[team].confidence += confidence;
+
+          if (isWin) teamScores[team].wins += 1;
+          else teamScores[team].losses += 1;
+        });
+
+        // -----------------------------
+        // 2. Compute Trend Score
+        // -----------------------------
+        Object.keys(teamScores).forEach(team => {
+          const t = teamScores[team];
+
+          const winRate = t.count ? (t.wins / t.count) : 0;
+          const avgConf = t.count ? (t.confidence / t.count) : 0;
+
+          // Base formula (simple but powerful)
+          let score =
+            (winRate * 100 * 0.6) +
+            (avgConf * 0.4);
+
+          // Boost consistent teams
+          if (t.wins >= 3) score += 5;
+
+          // Normalize
+          t.score = Math.min(100, Math.max(0, Math.round(score)));
+          if (t.score >= 80) {
+            t.label = "Elite PlayMaker Trend";
+          } else if (t.score >= 70) {
+            t.label = "Strong Research Profile";
+          } else {
+            t.label = "Active Team Report";
+          }
+        });
+
+        // -----------------------------
+        // 3. Sort + pick top teams
+        // -----------------------------
+        const trending = Object.entries(teamScores)
+          .sort((a, b) => b[1].score - a[1].score)
+          .slice(0, 8)
+          .map(([team]) => team);
+
+        return trending.length
+          ? trending
+          : ["PHI", "KC", "BUF", "BAL", "DET", "DAL", "CIN", "SF"];
+
+      } catch (err) {
+        console.error("Failed to build trending teams:", err);
+        return [];
+      }
     }
 
     function renderDivisionBrowser() {
@@ -541,11 +672,16 @@
       });
     }
 
+    async function initTrendingTeams() {
+      TRENDING_TEAMS = await buildTrendingTeams();
+      renderTrendingTeams();
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const input = document.getElementById("team-search");
       const button = document.getElementById("team-search-btn");
 
-      renderTrendingTeams();
+      initTrendingTeams();
       renderDivisionBrowser();
       renderTeamReports();
 

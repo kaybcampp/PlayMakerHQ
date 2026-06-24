@@ -659,6 +659,31 @@ button.report-row:hover {
     font-size: 0.8rem;
 }
 
+.trending-team-card {
+  position: relative;
+}
+
+.trending-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.trending-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(102,255,153,.25));
+}
+
+.trending-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: flex-end;
+}
+
 /* FOOTER */
 
 footer {
