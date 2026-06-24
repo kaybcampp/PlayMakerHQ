@@ -19,7 +19,7 @@ body {
 
 .pm-header {
     background: #131A2A;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@ body {
     color: #66FF99;
     font-size: 1.4rem;
     font-weight: 800;
-    text-shadow: 0 0 12px rgba(102,255,153,.4);
+    text-shadow: 0 0 12px rgba(102, 255, 153, .4);
     text-decoration: none;
 }
 
@@ -61,8 +61,8 @@ body {
 }
 
 .pm-link-cta {
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.35);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .35);
     padding: .5rem .9rem;
     border-radius: 999px;
 }
@@ -73,7 +73,7 @@ body {
     position: relative;
     min-height: 620px;
     background:
-        linear-gradient(rgba(11,15,26,.84), rgba(11,15,26,.94)),
+        linear-gradient(rgba(11, 15, 26, .84), rgba(11, 15, 26, .94)),
         url('../images/playMakerBackground.png') center bottom / cover no-repeat;
     display: flex;
     align-items: center;
@@ -86,7 +86,7 @@ body {
 .hero-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(102,255,153,.18), transparent 65%);
+    background: radial-gradient(circle at center, rgba(102, 255, 153, .18), transparent 65%);
     pointer-events: none;
 }
 
@@ -99,8 +99,8 @@ body {
 
 .hq-pill {
     display: inline-block;
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.4);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .4);
     color: #66FF99;
     padding: .4rem .9rem;
     border-radius: 999px;
@@ -128,11 +128,11 @@ body {
     position: relative;
     max-width: 760px;
     margin: 0 auto;
-    background: rgba(19,26,42,.88);
-    border: 1px solid rgba(102,255,153,.22);
+    background: rgba(19, 26, 42, .88);
+    border: 1px solid rgba(102, 255, 153, .22);
     border-radius: 18px;
     padding: 1.4rem;
-    box-shadow: 0 0 24px rgba(102,255,153,.14);
+    box-shadow: 0 0 24px rgba(102, 255, 153, .14);
     text-align: left;
 }
 
@@ -152,18 +152,18 @@ body {
     flex: 1;
     min-width: 0;
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.35);
+    border: 1px solid rgba(102, 255, 153, .35);
     color: #fff;
     border-radius: 12px;
     padding: 1rem;
     outline: none;
     font-size: 1rem;
-    box-shadow: 0 0 14px rgba(102,255,153,.12);
+    box-shadow: 0 0 14px rgba(102, 255, 153, .12);
 }
 
 .search-row input:focus {
     border-color: #66FF99;
-    box-shadow: 0 0 20px rgba(102,255,153,.35);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .35);
 }
 
 .search-row button {
@@ -174,7 +174,7 @@ body {
     padding: 0 1.4rem;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
     white-space: nowrap;
 }
 
@@ -194,10 +194,10 @@ body {
     top: calc(100% - 1.2rem);
     z-index: 20;
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.25);
+    border: 1px solid rgba(102, 255, 153, .25);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 18px 34px rgba(0,0,0,.45);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, .45);
 }
 
 .team-suggestion,
@@ -205,7 +205,7 @@ body {
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
     color: #E6F6EE;
     text-align: left;
     padding: .95rem 1rem;
@@ -217,7 +217,7 @@ body {
 }
 
 .team-suggestion:hover {
-    background: rgba(102,255,153,.08);
+    background: rgba(102, 255, 153, .08);
 }
 
 .team-suggestion strong {
@@ -268,16 +268,16 @@ body {
 
 .team-card {
     background: linear-gradient(145deg, #0B0F1A, #131A2A);
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 18px;
     padding: 1.5rem;
-    box-shadow: 0 0 20px rgba(102,255,153,.1);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .1);
     transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .team-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 0 28px rgba(102,255,153,.2);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .2);
 }
 
 .team-top {
@@ -297,14 +297,14 @@ body {
 
 .division-tag {
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
 }
 
 .team-record {
     color: #A3AABF;
-    border: 1px solid rgba(255,255,255,.1);
-    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(255, 255, 255, .04);
 }
 
 .team-card h4 {
@@ -322,7 +322,7 @@ body {
 
 .team-points li {
     color: #A3AABF;
-    border-left: 3px solid rgba(102,255,153,.55);
+    border-left: 3px solid rgba(102, 255, 153, .55);
     padding-left: .65rem;
     font-size: .95rem;
 }
@@ -359,28 +359,28 @@ body {
 .browse-card,
 .division-browser-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 18px;
     padding: 1.4rem;
     text-align: left;
     cursor: pointer;
-    box-shadow: 0 0 16px rgba(102,255,153,.08);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
 .browse-card:hover,
 .division-browser-card:hover {
     transform: translateY(-3px);
-    border-color: rgba(102,255,153,.42);
-    box-shadow: 0 0 24px rgba(102,255,153,.18);
+    border-color: rgba(102, 255, 153, .42);
+    box-shadow: 0 0 24px rgba(102, 255, 153, .18);
 }
 
 .browse-card span,
 .division-browser-card span {
     display: inline-block;
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
     border-radius: 999px;
     padding: .25rem .7rem;
     font-size: .78rem;
@@ -413,10 +413,10 @@ body {
 
 .intel-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 16px;
     padding: 1.35rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.09);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
 }
 
 .intel-card h4 {
@@ -441,14 +441,14 @@ body {
 .report-row {
     width: 100%;
     background: #131A2A;
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 16px;
     padding: 1.25rem 1.4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.08);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
     text-align: left;
 }
 
@@ -459,8 +459,8 @@ button.report-row {
 }
 
 button.report-row:hover {
-    border-color: rgba(102,255,153,.35);
-    box-shadow: 0 0 24px rgba(102,255,153,.16);
+    border-color: rgba(102, 255, 153, .35);
+    box-shadow: 0 0 24px rgba(102, 255, 153, .16);
 }
 
 .report-row h4 {
@@ -475,8 +475,8 @@ button.report-row:hover {
 .report-row span {
     white-space: nowrap;
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
     border-radius: 999px;
     padding: .35rem .8rem;
     font-size: .85rem;
@@ -494,10 +494,10 @@ button.report-row:hover {
 
 .faq-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 16px;
     padding: 1.25rem 1.4rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.08);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
 }
 
 .faq-card summary {
@@ -518,10 +518,10 @@ button.report-row:hover {
     margin: 0 auto;
     text-align: center;
     background: linear-gradient(145deg, #131A2A, #0B0F1A);
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 20px;
     padding: 4rem 2rem;
-    box-shadow: 0 0 22px rgba(102,255,153,.12);
+    box-shadow: 0 0 22px rgba(102, 255, 153, .12);
 }
 
 .final-cta h3 {
@@ -542,14 +542,71 @@ button.report-row:hover {
     padding: 1rem 2rem;
     border-radius: 999px;
     font-weight: 900;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
     transition: .25s ease;
     display: inline-block;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 28px rgba(102,255,153,.7);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .7);
+}
+
+.team-hero-feature-grid {
+
+    max-width: 1100px;
+
+    width: 100%;
+
+    margin: 2.8rem auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 1.25rem;
+
+    align-items: stretch;
+
+}
+
+.team-hero-feature {
+
+    background: rgba(11, 15, 26, .55);
+
+    border: 1px solid rgba(102, 255, 153, .12);
+
+    border-radius: 18px;
+
+    padding: 1.5rem;
+
+    text-align: center;
+
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
+}
+
+.team-hero-feature span {
+    display: inline-grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    margin-bottom: .9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
+    font-size: 1.45rem;
+}
+
+.team-hero-feature h4 {
+    color: #E6F6EE;
+    margin-bottom: .35rem;
+    font-size: 1rem;
+}
+
+.team-hero-feature p {
+    color: #A3AABF;
+    font-size: .88rem;
+    margin: 0;
 }
 
 /* FOOTER */
@@ -558,7 +615,7 @@ footer {
     text-align: center;
     padding: 2rem 1rem;
     color: #A3AABF;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
 /* MOBILE */
@@ -605,5 +662,10 @@ footer {
 
     .final-cta {
         padding: 3rem 1.25rem;
+    }
+
+    .team-hero-feature-grid {
+        grid-template-columns: 1fr;
+        margin-top: 2rem;
     }
 }
