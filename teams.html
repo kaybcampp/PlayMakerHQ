@@ -301,13 +301,60 @@
       return `/teams/${teamSlug(team.name)}`;
     }
 
-    function findTeam(value) {
-      const q = String(value || "").toLowerCase();
+    function routeTeamSearch(value) {
+      const q = String(value || "").toLowerCase().trim();
 
-      return TEAMS.find(team =>
-        team.code.toLowerCase() === q ||
+      if (!q) return;
+
+      // CONFERENCE ROUTES
+      if (q === "afc") {
+        renderFilteredTeams("conference", "AFC");
+        return;
+      }
+
+      if (q === "nfc") {
+        renderFilteredTeams("conference", "NFC");
+        return;
+      }
+
+      // DIVISION ROUTES
+      const divisionMatch = TEAMS.find(team =>
+        team.division.toLowerCase().includes(q)
+      );
+
+      if (divisionMatch && (q.includes("east") || q.includes("west") || q.includes("north") || q.includes("south"))) {
+        renderFilteredTeams("division", divisionMatch.division);
+        return;
+      }
+
+      // FALLBACK → TEAM PAGE
+      routeTeamSearch(input.value);
+    }
+
+    function findTeam(value) {
+      const q = String(value || "").toLowerCase().trim();
+
+      if (!q) return null;
+
+      // 1. exact team code
+      let match = TEAMS.find(team =>
+        team.code.toLowerCase() === q
+      );
+      if (match) return match;
+
+      // 2. exact name match
+      match = TEAMS.find(team =>
+        team.name.toLowerCase() === q
+      );
+      if (match) return match;
+
+      // 3. partial name match
+      match = TEAMS.find(team =>
         team.name.toLowerCase().includes(q)
       );
+      if (match) return match;
+
+      return null;
     }
 
     function openTeam(team) {
@@ -501,14 +548,12 @@
 
       input.addEventListener("keydown", e => {
         if (e.key === "Enter") {
-          const team = findTeam(input.value);
-          if (team) openTeam(team);
+          routeTeamSearch(input.value);
         }
       });
 
       button.addEventListener("click", () => {
-        const team = findTeam(input.value);
-        if (team) openTeam(team);
+        routeTeamSearch(input.value);
       });
     });
   </script>
