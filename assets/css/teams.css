@@ -974,6 +974,35 @@ button.report-row:hover {
     font-size: 12px;
 }
 
+.prop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.prop-card {
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .12);
+    border-radius: 14px;
+    padding: 1.2rem;
+    transition: 0.2s ease;
+}
+
+.prop-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(102, 255, 153, .3);
+}
+
+.prop-card h4 {
+    margin-bottom: 6px;
+    color: #E6F6EE;
+}
+
+.prop-card p {
+    opacity: 0.85;
+    font-size: 13px;
+}
+
 /* FOOTER */
 
 footer {

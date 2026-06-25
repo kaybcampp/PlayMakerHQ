@@ -595,6 +595,47 @@
             };
         }
 
+        function buildTeamProps(results, teamCode) {
+
+            const teamGames = results.filter(g =>
+                g.playerTeam === teamCode
+            );
+
+            const props = {};
+
+            teamGames.forEach(g => {
+
+                const market = g.market || "Unknown";
+
+                if (!props[market]) {
+                    props[market] = {
+                        market,
+                        total: 0,
+                        wins: 0
+                    };
+                }
+
+                props[market].total++;
+
+                if (g.result === "won") {
+                    props[market].wins++;
+                }
+            });
+
+            return Object.values(props)
+                .map(p => {
+
+                    const hitRate = Math.round((p.wins / p.total) * 100);
+
+                    return {
+                        ...p,
+                        hitRate
+                    };
+                })
+                .sort((a, b) => b.total - a.total)
+                .slice(0, 6);
+        }
+
         async function loadTeamPage() {
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
@@ -891,6 +932,49 @@
         </div>
     `;
                 }).join("") : "";
+
+            // ---------------- FREQUENT PROPS ----------------
+            const teamProps = buildTeamProps(results, teamCode);
+
+            const propsContainer = document.getElementById("team-props");
+
+            propsContainer.innerHTML = teamProps.length ? teamProps.map(p => {
+
+                const color =
+                    p.hitRate >= 70 ? "#66FF99"
+                        : p.hitRate >= 50 ? "#FFD166"
+                            : "#ff6b6b";
+
+                return `
+        <div class="prop-card">
+
+            <h4>${p.market}</h4>
+
+            <p>
+                ${p.total} occurrences<br/>
+                ${p.hitRate}% hit rate
+            </p>
+
+            <div style="
+                margin-top:8px;
+                font-size:12px;
+                color:${color};
+                font-weight:600;
+            ">
+                ${p.hitRate >= 70 ? "STRONG TREND" :
+                        p.hitRate >= 50 ? "MODERATE" : "WEAK"}
+            </div>
+
+        </div>
+    `;
+            }).join("") : `
+    <div class="report-row">
+        <div>
+            <h4>No prop data found</h4>
+            <p>Prop trends will appear as tracking builds.</p>
+        </div>
+    </div>
+`;
         }
 
         window.addEventListener("DOMContentLoaded", loadTeamPage);
