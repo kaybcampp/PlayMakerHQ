@@ -327,8 +327,7 @@ body {
     font-size: .95rem;
 }
 
-.card-link,
-.team-card-button {
+.card-link {
     color: #66FF99;
     background: transparent;
     border: none;
@@ -660,28 +659,28 @@ button.report-row:hover {
 }
 
 .trending-team-card {
-  position: relative;
+    position: relative;
 }
 
 .trending-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
 }
 
 .trending-logo {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(102,255,153,.25));
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(102, 255, 153, .25));
 }
 
 .trending-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: flex-end;
 }
 
 .team-report-left {
@@ -695,7 +694,7 @@ button.report-row:hover {
     height: 42px;
     object-fit: contain;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 10px rgba(102,255,153,.18));
+    filter: drop-shadow(0 0 10px rgba(102, 255, 153, .18));
 }
 
 .team-intel-report-row:hover .team-report-logo {
@@ -711,6 +710,83 @@ button.report-row:hover {
         width: 36px;
         height: 36px;
     }
+}
+
+/* ===============================
+   TEAM PAGE PHASE 2 COMPONENTS
+================================= */
+
+.ai-summary-card {
+    max-width: 1050px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, #0B0F1A, #131A2A);
+    border: 1px solid rgba(102, 255, 153, .18);
+    border-radius: 18px;
+    padding: 1.8rem;
+    box-shadow: 0 0 22px rgba(102, 255, 153, .12);
+}
+
+.ai-summary-card h3 {
+    color: #66FF99;
+    margin-bottom: .5rem;
+}
+
+.ai-summary-card p {
+    color: #A3AABF;
+}
+
+/* GRID USED IN OFFENSE/DEFENSE SECTIONS */
+.logic-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.logic-card {
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .14);
+    border-radius: 16px;
+    padding: 1.4rem;
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
+}
+
+.logic-card h4 {
+    color: #66FF99;
+    margin-bottom: .4rem;
+}
+
+.logic-card p {
+    color: #A3AABF;
+    font-size: .95rem;
+}
+
+/* PROP GRID (for frequently hit props) */
+.prop-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.prop-card {
+    background: #131A2A;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 16px;
+    padding: 1.2rem;
+    box-shadow: 0 0 14px rgba(102, 255, 153, .08);
+}
+
+.prop-card h4 {
+    color: #E6F6EE;
+    margin-bottom: .3rem;
+}
+
+.prop-card p {
+    color: #A3AABF;
+    font-size: .9rem;
 }
 
 /* FOOTER */
@@ -771,5 +847,11 @@ footer {
     .team-hero-feature-grid {
         grid-template-columns: 1fr;
         margin-top: 2rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .team-hero-feature-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

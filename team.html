@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Team Intelligence Report | PlayMaker Prime</title>
+    <meta name="description" content="NFL team intelligence report with offense, defense, trends, player pools, prop environments, and PlayMaker matchup insights."/>
+
+    <link rel="stylesheet" href="/assets/css/teams.css"/>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png"/>
+</head>
+
+<body>
+
+<div id="site-header"></div>
+
+<!-- HERO -->
+<section class="teams-hero">
+    <div class="hero-glow"></div>
+
+    <div class="teams-hero-content">
+
+        <span class="hq-pill" id="team-label">Team Intelligence Report</span>
+
+        <h2 id="team-title">Loading team...</h2>
+
+        <p id="team-subtitle">
+            Loading offensive identity, defensive profile, trends, and matchup intelligence...
+        </p>
+
+        <div class="team-search-card">
+            <label>Team Context</label>
+            <div class="search-row">
+                <input id="team-search" placeholder="Search teams..." />
+                <button>Search</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<main>
+
+<!-- AI SUMMARY -->
+<section class="hq-section">
+    <div class="section-header">
+        <h3>AI Team Summary</h3>
+        <p id="ai-summary-sub">Generating team intelligence profile...</p>
+    </div>
+
+    <div class="ai-summary-card">
+        <h3 id="ai-summary-title">Loading...</h3>
+        <p id="ai-summary-text">Building offensive and defensive breakdown...</p>
+    </div>
+</section>
+
+<!-- SNAPSHOT -->
+<section class="hq-section hq-section-alt">
+    <div class="section-header">
+        <h3>Team Snapshot</h3>
+    </div>
+
+    <div class="intel-grid">
+
+        <div class="intel-card">
+            <h4>Record</h4>
+            <p id="team-record">--</p>
+        </div>
+
+        <div class="intel-card">
+            <h4>Offensive Rank</h4>
+            <p id="team-offense">--</p>
+        </div>
+
+        <div class="intel-card">
+            <h4>Defensive Rank</h4>
+            <p id="team-defense">--</p>
+        </div>
+
+        <div class="intel-card">
+            <h4>Play Style</h4>
+            <p id="team-style">--</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- LAST 10 -->
+<section class="hq-section">
+    <div class="section-header">
+        <h3>Last 10 Trends</h3>
+        <p id="trend-sub">Recent team performance trends and PlayMaker outcomes.</p>
+    </div>
+
+    <div class="report-list" id="last10-list"></div>
+</section>
+
+<!-- OFFENSIVE IDENTITY -->
+<section class="hq-section hq-section-alt">
+    <div class="section-header">
+        <h3>Offensive Identity</h3>
+    </div>
+
+    <div class="logic-grid">
+        <div class="logic-card">
+            <h4>Scheme</h4>
+            <p id="off-scheme"></p>
+        </div>
+
+        <div class="logic-card">
+            <h4>Run / Pass Split</h4>
+            <p id="off-split"></p>
+        </div>
+
+        <div class="logic-card">
+            <h4>Key Tendencies</h4>
+            <p id="off-tendencies"></p>
+        </div>
+    </div>
+</section>
+
+<!-- DEFENSE -->
+<section class="hq-section">
+    <div class="section-header">
+        <h3>Defensive Profile</h3>
+    </div>
+
+    <div class="logic-grid">
+        <div class="logic-card">
+            <h4>Pass Defense</h4>
+            <p id="def-pass"></p>
+        </div>
+
+        <div class="logic-card">
+            <h4>Run Defense</h4>
+            <p id="def-run"></p>
+        </div>
+
+        <div class="logic-card">
+            <h4>Pressure Rate</h4>
+            <p id="def-pressure"></p>
+        </div>
+    </div>
+</section>
+
+<!-- PLAYER POOLS -->
+<section class="hq-section hq-section-alt">
+    <div class="section-header">
+        <h3>Player Pools</h3>
+        <p>Key usage groups for props and matchup targeting.</p>
+    </div>
+
+    <div id="player-pools" class="category-grid"></div>
+</section>
+
+<!-- TEAM LEADERS -->
+<section class="hq-section">
+    <div class="section-header">
+        <h3>Team Leaders</h3>
+    </div>
+
+    <div id="team-leaders" class="team-grid"></div>
+</section>
+
+<!-- SIMILAR TEAMS -->
+<section class="hq-section hq-section-alt">
+    <div class="section-header">
+        <h3>Similar Teams</h3>
+    </div>
+
+    <div id="similar-teams" class="team-grid"></div>
+</section>
+
+<!-- HISTORICAL RESULTS -->
+<section class="hq-section">
+    <div class="section-header">
+        <h3>Historical PlayMaker Results</h3>
+    </div>
+
+    <div id="team-results" class="report-list"></div>
+</section>
+
+<!-- FREQUENT PROPS -->
+<section class="hq-section hq-section-alt">
+    <div class="section-header">
+        <h3>Frequently Hit Props</h3>
+    </div>
+
+    <div id="team-props" class="prop-grid"></div>
+</section>
+
+<!-- FAQ -->
+<section class="hq-section">
+    <div class="section-header">
+        <h3>Team FAQ</h3>
+    </div>
+
+    <div class="faq-grid">
+
+        <details class="faq-card" open>
+            <summary>How is this team evaluated?</summary>
+            <p>Using offensive/defensive efficiency, trends, pace, matchup history, and PlayMaker results.</p>
+        </details>
+
+        <details class="faq-card">
+            <summary>What drives prop opportunities for this team?</summary>
+            <p>Run/pass splits, defensive weaknesses, pace, and game script tendencies.</p>
+        </details>
+
+        <details class="faq-card">
+            <summary>How are trends calculated?</summary>
+            <p>Based on last 10 games, PlayMaker results, and matchup performance data.</p>
+        </details>
+
+        <details class="faq-card">
+            <summary>How often is this updated?</summary>
+            <p>Updated continuously as new games and PlayMaker results are logged.</p>
+        </details>
+
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="hq-section">
+    <div class="final-cta">
+
+        <span class="hq-pill">PlayMaker Tool</span>
+
+        <h3>Run this team inside PlayMaker</h3>
+
+        <p>Analyze matchups, props, and player opportunities using real-time team intelligence.</p>
+
+        <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
+
+    </div>
+</section>
+
+</main>
+
+<script src="/assets/js/site-header.js"></script>
+<script src="/assets/js/analytics-tracker.js"></script>
+
+<script>
+    function getTeamFromURL() {
+        const path = window.location.pathname;
+
+        if (path.includes("/teams/")) {
+            return path.split("/teams/")[1];
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        return params.get("team");
+    }
+
+    async function loadTeamPage() {
+        const teamSlug = getTeamFromURL();
+        if (!teamSlug) return;
+
+        document.getElementById("team-title").textContent =
+            teamSlug.replaceAll("-", " ").toUpperCase();
+
+        document.getElementById("ai-summary-title").textContent =
+            `${teamSlug.replaceAll("-", " ")} Intelligence Profile`;
+
+        document.getElementById("ai-summary-text").textContent =
+            "Offense, defense, trends, player usage, and matchup environment will populate here.";
+
+        // placeholder hooks (we’ll wire data next phase)
+        document.getElementById("team-record").textContent = "Loading...";
+        document.getElementById("team-offense").textContent = "Loading...";
+        document.getElementById("team-defense").textContent = "Loading...";
+        document.getElementById("team-style").textContent = "Loading...";
+
+        document.getElementById("off-scheme").textContent = "Loading offensive scheme...";
+        document.getElementById("off-split").textContent = "Loading run/pass split...";
+        document.getElementById("off-tendencies").textContent = "Loading tendencies...";
+
+        document.getElementById("def-pass").textContent = "Loading pass defense...";
+        document.getElementById("def-run").textContent = "Loading run defense...";
+        document.getElementById("def-pressure").textContent = "Loading pressure rate...";
+    }
+
+    loadTeamPage();
+</script>
+
+</body>
+</html>

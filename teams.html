@@ -506,9 +506,13 @@
             r.playerTeam ||
             r.team ||
             r.teamCode ||
+            r.awayTeam ||
+            r.homeTeam ||
             ""
           ).toUpperCase();
-          if (!team) return;
+
+          // ✅ ADD SAFETY FILTER HERE
+          if (!team || team.length > 3) return;
 
           initTeam(team);
 
@@ -558,7 +562,7 @@
           .slice(0, 8)
           .map(([team]) => team);
 
-        return trending.length
+        return trending.length >= 4
           ? trending
           : ["PHI", "KC", "BUF", "BAL", "DET", "DAL", "CIN", "SF"];
 
