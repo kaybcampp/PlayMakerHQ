@@ -353,16 +353,49 @@
                 .slice(0, 6);
         }
 
-        function buildSimilarTeams(teamCode, allTeamGames) {
+        function buildSimilarTeams(teamCode) {
 
-            const teams = Object.keys(TEAM_MAP);
+            const teamSlug = Object.keys(TEAM_MAP)
+                .find(key => TEAM_MAP[key] === teamCode);
 
-            return teams
-                .filter(t => t !== teamCode)
-                .slice(0, 4)
-                .map(t => ({
-                    code: t,
-                    name: formatTeamName(t)
+            const teamConfMap = {
+                "ARI": "NFC", "ATL": "NFC", "BAL": "AFC", "BUF": "AFC",
+                "CAR": "NFC", "CHI": "NFC", "CIN": "AFC", "CLE": "AFC",
+                "DAL": "NFC", "DEN": "AFC", "DET": "NFC", "GB": "NFC",
+                "HOU": "AFC", "IND": "AFC", "JAX": "AFC", "KC": "AFC",
+                "LV": "AFC", "LAC": "AFC", "LAR": "NFC", "MIA": "AFC",
+                "MIN": "NFC", "NE": "AFC", "NO": "NFC", "NYG": "NFC",
+                "NYJ": "AFC", "PHI": "NFC", "PIT": "AFC", "SF": "NFC",
+                "SEA": "NFC", "TB": "NFC", "TEN": "AFC", "WSH": "NFC"
+            };
+
+            const teamConf = teamConfMap[teamCode];
+
+            return Object.entries(TEAM_MAP)
+                .filter(([slug, code]) => code !== teamCode)
+                .map(([slug, code]) => ({
+                    code,
+                    slug,
+                    name: formatTeamName(slug),
+                    conf: teamConfMap[code]
+                }))
+                .filter(t => t.conf === teamConf) // same conference = similarity
+                .slice(0, 4);
+        }
+
+        function buildHistoricalResults(results, teamCode) {
+
+            return results
+                .filter(g => isTeamInGame(g, teamCode))
+                .slice(0, 8)
+                .map(g => ({
+                    player: g.player,
+                    market: g.market,
+                    pick: g.pick,
+                    result: g.result,
+                    date: g.date,
+                    matchup: g.matchup,
+                    line: g.line
                 }));
         }
 
@@ -443,27 +476,11 @@
                 <li>Comparable offensive/defensive profile</li>
                 <li>Similar prop environment</li>
             </ul>
-            <a href="/teams/${t.code.toLowerCase()}-${t.name.toLowerCase().replace(/\s+/g, '-')}" class="card-link">
+            <a href="/teams/${t.slug}" class="card-link">
                 View team →
             </a>
         </div>
     `).join("");
-
-            function buildHistoricalResults(results, teamCode) {
-
-                return results
-                    .filter(g => isTeamInGame(g, teamCode))
-                    .slice(0, 8)
-                    .map(g => ({
-                        player: g.player,
-                        market: g.market,
-                        pick: g.pick,
-                        result: g.result,
-                        date: g.date,
-                        matchup: g.matchup,
-                        line: g.line
-                    }));
-            }
 
             const teamGames = results
                 .filter(g => isTeamInGame(g, teamCode))
@@ -510,7 +527,7 @@
             const historical = buildHistoricalResults(results, teamCode);
 
             document.getElementById("team-results").innerHTML =
-                historical.map(g => {
+                historical.length ? historical.map(g => {
 
                     const isWin = g.result === "won";
 
@@ -527,7 +544,15 @@
                 </span>
             </div>
         `;
-                }).join("");
+                }).join("") : `
+        <div class="report-row">
+            <div>
+                <h4>No historical results found</h4>
+                <p>PlayMaker results will appear as tracking builds.</p>
+            </div>
+            <span>--</span>
+        </div>
+    `;
 
             function buildOffensiveIdentity(games, teamCode) {
 
