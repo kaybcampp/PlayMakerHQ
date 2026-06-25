@@ -245,6 +245,30 @@
 
     <script>
 
+        const TEAM_MAP = {
+            "dallas-cowboys": "DAL",
+            "philadelphia-eagles": "PHI",
+            "kansas-city-chiefs": "KC",
+            "buffalo-bills": "BUF",
+            "san-francisco-49ers": "SF",
+            "tampa-bay-buccaneers": "TB"
+        };
+
+        async function loadResults() {
+            const res = await fetch("/assets/data/results.json");
+            if (!res.ok) throw new Error("Failed to load results.json");
+            return await res.json();
+        }
+
+        function isTeamInGame(game, team) {
+            return (
+                game.playerTeam === team ||
+                game.opponentTeam === team ||
+                game.awayTeam === team ||
+                game.homeTeam === team
+            );
+        }
+
         function getTeamFromURL() {
             const path = window.location.pathname;
 
@@ -254,6 +278,13 @@
 
             const params = new URLSearchParams(window.location.search);
             return params.get("team");
+        }
+
+        function formatTeamName(slug) {
+            return String(slug || "")
+                .replaceAll("-", " ")
+                .toLowerCase()
+                .replace(/\b\w/g, l => l.toUpperCase());
         }
 
         async function loadTeamPage() {
@@ -272,25 +303,57 @@
             document.getElementById("ai-summary-text").textContent =
                 `${teamName} projects as a matchup-driven team with clear prop signals based on game script, offensive balance, and defensive efficiency. PlayMaker highlights usage trends and situational edges that directly impact player performance outcomes.`;
             document.getElementById("team-subtitle").textContent =
-                `Deep dive into ${teamSlug.replaceAll("-", " ")}'s offensive identity, defensive profile, trends, and prop environment.`;
+                `Deep dive into ${teamName}'s offensive identity, defensive profile, trends, and prop environment.`;
 
-            // placeholder hooks (we’ll wire data next phase)
-            document.getElementById("team-record").textContent = "Loading...";
-            document.getElementById("team-offense").textContent = "Loading...";
-            document.getElementById("team-defense").textContent = "Loading...";
-            document.getElementById("team-style").textContent = "Loading...";
+            const last10List = document.getElementById("last10-list");
 
-            document.getElementById("off-scheme").textContent = "Loading offensive scheme...";
-            document.getElementById("off-split").textContent = "Loading run/pass split...";
-            document.getElementById("off-tendencies").textContent = "Loading tendencies...";
+            const results = await loadResults();
 
-            document.getElementById("def-pass").textContent = "Loading pass defense...";
-            document.getElementById("def-run").textContent = "Loading run defense...";
-            document.getElementById("def-pressure").textContent = "Loading pressure rate...";
+            const teamGames = results
+            filter(g => isTeamInGame(g, teamCode))
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 10);
 
-            document.getElementById("team-search").addEventListener("keydown", (e) => {
-                if (e.key === "Enter") {
-                    const value = e.target.value.trim();
+            if (!teamGames.length) {
+                last10List.innerHTML = `
+        <div class="report-row">
+            <div>
+                <h4>No recent games found</h4>
+                <p>Trend data will appear once results are available.</p>
+            </div>
+            <span>--</span>
+        </div>
+    `;
+            } else {
+                last10List.innerHTML = teamGames.map(g => {
+
+                    const isWin = g.result === "won";
+                    const opponent = g.playerTeam === teamSlug.toUpperCase()
+                        ? g.opponentTeam
+                        : g.playerTeam;
+
+                    return `
+            <div class="report-row">
+                <div>
+                    <h4>${g.player} • ${g.market}</h4>
+                    <p>
+                        ${g.matchup} • ${g.date} • 
+                        ${isWin ? "WIN" : "LOSS"} • 
+                        Line: ${g.line}
+                    </p>
+                </div>
+                <span style="color:${isWin ? '#66FF99' : '#ff6b6b'}">
+                    ${g.result.toUpperCase()}
+                </span>
+            </div>
+        `;
+                }).join("");
+            }
+
+            document.querySelector(".team-search-card button")
+                .addEventListener("click", () => {
+                    const input = document.getElementById("team-search");
+                    const value = input.value.trim();
 
                     if (!value) return;
 
@@ -301,8 +364,7 @@
                         .replace(/\s+/g, "-");
 
                     window.location.href = `/teams/${slug}`;
-                }
-            });
+                });
         }
 
         loadTeamPage();
