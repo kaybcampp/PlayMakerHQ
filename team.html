@@ -287,9 +287,82 @@
                 .replace(/\b\w/g, l => l.toUpperCase());
         }
 
+        function buildPlayerPools(results, teamCode) {
+
+            const teamGames = results.filter(g =>
+                g.playerTeam === teamCode
+            );
+
+            const players = {};
+
+            teamGames.forEach(g => {
+                if (!g.player) return;
+
+                if (!players[g.player]) {
+                    players[g.player] = {
+                        name: g.player,
+                        count: 0,
+                        markets: {}
+                    };
+                }
+
+                players[g.player].count++;
+
+                const market = g.market || "unknown";
+                players[g.player].markets[market] =
+                    (players[g.player].markets[market] || 0) + 1;
+            });
+
+            return Object.values(players)
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 6);
+        }
+
+        function buildTeamLeaders(results, teamCode) {
+
+            const teamGames = results.filter(g =>
+                g.playerTeam === teamCode
+            );
+
+            const stats = {};
+
+            teamGames.forEach(g => {
+                if (!g.player) return;
+
+                if (!stats[g.player]) {
+                    stats[g.player] = {
+                        name: g.player,
+                        games: 0,
+                        wins: 0
+                    };
+                }
+
+                stats[g.player].games++;
+
+                if (g.result === "won") {
+                    stats[g.player].wins++;
+                }
+            });
+
+            return Object.values(stats)
+                .map(p => ({
+                    ...p,
+                    winRate: Math.round((p.wins / p.games) * 100)
+                }))
+                .sort((a, b) => b.winRate - a.winRate)
+                .slice(0, 6);
+        }
+
         async function loadTeamPage() {
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
+
+            const teamCode = TEAM_MAP[teamSlug];
+            if (!teamCode) {
+                console.error("Invalid team slug:", teamSlug);
+                return;
+            }
+            const teamName = formatTeamName(teamSlug);
 
             document.getElementById("team-title").textContent =
                 teamSlug.replaceAll("-", " ")
@@ -297,8 +370,6 @@
 
             document.getElementById("ai-summary-title").textContent =
                 `${teamSlug.replaceAll("-", " ")} Intelligence Profile`;
-
-            const teamName = formatTeamName(teamSlug);
 
             document.getElementById("ai-summary-text").textContent =
                 `${teamName} projects as a matchup-driven team with clear prop signals based on game script, offensive balance, and defensive efficiency. PlayMaker highlights usage trends and situational edges that directly impact player performance outcomes.`;
@@ -308,6 +379,32 @@
             const last10List = document.getElementById("last10-list");
 
             const results = await loadResults();
+
+            const playerPools = buildPlayerPools(results, teamCode);
+
+            document.getElementById("player-pools").innerHTML =
+                playerPools.map(p => `
+        <div class="category-card">
+            <h4>${p.name}</h4>
+            <p>
+                ${p.count} tracked props<br/>
+                Top market: ${Object.keys(p.markets)[0]}
+            </p>
+        </div>
+    `).join("");
+
+            const teamLeaders = buildTeamLeaders(results, teamCode);
+
+            document.getElementById("team-leaders").innerHTML =
+                teamLeaders.map(p => `
+        <div class="team-card">
+            <h4>${p.name}</h4>
+            <ul class="team-points">
+                <li>${p.games} props tracked</li>
+                <li>${p.winRate}% hit rate</li>
+            </ul>
+        </div>
+    `).join("");
 
             const allTeamGames = results.filter(g =>
                 isTeamInGame(g, teamCode)
@@ -322,8 +419,6 @@
             document.getElementById("def-pass").textContent = defense.pass;
             document.getElementById("def-run").textContent = defense.run;
             document.getElementById("def-pressure").textContent = defense.pressure;
-
-            const teamCode = TEAM_MAP[teamSlug];
 
             const teamGames = results
                 .filter(g => isTeamInGame(g, teamCode))
