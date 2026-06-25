@@ -301,6 +301,15 @@
             "tampa-bay-buccaneers": "/assets/images/teams/tb.png"
         };
 
+        const TEAM_LOGOS_BY_CODE = {
+            "DAL": "/assets/images/teams/dal.png",
+            "PHI": "/assets/images/teams/phi.png",
+            "KC": "/assets/images/teams/kc.png",
+            "BUF": "/assets/images/teams/buf.png",
+            "SF": "/assets/images/teams/sf.png",
+            "TB": "/assets/images/teams/tb.png"
+        };
+
         const PLAYER_HEADSHOTS = {
             "Dak Prescott": "https://a.espncdn.com/i/headshots/nfl/players/full/2577417.png",
             "Saquon Barkley": "https://a.espncdn.com/i/headshots/nfl/players/full/3929630.png",
@@ -425,33 +434,50 @@
                 .slice(0, 6);
         }
 
-        function buildSimilarTeams(teamCode) {
+        function buildSimilarTeams(teamCode, results) {
 
-            const teamSlug = Object.keys(TEAM_MAP)
-                .find(key => TEAM_MAP[key] === teamCode);
+            const teams = Object.values(TEAM_MAP);
 
-            const teamConfMap = {
-                "ARI": "NFC", "ATL": "NFC", "BAL": "AFC", "BUF": "AFC",
-                "CAR": "NFC", "CHI": "NFC", "CIN": "AFC", "CLE": "AFC",
-                "DAL": "NFC", "DEN": "AFC", "DET": "NFC", "GB": "NFC",
-                "HOU": "AFC", "IND": "AFC", "JAX": "AFC", "KC": "AFC",
-                "LV": "AFC", "LAC": "AFC", "LAR": "NFC", "MIA": "AFC",
-                "MIN": "NFC", "NE": "AFC", "NO": "NFC", "NYG": "NFC",
-                "NYJ": "AFC", "PHI": "NFC", "PIT": "AFC", "SF": "NFC",
-                "SEA": "NFC", "TB": "NFC", "TEN": "AFC", "WSH": "NFC"
-            };
+            const baseGames = results.filter(g =>
+                g.playerTeam === teamCode || g.opponentTeam === teamCode
+            );
 
-            const teamConf = teamConfMap[teamCode];
+            const baseHitRate =
+                baseGames.filter(g => g.result === "won").length / (baseGames.length || 1);
 
-            return Object.entries(TEAM_MAP)
-                .filter(([slug, code]) => code !== teamCode)
-                .map(([slug, code]) => ({
-                    code,
-                    slug,
-                    name: formatTeamName(slug),
-                    conf: teamConfMap[code]
-                }))
-                .filter(t => t.conf === teamConf) // same conference = similarity
+            const basePassRate =
+                baseGames.filter(g => g.market?.toLowerCase().includes("pass")).length / (baseGames.length || 1);
+
+            const scored = teams
+                .filter(t => t !== teamCode)
+                .map(otherTeam => {
+
+                    const games = results.filter(g =>
+                        g.playerTeam === otherTeam || g.opponentTeam === otherTeam
+                    );
+
+                    const hitRate =
+                        games.filter(g => g.result === "won").length / (games.length || 1);
+
+                    const passRate =
+                        games.filter(g => g.market?.toLowerCase().includes("pass")).length / (games.length || 1);
+
+                    // similarity score (core upgrade)
+                    const similarity =
+                        Math.abs(hitRate - baseHitRate) +
+                        Math.abs(passRate - basePassRate);
+
+                    return {
+                        code: otherTeam,
+                        slug: Object.keys(TEAM_MAP).find(k => TEAM_MAP[k] === otherTeam),
+                        name: formatTeamName(Object.keys(TEAM_MAP).find(k => TEAM_MAP[k] === otherTeam)),
+                        logo: TEAM_LOGOS_BY_CODE[otherTeam],
+                        similarity
+                    };
+                });
+
+            return scored
+                .sort((a, b) => a.similarity - b.similarity)
                 .slice(0, 4);
         }
 
@@ -652,21 +678,36 @@
                 }).join("");
 
             // ---------------- SIMILAR TEAMS ----------------
-            const similarTeams = buildSimilarTeams(teamCode, allTeamGames);
+            const similarTeams = buildSimilarTeams(teamCode, results);
 
             document.getElementById("similar-teams").innerHTML =
                 similarTeams.map(t => `
-            <div class="team-card">
-                <h4>${t.name}</h4>
-                <ul class="team-points">
-                    <li>Comparable offensive/defensive profile</li>
-                    <li>Similar prop environment</li>
-                </ul>
-                <a href="/teams/${t.slug}" class="card-link">
-                    View team →
-                </a>
+        <div class="team-card">
+
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                ${t.logo ? `
+                    <img src="${t.logo}" 
+                         style="width:32px;height:32px;border-radius:50%;object-fit:contain;
+                         background:#0B0F1A;border:1px solid rgba(255,255,255,0.08);"/>
+                ` : ""}
+
+                <h4 style="margin:0;">${t.name}</h4>
             </div>
-        `).join("");
+
+            <p style="opacity:0.8; font-size:13px;">
+                Similar offensive/defensive profile + prop environment
+            </p>
+
+            <div style="margin-top:8px; font-size:12px; opacity:0.6;">
+                Match similarity score: ${Math.round((1 - t.similarity) * 100)}%
+            </div>
+
+            <a href="/teams/${t.slug}" class="card-link">
+                Deep dive →
+            </a>
+
+        </div>
+    `).join("");
 
             // ---------------- LAST 10 ----------------
             const last10Games = results
