@@ -21,22 +21,30 @@
     <section class="teams-hero">
         <div class="hero-glow"></div>
 
+        <a href="/teams" class="back-to-teams">
+            ← Back to Teams Hub
+        </a>
+
         <div class="teams-hero-content">
 
-            <span class="hq-pill" id="team-label">Team Intelligence Report</span>
+            <span class="hq-pill" id="team-label">
+                NFL Team Intelligence Report
+            </span>
+
+            <div class="team-hero-logo-wrap">
+                <img id="team-logo" class="team-hero-logo" alt="team logo" />
+            </div>
 
             <h2 id="team-title">Loading team...</h2>
 
             <p id="team-subtitle">
-                Loading offensive identity, defensive profile, trends, and matchup intelligence...
+                Real-time breakdown of offensive identity, defensive profile, trends, and prop environment.
             </p>
 
-            <div class="team-search-card">
-                <label>Team Context</label>
-                <div class="search-row">
-                    <input id="team-search" placeholder="Search teams..." />
-                    <button>Search</button>
-                </div>
+            <div class="team-meta-row">
+                <div class="meta-chip">📊 Prop Environment Analysis</div>
+                <div class="meta-chip">🧠 AI Team Modeling</div>
+                <div class="meta-chip">⚡ Last 10 Games Engine</div>
             </div>
 
         </div>
@@ -52,8 +60,38 @@
             </div>
 
             <div class="ai-summary-card">
-                <h3 id="ai-summary-title">Loading...</h3>
-                <p id="ai-summary-text">Building offensive and defensive breakdown...</p>
+
+                <div class="ai-summary-header">
+                    <div class="ai-title-wrap">
+                        <img id="team-logo-small" class="team-logo-small" />
+                        <h3 id="ai-summary-title">Loading...</h3>
+                    </div>
+                    <span class="ai-badge">AI GENERATED</span>
+                </div>
+
+                <p id="ai-summary-text">
+                    Building offensive and defensive breakdown...
+                </p>
+
+                <div class="ai-insight-grid">
+
+                    <div class="ai-insight">
+                        <span class="label">Primary Identity</span>
+                        <span id="ai-primary-identity">--</span>
+                    </div>
+
+                    <div class="ai-insight">
+                        <span class="label">Game Script Lean</span>
+                        <span id="ai-game-script">--</span>
+                    </div>
+
+                    <div class="ai-insight">
+                        <span class="label">Prop Impact Level</span>
+                        <span id="ai-prop-impact">--</span>
+                    </div>
+
+                </div>
+
             </div>
         </section>
 
@@ -254,6 +292,15 @@
             "tampa-bay-buccaneers": "TB"
         };
 
+        const TEAM_LOGOS = {
+            "dallas-cowboys": "/assets/images/teams/dal.png",
+            "philadelphia-eagles": "/assets/images/teams/phi.png",
+            "kansas-city-chiefs": "/assets/images/teams/kc.png",
+            "buffalo-bills": "/assets/images/teams/buf.png",
+            "san-francisco-49ers": "/assets/images/teams/sf.png",
+            "tampa-bay-buccaneers": "/assets/images/teams/tb.png"
+        };
+
         async function loadResults() {
             const res = await fetch("/assets/data/results.json");
             if (!res.ok) throw new Error("Failed to load results.json");
@@ -403,6 +450,18 @@
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
 
+            const logo = TEAM_LOGOS[teamSlug];
+
+            const logoEl = document.getElementById("team-logo");
+            if (logoEl && logo) {
+                logoEl.src = logo;
+            }
+
+            const smallLogo = document.getElementById("team-logo-small");
+            if (smallLogo && logo) {
+                smallLogo.src = logo;
+            }
+
             const teamCode = TEAM_MAP[teamSlug];
             if (!teamCode) {
                 console.error("Invalid team slug:", teamSlug);
@@ -415,7 +474,10 @@
                     .replace(/\b\w/g, l => l.toUpperCase());
 
             document.getElementById("ai-summary-title").textContent =
-                `${teamSlug.replaceAll("-", " ")} Intelligence Profile`;
+                `${teamName.toUpperCase()} INTELLIGENCE PROFILE`;
+
+            document.getElementById("ai-summary-sub").textContent =
+                "Live PlayMaker read based on team results, prop history, offensive identity, and defensive profile.";
 
             document.getElementById("ai-summary-text").textContent =
                 `${teamName} projects as a matchup-driven team with clear prop signals based on game script, offensive balance, and defensive efficiency. PlayMaker highlights usage trends and situational edges that directly impact player performance outcomes.`;
@@ -465,6 +527,16 @@
             document.getElementById("def-pass").textContent = defense.pass;
             document.getElementById("def-run").textContent = defense.run;
             document.getElementById("def-pressure").textContent = defense.pressure;
+
+            document.getElementById("ai-primary-identity").textContent = offense.scheme;
+
+            document.getElementById("ai-game-script").textContent =
+                offense.split.includes("Pass") ? "Pass-script lean" : "Run-script lean";
+
+            document.getElementById("ai-prop-impact").textContent =
+                defense.pass.includes("Vulnerable") || defense.run.includes("Vulnerable")
+                    ? "High prop sensitivity"
+                    : "Balanced prop environment";
 
             const similarTeams = buildSimilarTeams(teamCode, allTeamGames);
 
@@ -609,22 +681,6 @@
                             : "Moderate pressure impact — disrupts timing plays"
                 };
             }
-
-            document.querySelector(".team-search-card button")
-                .addEventListener("click", () => {
-                    const input = document.getElementById("team-search");
-                    const value = input.value.trim();
-
-                    if (!value) return;
-
-                    const slug = value
-                        .toLowerCase()
-                        .replace(/[^a-z0-9\s]/g, "")
-                        .trim()
-                        .replace(/\s+/g, "-");
-
-                    window.location.href = `/teams/${slug}`;
-                });
         }
 
         loadTeamPage();
