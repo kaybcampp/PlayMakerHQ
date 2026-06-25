@@ -612,40 +612,82 @@
         `).join("");
 
             // ---------------- LAST 10 ----------------
-            const teamGames = results
+            const last10Games = results
                 .filter(g => isTeamInGame(g, teamCode))
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
                 .slice(0, 10);
 
+            // GROUP BY DATE (THIS IS KEY IMPROVEMENT)
+            const grouped = {};
+
+            last10Games.forEach(g => {
+                const key = g.date;
+
+                if (!grouped[key]) {
+                    grouped[key] = {
+                        date: g.date,
+                        matchups: new Set(),
+                        wins: 0,
+                        losses: 0,
+                        avgConfidence: 0,
+                        count: 0
+                    };
+                }
+
+                grouped[key].matchups.add(g.matchup);
+
+                grouped[key].count++;
+                grouped[key].avgConfidence += (g.confidence || 50);
+
+                if (g.result === "won") grouped[key].wins++;
+                else grouped[key].losses++;
+            });
+
             const last10List = document.getElementById("last10-list");
 
-            if (!teamGames.length) {
-                last10List.innerHTML = `
-            <div class="report-row">
-                <div>
-                    <h4>No recent games found</h4>
-                    <p>Trend data will appear once results are available.</p>
-                </div>
-                <span>--</span>
-            </div>
-        `;
-            } else {
-                last10List.innerHTML = teamGames.map(g => {
+            const sorted = Object.values(grouped)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                    const isWin = g.result === "won";
-                    const opponent = g.playerTeam === teamCode ? g.opponentTeam : g.playerTeam;
+            if (!sorted.length) {
+
+                last10List.innerHTML = `
+        <div class="report-row">
+            <div>
+                <h4>No recent games found</h4>
+                <p>Trend data will appear once results are available.</p>
+            </div>
+            <span>--</span>
+        </div>
+    `;
+            } else {
+
+                last10List.innerHTML = sorted.map(g => {
+
+                    const avgConf = Math.round(g.avgConfidence / g.count);
+                    const edgeLevel =
+                        avgConf >= 70 ? "High volatility game"
+                            : avgConf >= 55 ? "Balanced script"
+                                : "Controlled script";
+
+                    const trendColor =
+                        g.wins > g.losses ? "#66FF99" : "#ff6b6b";
 
                     return `
-                <div class="report-row">
-                    <div>
-                        <h4>${g.player} • vs ${opponent}</h4>
-                        <p>${g.matchup} • ${g.date} • ${isWin ? "WIN" : "LOSS"} • Line: ${g.line}</p>
-                    </div>
-                    <span style="color:${isWin ? '#66FF99' : '#ff6b6b'}">
-                        ${g.result.toUpperCase()}
-                    </span>
+            <div class="report-row">
+                <div>
+                    <h4>${[...g.matchups][0]}</h4>
+                    <p>
+                        ${g.date} • ${edgeLevel} • 
+                        Props: ${g.wins}W-${g.losses}L • 
+                        Confidence: ${avgConf}
+                    </p>
                 </div>
-            `;
+
+                <span style="color:${trendColor}">
+                    ${g.wins > g.losses ? "POSITIVE" : "NEGATIVE"}
+                </span>
+            </div>
+        `;
                 }).join("");
             }
 
