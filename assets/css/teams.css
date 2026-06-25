@@ -959,6 +959,21 @@ button.report-row:hover {
     width: fit-content;
 }
 
+.player-history-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.player-history-row h4 {
+    font-size: 14px;
+}
+
+.player-history-row p {
+    font-size: 12px;
+}
+
 /* FOOTER */
 
 footer {

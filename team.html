@@ -539,6 +539,62 @@
             };
         }
 
+        function buildOffensiveIdentity(games, teamCode) {
+
+            const teamPlays = games.filter(g => g.playerTeam === teamCode);
+
+            const passGames = teamPlays.filter(g =>
+                g.market?.toLowerCase().includes("pass")
+            ).length;
+
+            const rushGames = teamPlays.filter(g =>
+                g.market?.toLowerCase().includes("rush")
+            ).length;
+
+            const total = teamPlays.length || 1;
+
+            const passRate = Math.round((passGames / total) * 100);
+            const rushRate = Math.round((rushGames / total) * 100);
+
+            return {
+                scheme: passRate > rushRate ? "Pass-Heavy Lean" : "Run-First Lean",
+                split: `${passRate}% Pass / ${rushRate}% Rush`,
+                tendencies:
+                    passRate > 65
+                        ? "High passing volume, elevated QB & WR prop dependency"
+                        : rushRate > 60
+                            ? "Run-centric offense with RB-driven production"
+                            : "Balanced offensive distribution across game scripts"
+            };
+        }
+
+        function buildDefensiveProfile(games, teamCode) {
+
+            const oppGames = games.filter(g => g.opponentTeam === teamCode);
+
+            const passAllowed = oppGames.filter(g =>
+                g.market?.toLowerCase().includes("pass")
+            ).length;
+
+            const rushAllowed = oppGames.filter(g =>
+                g.market?.toLowerCase().includes("rush")
+            ).length;
+
+            const total = oppGames.length || 1;
+
+            const passRate = Math.round((passAllowed / total) * 100);
+            const rushRate = Math.round((rushAllowed / total) * 100);
+
+            return {
+                pass: passRate > 60 ? "Vulnerable vs Pass" : "Solid Pass Defense",
+                run: rushRate > 60 ? "Vulnerable vs Run" : "Solid Run Defense",
+                pressure:
+                    passRate > 65
+                        ? "Low pressure impact — allows QB efficiency"
+                        : "Moderate pressure impact — disrupts timing plays"
+            };
+        }
+
         async function loadTeamPage() {
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
@@ -626,27 +682,27 @@
                     const img = PLAYER_HEADSHOTS[p.name] || "";
 
                     return `
-        <div class="category-card player-card">
+<div class="category-card player-card">
 
-            <div class="player-top">
-                ${img ? `<img src="${img}" class="player-headshot"/>` : ""}
+    <div class="player-top">
+        ${img ? '<img src="' + img + '" class="player-headshot"/>' : ""}
 
-                <div>
-                    <h4>${p.name}</h4>
-                    <p>${p.count} tracked props</p>
-                </div>
-            </div>
-
-            <p style="opacity:0.9; margin-top:8px;">
-                Top market: ${Object.keys(p.markets)[0] || "N/A"}
-            </p>
-
-            <div class="role-tag">
-                ${p.role}
-            </div>
-
+        <div>
+            <h4>${p.name}</h4>
+            <p>${p.count} tracked props</p>
         </div>
-    `;
+    </div>
+
+    <p style="opacity:0.9; margin-top:8px;">
+        Top market: ${Object.keys(p.markets)[0] || "N/A"}
+    </p>
+
+    <div class="role-tag">
+        ${p.role}
+    </div>
+
+</div>
+`;
                 }).join("");
 
             // ---------------- TEAM LEADERS ----------------
@@ -658,56 +714,55 @@
                     const img = PLAYER_HEADSHOTS[p.name] || "";
 
                     return `
-        <div class="team-card player-card">
+<div class="team-card player-card">
 
-            <div class="player-top">
-                ${img ? `<img src="${img}" class="player-headshot"/>` : ""}
+    <div class="player-top">
+        ${img ? '<img src="' + img + '" class="player-headshot"/>' : ""}
 
-                <div>
-                    <h4>${p.name}</h4>
-                    <p>${p.winRate}% hit rate</p>
-                </div>
-            </div>
-
-            <ul class="team-points">
-                <li>${p.games} props tracked</li>
-            </ul>
-
+        <div>
+            <h4>${p.name}</h4>
+            <p>${p.winRate}% hit rate</p>
         </div>
-    `;
+    </div>
+
+    <ul class="team-points">
+        <li>${p.games} props tracked</li>
+    </ul>
+
+</div>
+`;
                 }).join("");
 
             // ---------------- SIMILAR TEAMS ----------------
             const similarTeams = buildSimilarTeams(teamCode, results);
 
             document.getElementById("similar-teams").innerHTML =
-                similarTeams.map(t => `
-        <div class="team-card">
+                similarTeams.map(t => {
 
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                ${t.logo ? `
-                    <img src="${t.logo}" 
-                         style="width:32px;height:32px;border-radius:50%;object-fit:contain;
-                         background:#0B0F1A;border:1px solid rgba(255,255,255,0.08);"/>
-                ` : ""}
+                    return `
+<div class="team-card">
 
-                <h4 style="margin:0;">${t.name}</h4>
-            </div>
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        ${t.logo ? '<img src="' + t.logo + '" style="width:32px;height:32px;border-radius:50%;object-fit:contain;background:#0B0F1A;border:1px solid rgba(255,255,255,0.08);"/>' : ""}
 
-            <p style="opacity:0.8; font-size:13px;">
-                Similar offensive/defensive profile + prop environment
-            </p>
+        <h4 style="margin:0;">${t.name}</h4>
+    </div>
 
-            <div style="margin-top:8px; font-size:12px; opacity:0.6;">
-                Match similarity score: ${Math.round((1 - t.similarity) * 100)}%
-            </div>
+    <p style="opacity:0.8; font-size:13px;">
+        Similar offensive/defensive profile + prop environment
+    </p>
 
-            <a href="/teams/${t.slug}" class="card-link">
-                Deep dive →
-            </a>
+    <div style="margin-top:8px; font-size:12px; opacity:0.6;">
+        Match similarity score: ${Math.round((1 - t.similarity) * 100)}%
+    </div>
 
-        </div>
-    `).join("");
+    <a href="/teams/${t.slug}" class="card-link">
+        Deep dive →
+    </a>
+
+</div>
+`;
+                }).join("");
 
             // ---------------- LAST 10 ----------------
             const last10Games = results
@@ -796,86 +851,49 @@
                 historical.length ? historical.map(g => {
 
                     const isWin = g.result === "won";
+                    const img = PLAYER_HEADSHOTS[g.player] || "";
 
                     return `
-                <div class="report-row">
-                    <div>
-                        <h4>${g.player} • ${g.market}</h4>
-                        <p>${g.matchup} • ${g.date} • Line: ${g.line}</p>
-                    </div>
-                    <span style="color:${isWin ? '#66FF99' : '#ff6b6b'}">
-                        ${g.result.toUpperCase()}
-                    </span>
-                </div>
-            `;
-                }).join("") : `
-            <div class="report-row">
+        <div class="report-row player-history-row">
+
+            <div style="display:flex; align-items:center; gap:12px;">
+
+                ${img ? `
+                    <img src="${img}" 
+                         style="
+                            width:38px;
+                            height:38px;
+                            border-radius:50%;
+                            object-fit:cover;
+                            border:2px solid rgba(102,255,153,.25);
+                            box-shadow:0 0 10px rgba(102,255,153,.15);
+                         "/>
+                ` : ""}
+
                 <div>
-                    <h4>No historical results found</h4>
-                    <p>PlayMaker results will appear as tracking builds.</p>
+                    <h4 style="margin:0;">
+                        ${g.player} • ${g.market}
+                    </h4>
+
+                    <p style="opacity:0.75; margin:2px 0 0 0;">
+                        ${g.matchup} • ${g.date} • Line: ${g.line}
+                    </p>
                 </div>
-                <span>--</span>
             </div>
-        `;
+
+            <span style="
+                color:${isWin ? '#66FF99' : '#ff6b6b'};
+                font-weight:600;
+            ">
+                ${g.result.toUpperCase()}
+            </span>
+
+        </div>
+    `;
+                }).join("") : "";
         }
 
-        function buildOffensiveIdentity(games, teamCode) {
-
-            const teamPlays = games.filter(g => g.playerTeam === teamCode);
-
-            const passGames = teamPlays.filter(g =>
-                g.market?.toLowerCase().includes("pass")
-            ).length;
-
-            const rushGames = teamPlays.filter(g =>
-                g.market?.toLowerCase().includes("rush")
-            ).length;
-
-            const total = teamPlays.length || 1;
-
-            const passRate = Math.round((passGames / total) * 100);
-            const rushRate = Math.round((rushGames / total) * 100);
-
-            return {
-                scheme: passRate > rushRate ? "Pass-Heavy Lean" : "Run-First Lean",
-                split: `${passRate}% Pass / ${rushRate}% Rush`,
-                tendencies:
-                    passRate > 65
-                        ? "High passing volume, elevated QB & WR prop dependency"
-                        : rushRate > 60
-                            ? "Run-centric offense with RB-driven production"
-                            : "Balanced offensive distribution across game scripts"
-            };
-        }
-
-        function buildDefensiveProfile(games, teamCode) {
-
-            const oppGames = games.filter(g => g.opponentTeam === teamCode);
-
-            const passAllowed = oppGames.filter(g =>
-                g.market?.toLowerCase().includes("pass")
-            ).length;
-
-            const rushAllowed = oppGames.filter(g =>
-                g.market?.toLowerCase().includes("rush")
-            ).length;
-
-            const total = oppGames.length || 1;
-
-            const passRate = Math.round((passAllowed / total) * 100);
-            const rushRate = Math.round((rushAllowed / total) * 100);
-
-            return {
-                pass: passRate > 60 ? "Vulnerable vs Pass" : "Solid Pass Defense",
-                run: rushRate > 60 ? "Vulnerable vs Run" : "Solid Run Defense",
-                pressure:
-                    passRate > 65
-                        ? "Low pressure impact — allows QB efficiency"
-                        : "Moderate pressure impact — disrupts timing plays"
-            };
-        }
-
-        loadTeamPage();
+        window.addEventListener("DOMContentLoaded", loadTeamPage);
     </script>
 
 </body>
