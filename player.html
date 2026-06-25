@@ -373,6 +373,18 @@
         let defenseData = null;
         let resultsData = [];
 
+        function getTeamCode(team) {
+            if (!team) return "";
+
+            if (typeof team === "string") return team.toUpperCase();
+
+            if (typeof team === "object" && team.code) {
+                return String(team.code).toUpperCase();
+            }
+
+            return "";
+        }
+
         function teamKey(code) {
             const raw = String(code || "").toUpperCase();
             return TEAM_ALIAS[raw] || raw;
@@ -444,7 +456,7 @@
         }
 
         function getNextGame(player) {
-            const team = String(player.team.code || "").toUpperCase();
+            const team = String(getTeamCode(player.team) || "").toUpperCase();
 
             return schedule2026.find(game => {
                 const away = String(game.away || "").toUpperCase();
@@ -458,7 +470,7 @@
             const game = getNextGame(player);
             if (!game) return null;
 
-            const team = String(player.team.code || "").toUpperCase();
+            const team = String(getTeamCode(player.team) || "").toUpperCase();
             const away = String(game.away || "").toUpperCase();
             const home = String(game.home || "").toUpperCase();
 
@@ -470,7 +482,7 @@
             if (!opponent) return "TBD";
 
             const game = getNextGame(player);
-            const team = String(player.team.code || "").toUpperCase();
+            const team = String(getTeamCode(player.team) || "").toUpperCase();
 
             return String(game.away).toUpperCase() === team
                 ? `@ ${teamName(opponent)}`
@@ -715,7 +727,7 @@
             const opportunity = calculatePlayerOpportunity(player, opponentDefense);
 
             const playerName = player.name;
-            const team = String(player.team.code || "").toUpperCase();
+            const team = String(getTeamCode(player.team) || "").toUpperCase();
             const position = String(player.position || "").toUpperCase();
 
             document.title = `${playerName} Player Intelligence Report | PlayMaker Prime`;
