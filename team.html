@@ -353,6 +353,19 @@
                 .slice(0, 6);
         }
 
+        function buildSimilarTeams(teamCode, allTeamGames) {
+
+            const teams = Object.keys(TEAM_MAP);
+
+            return teams
+                .filter(t => t !== teamCode)
+                .slice(0, 4)
+                .map(t => ({
+                    code: t,
+                    name: formatTeamName(t)
+                }));
+        }
+
         async function loadTeamPage() {
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
@@ -420,6 +433,38 @@
             document.getElementById("def-run").textContent = defense.run;
             document.getElementById("def-pressure").textContent = defense.pressure;
 
+            const similarTeams = buildSimilarTeams(teamCode, allTeamGames);
+
+            document.getElementById("similar-teams").innerHTML =
+                similarTeams.map(t => `
+        <div class="team-card">
+            <h4>${t.name}</h4>
+            <ul class="team-points">
+                <li>Comparable offensive/defensive profile</li>
+                <li>Similar prop environment</li>
+            </ul>
+            <a href="/teams/${t.code.toLowerCase()}-${t.name.toLowerCase().replace(/\s+/g, '-')}" class="card-link">
+                View team →
+            </a>
+        </div>
+    `).join("");
+
+            function buildHistoricalResults(results, teamCode) {
+
+                return results
+                    .filter(g => isTeamInGame(g, teamCode))
+                    .slice(0, 8)
+                    .map(g => ({
+                        player: g.player,
+                        market: g.market,
+                        pick: g.pick,
+                        result: g.result,
+                        date: g.date,
+                        matchup: g.matchup,
+                        line: g.line
+                    }));
+            }
+
             const teamGames = results
                 .filter(g => isTeamInGame(g, teamCode))
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -461,6 +506,28 @@
         `;
                 }).join("");
             }
+
+            const historical = buildHistoricalResults(results, teamCode);
+
+            document.getElementById("team-results").innerHTML =
+                historical.map(g => {
+
+                    const isWin = g.result === "won";
+
+                    return `
+            <div class="report-row">
+                <div>
+                    <h4>${g.player} • ${g.market}</h4>
+                    <p>
+                        ${g.matchup} • ${g.date} • Line: ${g.line}
+                    </p>
+                </div>
+                <span style="color:${isWin ? '#66FF99' : '#ff6b6b'}">
+                    ${g.result.toUpperCase()}
+                </span>
+            </div>
+        `;
+                }).join("");
 
             function buildOffensiveIdentity(games, teamCode) {
 
