@@ -301,6 +301,13 @@
             "tampa-bay-buccaneers": "/assets/images/teams/tb.png"
         };
 
+        const PLAYER_HEADSHOTS = {
+            "Dak Prescott": "https://a.espncdn.com/i/headshots/nfl/players/full/2577417.png",
+            "Saquon Barkley": "https://a.espncdn.com/i/headshots/nfl/players/full/3929630.png",
+            "Christian McCaffrey": "https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png",
+            "Brock Purdy": "https://a.espncdn.com/i/headshots/nfl/players/full/4362887.png"
+        };
+
         async function loadResults() {
             const res = await fetch("/assets/data/results.json");
             if (!res.ok) throw new Error("Failed to load results.json");
@@ -349,18 +356,36 @@
                     players[g.player] = {
                         name: g.player,
                         count: 0,
-                        markets: {}
+                        markets: {},
+                        passing: 0,
+                        rushing: 0
                     };
                 }
 
                 players[g.player].count++;
 
-                const market = g.market || "unknown";
-                players[g.player].markets[market] =
-                    (players[g.player].markets[market] || 0) + 1;
+                const market = (g.market || "").toLowerCase();
+
+                if (market.includes("pass")) players[g.player].passing++;
+                if (market.includes("rush")) players[g.player].rushing++;
+
+                players[g.player].markets[g.market] =
+                    (players[g.player].markets[g.market] || 0) + 1;
             });
 
             return Object.values(players)
+                .map(p => {
+
+                    const role =
+                        p.passing > p.rushing ? "QB / WR Target"
+                            : p.rushing > p.passing ? "RB Usage Hub"
+                                : "Utility / Mixed Usage";
+
+                    return {
+                        ...p,
+                        role
+                    };
+                })
                 .sort((a, b) => b.count - a.count)
                 .slice(0, 6);
         }
@@ -570,29 +595,61 @@
             const playerPools = buildPlayerPools(results, teamCode);
 
             document.getElementById("player-pools").innerHTML =
-                playerPools.map(p => `
-            <div class="category-card">
-                <h4>${p.name}</h4>
-                <p>
-                    ${p.count} tracked props<br/>
-                    Top market: ${Object.keys(p.markets)[0]}
-                </p>
+                playerPools.map(p => {
+
+                    const img = PLAYER_HEADSHOTS[p.name] || "";
+
+                    return `
+        <div class="category-card player-card">
+
+            <div class="player-top">
+                ${img ? `<img src="${img}" class="player-headshot"/>` : ""}
+
+                <div>
+                    <h4>${p.name}</h4>
+                    <p>${p.count} tracked props</p>
+                </div>
             </div>
-        `).join("");
+
+            <p style="opacity:0.9; margin-top:8px;">
+                Top market: ${Object.keys(p.markets)[0] || "N/A"}
+            </p>
+
+            <div class="role-tag">
+                ${p.role}
+            </div>
+
+        </div>
+    `;
+                }).join("");
 
             // ---------------- TEAM LEADERS ----------------
             const teamLeaders = buildTeamLeaders(results, teamCode);
 
             document.getElementById("team-leaders").innerHTML =
-                teamLeaders.map(p => `
-            <div class="team-card">
-                <h4>${p.name}</h4>
-                <ul class="team-points">
-                    <li>${p.games} props tracked</li>
-                    <li>${p.winRate}% hit rate</li>
-                </ul>
+                teamLeaders.map(p => {
+
+                    const img = PLAYER_HEADSHOTS[p.name] || "";
+
+                    return `
+        <div class="team-card player-card">
+
+            <div class="player-top">
+                ${img ? `<img src="${img}" class="player-headshot"/>` : ""}
+
+                <div>
+                    <h4>${p.name}</h4>
+                    <p>${p.winRate}% hit rate</p>
+                </div>
             </div>
-        `).join("");
+
+            <ul class="team-points">
+                <li>${p.games} props tracked</li>
+            </ul>
+
+        </div>
+    `;
+                }).join("");
 
             // ---------------- SIMILAR TEAMS ----------------
             const similarTeams = buildSimilarTeams(teamCode, allTeamGames);
