@@ -289,6 +289,74 @@ body {
     font: inherit;
 }
 
+/* ==========================================
+   TEAM SEARCH (MATCH PLAYERS STYLE)
+========================================== */
+
+.team-search-card {
+    max-width: 760px;
+    margin: 0 auto;
+    background: rgba(19, 26, 42, .88);
+    border: 1px solid rgba(102, 255, 153, .22);
+    border-radius: 18px;
+    padding: 1.4rem;
+    box-shadow: 0 0 24px rgba(102, 255, 153, .14);
+    text-align: left;
+    backdrop-filter: blur(10px);
+}
+
+.team-search-card label {
+    display: block;
+    color: #66FF99;
+    font-weight: 800;
+    margin-bottom: .6rem;
+    font-size: .95rem;
+}
+
+/* same structure as players */
+.team-search-card .search-row {
+    display: flex;
+    gap: .75rem;
+    position: relative;
+}
+
+/* input (MATCH PLAYERS EXACTLY) */
+.team-search-card .search-row input {
+    flex: 1;
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .35);
+    color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    outline: none;
+    font-size: 1rem;
+    box-shadow: 0 0 14px rgba(102, 255, 153, .12);
+    transition: .2s ease;
+}
+
+.team-search-card .search-row input:focus {
+    border-color: #66FF99;
+    box-shadow: 0 0 20px rgba(102, 255, 153, .35);
+}
+
+/* button (MATCH PLAYERS EXACTLY) */
+.team-search-card .search-row button {
+    background: #66FF99;
+    color: #0B0F1A;
+    border: none;
+    border-radius: 12px;
+    padding: 0 1.4rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
+    transition: .2s ease;
+}
+
+.team-search-card .search-row button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 22px rgba(102, 255, 153, .6);
+}
+
 /* BROWSE */
 
 .browse-conference-grid,
@@ -528,27 +596,87 @@ button.report-row:hover {
 }
 
 /* CTA */
-
 .final-cta {
-    max-width: 1000px;
+    max-width: 1050px;
     margin: 0 auto;
     text-align: center;
-    background: linear-gradient(145deg, #131A2A, #0B0F1A);
-    border: 1px solid rgba(102, 255, 153, .16);
-    border-radius: 20px;
-    padding: 4rem 2rem;
-    box-shadow: 0 0 22px rgba(102, 255, 153, .12);
+
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(145deg, #0B0F1A, #131A2A);
+    border: 1px solid rgba(102, 255, 153, .18);
+    border-radius: 22px;
+
+    padding: 3.5rem 2rem;
+
+    box-shadow:
+        0 0 24px rgba(102, 255, 153, .10),
+        inset 0 0 40px rgba(102, 255, 153, .04);
+}
+
+/* soft glow layer like AI card */
+.final-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top,
+            rgba(102, 255, 153, .10),
+            transparent 60%);
+    pointer-events: none;
 }
 
 .final-cta h3 {
     color: #66FF99;
-    font-size: 2rem;
-    margin-bottom: .75rem;
+    font-size: 2.2rem;
+    margin-bottom: .6rem;
+    position: relative;
 }
 
 .final-cta p {
     color: #A3AABF;
     margin-bottom: 2rem;
+    position: relative;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+
+    max-width: 700px;
+    margin: 1.5rem auto 2rem;
+}
+
+.cta-stat {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(102, 255, 153, .12);
+    border-radius: 14px;
+
+    padding: 1rem;
+
+    transition: .2s ease;
+}
+
+.cta-stat:hover {
+    transform: translateY(-2px);
+    border-color: rgba(102, 255, 153, .28);
+}
+
+.cta-stat .label {
+    display: block;
+    font-size: 11px;
+    opacity: .6;
+    margin-bottom: 6px;
+    color: #A3AABF;
+}
+
+.cta-stat span {
+    color: #E6F6EE;
+    font-weight: 700;
 }
 
 .btn-primary {

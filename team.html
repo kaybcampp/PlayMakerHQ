@@ -234,28 +234,39 @@
         <section class="hq-section">
             <div class="section-header">
                 <h3>Team FAQ</h3>
+                <p id="faq-sub">AI-generated answers based on team profile and prop environment.</p>
             </div>
 
             <div class="faq-grid">
 
                 <details class="faq-card" open>
                     <summary>How is this team evaluated?</summary>
-                    <p>Using offensive/defensive efficiency, trends, pace, matchup history, and PlayMaker results.</p>
+                    <p>
+                        This team is evaluated using offensive identity, defensive vulnerability,
+                        last 10 performance trends, and PlayMaker prop hit data.
+                    </p>
                 </details>
 
                 <details class="faq-card">
-                    <summary>What drives prop opportunities for this team?</summary>
-                    <p>Run/pass splits, defensive weaknesses, pace, and game script tendencies.</p>
+                    <summary>Is this team good for prop betting?</summary>
+                    <p id="faq-prop-fit">
+                        Loading prop environment analysis...
+                    </p>
                 </details>
 
                 <details class="faq-card">
-                    <summary>How are trends calculated?</summary>
-                    <p>Based on last 10 games, PlayMaker results, and matchup performance data.</p>
+                    <summary>What drives matchup edge signals?</summary>
+                    <p id="faq-edge">
+                        Loading matchup edge logic...
+                    </p>
                 </details>
 
                 <details class="faq-card">
-                    <summary>How often is this updated?</summary>
-                    <p>Updated continuously as new games and PlayMaker results are logged.</p>
+                    <summary>How reliable are trends?</summary>
+                    <p>
+                        Trends are derived from the last 10 tracked games combined with historical PlayMaker results.
+                        They are directional indicators, not guarantees.
+                    </p>
                 </details>
 
             </div>
@@ -265,11 +276,33 @@
         <section class="hq-section">
             <div class="final-cta">
 
-                <span class="hq-pill">PlayMaker Tool</span>
+                <span class="hq-pill">PlayMaker Engine</span>
 
-                <h3>Run this team inside PlayMaker</h3>
+                <h3 id="cta-title">Run this team inside PlayMaker</h3>
 
-                <p>Analyze matchups, props, and player opportunities using real-time team intelligence.</p>
+                <p id="cta-text">
+                    Analyze live matchup signals, prop edges, and player opportunities using this team’s intelligence
+                    profile.
+                </p>
+
+                <div class="cta-stats">
+
+                    <div class="cta-stat">
+                        <span class="label">Prop Environment</span>
+                        <span id="cta-env">--</span>
+                    </div>
+
+                    <div class="cta-stat">
+                        <span class="label">Hit Rate</span>
+                        <span id="cta-hit">--</span>
+                    </div>
+
+                    <div class="cta-stat">
+                        <span class="label">Edge Level</span>
+                        <span id="cta-edge">--</span>
+                    </div>
+
+                </div>
 
                 <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
 
@@ -714,6 +747,20 @@
                     ? "High prop sensitivity"
                     : "Balanced prop environment";
 
+            // ---------------- FAQ DYNAMIC TEXT ----------------
+
+            document.getElementById("faq-prop-fit").textContent =
+                snapshot.environment === "High Edge Environment"
+                    ? "Yes — this team shows strong prop opportunity signals based on hit rate and defensive vulnerability."
+                    : snapshot.environment === "Moderate Edge Environment"
+                        ? "Moderate — selective prop value depending on matchup and game script."
+                        : "Low edge — props are more volatile and less predictable.";
+
+            document.getElementById("faq-edge").textContent =
+                snapshot.vulnerability.includes("7") || snapshot.vulnerability.includes("8")
+                    ? "High defensive weakness drives consistent matchup edges, especially in passing/rushing lanes."
+                    : "Edges are driven more by game script and usage distribution than pure defensive breakdowns.";
+
             // ---------------- PLAYER POOLS ----------------
             const playerPools = buildPlayerPools(results, teamCode);
 
@@ -975,6 +1022,24 @@
         </div>
     </div>
 `;
+
+            // ---------------- CTA DYNAMIC ----------------
+
+            document.getElementById("cta-env").textContent = snapshot.environment;
+            document.getElementById("cta-hit").textContent = snapshot.hitRate;
+
+            document.getElementById("cta-edge").textContent =
+                snapshot.environment === "High Edge Environment"
+                    ? "Strong"
+                    : snapshot.environment === "Moderate Edge Environment"
+                        ? "Medium"
+                        : "Low";
+
+            document.getElementById("cta-title").textContent =
+                `${teamName} Prop Engine Active`;
+
+            document.getElementById("cta-text").textContent =
+                `${teamName} shows a ${snapshot.environment.toLowerCase()} with a ${snapshot.hitRate} prop hit rate across tracked markets.`;
         }
 
         window.addEventListener("DOMContentLoaded", loadTeamPage);
