@@ -19,7 +19,7 @@ body {
 
 .pm-header {
     background: #131A2A;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@ body {
     color: #66FF99;
     font-size: 1.4rem;
     font-weight: 800;
-    text-shadow: 0 0 12px rgba(102,255,153,.4);
+    text-shadow: 0 0 12px rgba(102, 255, 153, .4);
 }
 
 .pm-nav {
@@ -54,8 +54,8 @@ body {
 }
 
 .pm-link-cta {
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.35);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .35);
     padding: .5rem .9rem;
     border-radius: 999px;
 }
@@ -66,7 +66,7 @@ body {
     position: relative;
     min-height: 620px;
     background:
-        linear-gradient(rgba(11,15,26,.84), rgba(11,15,26,.94)),
+        linear-gradient(rgba(11, 15, 26, .84), rgba(11, 15, 26, .94)),
         url('../images/playMakerBackground.png') center bottom / cover no-repeat;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@ body {
 .hero-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(102,255,153,.18), transparent 65%);
+    background: radial-gradient(circle at center, rgba(102, 255, 153, .18), transparent 65%);
     pointer-events: none;
 }
 
@@ -91,8 +91,8 @@ body {
 
 .hq-pill {
     display: inline-block;
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.4);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .4);
     color: #66FF99;
     padding: .4rem .9rem;
     border-radius: 999px;
@@ -110,7 +110,7 @@ body {
 .research-hero h2 span {
     display: block;
     color: #66FF99;
-    text-shadow: 0 0 18px rgba(102,255,153,.55);
+    text-shadow: 0 0 18px rgba(102, 255, 153, .55);
 }
 
 .research-hero p {
@@ -125,11 +125,11 @@ body {
 .research-highlight-card {
     max-width: 760px;
     margin: 0 auto;
-    background: rgba(19,26,42,.88);
-    border: 1px solid rgba(102,255,153,.22);
+    background: rgba(19, 26, 42, .88);
+    border: 1px solid rgba(102, 255, 153, .22);
     border-radius: 18px;
     padding: 1.6rem;
-    box-shadow: 0 0 24px rgba(102,255,153,.14);
+    box-shadow: 0 0 24px rgba(102, 255, 153, .14);
 }
 
 .research-highlight-card span {
@@ -189,24 +189,24 @@ body {
 
 .research-card {
     background: linear-gradient(145deg, #0B0F1A, #131A2A);
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 18px;
     padding: 1.5rem;
-    box-shadow: 0 0 20px rgba(102,255,153,.1);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .1);
     transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .research-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 0 28px rgba(102,255,153,.2);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .2);
 }
 
 .research-tag {
     display: inline-block;
     margin-bottom: 1rem;
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
     border-radius: 999px;
     padding: .25rem .7rem;
     font-size: .78rem;
@@ -242,10 +242,10 @@ body {
 
 .stack-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 16px;
     padding: 1.4rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.09);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
 }
 
 .stack-card span {
@@ -277,14 +277,14 @@ body {
 
 .report-row {
     background: #131A2A;
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 16px;
     padding: 1.25rem 1.4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.08);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
 }
 
 .report-row h4 {
@@ -299,8 +299,8 @@ body {
 .report-row span {
     white-space: nowrap;
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
     border-radius: 999px;
     padding: .35rem .8rem;
     font-size: .85rem;
@@ -319,10 +319,10 @@ body {
 
 .signal-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 18px;
     padding: 1.5rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.09);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
 }
 
 .signal-card h4 {
@@ -338,7 +338,7 @@ body {
 
 .signal-card li {
     color: #A3AABF;
-    border-left: 3px solid rgba(102,255,153,.55);
+    border-left: 3px solid rgba(102, 255, 153, .55);
     padding-left: .7rem;
     font-size: .95rem;
 }
@@ -350,10 +350,10 @@ body {
     margin: 0 auto;
     text-align: center;
     background: linear-gradient(145deg, #131A2A, #0B0F1A);
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 20px;
     padding: 4rem 2rem;
-    box-shadow: 0 0 22px rgba(102,255,153,.12);
+    box-shadow: 0 0 22px rgba(102, 255, 153, .12);
 }
 
 .final-cta h3 {
@@ -374,14 +374,102 @@ body {
     padding: 1rem 2rem;
     border-radius: 999px;
     font-weight: 900;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
     transition: .25s ease;
     display: inline-block;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 28px rgba(102,255,153,.7);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .7);
+}
+
+/* =========================
+   INTERNAL LINKING SECTION
+   FIXED (NO DOUBLE ARROWS)
+========================= */
+
+.hq-section-alt .stack-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+/* CARD BASE */
+.hq-section-alt .stack-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* HOVER EFFECT */
+.hq-section-alt .stack-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(102, 255, 153, 0.35);
+    box-shadow: 0 0 20px rgba(102, 255, 153, 0.12);
+}
+
+/* TITLE */
+.hq-section-alt .stack-card h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 800;
+    color: #E6F6EE;
+}
+
+/* DESCRIPTION */
+.hq-section-alt .stack-card p {
+    margin: 0;
+    font-size: 13px;
+    color: #A3AABF;
+    line-height: 1.4;
+}
+
+/* LINK (NO CSS ARROW NOW) */
+.hq-section-alt .stack-card a {
+    margin-top: auto;
+    font-size: 12px;
+    font-weight: 800;
+    color: #66FF99;
+
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    transition: 0.2s ease;
+}
+
+/* LINK HOVER */
+.hq-section-alt .stack-card a:hover {
+    color: #8CFFB3;
+    text-shadow: 0 0 10px rgba(102, 255, 153, 0.25);
+}
+
+/* REMOVE THIS COMPLETELY (this was causing the duplicate arrow)
+.hq-section-alt .stack-card a::after {
+    content: "→";
+}
+*/
+
+@media (max-width: 1100px) {
+    .hq-section-alt .stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .hq-section-alt .stack-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* FOOTER */
@@ -390,7 +478,7 @@ footer {
     text-align: center;
     padding: 2rem 1rem;
     color: #A3AABF;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
 /* MOBILE */
