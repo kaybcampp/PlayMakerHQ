@@ -472,6 +472,124 @@ body {
     }
 }
 
+/* =========================
+   ENTITY LINKS SYSTEM
+   (AUTO GENERATED BLOCK)
+========================= */
+
+#entity-links {
+    margin-top: 2.5rem;
+}
+
+/* MAIN SECTION WRAPPER */
+#entity-links .hq-section {
+    padding-top: 2rem;
+}
+
+/* HEADER */
+#entity-links .section-header h3 {
+    color: #66FF99;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(102, 255, 153, 0.25);
+    margin-bottom: 0.4rem;
+}
+
+#entity-links .section-header p {
+    color: #A3AABF;
+    font-size: 0.95rem;
+}
+
+/* GRID */
+#entity-links .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 1rem;
+}
+
+/* CARD */
+#entity-links .stack-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+
+    padding: 16px;
+    transition: all 0.2s ease;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#entity-links .stack-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(102, 255, 153, 0.35);
+    box-shadow: 0 0 18px rgba(102, 255, 153, 0.12);
+}
+
+/* TITLE */
+#entity-links .stack-card h4 {
+    font-size: 0.95rem;
+    color: #E6F6EE;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+}
+
+/* DESCRIPTION */
+#entity-links .stack-card p {
+    font-size: 0.85rem;
+    color: #A3AABF;
+    line-height: 1.4;
+}
+
+/* LINK BUTTON */
+#entity-links .stack-card a {
+    margin-top: auto;
+
+    color: #0B0F1A;
+    background: #66FF99;
+
+    padding: 8px 10px;
+    border-radius: 10px;
+
+    font-weight: 800;
+    font-size: 0.85rem;
+
+    text-align: center;
+    text-decoration: none;
+
+    box-shadow: 0 0 14px rgba(102, 255, 153, 0.35);
+
+    transition: all 0.2s ease;
+}
+
+#entity-links .stack-card a:hover {
+    background: #4ee887;
+    box-shadow: 0 0 18px rgba(102, 255, 153, 0.55);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+    #entity-links .stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #entity-links .stack-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #entity-links .stack-card {
+        padding: 14px;
+    }
+}
+
 /* FOOTER */
 
 footer {
