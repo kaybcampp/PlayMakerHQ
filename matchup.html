@@ -56,6 +56,7 @@
         <div class="hero-glow"></div>
 
         <div class="matchups-hero-content">
+
             <span class="hq-pill" id="matchup-week">NFL Matchup Report</span>
 
             <h2 id="matchup-title">
@@ -67,37 +68,43 @@
                 Pulling schedule data and matchup context.
             </p>
 
-            <div class="matchup-search-card">
-                <label>Matchup Snapshot</label>
+            <!-- SNAPSHOT WRAPPER -->
+            <div class="snapshot-grid">
 
-                <div class="hero-game-overview">
-                    <div class="hero-game-card">
+                <!-- META ROW -->
+                <div class="snapshot-meta">
+
+                    <div class="meta-card">
                         <span>Date</span>
-                        <strong id="game-date-hero">Loading...</strong>
+                        <strong id="game-date-hero"></strong>
                     </div>
 
-                    <div class="hero-game-card">
+                    <div class="meta-card">
                         <span>Week</span>
-                        <strong id="game-week-hero">Loading...</strong>
+                        <strong id="game-week-hero"></strong>
                     </div>
 
-                    <div class="hero-game-card">
-                        <span>Away</span>
-                        <strong id="away-team-hero">Loading...</strong>
+                    <div class="team-card-mini">
+                        <img id="away-logo-hero" />
+                        <strong id="away-team-hero"></strong>
                     </div>
 
-                    <div class="hero-game-card">
-                        <span>Home</span>
-                        <strong id="home-team-hero">Loading...</strong>
+                    <div class="team-card-mini">
+                        <img id="home-logo-hero" />
+                        <strong id="home-team-hero"></strong>
                     </div>
+
                 </div>
 
-                <div class="opportunity-score">
-                    <div class="opportunity-main">
-                        <div class="opportunity-score-top">
-                            <span>PlayMaker Matchup Ranking</span>
-                            <strong id="opportunity-score">Pending</strong>
-                        </div>
+                <!-- MAIN SNAPSHOT CONTENT -->
+                <div class="snapshot-main">
+
+                    <!-- LEFT: SCORE CARD -->
+                    <div class="opportunity-card">
+
+                        <span>PlayMaker Matchup Ranking</span>
+
+                        <strong id="opportunity-score">Pending</strong>
 
                         <div class="opportunity-bar">
                             <div id="opportunity-fill" class="opportunity-fill"></div>
@@ -106,20 +113,30 @@
                         <div class="opportunity-tier">
                             <span id="opportunity-tier">Calculating...</span>
                         </div>
+
                     </div>
 
-                    <div class="opportunity-drivers">
-                        <h5>Key Drivers</h5>
+                    <!-- RIGHT: DRIVERS + CONTEXT -->
+                    <div class="snapshot-right">
 
-                        <ul id="opportunity-drivers-list">
-                            <li>Building matchup profile...</li>
-                        </ul>
+                        <div class="drivers-card">
+                            <h5>Key Drivers</h5>
+
+                            <ul id="opportunity-drivers-list">
+                                <li>Building matchup profile...</li>
+                            </ul>
+                        </div>
+
+                        <div class="snapshot-text">
+                            <p id="matchup-note">
+                                Building this matchup report.
+                            </p>
+                        </div>
+
                     </div>
+
                 </div>
 
-                <p class="search-note" id="matchup-note">
-                    Building this matchup report.
-                </p>
             </div>
         </div>
     </section>
@@ -343,6 +360,7 @@
         </section>
 
         <section class="hq-section hq-section-alt">
+
             <div class="section-header">
                 <h3>Defensive Matchup</h3>
                 <p id="defense-source-note">
@@ -350,111 +368,118 @@
                 </p>
             </div>
 
+            <!-- MAIN DEFENSE GRID -->
             <div class="defense-matchup-grid">
 
-                <!-- Away Defense -->
+                <!-- AWAY DEFENSE -->
                 <div class="defense-team-card">
-                    <h4 id="away-defense-team">Dallas Cowboys Defense</h4>
 
-                    <div class="defense-stat">
-                        <span>Overall Defense Tier</span>
-                        <strong id="away-overall-tier">A</strong>
+                    <div class="team-header">
+                        <img id="away-logo-defense" class="team-logo-md" />
+                        <h4 id="away-defense-team">Loading...</h4>
                     </div>
 
-                    <div class="defense-stat">
-                        <span>Pass Defense Tier</span>
-                        <strong id="away-pass-tier">B</strong>
-                    </div>
+                    <div class="defense-stats-grid">
 
-                    <div class="defense-stat">
-                        <span>Run Defense Tier</span>
-                        <strong id="away-run-tier">D</strong>
-                    </div>
+                        <div class="defense-stat">
+                            <span>Overall</span>
+                            <strong id="away-overall-tier">A</strong>
+                        </div>
 
-                    <div class="defense-stat">
-                        <span>Pressure Rate</span>
-                        <strong id="away-pressure-rate">28.4%</strong>
+                        <div class="defense-stat">
+                            <span>Pass</span>
+                            <strong id="away-pass-tier">B</strong>
+                        </div>
+
+                        <div class="defense-stat">
+                            <span>Run</span>
+                            <strong id="away-run-tier">D</strong>
+                        </div>
+
+                        <div class="defense-stat">
+                            <span>Pressure</span>
+                            <strong id="away-pressure-rate">28.4%</strong>
+                        </div>
+
                     </div>
 
                     <div class="defense-weaknesses">
-                        <h5>Defensive Weaknesses</h5>
-
+                        <h5>Weaknesses</h5>
                         <ul id="away-weakness-list">
-                            <li>QB Rush Yards</li>
-                            <li>RB Rush Yards</li>
-                            <li>Rushing TDs</li>
+                            <li>Loading...</li>
                         </ul>
                     </div>
+
                 </div>
 
-                <!-- Home Defense -->
+                <!-- HOME DEFENSE -->
                 <div class="defense-team-card">
-                    <h4 id="home-defense-team">Philadelphia Eagles Defense</h4>
 
-                    <div class="defense-stat">
-                        <span>Overall Defense Tier</span>
-                        <strong id="home-overall-tier">A</strong>
+                    <div class="team-header">
+                        <img id="home-logo-defense" class="team-logo-md" />
+                        <h4 id="home-defense-team">Loading...</h4>
                     </div>
 
-                    <div class="defense-stat">
-                        <span>Pass Defense Tier</span>
-                        <strong id="home-pass-tier">A</strong>
-                    </div>
+                    <div class="defense-stats-grid">
 
-                    <div class="defense-stat">
-                        <span>Run Defense Tier</span>
-                        <strong id="home-run-tier">B</strong>
-                    </div>
+                        <div class="defense-stat">
+                            <span>Overall</span>
+                            <strong id="home-overall-tier">A</strong>
+                        </div>
 
-                    <div class="defense-stat">
-                        <span>Pressure Rate</span>
-                        <strong id="home-pressure-rate">31.2%</strong>
+                        <div class="defense-stat">
+                            <span>Pass</span>
+                            <strong id="home-pass-tier">A</strong>
+                        </div>
+
+                        <div class="defense-stat">
+                            <span>Run</span>
+                            <strong id="home-run-tier">B</strong>
+                        </div>
+
+                        <div class="defense-stat">
+                            <span>Pressure</span>
+                            <strong id="home-pressure-rate">31.2%</strong>
+                        </div>
+
                     </div>
 
                     <div class="defense-weaknesses">
-                        <h5>Defensive Weaknesses</h5>
-
+                        <h5>Weaknesses</h5>
                         <ul id="home-weakness-list">
-                            <li>Short Passing Game</li>
-                            <li>TE Receiving Yards</li>
-                            <li>Red Zone Passing TDs</li>
+                            <li>Loading...</li>
                         </ul>
                     </div>
+
                 </div>
 
             </div>
 
+            <!-- PROP LANES (BOTTOM FULL WIDTH) -->
             <div class="defense-prop-lanes">
 
                 <div class="prop-lane-card">
                     <h4>QB Props</h4>
-                    <p id="qb-prop-lane">
-                        Loading quarterback matchup analysis...
-                    </p>
+                    <p id="qb-prop-lane">Loading quarterback matchup analysis...</p>
                 </div>
 
                 <div class="prop-lane-card">
                     <h4>RB Props</h4>
-                    <p id="rb-prop-lane">
-                        Loading running back matchup analysis...
-                    </p>
+                    <p id="rb-prop-lane">Loading running back matchup analysis...</p>
                 </div>
 
                 <div class="prop-lane-card">
                     <h4>WR Props</h4>
-                    <p id="wr-prop-lane">
-                        Loading wide receiver matchup analysis...
-                    </p>
+                    <p id="wr-prop-lane">Loading wide receiver matchup analysis...</p>
                 </div>
 
                 <div class="prop-lane-card">
                     <h4>TE Props</h4>
-                    <p id="te-prop-lane">
-                        Loading tight end matchup analysis...
-                    </p>
+                    <p id="te-prop-lane">Loading tight end matchup analysis...</p>
                 </div>
 
             </div>
+
         </section>
 
         <section class="hq-section">
@@ -585,33 +610,32 @@
             <div id="historical-results-list" class="matchup-grid"></div>
         </section>
 
-        <section class="hq-section hq-section-alt">
-            <div class="section-header">
-                <h3>Key Player Matchups</h3>
-                <p id="player-pool-summary">
-                    Loading key player research, prop focus, and matchup context...
-                </p>
-            </div>
+        <div class="section-header">
+            <h3>Key Player Matchups</h3>
+            <p id="player-pool-summary">
+                Loading key player research, prop focus, and matchup context...
+            </p>
+        </div>
 
-            <div class="key-player-grid">
-                <div class="key-player-team-card">
-                    <div class="key-player-team-header">
-                        <span class="comparison-label">Away Players</span>
-                        <h4 id="away-player-title">Away Player Matchups</h4>
-                    </div>
-
-                    <div id="away-player-list" class="key-player-list"></div>
+        <div class="key-player-grid">
+            <div class="key-player-team-card">
+                <div class="key-player-team-header">
+                    <span class="comparison-label">Away Players</span>
+                    <h4 id="away-player-title">Away Player Matchups</h4>
                 </div>
 
-                <div class="key-player-team-card">
-                    <div class="key-player-team-header">
-                        <span class="comparison-label">Home Players</span>
-                        <h4 id="home-player-title">Home Player Matchups</h4>
-                    </div>
-
-                    <div id="home-player-list" class="key-player-list"></div>
-                </div>
+                <div id="away-player-list" class="key-player-list"></div>
             </div>
+
+            <div class="key-player-team-card">
+                <div class="key-player-team-header">
+                    <span class="comparison-label">Home Players</span>
+                    <h4 id="home-player-title">Home Player Matchups</h4>
+                </div>
+
+                <div id="home-player-list" class="key-player-list"></div>
+            </div>
+        </div>
         </section>
 
         <section class="hq-section hq-section-alt">
@@ -1617,6 +1641,54 @@
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
 
+            const TEAM_LOGOS = {
+                ARI: "/assets/images/teams/ari.png",
+                ATL: "/assets/images/teams/atl.png",
+                BAL: "/assets/images/teams/bal.png",
+                BUF: "/assets/images/teams/buf.png",
+                CAR: "/assets/images/teams/car.png",
+                CHI: "/assets/images/teams/chi.png",
+                CIN: "/assets/images/teams/cin.png",
+                CLE: "/assets/images/teams/cle.png",
+                DAL: "/assets/images/teams/dal.png",
+                DEN: "/assets/images/teams/den.png",
+                DET: "/assets/images/teams/det.png",
+                GB: "/assets/images/teams/gb.png",
+                HOU: "/assets/images/teams/hou.png",
+                IND: "/assets/images/teams/ind.png",
+                JAX: "/assets/images/teams/jax.png",
+                KC: "/assets/images/teams/kc.png",
+                LV: "/assets/images/teams/lv.png",
+                LAC: "/assets/images/teams/lac.png",
+                LAR: "/assets/images/teams/lar.png",
+                MIA: "/assets/images/teams/mia.png",
+                MIN: "/assets/images/teams/min.png",
+                NE: "/assets/images/teams/ne.png",
+                NO: "/assets/images/teams/no.png",
+                NYG: "/assets/images/teams/nyg.png",
+                NYJ: "/assets/images/teams/nyj.png",
+                PHI: "/assets/images/teams/phi.png",
+                PIT: "/assets/images/teams/pit.png",
+                SF: "/assets/images/teams/sf.png",
+                SEA: "/assets/images/teams/sea.png",
+                TB: "/assets/images/teams/tb.png",
+                TEN: "/assets/images/teams/ten.png",
+                WAS: "/assets/images/teams/was.png"
+            };
+
+            function setLogo(id, code) {
+                const el = document.getElementById(id);
+                if (el && TEAM_LOGOS[code]) {
+                    el.src = TEAM_LOGOS[code];
+                }
+            }
+
+            setLogo("away-logo-hero", awayCode);
+            setLogo("home-logo-hero", homeCode);
+
+            setLogo("away-logo-defense", awayCode);
+            setLogo("home-logo-defense", homeCode);
+
             const awayName = formatTeam(awayCode);
             const homeName = formatTeam(homeCode);
 
@@ -1634,6 +1706,23 @@
             const bestAngle = getBestAngle(awayCode, homeCode, awayDefense, homeDefense);
             const filteredAwayPlayers = filterKeyPlayers(awayPlayers);
             const filteredHomePlayers = filterKeyPlayers(homePlayers);
+
+            function renderQuickPlayers(elementId, players) {
+                const container = document.getElementById(elementId);
+                if (!container) return;
+
+                const top = players.slice(0, 3);
+
+                container.innerHTML = top.map(p => `
+        <div class="quick-player">
+            <img src="${getFallbackPlayerImage(p)}" />
+            <span>${p.name}</span>
+        </div>
+    `).join("");
+            }
+
+            renderQuickPlayers("away-quick-players", filteredAwayPlayers);
+            renderQuickPlayers("home-quick-players", filteredHomePlayers);
 
             const historicalResults = getTeamResultMatches(
                 resultsData,

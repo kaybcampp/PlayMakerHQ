@@ -136,6 +136,140 @@ body {
     font-size: 1.08rem;
 }
 
+/* SNAPSHOT WRAPPER */
+.snapshot-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 18px;
+}
+
+/* TOP ROW (MORE BREATHING ROOM) */
+.snapshot-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr 1.4fr;
+    gap: 16px;
+}
+
+.meta-card,
+.team-card-mini {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+
+    min-height: 72px;
+}
+
+.team-card-mini {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-card-mini img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* MAIN GRID (FIX OVERCOMPRESSION) */
+.snapshot-main {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+/* LEFT CARD (OPPORTUNITY) */
+.opportunity-card {
+    background: linear-gradient(145deg,
+            rgba(0, 255, 140, 0.08),
+            rgba(255, 255, 255, 0.03));
+
+    border: 1px solid rgba(0, 255, 140, 0.2);
+    border-radius: 18px;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    /* 🔥 THIS fixes stacked feel */
+}
+
+/* SCORE AREA SPACING FIX */
+.opportunity-card strong {
+    font-size: 2rem;
+    display: block;
+    margin-top: 4px;
+}
+
+/* BAR WRAPPER (PREVENTS COLLAPSE FEEL) */
+.opportunity-bar {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.opportunity-fill {
+    height: 100%;
+    background: #66FF99;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+/* TIER BADGE */
+.opportunity-tier {
+    margin-top: 4px;
+}
+
+/* RIGHT SIDE STACK (FIX TIGHTNESS) */
+.snapshot-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* DRIVER CARD (BETTER INTERNAL SPACING) */
+.drivers-card,
+.snapshot-text {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+/* DRIVER LIST FIX */
+.drivers-card ul {
+    margin: 10px 0 0 0;
+    padding-left: 16px;
+    line-height: 1.5;
+}
+
+.drivers-card li {
+    margin-bottom: 6px;
+    color: #A3AABF;
+}
+
+/* MOBILE FIX */
+@media (max-width: 900px) {
+    .snapshot-meta {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .snapshot-main {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* SEARCH CARD */
 
 .matchup-search-card {
@@ -881,110 +1015,155 @@ body {
     box-shadow: 0 0 28px rgba(102, 255, 153, .7);
 }
 
-/* DEFENSIVE MATCHUP */
 
+/* =========================
+   DEFENSE MATCHUP GRID
+========================= */
 .defense-matchup-grid {
-    max-width: 1150px;
-    margin: 0 auto 1.5rem;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: stretch;
 }
 
+/* =========================
+   DEFENSE TEAM CARD
+========================= */
 .defense-team-card {
-    background: linear-gradient(145deg, #0B0F1A, #131A2A);
-    border: 1px solid rgba(102, 255, 153, .16);
-    border-radius: 20px;
-    padding: 1.6rem;
-    box-shadow: 0 0 22px rgba(102, 255, 153, .1);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    min-height: 100%;
 }
 
-.defense-team-card h4 {
-    color: #66FF99;
-    font-size: 1.35rem;
-    margin-bottom: 1.2rem;
-}
-
-.defense-stat {
-    background: rgba(255, 255, 255, .04);
-    border: 1px solid rgba(255, 255, 255, .07);
-    border-radius: 12px;
-    padding: .8rem 1rem;
-    margin-bottom: .75rem;
+/* =========================
+   TEAM HEADER
+========================= */
+.team-header {
     display: flex;
     align-items: center;
+    gap: 10px;
+}
+
+.team-header img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+/* =========================
+   DEFENSE STATS GRID
+========================= */
+.defense-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+/* INDIVIDUAL STAT CARD */
+.defense-stat {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 12px;
+
+    display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+
+    transition: 0.2s ease;
 }
 
 .defense-stat span {
     color: #A3AABF;
-    font-size: .9rem;
+    font-size: 12px;
 }
 
 .defense-stat strong {
-    color: #66FF99;
-    font-size: 1rem;
+    color: #E6F6EE;
+    font-size: 14px;
 }
 
+/* =========================
+   WEAKNESSES BOX
+========================= */
 .defense-weaknesses {
-    margin-top: 1.25rem;
-    background: rgba(102, 255, 153, .06);
-    border: 1px solid rgba(102, 255, 153, .14);
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 14px;
-    padding: 1rem;
+    padding: 14px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .defense-weaknesses h5 {
-    color: #E6F6EE;
-    font-size: .95rem;
-    margin-bottom: .8rem;
+    margin: 0;
+    font-size: 13px;
+    color: #66FF99;
 }
 
 .defense-weaknesses ul {
-    list-style: none;
-    display: grid;
-    gap: .55rem;
-}
-
-.defense-weaknesses li {
+    margin: 0;
+    padding-left: 16px;
     color: #A3AABF;
-    border-left: 3px solid rgba(102, 255, 153, .55);
-    padding-left: .65rem;
-    font-size: .92rem;
+    line-height: 1.5;
 }
 
+/* =========================
+   PROP LANES (BOTTOM ROW)
+========================= */
 .defense-prop-lanes {
-    max-width: 1150px;
-    margin: 0 auto;
+    margin-top: 22px;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
 }
 
+/* PROP CARD */
 .prop-lane-card {
-    background: #0B0F1A;
-    border: 1px solid rgba(102, 255, 153, .16);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
+    padding: 14px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    transition: 0.2s ease;
 }
 
 .prop-lane-card h4 {
+    margin: 0;
+    font-size: 13px;
     color: #66FF99;
-    margin-bottom: .5rem;
 }
 
 .prop-lane-card p {
+    margin: 0;
+    font-size: 12px;
     color: #A3AABF;
-    font-size: .92rem;
+    line-height: 1.4;
 }
 
+/* =========================
+   MOBILE FIX
+========================= */
 @media (max-width: 900px) {
-
-    .defense-matchup-grid,
-    .defense-prop-lanes {
+    .defense-matchup-grid {
         grid-template-columns: 1fr;
+    }
+
+    .defense-prop-lanes {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
