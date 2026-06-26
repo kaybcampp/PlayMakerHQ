@@ -317,38 +317,161 @@
     <script>
 
         const TEAM_MAP = {
-            "dallas-cowboys": "DAL",
-            "philadelphia-eagles": "PHI",
-            "kansas-city-chiefs": "KC",
+            "arizona-cardinals": "ARI",
+            "atlanta-falcons": "ATL",
+            "baltimore-ravens": "BAL",
             "buffalo-bills": "BUF",
+            "carolina-panthers": "CAR",
+            "chicago-bears": "CHI",
+            "cincinnati-bengals": "CIN",
+            "cleveland-browns": "CLE",
+            "dallas-cowboys": "DAL",
+            "denver-broncos": "DEN",
+            "detroit-lions": "DET",
+            "green-bay-packers": "GB",
+            "houston-texans": "HOU",
+            "indianapolis-colts": "IND",
+            "jacksonville-jaguars": "JAX",
+            "kansas-city-chiefs": "KC",
+            "las-vegas-raiders": "LV",
+            "los-angeles-chargers": "LAC",
+            "los-angeles-rams": "LAR",
+            "miami-dolphins": "MIA",
+            "minnesota-vikings": "MIN",
+            "new-england-patriots": "NE",
+            "new-orleans-saints": "NO",
+            "new-york-giants": "NYG",
+            "new-york-jets": "NYJ",
+            "philadelphia-eagles": "PHI",
+            "pittsburgh-steelers": "PIT",
             "san-francisco-49ers": "SF",
-            "tampa-bay-buccaneers": "TB"
+            "seattle-seahawks": "SEA",
+            "tampa-bay-buccaneers": "TB",
+            "tennessee-titans": "TEN",
+            "washington-commanders": "WAS"
         };
 
         const TEAM_LOGOS = {
-            "dallas-cowboys": "/assets/images/teams/dal.png",
-            "philadelphia-eagles": "/assets/images/teams/phi.png",
-            "kansas-city-chiefs": "/assets/images/teams/kc.png",
+            "arizona-cardinals": "/assets/images/teams/ari.png",
+            "atlanta-falcons": "/assets/images/teams/atl.png",
+            "baltimore-ravens": "/assets/images/teams/bal.png",
             "buffalo-bills": "/assets/images/teams/buf.png",
+            "carolina-panthers": "/assets/images/teams/car.png",
+            "chicago-bears": "/assets/images/teams/chi.png",
+            "cincinnati-bengals": "/assets/images/teams/cin.png",
+            "cleveland-browns": "/assets/images/teams/cle.png",
+            "dallas-cowboys": "/assets/images/teams/dal.png",
+            "denver-broncos": "/assets/images/teams/den.png",
+            "detroit-lions": "/assets/images/teams/det.png",
+            "green-bay-packers": "/assets/images/teams/gb.png",
+            "houston-texans": "/assets/images/teams/hou.png",
+            "indianapolis-colts": "/assets/images/teams/ind.png",
+            "jacksonville-jaguars": "/assets/images/teams/jax.png",
+            "kansas-city-chiefs": "/assets/images/teams/kc.png",
+            "las-vegas-raiders": "/assets/images/teams/lv.png",
+            "los-angeles-chargers": "/assets/images/teams/lac.png",
+            "los-angeles-rams": "/assets/images/teams/lar.png",
+            "miami-dolphins": "/assets/images/teams/mia.png",
+            "minnesota-vikings": "/assets/images/teams/min.png",
+            "new-england-patriots": "/assets/images/teams/ne.png",
+            "new-orleans-saints": "/assets/images/teams/no.png",
+            "new-york-giants": "/assets/images/teams/nyg.png",
+            "new-york-jets": "/assets/images/teams/nyj.png",
+            "philadelphia-eagles": "/assets/images/teams/phi.png",
+            "pittsburgh-steelers": "/assets/images/teams/pit.png",
             "san-francisco-49ers": "/assets/images/teams/sf.png",
-            "tampa-bay-buccaneers": "/assets/images/teams/tb.png"
+            "seattle-seahawks": "/assets/images/teams/sea.png",
+            "tampa-bay-buccaneers": "/assets/images/teams/tb.png",
+            "tennessee-titans": "/assets/images/teams/ten.png",
+            "washington-commanders": "/assets/images/teams/was.png"
         };
 
         const TEAM_LOGOS_BY_CODE = {
-            "DAL": "/assets/images/teams/dal.png",
-            "PHI": "/assets/images/teams/phi.png",
-            "KC": "/assets/images/teams/kc.png",
+            "ARI": "/assets/images/teams/ari.png",
+            "ATL": "/assets/images/teams/atl.png",
+            "BAL": "/assets/images/teams/bal.png",
             "BUF": "/assets/images/teams/buf.png",
+            "CAR": "/assets/images/teams/car.png",
+            "CHI": "/assets/images/teams/chi.png",
+            "CIN": "/assets/images/teams/cin.png",
+            "CLE": "/assets/images/teams/cle.png",
+            "DAL": "/assets/images/teams/dal.png",
+            "DEN": "/assets/images/teams/den.png",
+            "DET": "/assets/images/teams/det.png",
+            "GB": "/assets/images/teams/gb.png",
+            "HOU": "/assets/images/teams/hou.png",
+            "IND": "/assets/images/teams/ind.png",
+            "JAX": "/assets/images/teams/jax.png",
+            "KC": "/assets/images/teams/kc.png",
+            "LV": "/assets/images/teams/lv.png",
+            "LAC": "/assets/images/teams/lac.png",
+            "LAR": "/assets/images/teams/lar.png",
+            "MIA": "/assets/images/teams/mia.png",
+            "MIN": "/assets/images/teams/min.png",
+            "NE": "/assets/images/teams/ne.png",
+            "NO": "/assets/images/teams/no.png",
+            "NYG": "/assets/images/teams/nyg.png",
+            "NYJ": "/assets/images/teams/nyj.png",
+            "PHI": "/assets/images/teams/phi.png",
+            "PIT": "/assets/images/teams/pit.png",
             "SF": "/assets/images/teams/sf.png",
-            "TB": "/assets/images/teams/tb.png"
+            "SEA": "/assets/images/teams/sea.png",
+            "TB": "/assets/images/teams/tb.png",
+            "TEN": "/assets/images/teams/ten.png",
+            "WAS": "/assets/images/teams/was.png"
         };
 
         const PLAYER_HEADSHOTS = {
+            // ================= QB CORE =================
             "Dak Prescott": "https://a.espncdn.com/i/headshots/nfl/players/full/2577417.png",
+            "Jalen Hurts": "https://a.espncdn.com/i/headshots/nfl/players/full/4040715.png",
+            "Patrick Mahomes": "https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png",
+            "Josh Allen": "https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png",
+            "Joe Burrow": "https://a.espncdn.com/i/headshots/nfl/players/full/3915511.png",
+            "Lamar Jackson": "https://a.espncdn.com/i/headshots/nfl/players/full/3916387.png",
+            "Justin Herbert": "https://a.espncdn.com/i/headshots/nfl/players/full/4035676.png",
+            "Tua Tagovailoa": "https://a.espncdn.com/i/headshots/nfl/players/full/4241479.png",
+            "Trevor Lawrence": "https://a.espncdn.com/i/headshots/nfl/players/full/4360310.png",
+            "C.J. Stroud": "https://a.espncdn.com/i/headshots/nfl/players/full/4431611.png",
+            "Brock Purdy": "https://a.espncdn.com/i/headshots/nfl/players/full/4362887.png",
+
+            // ================= RB CORE =================
             "Saquon Barkley": "https://a.espncdn.com/i/headshots/nfl/players/full/3929630.png",
             "Christian McCaffrey": "https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png",
-            "Brock Purdy": "https://a.espncdn.com/i/headshots/nfl/players/full/4362887.png"
+            "Derrick Henry": "https://a.espncdn.com/i/headshots/nfl/players/full/3043078.png",
+            "Nick Chubb": "https://a.espncdn.com/i/headshots/nfl/players/full/4047365.png",
+            "Bijan Robinson": "https://a.espncdn.com/i/headshots/nfl/players/full/4430737.png",
+            "Jahmyr Gibbs": "https://a.espncdn.com/i/headshots/nfl/players/full/4430807.png",
+            "Josh Jacobs": "https://a.espncdn.com/i/headshots/nfl/players/full/4047366.png",
+            "Travis Etienne Jr.": "https://a.espncdn.com/i/headshots/nfl/players/full/4361450.png",
+
+            // ================= WR CORE =================
+            "Ja'Marr Chase": "https://a.espncdn.com/i/headshots/nfl/players/full/4362628.png",
+            "Justin Jefferson": "https://a.espncdn.com/i/headshots/nfl/players/full/4262921.png",
+            "A.J. Brown": "https://a.espncdn.com/i/headshots/nfl/players/full/3915396.png",
+            "Tyreek Hill": "https://a.espncdn.com/i/headshots/nfl/players/full/3116406.png",
+            "Stefon Diggs": "https://a.espncdn.com/i/headshots/nfl/players/full/2976212.png",
+            "Amon-Ra St. Brown": "https://a.espncdn.com/i/headshots/nfl/players/full/4374302.png",
+            "CeeDee Lamb": "https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png",
+            "Davante Adams": "https://a.espncdn.com/i/headshots/nfl/players/full/16800.png",
+
+            // ================= TIGHT ENDS =================
+            "Travis Kelce": "https://a.espncdn.com/i/headshots/nfl/players/full/14351.png",
+            "George Kittle": "https://a.espncdn.com/i/headshots/nfl/players/full/3040151.png",
+            "Mark Andrews": "https://a.espncdn.com/i/headshots/nfl/players/full/4036133.png",
+            "T.J. Hockenson": "https://a.espncdn.com/i/headshots/nfl/players/full/4040712.png"
         };
+
+        function getPlayerImage(name) {
+            const cleanName = normalizePlayerName(name);
+            return PLAYER_HEADSHOTS[cleanName] || "/assets/images/player-placeholder.png";
+        }
+
+        function normalizePlayerName(name) {
+            return String(name || "")
+                .trim()
+                .replace(/\s+/g, " ");
+        }
 
         async function loadResults() {
             const res = await fetch("/assets/data/results.json");
@@ -767,7 +890,7 @@
             document.getElementById("player-pools").innerHTML =
                 playerPools.map(p => {
 
-                    const img = PLAYER_HEADSHOTS[p.name] || "";
+                    const img = getPlayerImage(p.name);
 
                     return `
 <div class="category-card player-card">
@@ -799,7 +922,7 @@
             document.getElementById("team-leaders").innerHTML =
                 teamLeaders.map(p => {
 
-                    const img = PLAYER_HEADSHOTS[p.name] || "";
+                    const img = getPlayerImage(p.name);
 
                     return `
 <div class="team-card player-card">
@@ -939,7 +1062,7 @@
                 historical.length ? historical.map(g => {
 
                     const isWin = g.result === "won";
-                    const img = PLAYER_HEADSHOTS[g.player] || "";
+                    const img = getPlayerImage(g.player);
 
                     return `
         <div class="report-row player-history-row">
