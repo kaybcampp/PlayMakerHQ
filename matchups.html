@@ -99,27 +99,30 @@
 
       <span class="hq-pill">NFL Matchup Hub</span>
 
-      <h2>NFL Matchup Hub</h2>
+      <h2>
+        NFL Matchup Hub
+      </h2>
 
       <p>
         Search every 2026 NFL matchup, filter by week,
         and open detailed PlayMaker matchup reports.
       </p>
 
-      <div class="matchup-search-card hub-search-card">
+      <!-- SEARCH MODULE (UNIFIED WITH PLAYERS STYLE) -->
+      <div class="matchups-search-card hub-search-card">
 
         <label for="matchup-search">Find a Matchup Report</label>
 
-        <div class="hub-filter-row">
+        <div class="matchups-search-row hub-filter-row">
 
+          <!-- INPUT -->
           <div class="autocomplete-wrapper hub-search-input">
-
             <input type="text" id="matchup-search" placeholder="Search Eagles vs Cowboys, PHI, Dallas..." />
 
             <div id="suggestions" class="suggestions-box"></div>
-
           </div>
 
+          <!-- WEEK FILTER -->
           <select id="week-filter" class="week-filter-select">
             <option value="all">All Weeks</option>
             <option value="1">Week 1</option>
@@ -142,13 +145,14 @@
             <option value="18">Week 18</option>
           </select>
 
+          <!-- BUTTON -->
           <button type="button" onclick="runSearch()">
             Search
           </button>
 
         </div>
 
-        <p class="search-note">
+        <p class="matchups-search-note">
           Search by team, abbreviation, or matchup. Every game links directly to a PlayMaker matchup report.
         </p>
 
@@ -635,7 +639,21 @@
 
 </div>
 
-  <h4>${away} @ ${home}</h4>
+  <div class="matchup-teams">
+
+  <span class="team-inline">
+    <img src="/assets/images/teams/${away.toLowerCase()}.png" />
+    ${away}
+  </span>
+
+  <span class="vs">@</span>
+
+  <span class="team-inline">
+    <img src="/assets/images/teams/${home.toLowerCase()}.png" />
+    ${home}
+  </span>
+
+</div>
 
   <div class="card-rating">
 

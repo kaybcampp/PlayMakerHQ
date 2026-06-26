@@ -15,108 +15,172 @@ body {
     line-height: 1.6;
 }
 
-/* HEADER */
+/* =========================
+   HEADER (FORCE STABLE BASE)
+   PREVENT OVERRIDES BREAKING NAV
+========================= */
 
 .pm-header {
-    background: #131A2A;
-    border-bottom: 1px solid rgba(255, 255, 255, .06);
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background: #131A2A !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .06) !important;
+
+    padding: 1rem 2rem !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9999 !important;
 }
 
-.pm-header h1 {
-    color: #66FF99;
-    font-size: 1.4rem;
-    font-weight: 800;
-    text-shadow: 0 0 12px rgba(102, 255, 153, .4);
+.pm-header h1,
+.pm-logo h1 {
+    color: #66FF99 !important;
+    font-size: 1.4rem !important;
+    font-weight: 800 !important;
+    text-shadow: 0 0 12px rgba(102, 255, 153, .4) !important;
 }
 
 .pm-nav {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+    display: flex !important;
+    gap: 1rem !important;
+    align-items: center !important;
 }
 
 .pm-link {
-    color: #E6F6EE;
-    text-decoration: none;
-    opacity: .9;
+    color: #E6F6EE !important;
+    text-decoration: none !important;
+    opacity: .9 !important;
 }
 
 .pm-link:hover,
 .pm-link.active {
-    color: #66FF99;
+    color: #66FF99 !important;
 }
 
 .pm-link-cta {
-    background: rgba(102, 255, 153, .12);
-    border: 1px solid rgba(102, 255, 153, .35);
-    padding: .5rem .9rem;
-    border-radius: 999px;
+    background: rgba(102, 255, 153, .12) !important;
+    border: 1px solid rgba(102, 255, 153, .35) !important;
+    padding: .5rem .9rem !important;
+    border-radius: 999px !important;
 }
 
+/* =========================
+   HEADER LOGO FIX
+========================= */
+
 .pm-logo {
-    text-decoration: none;
+    text-decoration: none !important;
+    cursor: default !important;
 }
 
 .pm-logo h1 {
-    color: #66FF99;
-    font-size: 1.4rem;
-    font-weight: 800;
-    text-shadow: 0 0 12px rgba(102, 255, 153, .4);
-    transition: .2s ease;
+    pointer-events: none;
+    /* prevents hover “link feel” */
 }
 
 .pm-logo:hover h1 {
-    text-shadow: 0 0 18px rgba(102, 255, 153, .65);
+    text-shadow: 0 0 12px rgba(102, 255, 153, .4) !important;
 }
 
-/* HERO */
+/* OPTIONAL: if you want ZERO click behavior */
+.pm-logo[href="/"] {
+    pointer-events: none;
+}
 
+
+/* =========================
+   MATCHUPS HERO (MATCH PLAYERS STYLE)
+========================= */
 .matchups-hero {
     position: relative;
     min-height: 620px;
     background:
         linear-gradient(rgba(11, 15, 26, .84), rgba(11, 15, 26, .94)),
         url('../images/playMakerBackground.png') center bottom / cover no-repeat;
+
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+
     padding: 5rem 1rem;
-    overflow: hidden;
+    overflow: visible;
 }
 
+/* GLOW (MATCH PLAYERS EXACT BEHAVIOR) */
 .hero-glow {
-    background:
-        radial-gradient(circle at center,
-            rgba(102, 255, 153, .08),
-            transparent 70%);
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(102, 255, 153, .18), transparent 65%);
+    pointer-events: none;
 }
 
+/* CONTENT WRAPPER */
 .matchups-hero-content {
     position: relative;
     z-index: 2;
     max-width: 900px;
 }
 
+/* =========================
+   PILL (SHARED STYLE)
+========================= */
 .hq-pill {
     display: inline-block;
     background: rgba(102, 255, 153, .12);
     border: 1px solid rgba(102, 255, 153, .4);
     color: #66FF99;
+
     padding: .4rem .9rem;
     border-radius: 999px;
+
     font-size: .85rem;
     font-weight: 800;
     margin-bottom: 1.25rem;
 }
 
+/* =========================
+   MATCHUP HUB TEAM ROW
+========================= */
+
+.matchup-teams {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.team-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+    color: #E6F6EE;
+}
+
+.team-inline img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.vs {
+    color: #66FF99;
+    font-weight: 900;
+}
+
+/* =========================
+   HERO TITLE
+========================= */
 .matchups-hero h2 {
     font-size: clamp(2.2rem, 5vw, 4rem);
     line-height: 1.15;
@@ -129,11 +193,151 @@ body {
     text-shadow: 0 0 18px rgba(102, 255, 153, .55);
 }
 
+/* =========================
+   SUBTITLE
+========================= */
 .matchups-hero p {
     max-width: 720px;
     margin: 0 auto 2rem;
     color: #A3AABF;
     font-size: 1.08rem;
+}
+
+
+
+/* =========================
+   MATCHUPS HUB SEARCH CARD
+   (MATCHES PLAYERS SYSTEM)
+========================= */
+.matchups-search-card {
+    max-width: 760px;
+    margin: 0 auto;
+
+    background: rgba(19, 26, 42, .88);
+    border: 1px solid rgba(102, 255, 153, .22);
+    border-radius: 18px;
+
+    padding: 1.6rem 1.6rem 1.4rem 1.6rem;
+
+    box-shadow: 0 0 24px rgba(102, 255, 153, .14);
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+/* LABEL */
+.matchups-search-card label {
+    display: block;
+    color: #66FF99;
+    font-weight: 800;
+    margin-bottom: .6rem;
+}
+
+/* ROW LAYOUT */
+.matchups-search-row {
+    display: flex;
+    gap: .75rem;
+    align-items: stretch;
+}
+
+/* INPUT WRAPPER */
+.hub-search-input {
+    flex: 1;
+    position: relative;
+}
+
+/* INPUT */
+.matchups-search-row input {
+    width: 100%;
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .35);
+    color: #fff;
+
+    border-radius: 12px;
+    padding: 1rem;
+
+    outline: none;
+    font-size: 1rem;
+
+    box-shadow: 0 0 14px rgba(102, 255, 153, .12);
+}
+
+.matchups-search-row input:focus {
+    border-color: #66FF99;
+    box-shadow: 0 0 20px rgba(102, 255, 153, .35);
+}
+
+/* WEEK DROPDOWN */
+.week-filter-select {
+    background: #0B0F1A;
+    border: 1px solid rgba(102, 255, 153, .35);
+    color: #E6F6EE;
+
+    border-radius: 12px;
+    padding: 1rem;
+
+    font-weight: 600;
+    outline: none;
+
+    min-width: 140px;
+}
+
+/* BUTTON */
+.matchups-search-row button {
+    background: #66FF99;
+    color: #0B0F1A;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 0 1.4rem;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
+}
+
+/* =========================
+   FIXED SPACING FOR TEXT BELOW ROW
+========================= */
+
+/* SEARCH NOTE */
+.matchups-search-note {
+    margin-top: 1.1rem;
+    /* 👈 KEY FIX (was too tight) */
+    margin-bottom: 0.2rem;
+    font-size: .86rem;
+    color: #A3AABF;
+    line-height: 1.4;
+}
+
+/* COUNT TEXT */
+.matchup-count {
+    margin-top: 0.4rem;
+    font-size: .9rem;
+    color: #66FF99;
+    font-weight: 700;
+}
+
+/* =========================
+   MOBILE FIX
+========================= */
+@media (max-width: 900px) {
+    .matchups-search-row {
+        flex-direction: column;
+    }
+
+    .week-filter-select {
+        width: 100%;
+    }
+
+    .matchups-search-row button {
+        width: 100%;
+        padding: 1rem;
+    }
 }
 
 /* SNAPSHOT WRAPPER */
