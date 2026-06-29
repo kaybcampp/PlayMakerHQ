@@ -141,6 +141,39 @@
         </div>
     </section>
 
+    <section class="hq-section hq-section-alt">
+        <div class="section-header">
+            <h3>Featured Players</h3>
+            <p>Top offensive players to watch in this matchup.</p>
+        </div>
+
+        <div class="featured-players-grid" id="featured-players">
+            <!-- JS will populate player cards -->
+        </div>
+    </section>
+
+    <section class="hq-section">
+        <div class="section-header">
+            <h3>Stat Relevance</h3>
+            <p>Key metrics that make this matchup impactful for props.</p>
+        </div>
+
+        <div class="matchup-stats-grid" id="matchup-stats">
+            <!-- JS populates matchup-relevant stats -->
+        </div>
+    </section>
+
+    <section class="hq-section hq-section-alt">
+        <div class="section-header">
+            <h3>Why This Matchup Matters</h3>
+            <p>PlayMaker analysis of game context, trends, and player prop opportunities.</p>
+        </div>
+
+        <div id="why-matchup-matters">
+            <!-- JS populates a short explanation -->
+        </div>
+    </section>
+
     <!-- SEO MATCHUP INTRO -->
     <section class="hq-section matchup-seo-intro-section">
         <div class="seo-intro-card">
@@ -827,6 +860,58 @@
             const homeSlug = slugifyTeamName(game.home);
 
             return `${awaySlug}-vs-${homeSlug}`;
+        }
+
+        const slug = getMatchupSlugFromURL();
+        loadFeaturedPlayers(slug);
+        loadMatchupStats(slug);
+        loadMatchupContext(slug);
+
+        async function loadFeaturedPlayers(matchupSlug) {
+            const container = document.getElementById("featured-players");
+            const results = await loadResults(); // your existing results loader
+
+            // Filter top 1-2 players from both teams
+            const matchupPlayers = results.filter(r => r.matchupSlug === matchupSlug)
+                .sort((a, b) => b.confidence - a.confidence)
+                .slice(0, 2);
+
+            container.innerHTML = matchupPlayers.map(p => `
+    <div class="player-card">
+      <img src="${PLAYER_HEADSHOTS[p.player] || '/assets/images/player-placeholder.png'}" alt="${p.player}" />
+      <h4>${p.player}</h4>
+      <p>${p.side} • ${p.market} • Line: ${p.line}</p>
+    </div>
+  `).join("");
+        }
+
+        function loadMatchupStats(matchupSlug) {
+            const container = document.getElementById("matchup-stats");
+            const stats = [
+                { label: "Pass Defense Tier", value: "B+" },
+                { label: "Run Defense Tier", value: "A" },
+                { label: "Pressure Rate", value: "27%" },
+                { label: "Red Zone Vulnerability", value: "High" },
+            ];
+
+            container.innerHTML = stats.map(s => `
+    <div class="stat-card">
+      <h4>${s.label}</h4>
+      <p>${s.value}</p>
+    </div>
+  `).join("");
+        }
+
+        function loadMatchupContext(matchupSlug) {
+            const container = document.getElementById("why-matchup-matters");
+            // Replace with your real logic
+            container.innerHTML = `
+    <p>
+      This matchup features a strong RB vs weak run defense,
+      while the QB faces high pressure — creating top prop opportunities
+      in both passing and rushing markets.
+    </p>
+  `;
         }
 
         function formatDate(dateString) {
