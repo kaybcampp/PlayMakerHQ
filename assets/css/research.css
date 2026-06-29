@@ -590,6 +590,22 @@ body {
     }
 }
 
+.player-headshot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.stack-card h4 {
+    margin: 0.25rem 0;
+}
+
+.stack-card a {
+    font-size: 0.9rem;
+}
+
 /* FOOTER */
 
 footer {
