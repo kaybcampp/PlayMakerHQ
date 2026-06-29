@@ -862,27 +862,72 @@
             return `${awaySlug}-vs-${homeSlug}`;
         }
 
-        const slug = getMatchupSlugFromURL();
-        loadFeaturedPlayers(slug);
+        const slug = getMatchupSlugFromUrl();
         loadMatchupStats(slug);
         loadMatchupContext(slug);
 
-        async function loadFeaturedPlayers(matchupSlug) {
+        async function loadResults() {
+            try {
+                return await loadJson("/assets/data/results.json");
+            } catch (err) {
+                console.warn("Results unavailable:", err.message);
+                return [];
+            }
+        }
+
+        function findPlayerDataByName(name, awayPlayers, homePlayers) {
+            const allPlayers = [
+                ...(Array.isArray(awayPlayers) ? awayPlayers : []),
+                ...(Array.isArray(homePlayers) ? homePlayers : [])
+            ];
+
+            return allPlayers.find(p =>
+                String(p.name || "").toLowerCase() === String(name || "").toLowerCase()
+            ) || null;
+        }
+
+        async function loadFeaturedPlayers(awayCode, homeCode, awayPlayers, homePlayers) {
             const container = document.getElementById("featured-players");
-            const results = await loadResults(); // your existing results loader
+            if (!container) return;
 
-            // Filter top 1-2 players from both teams
-            const matchupPlayers = results.filter(r => r.matchupSlug === matchupSlug)
-                .sort((a, b) => b.confidence - a.confidence)
-                .slice(0, 2);
+            const results = await loadResults();
 
-            container.innerHTML = matchupPlayers.map(p => `
-    <div class="player-card">
-      <img src="${PLAYER_HEADSHOTS[p.player] || '/assets/images/player-placeholder.png'}" alt="${p.player}" />
-      <h4>${p.player}</h4>
-      <p>${p.side} • ${p.market} • Line: ${p.line}</p>
-    </div>
-  `).join("");
+            const matchupPlayers = results
+                .filter(r =>
+                    String(r.awayTeam || "").toUpperCase() === awayCode &&
+                    String(r.homeTeam || "").toUpperCase() === homeCode &&
+                    String(r.enrichmentStatus || "").toLowerCase() === "matched"
+                )
+                .sort((a, b) => Number(b.confidence || 0) - Number(a.confidence || 0))
+                .slice(0, 6);
+
+            if (!matchupPlayers.length) {
+                container.innerHTML = `
+            <article class="player-card">
+                <h4>No featured proof-log players yet</h4>
+                <p>Featured players will appear once PlayMaker has historical results for this matchup.</p>
+            </article>
+        `;
+                return;
+            }
+
+            container.innerHTML = matchupPlayers.map(p => {
+                const playerData = findPlayerDataByName(p.player, awayPlayers, homePlayers);
+                const image = getFallbackPlayerImage(playerData);
+
+                return `
+            <article class="player-card">
+                <img 
+                    src="${image}" 
+                    alt="${p.player}" 
+                    loading="lazy"
+                />
+                <h4>${p.player}</h4>
+                <p>${p.playerTeam || ""} • ${playerData?.position || p.market}</p>
+                <span>${String(p.side || "").toUpperCase()} ${p.line} ${p.market} • ${p.confidence}%</span>
+            </article>
+        `;
+            }).join("");
         }
 
         function loadMatchupStats(matchupSlug) {
@@ -1725,6 +1770,7 @@
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
+            loadFeaturedPlayers(awayCode, homeCode, awayPlayers, homePlayers);
 
             const TEAM_LOGOS = {
                 ARI: "/assets/images/teams/ari.png",
