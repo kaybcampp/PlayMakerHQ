@@ -143,8 +143,8 @@
 
     <section class="hq-section hq-section-alt">
         <div class="section-header">
-            <h3>Featured Players</h3>
-            <p>Top offensive players to watch in this matchup.</p>
+            <h3>Featured Historical Picks</h3>
+            <p>Past PlayMaker prop calls from this matchup context, grouped by player for quick proof-log review.</p>
         </div>
 
         <div class="featured-players-grid" id="featured-players">
@@ -886,45 +886,72 @@
             ) || null;
         }
 
-        async function loadFeaturedPlayers(awayCode, homeCode, awayPlayers, homePlayers) {
+        async function loadFeaturedPlayers(awayCode, homeCode, awayPlayers, homePlayers, resultsData) {
             const container = document.getElementById("featured-players");
             if (!container) return;
 
-            const results = await loadResults();
+            const away = String(awayCode || "").toUpperCase();
+            const home = String(homeCode || "").toUpperCase();
 
-            const matchupPlayers = results
-                .filter(r =>
-                    String(r.awayTeam || "").toUpperCase() === awayCode &&
-                    String(r.homeTeam || "").toUpperCase() === homeCode &&
-                    String(r.enrichmentStatus || "").toLowerCase() === "matched"
-                )
+            const matchupPlayers = (Array.isArray(resultsData) ? resultsData : [])
+                .filter(r => {
+                    const status = String(r.enrichmentStatus || "").toLowerCase();
+                    const itemAway = String(r.awayTeam || "").toUpperCase();
+                    const itemHome = String(r.homeTeam || "").toUpperCase();
+
+                    return status === "matched" && (
+                        (itemAway === away && itemHome === home) ||
+                        (itemAway === home && itemHome === away)
+                    );
+                })
                 .sort((a, b) => Number(b.confidence || 0) - Number(a.confidence || 0))
+                .filter((item, index, arr) =>
+                    index === arr.findIndex(p =>
+                        String(p.player || "").toLowerCase() === String(item.player || "").toLowerCase()
+                    )
+                )
                 .slice(0, 6);
 
             if (!matchupPlayers.length) {
                 container.innerHTML = `
             <article class="player-card">
-                <h4>No featured proof-log players yet</h4>
-                <p>Featured players will appear once PlayMaker has historical results for this matchup.</p>
+                <h4>No featured players yet</h4>
+                <p>Featured players will populate once PlayMaker has historical results for this matchup.</p>
             </article>
         `;
                 return;
             }
 
+            const allPlayers = [
+                ...(Array.isArray(awayPlayers) ? awayPlayers : []),
+                ...(Array.isArray(homePlayers) ? homePlayers : [])
+            ];
+
             container.innerHTML = matchupPlayers.map(p => {
-                const playerData = findPlayerDataByName(p.player, awayPlayers, homePlayers);
-                const image = getFallbackPlayerImage(playerData);
+                const playerData = allPlayers.find(pl =>
+                    String(pl.name || "").toLowerCase() === String(p.player || "").toLowerCase()
+                );
+
+                const image = playerData?.image || "/assets/images/player-placeholder.png";
+                const result = String(p.result || "").toLowerCase();
+                const resultIcon = result === "won" ? "✅" : result === "lost" ? "❌" : "➖";
+                const resultText = result ? result.toUpperCase() : "PENDING";
 
                 return `
             <article class="player-card">
-                <img 
-                    src="${image}" 
-                    alt="${p.player}" 
-                    loading="lazy"
-                />
+                <img src="${image}" alt="${p.player}" loading="lazy" />
                 <h4>${p.player}</h4>
-                <p>${p.playerTeam || ""} • ${playerData?.position || p.market}</p>
-                <span>${String(p.side || "").toUpperCase()} ${p.line} ${p.market} • ${p.confidence}%</span>
+                <p>${p.playerTeam || ""} • ${playerData?.position || p.market || "Prop"}</p>
+
+                <span>Historical Pick</span>
+
+                <p class="featured-pick">
+                    ${String(p.side || "").toUpperCase()} ${p.line || ""} ${p.market || ""}
+                </p>
+
+                <p class="featured-result">
+                    ${resultIcon} ${resultText}
+                </p>
             </article>
         `;
             }).join("");
@@ -1284,8 +1311,10 @@
 
                     return (
                         status === "matched" &&
-                        itemAway === awayCode &&
-                        itemHome === homeCode
+                        (
+                            (itemAway === awayCode && itemHome === homeCode) ||
+                            (itemAway === homeCode && itemHome === awayCode)
+                        )
                     );
                 })
                 .slice(0, 6);
@@ -1770,7 +1799,8 @@
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
-            loadFeaturedPlayers(awayCode, homeCode, awayPlayers, homePlayers);
+
+            loadFeaturedPlayers(awayCode, homeCode, awayPlayers, homePlayers, resultsData);
 
             const TEAM_LOGOS = {
                 ARI: "/assets/images/teams/ari.png",

@@ -2638,6 +2638,21 @@ body {
 
 }
 
+.player-card .featured-pick{
+    margin-top:10px;
+    color:#dbeafe;
+    font-size:.9rem;
+    font-weight:700;
+}
+
+.player-card .featured-result{
+    margin-top:8px;
+    color:#66d9ff;
+    font-size:.82rem;
+    font-weight:800;
+    letter-spacing:.04em;
+}
+
 /* FOOTER */
 
 footer {
