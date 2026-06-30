@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Prop Type Results — PlayMaker HQ</title>
-  <meta name="description" content="View PlayMaker HQ results by prop type, including passing, rushing, receiving, win rate, recent picks, and graded outcomes." />
+  <meta name="description"
+    content="View PlayMaker HQ results by prop type, including passing, rushing, receiving, win rate, recent picks, and graded outcomes." />
 
   <link rel="stylesheet" href="assets/css/results.css" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
@@ -13,233 +15,233 @@
 
 <body>
 
-<header class="pm-header">
-  <h1>PlayMaker HQ</h1>
+  <header class="pm-header">
+    <h1>PlayMaker HQ</h1>
 
-  <nav class="pm-nav">
-    <a href="index.html" class="pm-link">Home</a>
-    <a href="players.html" class="pm-link">Players</a>
-    <a href="teams.html" class="pm-link">Teams</a>
-    <a href="matchups.html" class="pm-link">Matchups</a>
-    <a href="research.html" class="pm-link">Research</a>
-    <a href="results.html" class="pm-link active">Results</a>
-    <a href="pricing.html" class="pm-link">Pricing</a>
-    <a href="/playmaker/" class="pm-link pm-link-cta">Open Tool</a>
-  </nav>
-</header>
+    <nav class="pm-nav">
+      <a href="index.html" class="pm-link">Home</a>
+      <a href="players.html" class="pm-link">Players</a>
+      <a href="teams.html" class="pm-link">Teams</a>
+      <a href="matchups.html" class="pm-link">Matchups</a>
+      <a href="research.html" class="pm-link">Research</a>
+      <a href="results.html" class="pm-link active">Results</a>
+      <a href="pricing.html" class="pm-link">Pricing</a>
+      <a href="/playmaker/" class="pm-link pm-link-cta">Open Tool</a>
+    </nav>
+  </header>
 
-<section class="results-hero">
-  <div class="hero-glow"></div>
+  <section class="results-hero">
+    <div class="hero-glow"></div>
 
-  <div class="results-hero-content">
-    <span class="hq-pill" id="type-pill">Prop Type Results</span>
+    <div class="results-hero-content">
+      <span class="hq-pill" id="type-pill">Prop Type Results</span>
 
-    <h2 id="prop-type-title">
-      Loading results...
-      <span>PlayMaker performance by category.</span>
-    </h2>
+      <h2 id="prop-type-title">
+        Loading results...
+        <span>PlayMaker performance by category.</span>
+      </h2>
 
-    <p id="prop-type-subtitle">
-      Reading the PlayMaker tracked results log.
-    </p>
+      <p id="prop-type-subtitle">
+        Reading the PlayMaker tracked results log.
+      </p>
 
-    <div class="results-summary-card">
-      <div>
-        <span>Record</span>
-        <strong id="type-record">--</strong>
-        <p>Wins and losses</p>
-      </div>
+      <div class="results-summary-card">
+        <div>
+          <span>Record</span>
+          <strong id="type-record">--</strong>
+          <p>Wins and losses</p>
+        </div>
 
-      <div>
-        <span>Win Rate</span>
-        <strong id="type-win-rate">--</strong>
-        <p>Current tracked performance</p>
-      </div>
+        <div>
+          <span>Win Rate</span>
+          <strong id="type-win-rate">--</strong>
+          <p>Current tracked performance</p>
+        </div>
 
-      <div>
-        <span>Total Plays</span>
-        <strong id="type-total">--</strong>
-        <p>Graded prop decisions</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<main>
-
-  <section class="hq-section">
-    <div class="section-header">
-      <h3 id="breakdown-title">Prop Type Breakdown</h3>
-      <p id="breakdown-copy">Loading category-specific results...</p>
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span>Wins</span>
-        <strong id="type-wins">--</strong>
-        <p>Successful calls</p>
-      </div>
-
-      <div class="stat-card">
-        <span>Losses</span>
-        <strong id="type-losses">--</strong>
-        <p>Missed calls</p>
-      </div>
-
-      <div class="stat-card">
-        <span>Best Market</span>
-        <strong id="best-market">--</strong>
-        <p>Highest-volume winning market</p>
-      </div>
-
-      <div class="stat-card">
-        <span>Latest Pick</span>
-        <strong id="latest-pick">--</strong>
-        <p>Most recent graded result</p>
+        <div>
+          <span>Total Plays</span>
+          <strong id="type-total">--</strong>
+          <p>Graded prop decisions</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="hq-section hq-section-alt">
-    <div class="section-header">
-      <h3>Recent Category Results</h3>
-      <p id="table-copy">Recent graded PlayMaker picks for this prop type.</p>
-    </div>
+  <main>
 
-    <div class="results-table-wrap">
-      <table class="results-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Player</th>
-            <th>Market</th>
-            <th>Pick</th>
-            <th>Matchup</th>
-            <th>Outcome</th>
-          </tr>
-        </thead>
+    <section class="hq-section">
+      <div class="section-header">
+        <h3 id="breakdown-title">Prop Type Breakdown</h3>
+        <p id="breakdown-copy">Loading category-specific results...</p>
+      </div>
 
-        <tbody id="type-results-body">
-          <tr>
-            <td colspan="6">Loading results...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span>Wins</span>
+          <strong id="type-wins">--</strong>
+          <p>Successful calls</p>
+        </div>
 
-  <section class="hq-section">
-    <div class="final-cta">
-      <h3>Back to all results</h3>
-      <p>Review the full PlayMaker results log across every prop category.</p>
-      <a href="results.html" class="btn-primary">View All Results</a>
-    </div>
-  </section>
+        <div class="stat-card">
+          <span>Losses</span>
+          <strong id="type-losses">--</strong>
+          <p>Missed calls</p>
+        </div>
 
-</main>
+        <div class="stat-card">
+          <span>Best Market</span>
+          <strong id="best-market">--</strong>
+          <p>Highest-volume winning market</p>
+        </div>
 
-<footer>
-  <p>&copy; 2025 PlayMaker HQ. All Rights Reserved.</p>
-</footer>
+        <div class="stat-card">
+          <span>Latest Pick</span>
+          <strong id="latest-pick">--</strong>
+          <p>Most recent graded result</p>
+        </div>
+      </div>
+    </section>
 
-<script>
-const TYPE_CONFIG = {
-  passing: {
-    label: "Passing Results",
-    title: "Passing Prop Results",
-    subtitle: "Track PlayMaker performance on passing yards, completions, attempts, touchdowns, interceptions, and quarterback passing markets.",
-    breakdown: "Passing results show how PlayMaker has performed when reading quarterback volume, defensive pass matchups, and game-script passing environments."
-  },
-  rushing: {
-    label: "Rushing Results",
-    title: "Rushing Prop Results",
-    subtitle: "Track PlayMaker performance on rushing yards, attempts, quarterback rushing, rushing touchdowns, and ground-game usage.",
-    breakdown: "Rushing results show how PlayMaker has performed when reading run defense, player usage, rushing volume, and mobile quarterback opportunities."
-  },
-  receiving: {
-    label: "Receiving Results",
-    title: "Receiving Prop Results",
-    subtitle: "Track PlayMaker performance on receiving yards, receptions, targets, touchdowns, and pass-catcher usage.",
-    breakdown: "Receiving results show how PlayMaker has performed when reading target share, route volume, matchup coverage, and receiving production."
-  }
-};
+    <section class="hq-section hq-section-alt">
+      <div class="section-header">
+        <h3>Recent Category Results</h3>
+        <p id="table-copy">Recent graded PlayMaker picks for this prop type.</p>
+      </div>
 
-function getPropType() {
-  const params = new URLSearchParams(window.location.search);
-  const type = String(params.get("type") || "passing").toLowerCase();
+      <div class="results-table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Player</th>
+              <th>Market</th>
+              <th>Pick</th>
+              <th>Matchup</th>
+              <th>Outcome</th>
+            </tr>
+          </thead>
 
-  return TYPE_CONFIG[type] ? type : "passing";
-}
+          <tbody id="type-results-body">
+            <tr>
+              <td colspan="6">Loading results...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-async function loadResultsJson() {
-  const res = await fetch("/assets/data/results.json");
-  if (!res.ok) throw new Error("Failed to load results.json");
-  return await res.json();
-}
+    <section class="hq-section">
+      <div class="final-cta">
+        <h3>Back to all results</h3>
+        <p>Review the full PlayMaker results log across every prop category.</p>
+        <a href="results.html" class="btn-primary">View All Results</a>
+      </div>
+    </section>
 
-function getGradedResults(results) {
-  return results.filter(r =>
-    ["won", "lost"].includes(String(r.result || "").toLowerCase())
-  );
-}
+  </main>
 
-function getStats(results) {
-  const wins = results.filter(r => String(r.result || "").toLowerCase() === "won").length;
-  const losses = results.filter(r => String(r.result || "").toLowerCase() === "lost").length;
-  const total = wins + losses;
-  const winRate = total ? ((wins / total) * 100).toFixed(1) : "0.0";
+  <footer>
+    <p>&copy; 2025 PlayMaker HQ. All Rights Reserved.</p>
+  </footer>
 
-  return { wins, losses, total, winRate };
-}
+  <script>
+    const TYPE_CONFIG = {
+      passing: {
+        label: "Passing Results",
+        title: "Passing Prop Results",
+        subtitle: "Track PlayMaker performance on passing yards, completions, attempts, touchdowns, interceptions, and quarterback passing markets.",
+        breakdown: "Passing results show how PlayMaker has performed when reading quarterback volume, defensive pass matchups, and game-script passing environments."
+      },
+      rushing: {
+        label: "Rushing Results",
+        title: "Rushing Prop Results",
+        subtitle: "Track PlayMaker performance on rushing yards, attempts, quarterback rushing, rushing touchdowns, and ground-game usage.",
+        breakdown: "Rushing results show how PlayMaker has performed when reading run defense, player usage, rushing volume, and mobile quarterback opportunities."
+      },
+      receiving: {
+        label: "Receiving Results",
+        title: "Receiving Prop Results",
+        subtitle: "Track PlayMaker performance on receiving yards, receptions, targets, touchdowns, and pass-catcher usage.",
+        breakdown: "Receiving results show how PlayMaker has performed when reading target share, route volume, matchup coverage, and receiving production."
+      }
+    };
 
-function getBestMarket(results) {
-  const markets = {};
+    function getPropType() {
+      const params = new URLSearchParams(window.location.search);
+      const type = String(params.get("type") || "passing").toLowerCase();
 
-  results.forEach(r => {
-    const market = r.market || "Unknown";
-    if (!markets[market]) {
-      markets[market] = { wins: 0, losses: 0, total: 0 };
+      return TYPE_CONFIG[type] ? type : "passing";
     }
 
-    if (String(r.result || "").toLowerCase() === "won") markets[market].wins++;
-    if (String(r.result || "").toLowerCase() === "lost") markets[market].losses++;
+    async function loadResultsJson() {
+      const res = await fetch("/assets/data/results.json");
+      if (!res.ok) throw new Error("Failed to load results.json");
+      return await res.json();
+    }
 
-    markets[market].total++;
-  });
+    function getGradedResults(results) {
+      return results.filter(r =>
+        ["won", "lost"].includes(String(r.result || "").toLowerCase())
+      );
+    }
 
-  const ranked = Object.entries(markets)
-    .filter(([_, data]) => data.total >= 2)
-    .sort((a, b) => {
-      const aRate = a[1].wins / a[1].total;
-      const bRate = b[1].wins / b[1].total;
+    function getStats(results) {
+      const wins = results.filter(r => String(r.result || "").toLowerCase() === "won").length;
+      const losses = results.filter(r => String(r.result || "").toLowerCase() === "lost").length;
+      const total = wins + losses;
+      const winRate = total ? ((wins / total) * 100).toFixed(1) : "0.0";
 
-      if (bRate !== aRate) return bRate - aRate;
-      return b[1].total - a[1].total;
-    });
+      return { wins, losses, total, winRate };
+    }
 
-  return ranked[0]?.[0] || "Review";
-}
+    function getBestMarket(results) {
+      const markets = {};
 
-function renderTable(results) {
-  const tbody = document.getElementById("type-results-body");
-  if (!tbody) return;
+      results.forEach(r => {
+        const market = r.market || "Unknown";
+        if (!markets[market]) {
+          markets[market] = { wins: 0, losses: 0, total: 0 };
+        }
 
-  const recent = results
-    .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
-    .slice(0, 50);
+        if (String(r.result || "").toLowerCase() === "won") markets[market].wins++;
+        if (String(r.result || "").toLowerCase() === "lost") markets[market].losses++;
 
-  if (!recent.length) {
-    tbody.innerHTML = `<tr><td colspan="6">No graded results found for this prop type yet.</td></tr>`;
-    return;
-  }
+        markets[market].total++;
+      });
 
-  tbody.innerHTML = recent.map(r => {
-    const result = String(r.result || "").toLowerCase();
-    const resultClass = result === "won" ? "result-win" : "result-loss";
-    const resultText = result === "won" ? "Win" : "Loss";
-    const pick = `${String(r.side || "").toUpperCase()} ${r.line || ""}`;
+      const ranked = Object.entries(markets)
+        .filter(([_, data]) => data.total >= 2)
+        .sort((a, b) => {
+          const aRate = a[1].wins / a[1].total;
+          const bRate = b[1].wins / b[1].total;
 
-    return `
+          if (bRate !== aRate) return bRate - aRate;
+          return b[1].total - a[1].total;
+        });
+
+      return ranked[0]?.[0] || "Review";
+    }
+
+    function renderTable(results) {
+      const tbody = document.getElementById("type-results-body");
+      if (!tbody) return;
+
+      const recent = results
+        .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+        .slice(0, 50);
+
+      if (!recent.length) {
+        tbody.innerHTML = `<tr><td colspan="6">No graded results found for this prop type yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = recent.map(r => {
+        const result = String(r.result || "").toLowerCase();
+        const resultClass = result === "won" ? "result-win" : "result-loss";
+        const resultText = result === "won" ? "Win" : "Loss";
+        const pick = `${String(r.side || "").toUpperCase()} ${r.line || ""}`;
+
+        return `
       <tr>
         <td>${r.date || "TBD"}</td>
         <td>${r.player || "Unknown"}</td>
@@ -249,57 +251,60 @@ function renderTable(results) {
         <td><span class="${resultClass}">${resultText}</span></td>
       </tr>
     `;
-  }).join("");
-}
-
-async function renderPage() {
-  try {
-    const type = getPropType();
-    const config = TYPE_CONFIG[type];
-
-    const allResults = await loadResultsJson();
-
-    const filtered = getGradedResults(allResults)
-      .filter(r => String(r.propFamily || "").toLowerCase() === type);
-
-    const { wins, losses, total, winRate } = getStats(filtered);
-
-    document.title = `${config.title} | PlayMaker HQ`;
-
-    document.getElementById("type-pill").textContent = config.label;
-    document.getElementById("prop-type-title").innerHTML = `${config.title}<span>PlayMaker performance by category.</span>`;
-    document.getElementById("prop-type-subtitle").textContent = config.subtitle;
-
-    document.getElementById("type-record").textContent = `${wins}-${losses}`;
-    document.getElementById("type-win-rate").textContent = `${winRate}%`;
-    document.getElementById("type-total").textContent = total;
-
-    document.getElementById("breakdown-title").textContent = `${config.title} Breakdown`;
-    document.getElementById("breakdown-copy").textContent = config.breakdown;
-
-    document.getElementById("type-wins").textContent = wins;
-    document.getElementById("type-losses").textContent = losses;
-    document.getElementById("best-market").textContent = getBestMarket(filtered);
-
-    const latest = filtered
-      .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))[0];
-
-    document.getElementById("latest-pick").textContent =
-      latest ? `${latest.player || "Player"} ${String(latest.side || "").toUpperCase()} ${latest.line || ""}` : "--";
-
-    renderTable(filtered);
-  } catch (err) {
-    console.error(err);
-
-    const tbody = document.getElementById("type-results-body");
-    if (tbody) {
-      tbody.innerHTML = `<tr><td colspan="6">Could not load this prop type results page.</td></tr>`;
+      }).join("");
     }
-  }
-}
 
-renderPage();
-</script>
+    async function renderPage() {
+      try {
+        const type = getPropType();
+        const config = TYPE_CONFIG[type];
+
+        const allResults = await loadResultsJson();
+
+        const filtered = getGradedResults(allResults)
+          .filter(r => String(r.propFamily || "").toLowerCase() === type);
+
+        const { wins, losses, total, winRate } = getStats(filtered);
+
+        document.title = `${config.title} | PlayMaker HQ`;
+
+        document.getElementById("type-pill").textContent = config.label;
+        document.getElementById("prop-type-title").innerHTML = `${config.title}<span>PlayMaker performance by category.</span>`;
+        document.getElementById("prop-type-subtitle").textContent = config.subtitle;
+
+        document.getElementById("type-record").textContent = `${wins}-${losses}`;
+        document.getElementById("type-win-rate").textContent = `${winRate}%`;
+        document.getElementById("type-total").textContent = total;
+
+        document.getElementById("breakdown-title").textContent = `${config.title} Breakdown`;
+        document.getElementById("breakdown-copy").textContent = config.breakdown;
+
+        document.getElementById("type-wins").textContent = wins;
+        document.getElementById("type-losses").textContent = losses;
+        document.getElementById("best-market").textContent = getBestMarket(filtered);
+
+        const latest = filtered
+          .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))[0];
+
+        document.getElementById("latest-pick").textContent =
+          latest ? `${latest.player || "Player"} ${String(latest.side || "").toUpperCase()} ${latest.line || ""}` : "--";
+
+        renderTable(filtered);
+      } catch (err) {
+        console.error(err);
+
+        const tbody = document.getElementById("type-results-body");
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="6">Could not load this prop type results page.</td></tr>`;
+        }
+      }
+    }
+
+    renderPage();
+  </script>
+
+  <script src="/assets/js/analytics-tracker.js"></script>
 
 </body>
+
 </html>
