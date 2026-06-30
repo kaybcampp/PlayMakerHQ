@@ -1,9 +1,18 @@
 (function () {
-  if (localStorage.getItem("pm_ignore_analytics") === "true") {
+  const IGNORE_VISITOR_IDS = new Set([
+    "visitor_1781795573062_1f7hslp4"
+  ]);
+
+  if (
+    localStorage.getItem("pm_ignore_analytics") === "true" ||
+    IGNORE_VISITOR_IDS.has(localStorage.getItem("pm_visitor_id"))
+  ) {
     return;
   }
 
   const API_URL = "/api/analytics/track";
+  const IS_INTERNAL =
+    localStorage.getItem("pm_internal") === "true";
   const SESSION_KEY = "pm_session_id";
   const VISITOR_KEY = "pm_visitor_id";
   const ENTRY_PAGE_KEY = "pm_entry_page";
@@ -93,6 +102,7 @@
 
   function buildPayload(type, extra = {}) {
     return {
+      internal: IS_INTERNAL,
       type,
       visitorId: getOrCreateVisitorId(),
       sessionId: getOrCreateSessionId(),
