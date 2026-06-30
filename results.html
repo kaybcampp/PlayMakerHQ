@@ -5,11 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Pricing — PlayMaker HQ</title>
+  <title>Results — PlayMaker HQ</title>
   <meta name="description"
-    content="Subscribe to PlayMaker Pro for NFL prop research, matchup intelligence, player trends, results tracking, and access to the PlayMaker prediction tool." />
+    content="Track PlayMaker HQ results, NFL prop performance, ride or fade history, win rates, player prop outcomes, and weekly betting performance." />
 
-  <link rel="stylesheet" href="assets/css/pricing.css" />
+  <link rel="stylesheet" href="assets/css/results.css" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 </head>
 
@@ -24,28 +24,47 @@
       <a href="teams.html" class="pm-link">Teams</a>
       <a href="matchups.html" class="pm-link">Matchups</a>
       <a href="research.html" class="pm-link">Research</a>
-      <a href="results.html" class="pm-link">Results</a>
-      <a href="pricing.html" class="pm-link active">Pricing</a>
-      <a href="/login.html" class="pm-link">Login</a>
-      <a href="/tool/" class="pm-link pm-link-cta">Open Tool</a>
+      <a href="results.html" class="pm-link active">Results</a>
+      <a href="pricing.html" class="pm-link">Pricing</a>
+      <a href="/playmaker/" class="pm-link pm-link-cta">Open Tool</a>
     </nav>
   </header>
 
-  <section class="pricing-hero">
+  <section class="results-hero">
     <div class="hero-glow"></div>
 
-    <div class="pricing-hero-content">
-      <span class="hq-pill">PlayMaker Access</span>
+    <div class="results-hero-content">
+      <span class="hq-pill">Tracked Performance</span>
 
       <h2>
-        NFL prop research built around context.
-        <span>Free research. Pro tool access.</span>
+        No screenshots.
+        <span>Real results over time.</span>
       </h2>
 
       <p>
-        Browse public matchup reports, player pages, research pages, and tracked results for free. Upgrade to Pro when
-        you’re ready for the full PlayMaker prediction tool.
+        PlayMaker HQ is designed to track prop performance by week, player, category, confidence level, and final
+        ride/fade outcome.
       </p>
+
+      <div class="results-summary-card">
+        <div>
+          <span>Total Plays</span>
+          <strong id="hero-total-plays">--</strong>
+          <p>Tracked prop decisions</p>
+        </div>
+
+        <div>
+          <span>Win Rate</span>
+          <strong id="hero-win-rate">--</strong>
+          <p>Current tracked PlayMaker record</p>
+        </div>
+
+        <div>
+          <span>Status</span>
+          <strong id="hero-status">Loading</strong>
+          <p id="hero-status-copy">Syncing tracked results</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -53,177 +72,89 @@
 
     <section class="hq-section">
       <div class="section-header">
-        <h3>Choose Your Plan</h3>
-        <p>Start with free research. Upgrade when you want full prediction access.</p>
+        <h3>Performance Snapshot</h3>
+        <p>Live PlayMaker performance based on the current tracked results log.</p>
       </div>
 
-      <div class="pricing-grid">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span>Total Plays</span>
+          <strong id="total-plays">--</strong>
+          <p>Tracked prop decisions</p>
+        </div>
 
-        <article class="pricing-card">
-          <div class="plan-top">
-            <span class="plan-tag">Free</span>
-          </div>
+        <div class="stat-card">
+          <span>Wins</span>
+          <strong id="total-wins">--</strong>
+          <p>Successful PlayMaker calls</p>
+        </div>
 
-          <h4>PlayMaker HQ</h4>
-          <p class="price">$0<span>/mo</span></p>
-          <p class="plan-description">For browsing public PlayMaker research before using the full tool.</p>
+        <div class="stat-card">
+          <span>Losses</span>
+          <strong id="total-losses">--</strong>
+          <p>Missed or failed calls</p>
+        </div>
 
-          <ul class="plan-features">
-            <li>Public player pages</li>
-            <li>Public team pages</li>
-            <li>Public matchup reports</li>
-            <li>Research hub access</li>
-            <li>Tracked results hub</li>
-            <li>Prop-type results pages</li>
-          </ul>
-
-          <a href="research.html" class="plan-btn secondary">Explore Free Research</a>
-        </article>
-
-        <article class="pricing-card featured-plan">
-          <div class="plan-top">
-            <span class="plan-tag featured-tag">Best Value</span>
-          </div>
-
-          <h4>PlayMaker Pro</h4>
-          <p class="price">$19<span>/mo</span></p>
-          <p class="plan-description">For users who want full NFL prop research, projections, and PlayMaker tool access.
-          </p>
-
-          <ul class="plan-features">
-            <li>Full PlayMaker prediction tool</li>
-            <li>Player prop projections</li>
-            <li>Ride/Fade recommendations</li>
-            <li>Defense tier adjustments</li>
-            <li>Weather and injury context</li>
-            <li>Matchup intelligence reports</li>
-            <li>Tracked results access</li>
-          </ul>
-
-          <a href="/tool/" class="plan-btn primary" id="pro-checkout-btn">Start Pro</a>
-        </article>
-
-        <article class="pricing-card">
-          <div class="plan-top">
-            <span class="plan-tag">Later</span>
-          </div>
-
-          <h4>PlayMaker Elite</h4>
-          <p class="price">$49<span>/mo</span></p>
-          <p class="plan-description">A future tier for deeper dashboards, advanced proof logs, and premium community
-            tools.</p>
-
-          <ul class="plan-features">
-            <li>Everything in Pro</li>
-            <li>Advanced results dashboard</li>
-            <li>Player hit-rate history</li>
-            <li>Community ride/fade data</li>
-            <li>Premium weekly strategy reports</li>
-            <li>Advanced trend filters</li>
-          </ul>
-
-          <a href="#" class="plan-btn secondary">Coming Later</a>
-        </article>
-
+        <div class="stat-card">
+          <span>Win Rate</span>
+          <strong id="total-win-rate">--</strong>
+          <p>Current tracked performance</p>
+        </div>
       </div>
     </section>
 
     <section class="hq-section hq-section-alt">
       <div class="section-header">
-        <h3>What Pro Unlocks</h3>
-        <p>PlayMaker Pro gives you the full research engine, not just public pages.</p>
+        <h3>Results by Prop Type</h3>
+        <p>Performance by prop family, updated from the current PlayMaker results log.</p>
       </div>
 
-      <div class="value-grid">
+      <div class="category-grid">
+        <article class="category-card">
+          <span class="category-tag">Passing</span>
+          <h4>QB Props</h4>
+          <p id="passing-results">Loading passing results...</p>
+          <a href="/results-prop-type.html?type=passing" class="card-link">View passing results →</a>
+        </article>
 
-        <div class="value-card">
-          <h4>Player Trends</h4>
-          <p>Review recent performance, usage, hit rates, prop history, and player-specific context.</p>
-        </div>
+        <article class="category-card">
+          <span class="category-tag">Rushing</span>
+          <h4>RB + QB Rush Props</h4>
+          <p id="rushing-results">Loading rushing results...</p>
+          <a href="/results-prop-type.html?type=rushing" class="card-link">View rushing results →</a>
+        </article>
 
-        <div class="value-card">
-          <h4>Opponent Matchups</h4>
-          <p>Compare defensive tiers, pressure rates, run defense, pass defense, and similar matchup logic.</p>
-        </div>
-
-        <div class="value-card">
-          <h4>Game Conditions</h4>
-          <p>Factor in weather, injuries, stadium environment, and projected game script before trusting a prop.</p>
-        </div>
-
-        <div class="value-card">
-          <h4>Tracked Results</h4>
-          <p>Follow PlayMaker performance over time through a real proof log instead of random screenshots.</p>
-        </div>
-
+        <article class="category-card">
+          <span class="category-tag">Receiving</span>
+          <h4>WR / TE / RB Receiving Props</h4>
+          <p id="receiving-results">Loading receiving results...</p>
+          <a href="/results-prop-type.html?type=receiving" class="card-link">View receiving results →</a>
+        </article>
       </div>
     </section>
 
     <section class="hq-section">
       <div class="section-header">
-        <h3>Plan Comparison</h3>
-        <p>A simple breakdown of what each tier includes.</p>
+        <h3>Recent Result Log</h3>
+        <p>Recent graded PlayMaker picks pulled directly from the tracked results log.</p>
       </div>
 
-      <div class="comparison-table-wrap">
-        <table class="comparison-table">
+      <div class="results-table-wrap">
+        <table class="results-table">
           <thead>
             <tr>
-              <th>Feature</th>
-              <th>Free</th>
-              <th>Pro</th>
-              <th>Elite</th>
+              <th>Date</th>
+              <th>Player</th>
+              <th>Prop</th>
+              <th>Pick</th>
+              <th>Result</th>
+              <th>Outcome</th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody id="results-table-body">
             <tr>
-              <td>Public Research Pages</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td>Yes</td>
-            </tr>
-
-            <tr>
-              <td>Player + Team Pages</td>
-              <td>Public</td>
-              <td>Full</td>
-              <td>Full</td>
-            </tr>
-
-            <tr>
-              <td>Matchup Reports</td>
-              <td>Public</td>
-              <td>Full</td>
-              <td>Advanced</td>
-            </tr>
-
-            <tr>
-              <td>Prediction Tool</td>
-              <td>No</td>
-              <td>Yes</td>
-              <td>Yes</td>
-            </tr>
-
-            <tr>
-              <td>Weather + Injury Adjustments</td>
-              <td>Preview</td>
-              <td>Yes</td>
-              <td>Yes</td>
-            </tr>
-
-            <tr>
-              <td>Results Tracking</td>
-              <td>Public</td>
-              <td>Full</td>
-              <td>Advanced</td>
-            </tr>
-
-            <tr>
-              <td>Community Features</td>
-              <td>No</td>
-              <td>Later</td>
-              <td>Yes</td>
+              <td colspan="6">Loading results...</td>
             </tr>
           </tbody>
         </table>
@@ -232,33 +163,66 @@
 
     <section class="hq-section hq-section-alt">
       <div class="section-header">
-        <h3>Questions Before You Join?</h3>
-        <p>The simple version before subscription checkout is connected.</p>
+        <h3>What Results Will Track</h3>
+        <p>The goal is to prove the model over time, not just post winning slips.</p>
       </div>
 
-      <div class="faq-list">
+      <div class="tracking-grid">
 
-        <div class="faq-item">
-          <h4>Is PlayMaker a betting guarantee?</h4>
-          <p>No. PlayMaker is a research and prediction tool. It helps identify stronger angles, but no tool can
-            guarantee outcomes.</p>
+        <div class="tracking-card">
+          <h4>Weekly Record</h4>
+          <p>Wins, losses, hit rate, and total plays from each NFL week.</p>
         </div>
 
-        <div class="faq-item">
-          <h4>Can I cancel anytime?</h4>
-          <p>Yes. Once subscriptions are connected, users will be able to manage or cancel their subscription through
-            the account portal.</p>
+        <div class="tracking-card">
+          <h4>Player Performance</h4>
+          <p>Which players PlayMaker reads well and which ones are more volatile.</p>
         </div>
 
-        <div class="faq-item">
-          <h4>What happens after I subscribe?</h4>
-          <p>After checkout, Pro users will be redirected to account access and the PlayMaker tool.</p>
+        <div class="tracking-card">
+          <h4>Prop Category Accuracy</h4>
+          <p>Performance by rushing, receiving, passing, receptions, TDs, and interceptions.</p>
         </div>
 
-        <div class="faq-item">
-          <h4>Will pricing change later?</h4>
-          <p>Pricing may change as features expand, but the current Pro plan is designed to keep PlayMaker simple and
-            affordable.</p>
+        <div class="tracking-card">
+          <h4>Ride/Fade History</h4>
+          <p>Records for every final recommendation so the system can be judged honestly.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="hq-section">
+      <div class="section-header">
+        <h3>Results Intelligence</h3>
+        <p>PlayMaker results are organized to show what is working, where the model is strongest, and what needs more
+          review.</p>
+      </div>
+
+      <div class="report-list">
+
+        <div class="report-row">
+          <div>
+            <h4>Weekly Performance</h4>
+            <p>Track wins, losses, hit rate, and total graded plays across each NFL week.</p>
+          </div>
+          <span>Tracked</span>
+        </div>
+
+        <div class="report-row">
+          <div>
+            <h4>Prop Category Accuracy</h4>
+            <p>Compare performance across passing, rushing, receiving, touchdown, and specialty markets.</p>
+          </div>
+          <span>Live</span>
+        </div>
+
+        <div class="report-row">
+          <div>
+            <h4>Player Proof Log</h4>
+            <p>See which players have appeared in previous PlayMaker picks and how those calls performed.</p>
+          </div>
+          <span>Building</span>
         </div>
 
       </div>
@@ -266,9 +230,9 @@
 
     <section class="hq-section">
       <div class="final-cta">
-        <h3>Ready to research smarter?</h3>
-        <p>Explore the public research hub or open PlayMaker when you’re ready for full tool access.</p>
-        <a href="/tool/" class="btn-primary">Open PlayMaker</a>
+        <h3>Want to test the next pick?</h3>
+        <p>Open PlayMaker and run a prop through the same logic that results will track.</p>
+        <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
       </div>
     </section>
 
@@ -277,6 +241,106 @@
   <footer>
     <p>&copy; 2025 PlayMaker HQ. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    async function loadResultsJson() {
+      const res = await fetch("/assets/data/results.json");
+      if (!res.ok) throw new Error("Failed to load results.json");
+      return await res.json();
+    }
+
+    function getResultStats(results) {
+      const graded = results.filter(r =>
+        ["won", "lost"].includes(String(r.result || "").toLowerCase())
+      );
+
+      const wins = graded.filter(r => String(r.result).toLowerCase() === "won").length;
+      const losses = graded.filter(r => String(r.result).toLowerCase() === "lost").length;
+      const total = wins + losses;
+      const winRate = total ? ((wins / total) * 100).toFixed(1) : "0.0";
+
+      return { graded, wins, losses, total, winRate };
+    }
+
+    function getCategoryStats(results, propFamily) {
+      const filtered = results.filter(r =>
+        String(r.propFamily || "").toLowerCase() === propFamily &&
+        ["won", "lost"].includes(String(r.result || "").toLowerCase())
+      );
+
+      const wins = filtered.filter(r => String(r.result).toLowerCase() === "won").length;
+      const losses = filtered.filter(r => String(r.result).toLowerCase() === "lost").length;
+      const total = wins + losses;
+      const rate = total ? Math.round((wins / total) * 100) : 0;
+
+      return `${wins}-${losses} record · ${rate}% win rate across ${total} tracked plays.`;
+    }
+
+    function renderResultsTable(results) {
+      const tbody = document.getElementById("results-table-body");
+      if (!tbody) return;
+
+      const recent = results
+        .filter(r => ["won", "lost"].includes(String(r.result || "").toLowerCase()))
+        .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+        .slice(0, 25);
+
+      if (!recent.length) {
+        tbody.innerHTML = `<tr><td colspan="6">No graded results found yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = recent.map(r => {
+        const result = String(r.result || "").toLowerCase();
+        const resultClass = result === "won" ? "result-win" : "result-loss";
+        const resultText = result === "won" ? "Win" : "Loss";
+        const pick = `${String(r.side || "").toUpperCase()} ${r.line || ""}`;
+
+        return `
+      <tr>
+        <td>${r.date || "TBD"}</td>
+        <td>${r.player || "Unknown"}</td>
+        <td>${r.market || "Prop"}</td>
+        <td>${pick}</td>
+        <td>${r.score || r.matchup || "Final unavailable"}</td>
+        <td><span class="${resultClass}">${resultText}</span></td>
+      </tr>
+    `;
+      }).join("");
+    }
+
+    async function renderResultsPage() {
+      try {
+        const results = await loadResultsJson();
+        const { wins, losses, total, winRate } = getResultStats(results);
+
+        document.getElementById("hero-total-plays").textContent = total;
+        document.getElementById("hero-win-rate").textContent = `${winRate}%`;
+        document.getElementById("hero-status").textContent = "Live Results";
+        document.getElementById("hero-status-copy").textContent = "Updated from tracked picks";
+
+        document.getElementById("total-plays").textContent = total;
+        document.getElementById("total-wins").textContent = wins;
+        document.getElementById("total-losses").textContent = losses;
+        document.getElementById("total-win-rate").textContent = `${winRate}%`;
+
+        document.getElementById("passing-results").textContent = getCategoryStats(results, "passing");
+        document.getElementById("rushing-results").textContent = getCategoryStats(results, "rushing");
+        document.getElementById("receiving-results").textContent = getCategoryStats(results, "receiving");
+
+        renderResultsTable(results);
+      } catch (err) {
+        console.error(err);
+
+        const tbody = document.getElementById("results-table-body");
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="6">Results data could not be loaded.</td></tr>`;
+        }
+      }
+    }
+
+    renderResultsPage();
+  </script>
 
   <script src="/assets/js/analytics-tracker.js"></script>
 
