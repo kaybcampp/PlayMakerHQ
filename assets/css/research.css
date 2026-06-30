@@ -151,6 +151,12 @@ body {
     color: #A3AABF;
 }
 
+.results-summary-card strong {
+    font-size: 2.3rem;
+    color: #66FF99;
+    text-shadow: 0 0 14px rgba(102, 255, 153, .3);
+}
+
 /* SECTIONS */
 
 .hq-section {
@@ -175,6 +181,11 @@ body {
 
 .section-header p {
     color: #A3AABF;
+}
+
+.stat-card strong {
+    font-size: 2.1rem;
+    color: #66FF99;
 }
 
 /* RESEARCH GRID */
@@ -604,6 +615,112 @@ body {
 
 .stack-card a {
     font-size: 0.9rem;
+}
+
+/* ==========================================
+   RESULTS CATEGORY CARDS
+========================================== */
+
+.category-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 22px;
+}
+
+.category-card {
+    background: linear-gradient(145deg, #0B0F1A, #131A2A);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 18px;
+    padding: 28px;
+    transition: .25s ease;
+    box-shadow: 0 0 20px rgba(102, 255, 153, .08);
+}
+
+.category-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(102, 255, 153, .35);
+    box-shadow: 0 0 30px rgba(102, 255, 153, .18);
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .28);
+    color: #66FF99;
+    font-size: .8rem;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.category-card h4 {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+    color: #E6F6EE;
+}
+
+.category-card p {
+    color: #A3AABF;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.category-card .card-link {
+    font-weight: 800;
+    color: #66FF99;
+    text-decoration: none;
+}
+
+.category-card .card-link:hover {
+    color: #8CFFB3;
+}
+
+.results-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.results-table th {
+    background: #131A2A;
+}
+
+.result-win,
+.result-loss {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .82rem;
+}
+
+.result-win {
+    background: rgba(60, 210, 120, .15);
+    color: #5BFF9B;
+    border: 1px solid rgba(60, 210, 120, .35);
+}
+
+.result-loss {
+    background: rgba(255, 80, 80, .12);
+    color: #FF7676;
+    border: 1px solid rgba(255, 80, 80, .28);
+}
+
+@media (max-width:768px) {
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-card {
+        padding: 22px;
+    }
+
 }
 
 /* FOOTER */
