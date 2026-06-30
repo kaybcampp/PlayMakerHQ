@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Results — PlayMaker HQ</title>
-  <meta name="description" content="Track PlayMaker HQ results, NFL prop performance, ride or fade history, win rates, player prop outcomes, and weekly betting performance." />
+  <meta name="description"
+    content="Track PlayMaker HQ results, NFL prop performance, ride or fade history, win rates, player prop outcomes, and weekly betting performance." />
 
   <link rel="stylesheet" href="assets/css/results.css" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
@@ -40,26 +42,27 @@
       </h2>
 
       <p>
-        PlayMaker HQ is designed to track prop performance by week, player, category, confidence level, and final ride/fade outcome.
+        PlayMaker HQ is designed to track prop performance by week, player, category, confidence level, and final
+        ride/fade outcome.
       </p>
 
       <div class="results-summary-card">
         <div>
-          <span>Sample Record</span>
-          <strong>85-38</strong>
-          <p>Historical tracked plays</p>
+          <span>Total Plays</span>
+          <strong id="hero-total-plays">--</strong>
+          <p>Tracked prop decisions</p>
         </div>
 
         <div>
           <span>Win Rate</span>
-          <strong>69.1%</strong>
-          <p>Previous tracked sample</p>
+          <strong id="hero-win-rate">--</strong>
+          <p>Current tracked PlayMaker record</p>
         </div>
 
         <div>
           <span>Status</span>
-          <strong>2026 Test</strong>
-          <p>Next full validation season</p>
+          <strong id="hero-status">Loading</strong>
+          <p id="hero-status-copy">Syncing tracked results</p>
         </div>
       </div>
     </div>
@@ -70,74 +73,69 @@
     <section class="hq-section">
       <div class="section-header">
         <h3>Performance Snapshot</h3>
-        <p>A clean overview of how PlayMaker results will be displayed once weekly tracking is live.</p>
+        <p>Live PlayMaker performance based on the current tracked results log.</p>
       </div>
 
       <div class="stats-grid">
-
         <div class="stat-card">
           <span>Total Plays</span>
-          <strong>123</strong>
+          <strong id="total-plays">--</strong>
           <p>Tracked prop decisions</p>
         </div>
 
         <div class="stat-card">
           <span>Wins</span>
-          <strong>85</strong>
+          <strong id="total-wins">--</strong>
           <p>Successful PlayMaker calls</p>
         </div>
 
         <div class="stat-card">
           <span>Losses</span>
-          <strong>38</strong>
+          <strong id="total-losses">--</strong>
           <p>Missed or failed calls</p>
         </div>
 
         <div class="stat-card">
           <span>Win Rate</span>
-          <strong>69.1%</strong>
-          <p>Historical sample performance</p>
+          <strong id="total-win-rate">--</strong>
+          <p>Current tracked performance</p>
         </div>
-
       </div>
     </section>
 
     <section class="hq-section hq-section-alt">
       <div class="section-header">
         <h3>Results by Prop Type</h3>
-        <p>Future tracking will break down performance by the type of prop being analyzed.</p>
+        <p>Performance by prop family, updated from the current PlayMaker results log.</p>
       </div>
 
-      <div class="category-grid">
+      <article class="category-card">
+        <span class="category-tag">Passing</span>
+        <h4>QB Props</h4>
+        <p id="passing-results">Loading passing results...</p>
+        <a href="/research/passing-props.html" class="card-link">View category →</a>
+      </article>
 
-        <article class="category-card">
-          <span class="category-tag">Passing</span>
-          <h4>QB Props</h4>
-          <p>Passing yards, completions, attempts, touchdowns, interceptions, and longest completion.</p>
-          <a href="#" class="card-link">View category →</a>
-        </article>
+      <article class="category-card">
+        <span class="category-tag">Rushing</span>
+        <h4>RB + QB Rush Props</h4>
+        <p id="rushing-results">Loading rushing results...</p>
+        <a href="/research/rushing-props.html" class="card-link">View category →</a>
+      </article>
 
-        <article class="category-card">
-          <span class="category-tag">Rushing</span>
-          <h4>RB + QB Rush Props</h4>
-          <p>Rushing yards, attempts, rushing touchdowns, rushing longest, and scramble-friendly matchups.</p>
-          <a href="#" class="card-link">View category →</a>
-        </article>
-
-        <article class="category-card">
-          <span class="category-tag">Receiving</span>
-          <h4>WR / TE / RB Receiving Props</h4>
-          <p>Receiving yards, receptions, targets, touchdowns, and longest reception performance.</p>
-          <a href="#" class="card-link">View category →</a>
-        </article>
-
+      <article class="category-card">
+        <span class="category-tag">Receiving</span>
+        <h4>WR / TE / RB Receiving Props</h4>
+        <p id="receiving-results">Loading receiving results...</p>
+        <a href="/research/receiving-props.html" class="card-link">View category →</a>
+      </article>
       </div>
     </section>
 
     <section class="hq-section">
       <div class="section-header">
         <h3>Recent Result Log</h3>
-        <p>A sample layout for weekly tracked picks, outcomes, and notes.</p>
+        <p>Recent graded PlayMaker picks pulled directly from the tracked results log.</p>
       </div>
 
       <div class="results-table-wrap">
@@ -153,41 +151,9 @@
             </tr>
           </thead>
 
-          <tbody>
+          <tbody id="results-table-body">
             <tr>
-              <td>Sample</td>
-              <td>Jalen Hurts</td>
-              <td>Rushing Yards</td>
-              <td>Over</td>
-              <td>Hit</td>
-              <td><span class="result-win">Win</span></td>
-            </tr>
-
-            <tr>
-              <td>Sample</td>
-              <td>CeeDee Lamb</td>
-              <td>Receptions</td>
-              <td>Over</td>
-              <td>Hit</td>
-              <td><span class="result-win">Win</span></td>
-            </tr>
-
-            <tr>
-              <td>Sample</td>
-              <td>Patrick Mahomes</td>
-              <td>Passing Yards</td>
-              <td>Under</td>
-              <td>Miss</td>
-              <td><span class="result-loss">Loss</span></td>
-            </tr>
-
-            <tr>
-              <td>Sample</td>
-              <td>Bijan Robinson</td>
-              <td>Rush + Rec Yards</td>
-              <td>Over</td>
-              <td>Hit</td>
-              <td><span class="result-win">Win</span></td>
+              <td colspan="6">Loading results...</td>
             </tr>
           </tbody>
         </table>
@@ -227,34 +193,35 @@
 
     <section class="hq-section">
       <div class="section-header">
-        <h3>Upcoming Result Tools</h3>
-        <p>This page will eventually become the proof center for PlayMaker HQ.</p>
+        <h3>Results Intelligence</h3>
+        <p>PlayMaker results are organized to show what is working, where the model is strongest, and what needs more
+          review.</p>
       </div>
 
       <div class="report-list">
 
         <div class="report-row">
           <div>
-            <h4>Weekly Results Dashboard</h4>
-            <p>Track PlayMaker record by NFL week, prop type, and confidence level.</p>
+            <h4>Weekly Performance</h4>
+            <p>Track wins, losses, hit rate, and total graded plays across each NFL week.</p>
           </div>
-          <span>Coming Soon</span>
+          <span>Tracked</span>
         </div>
 
         <div class="report-row">
           <div>
-            <h4>Player Hit-Rate Pages</h4>
-            <p>See how often PlayMaker wins or loses by player and prop market.</p>
+            <h4>Prop Category Accuracy</h4>
+            <p>Compare performance across passing, rushing, receiving, touchdown, and specialty markets.</p>
           </div>
-          <span>Coming Soon</span>
+          <span>Live</span>
         </div>
 
         <div class="report-row">
           <div>
-            <h4>Season Validation Report</h4>
-            <p>A full-season recap showing whether PlayMaker’s edge held up over time.</p>
+            <h4>Player Proof Log</h4>
+            <p>See which players have appeared in previous PlayMaker picks and how those calls performed.</p>
           </div>
-          <span>Planned</span>
+          <span>Building</span>
         </div>
 
       </div>
@@ -274,5 +241,106 @@
     <p>&copy; 2025 PlayMaker HQ. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    async function loadResultsJson() {
+      const res = await fetch("/assets/data/results.json");
+      if (!res.ok) throw new Error("Failed to load results.json");
+      return await res.json();
+    }
+
+    function getResultStats(results) {
+      const graded = results.filter(r =>
+        ["won", "lost"].includes(String(r.result || "").toLowerCase())
+      );
+
+      const wins = graded.filter(r => String(r.result).toLowerCase() === "won").length;
+      const losses = graded.filter(r => String(r.result).toLowerCase() === "lost").length;
+      const total = wins + losses;
+      const winRate = total ? ((wins / total) * 100).toFixed(1) : "0.0";
+
+      return { graded, wins, losses, total, winRate };
+    }
+
+    function getCategoryStats(results, propFamily) {
+      const filtered = results.filter(r =>
+        String(r.propFamily || "").toLowerCase() === propFamily &&
+        ["won", "lost"].includes(String(r.result || "").toLowerCase())
+      );
+
+      const wins = filtered.filter(r => String(r.result).toLowerCase() === "won").length;
+      const losses = filtered.filter(r => String(r.result).toLowerCase() === "lost").length;
+      const total = wins + losses;
+      const rate = total ? Math.round((wins / total) * 100) : 0;
+
+      return `${wins}-${losses} record · ${rate}% win rate across ${total} tracked plays.`;
+    }
+
+    function renderResultsTable(results) {
+      const tbody = document.getElementById("results-table-body");
+      if (!tbody) return;
+
+      const recent = results
+        .filter(r => ["won", "lost"].includes(String(r.result || "").toLowerCase()))
+        .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+        .slice(0, 25);
+
+      if (!recent.length) {
+        tbody.innerHTML = `<tr><td colspan="6">No graded results found yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = recent.map(r => {
+        const result = String(r.result || "").toLowerCase();
+        const resultClass = result === "won" ? "result-win" : "result-loss";
+        const resultText = result === "won" ? "Win" : "Loss";
+        const pick = `${String(r.side || "").toUpperCase()} ${r.line || ""}`;
+
+        return `
+      <tr>
+        <td>${r.date || "TBD"}</td>
+        <td>${r.player || "Unknown"}</td>
+        <td>${r.market || "Prop"}</td>
+        <td>${pick}</td>
+        <td>${r.score || r.matchup || "Final unavailable"}</td>
+        <td><span class="${resultClass}">${resultText}</span></td>
+      </tr>
+    `;
+      }).join("");
+    }
+
+    async function renderResultsPage() {
+      try {
+        const results = await loadResultsJson();
+        const { wins, losses, total, winRate } = getResultStats(results);
+
+        document.getElementById("hero-total-plays").textContent = total;
+        document.getElementById("hero-win-rate").textContent = `${winRate}%`;
+        document.getElementById("hero-status").textContent = "Live Results";
+        document.getElementById("hero-status-copy").textContent = "Updated from tracked picks";
+
+        document.getElementById("total-plays").textContent = total;
+        document.getElementById("total-wins").textContent = wins;
+        document.getElementById("total-losses").textContent = losses;
+        document.getElementById("total-win-rate").textContent = `${winRate}%`;
+
+        document.getElementById("passing-results").textContent = getCategoryStats(results, "passing");
+        document.getElementById("rushing-results").textContent = getCategoryStats(results, "rushing");
+        document.getElementById("receiving-results").textContent = getCategoryStats(results, "receiving");
+
+        renderResultsTable(results);
+      } catch (err) {
+        console.error(err);
+
+        const tbody = document.getElementById("results-table-body");
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="6">Results data could not be loaded.</td></tr>`;
+        }
+      }
+    }
+
+    renderResultsPage();
+  </script>
+
 </body>
+
 </html>
