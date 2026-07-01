@@ -10,10 +10,10 @@
         "/players.html",
         "/matchups.html",
         "/teams.html",
+        "/research.html",
+        "/pricing.html",
         "/tool/"
-      ],
-      players: 2,
-      matchups: 1
+      ]
     },
 
     strategy: {
@@ -21,10 +21,10 @@
         "/players.html",
         "/matchups.html",
         "/teams.html",
+        "/research.html",
+        "/pricing.html",
         "/tool/"
-      ],
-      players: 1,
-      matchups: 1
+      ]
     },
 
     positions: {
@@ -32,20 +32,20 @@
         "/players.html",
         "/matchups.html",
         "/teams.html",
+        "/research.html",
+        "/pricing.html",
         "/tool/"
-      ],
-      players: 3,
-      matchups: 1
+      ]
     },
 
     matchups: {
       global: [
         "/players.html",
         "/teams.html",
+        "/research.html",
+        "/pricing.html",
         "/tool/"
-      ],
-      players: 2,
-      teams: 1
+      ]
     },
 
     academy: {
@@ -53,27 +53,28 @@
         "/players.html",
         "/matchups.html",
         "/teams.html",
-        "/tool/",
-        "/research.html"
-      ],
-      players: 1,
-      matchups: 1
+        "/research.html",
+        "/pricing.html",
+        "/tool/"
+      ]
     }
+
   };
 
   // ======================
   // DETECT PAGE TYPE
   // ======================
   function getPageType() {
-    const path = window.location.pathname;
+
+    const path = window.location.pathname.toLowerCase();
 
     if (path.includes("/positions/")) return "positions";
     if (path.includes("/academy")) return "academy";
     if (path.includes("/matchups")) return "matchups";
     if (path.includes("/strategy")) return "strategy";
-    if (path.includes("/research") || path.includes(".html")) return "stats";
 
     return "stats";
+
   }
 
   // ======================
@@ -90,72 +91,89 @@
     if (!container) return;
 
     // ======================
-    // SMART LABEL MAP
+    // SMART LABELS
     // ======================
     const LABELS = {
+
       "/players.html": {
         title: "Players Hub",
-        desc: "Explore NFL player projections, usage, and trends.",
+        desc: "Browse every NFL player with matchup context, trends, historical results, and prop research.",
         cta: "View Players →"
       },
+
       "/matchups.html": {
         title: "Matchups Hub",
-        desc: "Break down defensive matchups and game environments.",
+        desc: "Explore every NFL matchup with defensive analysis, trends, featured players, and prop intelligence.",
         cta: "View Matchups →"
       },
+
       "/teams.html": {
         title: "Teams Hub",
-        desc: "Analyze team-level efficiency and performance trends.",
+        desc: "Compare every NFL team with offensive tendencies, defensive rankings, and season insights.",
         cta: "View Teams →"
       },
-      "/tool/": {
-        title: "Open PlayMaker",
-        desc: "Run full prop analysis using PlayMaker models.",
-        cta: "Launch Tool →"
-      },
+
       "/research.html": {
         title: "Research Hub",
-        desc: "Explore all NFL stat, strategy, and intelligence guides.",
-        cta: "View Research →"
+        desc: "Learn the metrics behind PlayMaker including EPA, Air Yards, Success Rate, Target Share, and more.",
+        cta: "Explore Research →"
+      },
+
+      "/pricing.html": {
+        title: "PlayMaker Pro",
+        desc: "Unlock the complete prediction engine, matchup intelligence, and premium research tools.",
+        cta: "View Pricing →"
+      },
+
+      "/tool/": {
+        title: "Launch PlayMaker",
+        desc: "Run player props through the full PlayMaker Prime prediction engine.",
+        cta: "Open Tool →"
       }
+
     };
 
-    // ======================
-    // BUILD HTML
-    // ======================
     let html = `
-    <section class="hq-section hq-section-alt">
-      <div class="section-header">
-        <h3>Where This Connects in PlayMaker</h3>
-        <p>Related systems and tools for deeper analysis</p>
-      </div>
+      <section class="hq-section hq-section-alt">
 
-      <div class="stack-grid">
-  `;
+        <div class="section-header">
+          <h3>Continue Exploring PlayMaker</h3>
+          <p>Related tools, research, and intelligence across the PlayMaker Prime platform.</p>
+        </div>
+
+        <div class="stack-grid">
+    `;
 
     rules.global.forEach(link => {
 
-      const data = LABELS[link] || {
-        title: link.replace("/", "").replace(".html", "").toUpperCase(),
-        desc: "Navigate to related PlayMaker section.",
-        cta: "Open →"
-      };
+      const data = LABELS[link];
+
+      if (!data) return;
 
       html += `
-      <div class="stack-card">
-        <h4>${data.title}</h4>
-        <p>${data.desc}</p>
-        <a href="${link}">${data.cta}</a>
-      </div>
-    `;
+        <div class="stack-card">
+
+          <h4>${data.title}</h4>
+
+          <p>${data.desc}</p>
+
+          <a href="${link}">
+            ${data.cta}
+          </a>
+
+        </div>
+      `;
+
     });
 
     html += `
-      </div>
-    </section>
-  `;
+        </div>
+
+      </section>
+    `;
 
     container.innerHTML = html;
+
   }
 
   document.addEventListener("DOMContentLoaded", renderLinks);
