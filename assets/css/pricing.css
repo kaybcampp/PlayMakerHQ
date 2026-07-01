@@ -19,7 +19,7 @@ body {
 
 .pm-header {
     background: #131A2A;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@ body {
     color: #66FF99;
     font-size: 1.4rem;
     font-weight: 800;
-    text-shadow: 0 0 12px rgba(102,255,153,.4);
+    text-shadow: 0 0 12px rgba(102, 255, 153, .4);
 }
 
 .pm-nav {
@@ -54,8 +54,8 @@ body {
 }
 
 .pm-link-cta {
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.35);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .35);
     padding: .5rem .9rem;
     border-radius: 999px;
 }
@@ -66,7 +66,7 @@ body {
     position: relative;
     min-height: 560px;
     background:
-        linear-gradient(rgba(11,15,26,.84), rgba(11,15,26,.94)),
+        linear-gradient(rgba(11, 15, 26, .84), rgba(11, 15, 26, .94)),
         url('../images/playMakerBackground.png') center bottom / cover no-repeat;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@ body {
 .hero-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(102,255,153,.18), transparent 65%);
+    background: radial-gradient(circle at center, rgba(102, 255, 153, .18), transparent 65%);
     pointer-events: none;
 }
 
@@ -91,8 +91,8 @@ body {
 
 .hq-pill {
     display: inline-block;
-    background: rgba(102,255,153,.12);
-    border: 1px solid rgba(102,255,153,.4);
+    background: rgba(102, 255, 153, .12);
+    border: 1px solid rgba(102, 255, 153, .4);
     color: #66FF99;
     padding: .4rem .9rem;
     border-radius: 999px;
@@ -110,7 +110,7 @@ body {
 .pricing-hero h2 span {
     display: block;
     color: #66FF99;
-    text-shadow: 0 0 18px rgba(102,255,153,.55);
+    text-shadow: 0 0 18px rgba(102, 255, 153, .55);
 }
 
 .pricing-hero p {
@@ -159,10 +159,10 @@ body {
 
 .pricing-card {
     background: linear-gradient(145deg, #0B0F1A, #131A2A);
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 20px;
     padding: 1.6rem;
-    box-shadow: 0 0 20px rgba(102,255,153,.1);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .1);
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
     display: flex;
     flex-direction: column;
@@ -170,12 +170,12 @@ body {
 
 .pricing-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 0 28px rgba(102,255,153,.2);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .2);
 }
 
 .featured-plan {
-    border-color: rgba(102,255,153,.45);
-    box-shadow: 0 0 34px rgba(102,255,153,.22);
+    border-color: rgba(102, 255, 153, .45);
+    box-shadow: 0 0 34px rgba(102, 255, 153, .22);
     position: relative;
 }
 
@@ -187,8 +187,8 @@ body {
 
 .plan-tag {
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
-    background: rgba(102,255,153,.08);
+    border: 1px solid rgba(102, 255, 153, .35);
+    background: rgba(102, 255, 153, .08);
     border-radius: 999px;
     padding: .3rem .75rem;
     font-size: .78rem;
@@ -198,7 +198,7 @@ body {
 .featured-tag {
     background: #66FF99;
     color: #0B0F1A;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
 }
 
 .pricing-card h4 {
@@ -213,7 +213,7 @@ body {
     font-weight: 900;
     line-height: 1;
     margin-bottom: .8rem;
-    text-shadow: 0 0 16px rgba(102,255,153,.35);
+    text-shadow: 0 0 16px rgba(102, 255, 153, .35);
 }
 
 .price span {
@@ -239,7 +239,7 @@ body {
 
 .plan-features li {
     color: #A3AABF;
-    border-left: 3px solid rgba(102,255,153,.55);
+    border-left: 3px solid rgba(102, 255, 153, .55);
     padding-left: .7rem;
     font-size: .95rem;
 }
@@ -257,18 +257,18 @@ body {
 .plan-btn.primary {
     background: #66FF99;
     color: #0B0F1A;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
 }
 
 .plan-btn.secondary {
-    background: rgba(102,255,153,.1);
+    background: rgba(102, 255, 153, .1);
     color: #66FF99;
-    border: 1px solid rgba(102,255,153,.35);
+    border: 1px solid rgba(102, 255, 153, .35);
 }
 
 .plan-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 28px rgba(102,255,153,.45);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .45);
 }
 
 /* VALUE CARDS */
@@ -283,10 +283,10 @@ body {
 
 .value-card {
     background: #0B0F1A;
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 16px;
     padding: 1.35rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.09);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .09);
 }
 
 .value-card h4 {
@@ -306,8 +306,8 @@ body {
     margin: 0 auto;
     overflow-x: auto;
     border-radius: 18px;
-    border: 1px solid rgba(255,255,255,.07);
-    box-shadow: 0 0 20px rgba(102,255,153,.1);
+    border: 1px solid rgba(255, 255, 255, .07);
+    box-shadow: 0 0 20px rgba(102, 255, 153, .1);
 }
 
 .comparison-table {
@@ -321,7 +321,7 @@ body {
 .comparison-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,.07);
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
 }
 
 .comparison-table th {
@@ -354,10 +354,10 @@ body {
 
 .faq-item {
     background: #131A2A;
-    border: 1px solid rgba(255,255,255,.07);
+    border: 1px solid rgba(255, 255, 255, .07);
     border-radius: 16px;
     padding: 1.35rem;
-    box-shadow: 0 0 16px rgba(102,255,153,.08);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .08);
 }
 
 .faq-item h4 {
@@ -376,10 +376,10 @@ body {
     margin: 0 auto;
     text-align: center;
     background: linear-gradient(145deg, #131A2A, #0B0F1A);
-    border: 1px solid rgba(102,255,153,.16);
+    border: 1px solid rgba(102, 255, 153, .16);
     border-radius: 20px;
     padding: 4rem 2rem;
-    box-shadow: 0 0 22px rgba(102,255,153,.12);
+    box-shadow: 0 0 22px rgba(102, 255, 153, .12);
 }
 
 .final-cta h3 {
@@ -400,14 +400,129 @@ body {
     padding: 1rem 2rem;
     border-radius: 999px;
     font-weight: 900;
-    box-shadow: 0 0 16px rgba(102,255,153,.45);
+    box-shadow: 0 0 16px rgba(102, 255, 153, .45);
     transition: .25s ease;
     display: inline-block;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 28px rgba(102,255,153,.7);
+    box-shadow: 0 0 28px rgba(102, 255, 153, .7);
+}
+
+.login-card {
+    max-width: 460px;
+    margin: 2.5rem auto 0;
+    background: rgba(19, 26, 42, .92);
+    border: 1px solid rgba(102, 255, 153, .22);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 24px rgba(102, 255, 153, .14);
+    text-align: left;
+}
+
+.login-card h3 {
+    color: #66FF99;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+}
+
+.login-card form {
+    display: grid;
+    gap: .9rem;
+}
+
+.login-card label {
+    color: #E6F6EE;
+    font-weight: 800;
+    font-size: .9rem;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: #0B0F1A;
+    color: #E6F6EE;
+    font-size: 1rem;
+}
+
+.login-card input:focus {
+    outline: none;
+    border-color: rgba(102, 255, 153, .6);
+    box-shadow: 0 0 0 3px rgba(102, 255, 153, .12);
+}
+
+.login-card button {
+    border: none;
+    cursor: pointer;
+    margin-top: .75rem;
+}
+
+.login-message {
+    text-align: center;
+    margin-top: 1rem;
+    color: #A3AABF;
+    font-weight: 700;
+}
+
+.login-message.success {
+    color: #66FF99;
+}
+
+.login-message.error {
+    color: #ff7676;
+}
+
+.login-links {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.login-links a {
+    color: #66FF99;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: .9rem;
+}
+
+.account-detail{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1rem 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.account-detail span{
+  color:#A3AABF;
+  font-weight:700;
+}
+
+.account-detail strong{
+  color:#E6F6EE;
+  text-align:right;
+}
+
+.account-actions{
+  display:grid;
+  gap:.9rem;
+  margin-top:1.5rem;
+}
+
+.account-actions .btn-primary,
+.account-actions .plan-btn{
+  width:100%;
+  text-align:center;
+}
+
+.account-actions button{
+  cursor:pointer;
 }
 
 /* FOOTER */
@@ -416,7 +531,7 @@ footer {
     text-align: center;
     padding: 2rem 1rem;
     color: #A3AABF;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
 /* MOBILE */

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Login — PlayMaker Prime</title>
+  <meta name="description" content="Login to PlayMaker Prime to access NFL prop research, matchup intelligence, player trends, and the PlayMaker prediction tool." />
+
+  <link rel="stylesheet" href="assets/css/pricing.css" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+</head>
+
+<body>
+
+  <header class="pm-header">
+    <h1>PlayMaker Prime</h1>
+
+    <nav class="pm-nav">
+      <a href="index.html" class="pm-link">Home</a>
+      <a href="players.html" class="pm-link">Players</a>
+      <a href="teams.html" class="pm-link">Teams</a>
+      <a href="matchups.html" class="pm-link">Matchups</a>
+      <a href="research.html" class="pm-link">Research</a>
+      <a href="results.html" class="pm-link">Results</a>
+      <a href="pricing.html" class="pm-link">Pricing</a>
+      <a href="login.html" class="pm-link active">Login</a>
+      <a href="/tool/" class="pm-link pm-link-cta">Open Tool</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="pricing-hero">
+      <div class="hero-glow"></div>
+
+      <div class="pricing-hero-content">
+        <span class="hq-pill">Member Access</span>
+
+        <h2>
+          Login to PlayMaker Prime.
+          <span>Pro access starts here.</span>
+        </h2>
+
+        <p>
+          Login access will connect to your PlayMaker Pro subscription once Stripe and account verification are live.
+        </p>
+
+        <div class="login-card">
+          <h3>Login</h3>
+
+          <form id="login-form">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" required />
+
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Your password" required />
+
+            <button type="submit" class="btn-primary">Login</button>
+          </form>
+
+          <p id="login-message" class="login-message"></p>
+
+          <div class="login-links">
+            <a href="forgot-password.html">Forgot password?</a>
+            <a href="pricing.html">Need Pro access?</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 PlayMaker Prime. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const message = document.getElementById("login-message");
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      message.textContent = "Checking login...";
+      message.className = "login-message";
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          message.textContent = data.error || "Login failed. Please try again.";
+          message.className = "login-message error";
+          return;
+        }
+
+        localStorage.setItem("pm_logged_in", "true");
+        localStorage.setItem("pm_user_email", email);
+
+        message.textContent = "Login successful. Redirecting...";
+        message.className = "login-message success";
+
+        window.location.href = data.redirect || "/account.html";
+      } catch (err) {
+        message.textContent = "Login is not connected yet. Stripe/account setup is still in progress.";
+        message.className = "login-message error";
+      }
+    });
+  </script>
+
+  <script src="/assets/js/analytics-tracker.js"></script>
+
+</body>
+</html>
