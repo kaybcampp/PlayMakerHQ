@@ -1140,6 +1140,29 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
+/* MOBILE FIX FOR TEAMS SEARCH CARD */
+@media (max-width: 768px) {
+    .team-search-card .search-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .team-search-card .search-row input {
+        width: 100%;
+    }
+
+    .team-search-card .search-row button {
+        width: auto; /* Prevent full width stretch */
+        align-self: flex-start; /* Keep button aligned left like desktop */
+        padding: 0.9rem 1.4rem; /* Adjust padding for mobile */
+    }
+
+    /* Optional: add some margin to separate input & button */
+    .team-search-card .search-row button {
+        margin-top: 0.5rem;
+    }
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
