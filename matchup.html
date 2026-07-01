@@ -1868,22 +1868,33 @@
             const filteredAwayPlayers = filterKeyPlayers(awayPlayers);
             const filteredHomePlayers = filterKeyPlayers(homePlayers);
 
+            renderQuickPlayers("away-quick-players", filteredAwayPlayers);
+            renderQuickPlayers("home-quick-players", filteredHomePlayers);
+
             function renderQuickPlayers(elementId, players) {
                 const container = document.getElementById(elementId);
                 if (!container) return;
 
-                const top = players.slice(0, 3);
+                if (!players.length) {
+                    container.innerHTML = `<p class="empty-player-note">Player data unavailable.</p>`;
+                    return;
+                }
 
-                container.innerHTML = top.map(p => `
-        <div class="quick-player">
-            <img src="${getFallbackPlayerImage(p)}" />
-            <span>${p.name}</span>
-        </div>
-    `).join("");
+                const topPlayers = players.slice(0, 3);
+
+                container.innerHTML = topPlayers.map(p => {
+                    const image = getFallbackPlayerImage(p);
+                    const slug = p.name ? `/players/${slugifyText(p.name)}` : "#";
+                    const position = p.position || "Player";
+
+                    return `
+      <a href="${slug}" class="quick-player" title="${p.name} - ${position}">
+          <img src="${image}" alt="${p.name}" loading="lazy" />
+          <span>${p.name}</span>
+      </a>
+    `;
+                }).join("");
             }
-
-            renderQuickPlayers("away-quick-players", filteredAwayPlayers);
-            renderQuickPlayers("home-quick-players", filteredHomePlayers);
 
             const historicalResults = getTeamResultMatches(
                 resultsData,
