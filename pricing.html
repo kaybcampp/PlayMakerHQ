@@ -269,6 +269,36 @@
 
   <script src="/assets/js/analytics-tracker.js"></script>
 
+  <!-- STRIPE CHECKOUT LOGIC -->
+  <script>
+    document.getElementById("pro-checkout-btn").addEventListener("click", async () => {
+      try {
+
+        const res = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            priceId: "price_1TonWLKtP3Mg50RwCuFC06rh"
+          })
+        });
+
+        const data = await res.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Checkout failed. Try again.");
+        }
+
+      } catch (err) {
+        console.error(err);
+        alert("Stripe error.");
+      }
+    });
+  </script>
+
 </body>
 
 </html>
