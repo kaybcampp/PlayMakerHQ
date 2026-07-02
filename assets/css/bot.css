@@ -1,0 +1,172 @@
+/* ==============================
+   PLAYMAKER PICKS TRACKER PAGE
+============================== */
+
+body {
+    margin: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #0B0F1A;
+    color: #E6F6EE;
+    line-height: 1.5;
+}
+
+.pm-header {
+    background-color: #131A2A;
+    padding: 1rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.pm-header h1 {
+    color: #66FF99;
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(102,255,153,0.4);
+    margin: 0;
+}
+
+main {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+section.hq-section {
+    margin-bottom: 3rem;
+}
+
+.section-header h3 {
+    color: #66FF99;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: #A3AABF;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* FORM STYLING */
+
+#pick-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: rgba(19,26,42,0.92);
+    padding: 1.6rem;
+    border-radius: 16px;
+    border: 1px solid rgba(102,255,153,0.25);
+    box-shadow: 0 0 24px rgba(102,255,153,0.12);
+}
+
+#pick-form input,
+#pick-form select {
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(102,255,153,0.35);
+    background: #0B0F1A;
+    color: #E6F6EE;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 14px rgba(102,255,153,0.12);
+}
+
+#pick-form input:focus,
+#pick-form select:focus {
+    border-color: #66FF99;
+    box-shadow: 0 0 20px rgba(102,255,153,0.35);
+}
+
+#pick-form button {
+    padding: 1rem 1.6rem;
+    border-radius: 12px;
+    border: none;
+    background: #66FF99;
+    color: #0B0F1A;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(102,255,153,0.45);
+    transition: all 0.25s ease;
+}
+
+#pick-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(102,255,153,0.65);
+}
+
+/* RESULTS */
+
+#pick-results {
+    margin-top: 2rem;
+    background: rgba(19,26,42,0.85);
+    padding: 1.6rem;
+    border-radius: 16px;
+    border: 1px solid rgba(102,255,153,0.25);
+    box-shadow: 0 0 18px rgba(102,255,153,0.12);
+}
+
+#pick-results h4 {
+    margin-top: 0;
+    color: #66FF99;
+    font-size: 1.35rem;
+}
+
+#pick-results p {
+    margin: 0.3rem 0;
+    color: #A3AABF;
+    font-size: 0.95rem;
+}
+
+/* PICK ROW FORMAT FOR MULTIPLE PICKS */
+
+.pick-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(0,0,0,0.18);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.pick-row h4 {
+    font-size: 1.1rem;
+    color: #66FF99;
+}
+
+.pick-row p {
+    margin: 0;
+}
+
+.pick-row .outcome-won {
+    color: #66FF99;
+    font-weight: 700;
+}
+
+.pick-row .outcome-lost {
+    color: #ff6b6b;
+    font-weight: 700;
+}
+
+.pick-row .outcome-pending {
+    color: #A3AABF;
+    font-weight: 700;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+    main {
+        padding: 0 0.5rem;
+    }
+
+    #pick-form input,
+    #pick-form select,
+    #pick-form button {
+        font-size: 0.95rem;
+    }
+}
