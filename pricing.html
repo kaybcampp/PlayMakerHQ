@@ -269,9 +269,10 @@
 
   <script src="/assets/js/analytics-tracker.js"></script>
 
-  <!-- STRIPE CHECKOUT LOGIC -->
   <script>
-    document.getElementById("pro-checkout-btn").addEventListener("click", async () => {
+    document.getElementById("pro-checkout-btn").addEventListener("click", async (e) => {
+      e.preventDefault();
+
       try {
 
         const res = await fetch("/api/create-checkout-session", {
@@ -280,7 +281,11 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            priceId: "price_1TonWLKtP3Mg50RwCuFC06rh"
+            priceId: "price_1TonWLKtP3Mg50RwCuFC06rh",
+
+            // 🔥 IMPORTANT: enables proper binding later
+            successUrl: `${window.location.origin}/tool?session_id={CHECKOUT_SESSION_ID}`,
+            cancelUrl: `${window.location.origin}/pricing.html`
           })
         });
 
@@ -293,7 +298,7 @@
         }
 
       } catch (err) {
-        console.error(err);
+        console.error("Stripe error:", err);
         alert("Stripe error.");
       }
     });

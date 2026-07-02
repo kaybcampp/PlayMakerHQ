@@ -4,7 +4,6 @@
 
     home: {
       global: [
-        "/",   // 👈 HOME ADDED
         "/players.html",
         "/matchups.html",
         "/teams.html",
@@ -70,6 +69,9 @@
 
   };
 
+  // ======================
+  // PAGE TYPE DETECTION
+  // ======================
   function getPageType() {
     const path = window.location.pathname.toLowerCase().split("?")[0];
 
@@ -83,11 +85,9 @@
   }
 
   // ======================
-  // LABELS (NOW INCLUDES HOME)
+  // NAV LABELS
   // ======================
   const LABELS = {
-
-    "/": "Home",   // 👈 ADDED
 
     "/players.html": "Players",
     "/matchups.html": "Matchups",
@@ -98,8 +98,14 @@
 
   };
 
+  // ======================
+  // NORMALIZE PATHS SAFELY
+  // ======================
   function normalize(path) {
-    return path.toLowerCase().split("?")[0];
+    return path
+      .toLowerCase()
+      .split("?")[0]
+      .replace(/\/$/, ""); // remove trailing slash
   }
 
   const currentPath = normalize(window.location.pathname);
@@ -108,6 +114,9 @@
     return currentPath === normalize(link);
   }
 
+  // ======================
+  // RENDER
+  // ======================
   function renderLinks() {
 
     const rules = ENTITY_LINK_RULES[getPageType()];
@@ -128,7 +137,6 @@
     rules.global.forEach(link => {
 
       const label = LABELS[link];
-
       if (!label) return;
 
       const activeClass = isActive(link) ? "active" : "";
