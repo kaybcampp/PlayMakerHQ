@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Account — PlayMaker Prime</title>
-  <meta name="description" content="Manage your PlayMaker Prime account, subscription status, billing access, and PlayMaker Pro membership." />
+  <meta name="description"
+    content="Manage your PlayMaker Prime account, subscription status, billing access, and PlayMaker Pro membership." />
 
   <link rel="stylesheet" href="assets/css/pricing.css" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
@@ -13,160 +15,149 @@
 
 <body>
 
-<header class="pm-header">
-  <h1>PlayMaker Prime</h1>
+  <!-- ENTITY LINKS -->
+  <div id="entity-links"></div>
+  <script src="/assets/js/entity-link-engine.js"></script>
 
-  <nav class="pm-nav">
-    <a href="index.html" class="pm-link">Home</a>
-    <a href="players.html" class="pm-link">Players</a>
-    <a href="teams.html" class="pm-link">Teams</a>
-    <a href="matchups.html" class="pm-link">Matchups</a>
-    <a href="research.html" class="pm-link">Research</a>
-    <a href="results.html" class="pm-link">Results</a>
-    <a href="pricing.html" class="pm-link">Pricing</a>
-    <a href="account.html" class="pm-link active">Account</a>
-    <a href="/tool/" class="pm-link pm-link-cta">Open Tool</a>
-  </nav>
-</header>
+  <section class="pricing-hero">
+    <div class="hero-glow"></div>
 
-<section class="pricing-hero">
-  <div class="hero-glow"></div>
+    <div class="pricing-hero-content">
+      <span class="hq-pill">Member Dashboard</span>
 
-  <div class="pricing-hero-content">
-    <span class="hq-pill">Member Dashboard</span>
+      <h2>
+        Your PlayMaker account.
+        <span>Manage access in one place.</span>
+      </h2>
 
-    <h2>
-      Your PlayMaker account.
-      <span>Manage access in one place.</span>
-    </h2>
+      <p>
+        View your subscription status, billing access, account email, and quick links into PlayMaker Prime.
+      </p>
 
-    <p>
-      View your subscription status, billing access, account email, and quick links into PlayMaker Prime.
-    </p>
+      <div class="login-card">
+        <h3>Account Overview</h3>
 
-    <div class="login-card">
-      <h3>Account Overview</h3>
+        <div class="account-detail">
+          <span>Email</span>
+          <strong id="account-email">Not logged in</strong>
+        </div>
 
-      <div class="account-detail">
-        <span>Email</span>
-        <strong id="account-email">Not logged in</strong>
+        <div class="account-detail">
+          <span>Plan</span>
+          <strong id="account-plan">PlayMaker Pro</strong>
+        </div>
+
+        <div class="account-detail">
+          <span>Status</span>
+          <strong id="account-status">Pending Connection</strong>
+        </div>
+
+        <div class="account-detail">
+          <span>Renewal</span>
+          <strong id="account-renewal">Available after Stripe setup</strong>
+        </div>
+
+        <div class="account-actions">
+          <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
+          <button id="billing-btn" class="plan-btn secondary" type="button">Manage Billing</button>
+          <button id="logout-btn" class="plan-btn secondary" type="button">Logout</button>
+        </div>
+
+        <p id="account-message" class="login-message"></p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+
+    <section class="hq-section">
+      <div class="section-header">
+        <h3>Pro Access</h3>
+        <p>Your account will unlock the full PlayMaker prediction engine once subscription logic is connected.</p>
       </div>
 
-      <div class="account-detail">
-        <span>Plan</span>
-        <strong id="account-plan">PlayMaker Pro</strong>
+      <div class="value-grid">
+        <div class="value-card">
+          <h4>Prediction Tool</h4>
+          <p>Run player props through PlayMaker’s research engine, projections, and ride/fade logic.</p>
+        </div>
+
+        <div class="value-card">
+          <h4>Matchup Intelligence</h4>
+          <p>Use defensive tiers, similar matchups, pressure rates, injuries, and weather context.</p>
+        </div>
+
+        <div class="value-card">
+          <h4>Results Tracking</h4>
+          <p>Review tracked PlayMaker performance across passing, rushing, receiving, and prop categories.</p>
+        </div>
+
+        <div class="value-card">
+          <h4>Billing Portal</h4>
+          <p>Manage your subscription, payment method, and cancellation settings once Stripe is connected.</p>
+        </div>
       </div>
+    </section>
 
-      <div class="account-detail">
-        <span>Status</span>
-        <strong id="account-status">Pending Connection</strong>
+    <section class="hq-section hq-section-alt">
+      <div class="final-cta">
+        <h3>Need Pro access?</h3>
+        <p>Subscribe to PlayMaker Pro when Stripe checkout is connected.</p>
+        <a href="pricing.html" class="btn-primary">View Pricing</a>
       </div>
+    </section>
 
-      <div class="account-detail">
-        <span>Renewal</span>
-        <strong id="account-renewal">Available after Stripe setup</strong>
-      </div>
+  </main>
 
-      <div class="account-actions">
-        <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
-        <button id="billing-btn" class="plan-btn secondary" type="button">Manage Billing</button>
-        <button id="logout-btn" class="plan-btn secondary" type="button">Logout</button>
-      </div>
+  <footer>
+    <p>&copy; 2025 PlayMaker Prime. All Rights Reserved.</p>
+  </footer>
 
-      <p id="account-message" class="login-message"></p>
-    </div>
-  </div>
-</section>
+  <script>
+    (function () {
+      const emailEl = document.getElementById("account-email");
+      const messageEl = document.getElementById("account-message");
+      const billingBtn = document.getElementById("billing-btn");
+      const logoutBtn = document.getElementById("logout-btn");
 
-<main>
+      const storedEmail = localStorage.getItem("pm_user_email");
+      const loggedIn = localStorage.getItem("pm_logged_in") === "true";
 
-<section class="hq-section">
-  <div class="section-header">
-    <h3>Pro Access</h3>
-    <p>Your account will unlock the full PlayMaker prediction engine once subscription logic is connected.</p>
-  </div>
+      if (loggedIn && storedEmail) {
+        emailEl.textContent = storedEmail;
+      } else {
+        emailEl.textContent = "Not logged in";
+        messageEl.textContent = "Login will be required once account access is connected.";
+      }
 
-  <div class="value-grid">
-    <div class="value-card">
-      <h4>Prediction Tool</h4>
-      <p>Run player props through PlayMaker’s research engine, projections, and ride/fade logic.</p>
-    </div>
+      billingBtn.addEventListener("click", async function () {
+        messageEl.className = "login-message";
+        messageEl.textContent = "Billing portal is not connected yet.";
 
-    <div class="value-card">
-      <h4>Matchup Intelligence</h4>
-      <p>Use defensive tiers, similar matchups, pressure rates, injuries, and weather context.</p>
-    </div>
+        /*
+        Later:
+        const res = await fetch("/api/customer-portal", { method: "POST" });
+        const data = await res.json();
+        window.location.href = data.url;
+        */
+      });
 
-    <div class="value-card">
-      <h4>Results Tracking</h4>
-      <p>Review tracked PlayMaker performance across passing, rushing, receiving, and prop categories.</p>
-    </div>
+      logoutBtn.addEventListener("click", function () {
+        localStorage.removeItem("pm_logged_in");
+        localStorage.removeItem("pm_user_email");
 
-    <div class="value-card">
-      <h4>Billing Portal</h4>
-      <p>Manage your subscription, payment method, and cancellation settings once Stripe is connected.</p>
-    </div>
-  </div>
-</section>
+        messageEl.className = "login-message success";
+        messageEl.textContent = "Logged out. Redirecting...";
 
-<section class="hq-section hq-section-alt">
-  <div class="final-cta">
-    <h3>Need Pro access?</h3>
-    <p>Subscribe to PlayMaker Pro when Stripe checkout is connected.</p>
-    <a href="pricing.html" class="btn-primary">View Pricing</a>
-  </div>
-</section>
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 800);
+      });
+    })();
+  </script>
 
-</main>
-
-<footer>
-  <p>&copy; 2025 PlayMaker Prime. All Rights Reserved.</p>
-</footer>
-
-<script>
-(function () {
-  const emailEl = document.getElementById("account-email");
-  const messageEl = document.getElementById("account-message");
-  const billingBtn = document.getElementById("billing-btn");
-  const logoutBtn = document.getElementById("logout-btn");
-
-  const storedEmail = localStorage.getItem("pm_user_email");
-  const loggedIn = localStorage.getItem("pm_logged_in") === "true";
-
-  if (loggedIn && storedEmail) {
-    emailEl.textContent = storedEmail;
-  } else {
-    emailEl.textContent = "Not logged in";
-    messageEl.textContent = "Login will be required once account access is connected.";
-  }
-
-  billingBtn.addEventListener("click", async function () {
-    messageEl.className = "login-message";
-    messageEl.textContent = "Billing portal is not connected yet.";
-
-    /*
-    Later:
-    const res = await fetch("/api/customer-portal", { method: "POST" });
-    const data = await res.json();
-    window.location.href = data.url;
-    */
-  });
-
-  logoutBtn.addEventListener("click", function () {
-    localStorage.removeItem("pm_logged_in");
-    localStorage.removeItem("pm_user_email");
-
-    messageEl.className = "login-message success";
-    messageEl.textContent = "Logged out. Redirecting...";
-
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 800);
-  });
-})();
-</script>
-
-<script src="/assets/js/analytics-tracker.js"></script>
+  <script src="/assets/js/analytics-tracker.js"></script>
 
 </body>
+
 </html>
