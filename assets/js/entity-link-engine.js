@@ -1,77 +1,24 @@
 (function () {
 
+  const GLOBAL_LINKS = [
+    "/",
+    "/players.html",
+    "/matchups.html",
+    "/teams.html",
+    "/research.html",
+    "/pricing.html",
+    "/tool/"
+  ];
+
   const ENTITY_LINK_RULES = {
-
-    home: {
-      global: [
-        "/players.html",
-        "/matchups.html",
-        "/teams.html",
-        "/research.html",
-        "/pricing.html",
-        "/tool/"
-      ]
-    },
-
-    stats: {
-      global: [
-        "/players.html",
-        "/matchups.html",
-        "/teams.html",
-        "/research.html",
-        "/pricing.html",
-        "/tool/"
-      ]
-    },
-
-    strategy: {
-      global: [
-        "/players.html",
-        "/matchups.html",
-        "/teams.html",
-        "/research.html",
-        "/pricing.html",
-        "/tool/"
-      ]
-    },
-
-    positions: {
-      global: [
-        "/players.html",
-        "/matchups.html",
-        "/teams.html",
-        "/research.html",
-        "/pricing.html",
-        "/tool/"
-      ]
-    },
-
-    matchups: {
-      global: [
-        "/players.html",
-        "/teams.html",
-        "/research.html",
-        "/pricing.html",
-        "/tool/"
-      ]
-    },
-
-    academy: {
-      global: [
-        "/players.html",
-        "/matchups.html",
-        "/teams.html",
-        "/research.html",
-        "/pricing.html",
-        "/tool/"
-      ]
-    }
-
+    home: { global: GLOBAL_LINKS },
+    stats: { global: GLOBAL_LINKS },
+    strategy: { global: GLOBAL_LINKS },
+    positions: { global: GLOBAL_LINKS },
+    matchups: { global: GLOBAL_LINKS },
+    academy: { global: GLOBAL_LINKS }
   };
 
-  // ======================
-  // PAGE TYPE DETECTION
-  // ======================
   function getPageType() {
     const path = window.location.pathname.toLowerCase().split("?")[0];
 
@@ -84,28 +31,24 @@
     return "stats";
   }
 
-  // ======================
-  // NAV LABELS
-  // ======================
   const LABELS = {
-
+    "/": "Home",
     "/players.html": "Players",
     "/matchups.html": "Matchups",
     "/teams.html": "Teams",
     "/research.html": "Research",
     "/pricing.html": "Pro",
     "/tool/": "Tool"
-
   };
 
-  // ======================
-  // NORMALIZE PATHS SAFELY
-  // ======================
   function normalize(path) {
-    return path
+    let clean = path
       .toLowerCase()
       .split("?")[0]
-      .replace(/\/$/, ""); // remove trailing slash
+      .replace(/\/$/, "");
+
+    if (clean === "" || clean === "/index.html") return "/";
+    return clean;
   }
 
   const currentPath = normalize(window.location.pathname);
@@ -114,11 +57,7 @@
     return currentPath === normalize(link);
   }
 
-  // ======================
-  // RENDER
-  // ======================
   function renderLinks() {
-
     const rules = ENTITY_LINK_RULES[getPageType()];
     const container = document.getElementById("entity-links");
 
@@ -128,25 +67,20 @@
       <section class="entity-nav-bar">
 
         <div class="entity-brand">
+          <a href="/" class="entity-brand-link">
+            <img
+              src="/assets/images/logo.png"
+              alt="PlayMaker Prime Logo"
+              class="entity-logo"
+            >
+            <span>PlayMaker Prime</span>
+          </a>
+        </div>
 
-  <a href="/" class="entity-brand-link">
-
-    <img
-      src="/assets/images/logo.png"
-      alt="PlayMaker Prime Logo"
-      class="entity-logo"
-    >
-
-    <span>PlayMaker Prime</span>
-
-  </a>
-
-</div>
         <div class="entity-links">
     `;
 
     rules.global.forEach(link => {
-
       const label = LABELS[link];
       if (!label) return;
 
@@ -161,21 +95,16 @@
 
     html += `
         </div>
-
       </section>
     `;
 
     container.innerHTML = html;
   }
 
-  function init() {
-    renderLinks();
-  }
-
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", renderLinks);
   } else {
-    init();
+    renderLinks();
   }
 
 })();
