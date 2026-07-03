@@ -319,7 +319,10 @@
                 document.getElementById("customer-email").textContent =
                     "PlayMaker Account Active";
 
-                // Optional UX storage (NOT for auth anymore)
+                // Store customer ID so /tool/ can verify subscription
+                localStorage.setItem("stripe_customer_id", data.customerId);
+
+                // Optional backup/debug value
                 localStorage.setItem("pm_last_customer", data.customerId);
 
                 console.log("✅ Subscription confirmed");
