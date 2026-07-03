@@ -71,6 +71,35 @@
     box-shadow: 0 0 10px rgba(102,255,153,.4);
 }
 
+.entity-brand-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    text-decoration: none;
+    color: inherit;
+}
+
+.entity-logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+
+    filter: drop-shadow(0 0 10px rgba(102,255,153,.35));
+    transition: transform .2s ease;
+}
+
+.entity-brand-link:hover .entity-logo {
+    transform: scale(1.06);
+}
+
+.entity-brand-link span {
+    color: #66FF99;
+    font-size: 1rem;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(102,255,153,.35);
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
     .entity-nav-bar {

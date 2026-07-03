@@ -128,9 +128,20 @@
       <section class="entity-nav-bar">
 
         <div class="entity-brand">
-          PlayMaker Prime
-        </div>
 
+  <a href="/" class="entity-brand-link">
+
+    <img
+      src="/assets/images/logo.png"
+      alt="PlayMaker Prime Logo"
+      class="entity-logo"
+    >
+
+    <span>PlayMaker Prime</span>
+
+  </a>
+
+</div>
         <div class="entity-links">
     `;
 
