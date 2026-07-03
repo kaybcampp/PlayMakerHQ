@@ -121,7 +121,31 @@
       const billingBtn = document.getElementById("billing-btn");
       const logoutBtn = document.getElementById("logout-btn");
 
-      const storedEmail = localStorage.getItem("pm_user_email");
+      async function loadAccount() {
+        const email = localStorage.getItem("pm_user_email");
+
+        if (!email) {
+          window.location.href = "/login.html";
+          return;
+        }
+
+        try {
+          const res = await fetch(`/api/account?email=${email}`);
+          const data = await res.json();
+
+          if (!res.ok) throw new Error("Failed to load account");
+
+          document.getElementById("account-email").textContent = data.email;
+          document.getElementById("account-status").textContent = data.status;
+          document.getElementById("account-plan").textContent = data.plan || "PlayMaker Pro";
+          document.getElementById("account-renewal").textContent = data.renewal || "N/A";
+
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      loadAccount();
       const loggedIn = localStorage.getItem("pm_logged_in") === "true";
 
       if (loggedIn && storedEmail) {
