@@ -43,9 +43,6 @@
             <label for="email">Email</label>
             <input id="email" type="email" placeholder="you@example.com" required />
 
-            <label for="password">Password</label>
-            <input id="password" type="password" placeholder="Your password" required />
-
             <button type="submit" class="btn-primary">Login</button>
           </form>
 
@@ -81,7 +78,7 @@
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ email })
         });
 
         const data = await res.json();
@@ -92,7 +89,7 @@
           return;
         }
 
-        localStorage.setItem("pm_logged_in", "true");
+        localStorage.setItem("pm_token", data.token);
         localStorage.setItem("pm_user_email", email);
 
         message.textContent = "Login successful. Redirecting...";

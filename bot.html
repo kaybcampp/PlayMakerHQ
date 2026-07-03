@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,93 +13,108 @@
 
 <body>
 
-<header class="pm-header">
-  <h1>PlayMaker Picks Tracker</h1>
-</header>
+  <header class="pm-header">
+    <h1>PlayMaker Picks Tracker</h1>
+  </header>
 
-<main>
-  <section class="hq-section">
-    <div class="section-header">
-      <h3>Enter a Pick</h3>
-      <p>Track your NFL prop picks and see if they win or lose automatically.</p>
-    </div>
+  <main>
+    <section class="hq-section">
+      <div class="section-header">
+        <h3>Enter a Pick</h3>
+        <p>Track your NFL prop picks and see if they win or lose automatically.</p>
+      </div>
 
-    <form id="pick-form">
-      <!-- Player dropdown -->
-      <select id="player" name="player" required>
-        <option value="">Select Player</option>
-      </select>
+      <form id="pick-form">
+        <!-- Player dropdown -->
+        <select id="player" name="player" required>
+          <option value="">Select Player</option>
+        </select>
 
-      <!-- Team dropdown -->
-      <select id="team" name="team" required>
-        <option value="">Select Team</option>
-      </select>
+        <!-- Team dropdown -->
+        <select id="team" name="team" required>
+          <option value="">Select Team</option>
+        </select>
 
-      <input type="text" id="propType" name="propType" placeholder="Prop Type (e.g., Passing Yards)" required />
-      <input type="number" id="line" name="line" placeholder="Line (e.g., 220.5)" required />
-      <input type="text" id="game" name="game" placeholder="Game (e.g., Bills vs Texans)" required />
+        <input type="text" id="propType" name="propType" placeholder="Prop Type (e.g., Passing Yards)" required />
+        <input type="number" id="line" name="line" placeholder="Line (e.g., 220.5)" required />
+        <input type="text" id="game" name="game" placeholder="Game (e.g., Bills vs Texans)" required />
 
-      <button type="submit">Submit Pick</button>
-    </form>
+        <button type="submit">Submit Pick</button>
+      </form>
 
-    <div id="pick-results"></div>
-  </section>
-</main>
+      <div id="pick-results"></div>
+    </section>
+  </main>
 
-<script>
-  const teamSelect = document.getElementById("team");
-  const playerSelect = document.getElementById("player");
-  const resultsDiv = document.getElementById("pick-results");
-  const form = document.getElementById("pick-form");
+  <script>
+    const teamSelect = document.getElementById("team");
+    const playerSelect = document.getElementById("player");
+    const resultsDiv = document.getElementById("pick-results");
+    const form = document.getElementById("pick-form");
 
-  // Populate team dropdown from TEAM_DISPLAY_NAMES
-  Object.entries(TEAM_DISPLAY_NAMES).forEach(([code, name]) => {
-    const option = document.createElement("option");
-    option.value = code;
-    option.textContent = name;
-    teamSelect.appendChild(option);
-  });
+    const isLoggedIn = localStorage.getItem("pm_logged_in");
+    const userEmail = localStorage.getItem("pm_user_email");
 
-  // Fetch player-team map dynamically from backend JSON
-  fetch("/assets/data/player-team-map.json")
-    .then(res => res.json())
-    .then(PLAYER_TEAM_MAP => {
-      Object.keys(PLAYER_TEAM_MAP).sort().forEach(player => {
-        const option = document.createElement("option");
-        option.value = player;
-        option.textContent = `${player} (${PLAYER_TEAM_MAP[player]})`;
-        playerSelect.appendChild(option);
-      });
-    })
-    .catch(err => console.error("Failed to load player-team map:", err));
+    if (!isLoggedIn || !userEmail) {
+      alert("Please log in to use PlayMaker Picks Tracker.");
+      window.location.href = "/login.html";
+    }
 
-  // Handle form submission
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    // Populate team dropdown from TEAM_DISPLAY_NAMES
+    Object.entries(TEAM_DISPLAY_NAMES).forEach(([code, name]) => {
+      const option = document.createElement("option");
+      option.value = code;
+      option.textContent = name;
+      teamSelect.appendChild(option);
+    });
 
-    const pickData = {
-      player: playerSelect.value,
-      team: teamSelect.value,
-      propType: document.getElementById("propType").value.trim(),
-      line: parseFloat(document.getElementById("line").value),
-      game: document.getElementById("game").value.trim()
-    };
+    // Fetch player-team map dynamically from backend JSON
+    fetch("/assets/data/player-team-map.json")
+      .then(res => res.json())
+      .then(PLAYER_TEAM_MAP => {
+        Object.keys(PLAYER_TEAM_MAP).sort().forEach(player => {
+          const option = document.createElement("option");
+          option.value = player;
+          option.textContent = `${player} (${PLAYER_TEAM_MAP[player]})`;
+          playerSelect.appendChild(option);
+        });
+      })
+      .catch(err => console.error("Failed to load player-team map:", err));
 
-    resultsDiv.innerHTML = "Processing...";
+    // Handle form submission
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    try {
-      const res = await fetch("/api/track-pick", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(pickData)
-      });
+      const pickData = {
+        email: userEmail, // 🔥 REQUIRED FOR USER LINKING
+        player: playerSelect.value,
+        team: teamSelect.value,
+        propType: document.getElementById("propType").value.trim(),
+        line: parseFloat(document.getElementById("line").value),
+        game: document.getElementById("game").value.trim()
+      };
 
-      const data = await res.json();
+      resultsDiv.innerHTML = "Processing...";
 
-      if (!res.ok) throw new Error(data.error || "Failed");
+      try {
+        const res = await fetch("/api/track-pick", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(pickData)
+        });
 
-      resultsDiv.innerHTML = `
-        <h4>${pickData.player} vs ${pickData.game.split(" vs ")[1]}</h4>
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || "Failed");
+
+        resultsDiv.innerHTML = `
+        const opponent = pickData.game.includes(" vs ")
+  ? pickData.game.split(" vs ")[1]
+  : pickData.game.includes(" @ ")
+    ? pickData.game.split(" @ ")[1]
+    : pickData.game;
+
+<h4>${pickData.player} vs ${opponent}</h4>
         <p>Pick: ${pickData.propType} @ ${pickData.line}</p>
         <p>Result: <strong style="color:${data.outcome === 'won' ? '#66FF99' : '#ff6b6b'}">
           ${data.outcome.toUpperCase()}</strong></p>
@@ -106,11 +122,12 @@
         <p>Edge Adjustment: ${data.edgeAdjustment || 'N/A'}</p>
         <p>Weather Impact: ${data.weatherImpact || 'N/A'}</p>
       `;
-    } catch (err) {
-      resultsDiv.innerHTML = `<p style="color:red;">${err.message}</p>`;
-    }
-  });
-</script>
+      } catch (err) {
+        resultsDiv.innerHTML = `<p style="color:red;">${err.message}</p>`;
+      }
+    });
+  </script>
 
 </body>
+
 </html>
