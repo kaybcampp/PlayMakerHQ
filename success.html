@@ -281,13 +281,44 @@
     </footer>
 
     <script>
+        (async function () {
 
-        const email =
-            localStorage.getItem("pm_user_email");
+            try {
 
-        document.getElementById("customer-email").textContent =
-            email || "Your Account";
+                const params = new URLSearchParams(window.location.search);
+                const sessionId = params.get("session_id");
 
+                if (!sessionId) {
+                    window.location.href = "/";
+                    return;
+                }
+
+                // 🔥 Resolve Stripe session → customer
+                const res = await fetch(`/api/stripe/session?session_id=${sessionId}`);
+                const data = await res.json();
+
+                if (!data.customerId) {
+                    window.location.href = "/pricing.html";
+                    return;
+                }
+
+                // OPTIONAL: display email ONLY if you want (not required for auth)
+                document.getElementById("customer-email").textContent =
+                    "PlayMaker Account Active";
+
+                // Optional UX storage (NOT for auth anymore)
+                localStorage.setItem("pm_last_customer", data.customerId);
+
+                console.log("✅ Subscription confirmed");
+
+            } catch (err) {
+
+                console.error("Success page error:", err);
+                window.location.href = "/pricing.html";
+
+            }
+
+        })();
     </script>
 
     <script src="/assets/js/analytics-tracker.js"></script>
