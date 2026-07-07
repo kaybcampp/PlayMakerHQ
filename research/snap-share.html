@@ -37,6 +37,10 @@
 
     <div class="research-hero-content">
 
+      <a href="/research.html" class="hq-pill back-btn">
+        ← Back to Research
+      </a>
+
       <span class="hq-pill">NFL Usage Metrics</span>
 
       <h2>
@@ -247,23 +251,23 @@
   <script src="/assets/js/analytics-tracker.js"></script>
 
   <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (!window.matchMedia("(max-width: 768px)").matches) return;
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!window.matchMedia("(max-width: 768px)").matches) return;
 
-            document.querySelectorAll(".hq-section").forEach((section, index) => {
-                const header = section.querySelector(":scope > .section-header");
-                if (!header) return;
+      document.querySelectorAll(".hq-section").forEach((section, index) => {
+        const header = section.querySelector(":scope > .section-header");
+        if (!header) return;
 
-                if (index === 0) {
-                    section.classList.add("is-open");
-                }
+        if (index === 0) {
+          section.classList.add("is-open");
+        }
 
-                header.addEventListener("click", () => {
-                    section.classList.toggle("is-open");
-                });
-            });
+        header.addEventListener("click", () => {
+          section.classList.toggle("is-open");
         });
-    </script>
+      });
+    });
+  </script>
 
 </body>
 

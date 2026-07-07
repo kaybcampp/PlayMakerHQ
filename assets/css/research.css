@@ -617,6 +617,23 @@ body {
     border: 1px solid rgba(255, 80, 80, .28);
 }
 
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+
+    margin-bottom: 1rem;
+
+    text-decoration: none;
+
+    transition: .2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-3px);
+    background: rgba(102, 255, 153, .18);
+}
+
 /* FOOTER */
 
 footer {
