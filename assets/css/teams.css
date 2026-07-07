@@ -1120,8 +1120,6 @@ button.report-row:hover {
     font-size: 13px;
 }
 
-/* FOOTER */
-
 /* ==========================================
    FOOTER
 ========================================== */
@@ -1129,7 +1127,7 @@ button.report-row:hover {
 footer {
     padding: 2.5rem 1rem;
     text-align: center;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid rgba(255, 255, 255, .06);
     color: #A3AABF;
 }
 
@@ -1160,23 +1158,100 @@ footer {
     color: #7F889B;
 }
 
-@media (max-width:768px){
+@media (max-width:768px) {
 
-    .footer-links{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
-    .footer-links a{
-        width:100%;
-        text-align:center;
+    .footer-links a {
+        width: 100%;
+        text-align: center;
     }
 
-    .footer-disclaimer{
-        font-size:.78rem;
+    .footer-disclaimer {
+        font-size: .78rem;
     }
 
+}
+
+/* ==========================================
+   SEO INTRO
+========================================== */
+
+.seo-intro-section {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+}
+
+.seo-intro-card {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    background: linear-gradient(145deg,
+            #131A2A,
+            #0F1626);
+
+    border: 1px solid rgba(102, 255, 153, .15);
+    border-radius: 20px;
+
+    padding: 2.5rem;
+
+    box-shadow: 0 0 24px rgba(102, 255, 153, .08);
+}
+
+.seo-intro-card h3 {
+    color: #66FF99;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.seo-intro-card p {
+    color: #A3AABF;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+}
+
+.seo-intro-card p:last-of-type {
+    margin-bottom: 2rem;
+}
+
+.internal-link-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.internal-link-row a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 20px;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+    font-size: .92rem;
+
+    color: #66FF99;
+
+    background: rgba(102, 255, 153, .08);
+    border: 1px solid rgba(102, 255, 153, .20);
+
+    transition: .2s ease;
+}
+
+.internal-link-row a:hover {
+    background: rgba(102, 255, 153, .16);
+    border-color: rgba(102, 255, 153, .45);
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(102, 255, 153, .16);
 }
 
 /* ==========================================
@@ -1400,83 +1475,6 @@ footer {
     .back-btn:hover {
         transform: translateX(-3px);
         background: rgba(102, 255, 153, .18);
-    }
-
-    /* ==========================================
-   SEO INTRO
-========================================== */
-
-    .seo-intro-section {
-        padding-top: 3rem;
-        padding-bottom: 2rem;
-    }
-
-    .seo-intro-card {
-        max-width: 1000px;
-        margin: 0 auto;
-
-        background: linear-gradient(145deg,
-                #131A2A,
-                #0F1626);
-
-        border: 1px solid rgba(102, 255, 153, .15);
-        border-radius: 20px;
-
-        padding: 2.5rem;
-
-        box-shadow: 0 0 24px rgba(102, 255, 153, .08);
-    }
-
-    .seo-intro-card h3 {
-        color: #66FF99;
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-
-    .seo-intro-card p {
-        color: #A3AABF;
-        line-height: 1.8;
-        margin-bottom: 1.25rem;
-    }
-
-    .seo-intro-card p:last-of-type {
-        margin-bottom: 2rem;
-    }
-
-    .internal-link-row {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 14px;
-    }
-
-    .internal-link-row a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        padding: 12px 20px;
-
-        border-radius: 999px;
-
-        text-decoration: none;
-
-        font-weight: 700;
-        font-size: .92rem;
-
-        color: #66FF99;
-
-        background: rgba(102, 255, 153, .08);
-        border: 1px solid rgba(102, 255, 153, .20);
-
-        transition: .2s ease;
-    }
-
-    .internal-link-row a:hover {
-        background: rgba(102, 255, 153, .16);
-        border-color: rgba(102, 255, 153, .45);
-        transform: translateY(-2px);
-        box-shadow: 0 0 18px rgba(102, 255, 153, .16);
     }
 
     @media (max-width: 768px) {
