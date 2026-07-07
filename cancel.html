@@ -115,6 +115,25 @@
 
   <script src="/assets/js/analytics-tracker.js"></script>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!window.matchMedia("(max-width: 768px)").matches) return;
+
+      document.querySelectorAll(".hq-section").forEach((section, index) => {
+        const header = section.querySelector(":scope > .section-header");
+        if (!header) return;
+
+        if (index === 0) {
+          section.classList.add("is-open");
+        }
+
+        header.addEventListener("click", () => {
+          section.classList.toggle("is-open");
+        });
+      });
+    });
+  </script>
+
 </body>
 
 </html>

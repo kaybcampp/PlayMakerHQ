@@ -491,38 +491,38 @@ body {
     font-size: .9rem;
 }
 
-.account-detail{
-  display:flex;
-  justify-content:space-between;
-  gap:1rem;
-  padding:1rem 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
+.account-detail {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
-.account-detail span{
-  color:#A3AABF;
-  font-weight:700;
+.account-detail span {
+    color: #A3AABF;
+    font-weight: 700;
 }
 
-.account-detail strong{
-  color:#E6F6EE;
-  text-align:right;
+.account-detail strong {
+    color: #E6F6EE;
+    text-align: right;
 }
 
-.account-actions{
-  display:grid;
-  gap:.9rem;
-  margin-top:1.5rem;
+.account-actions {
+    display: grid;
+    gap: .9rem;
+    margin-top: 1.5rem;
 }
 
 .account-actions .btn-primary,
-.account-actions .plan-btn{
-  width:100%;
-  text-align:center;
+.account-actions .plan-btn {
+    width: 100%;
+    text-align: center;
 }
 
-.account-actions button{
-  cursor:pointer;
+.account-actions button {
+    cursor: pointer;
 }
 
 /* FOOTER */
@@ -534,34 +534,244 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
-/* MOBILE */
+/* ==========================================
+   RESPONSIVE / MOBILE
+========================================== */
 
 @media (max-width: 768px) {
+
     .pm-header {
+        padding: 1rem;
         flex-direction: column;
         gap: 1rem;
     }
 
+    .pm-header h1 {
+        font-size: 1.15rem;
+        text-align: center;
+    }
+
     .pm-nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: .75rem;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .65rem;
+    }
+
+    .pm-link,
+    .pm-link-cta {
+        width: 100%;
+        text-align: center;
+        padding: .75rem .85rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .04);
+        border: 1px solid rgba(255, 255, 255, .08);
+        font-size: .9rem;
+    }
+
+    .pm-link-cta {
+        background: rgba(102, 255, 153, .12);
+        border-color: rgba(102, 255, 153, .35);
     }
 
     .pricing-hero {
         min-height: auto;
-        padding: 5rem 1rem;
+        padding: 4rem 1rem 3rem;
+    }
+
+    .pricing-hero h2 {
+        font-size: 2.25rem;
+    }
+
+    .pricing-hero p {
+        font-size: 1rem;
+    }
+
+    .hq-section {
+        padding: 3rem 1rem;
+        position: relative;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .section-header h3 {
+        font-size: 1.55rem;
+    }
+
+    .section-header p {
+        font-size: .95rem;
+    }
+
+    .pricing-grid,
+    .value-grid,
+    .faq-list {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card,
+    .value-card,
+    .faq-item,
+    .login-card {
+        padding: 1.25rem;
+    }
+
+    .price {
+        font-size: 2.35rem;
     }
 
     .plan-description {
         min-height: auto;
     }
 
+    .plan-btn,
+    .btn-primary,
+    .login-card button {
+        width: 100%;
+        text-align: center;
+    }
+
     .comparison-table-wrap {
         border-radius: 14px;
+        overflow-x: auto;
+    }
+
+    .comparison-table {
+        min-width: 720px;
+    }
+
+    .login-card {
+        margin-top: 1.75rem;
+    }
+
+    .login-links {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .account-detail {
+        flex-direction: column;
+        gap: .35rem;
+    }
+
+    .account-detail strong {
+        text-align: left;
     }
 
     .final-cta {
-        padding: 3rem 1.25rem;
+        padding: 2.5rem 1.25rem;
+        overflow: visible;
+    }
+
+    .final-cta p {
+        margin-bottom: 1.75rem;
+    }
+
+    .final-cta .btn-primary {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* ==========================================
+       MOBILE COLLAPSIBLE SECTIONS
+    ========================================== */
+
+    .hq-section .section-header {
+        cursor: pointer;
+        position: relative;
+        padding: 1rem 3rem 1rem 1rem;
+        margin-bottom: 1rem;
+        background: rgba(255, 255, 255, .035);
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 16px;
+        text-align: left;
+    }
+
+    .hq-section .section-header::after {
+        content: "+";
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(102, 255, 153, .12);
+        border: 1px solid rgba(102, 255, 153, .3);
+        color: #66FF99;
+        font-size: 1.25rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .hq-section.is-open .section-header::after {
+        content: "−";
+    }
+
+    .hq-section .section-header h3 {
+        margin-bottom: .4rem;
+    }
+
+    .hq-section .section-header p {
+        margin: 0;
+    }
+
+    .hq-section:not(.is-open)>*:not(.section-header) {
+        display: none;
+    }
+
+    .hq-section.is-open>*:not(.section-header) {
+        display: block;
+    }
+
+    .hq-section.is-open .pricing-grid,
+    .hq-section.is-open .value-grid,
+    .hq-section.is-open .faq-list {
+        display: grid;
+    }
+
+    .hq-section:first-of-type {
+        padding-top: 2rem;
+    }
+
+    .hq-section:first-of-type .section-header::after {
+        display: none;
+    }
+
+    .hq-section:first-of-type>*:not(.section-header) {
+        display: block;
+    }
+
+    .hq-section:first-of-type .pricing-grid,
+    .hq-section:first-of-type .value-grid,
+    .hq-section:first-of-type .faq-list {
+        display: grid;
+    }
+
+    .hq-section:has(.pricing-grid)>*:not(.section-header),
+    .hq-section:has(.final-cta)>*:not(.section-header),
+    .hq-section:has(.login-card)>*:not(.section-header) {
+        display: block;
+    }
+
+    .hq-section:has(.pricing-grid) .section-header::after,
+    .hq-section:has(.final-cta) .section-header::after,
+    .hq-section:has(.login-card) .section-header::after {
+        display: none;
+    }
+
+    .hq-section:has(.pricing-grid) .pricing-grid {
+        display: grid;
+    }
+
+    footer {
+        padding: 1.5rem 1rem;
+        font-size: .85rem;
     }
 }
