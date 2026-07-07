@@ -94,13 +94,16 @@
 
       <span class="hq-pill">NFL Matchup Hub</span>
 
-      <h2>
+      <h1>
         NFL Matchup Hub
-      </h2>
+      </h1>
 
       <p>
-        Search every 2026 NFL matchup, filter by week,
-        and open detailed PlayMaker matchup reports.
+      <p>
+        Research every 2026 NFL matchup with weekly PlayMaker reports covering team trends,
+        defensive tiers, injuries, weather impact, player prop opportunities, and matchup-based
+        betting intelligence.
+      </p>
       </p>
 
       <!-- SEARCH MODULE (UNIFIED WITH PLAYERS STYLE) -->
@@ -162,41 +165,27 @@
   </section>
 
   <!-- SEO INTRO -->
-  <section class="hq-section seo-intro-section">
+  <h3>Weekly NFL Matchup Reports</h3>
 
-    <div class="seo-intro-card">
+  <p>
+    The PlayMaker Prime NFL Matchup Hub organizes every 2026 regular season game into a
+    searchable weekly matchup directory. Each report connects team trends, defensive profiles,
+    injury context, weather impact, schedule data, and player prop research so users can
+    understand the full game environment before opening the PlayMaker tool.
+  </p>
 
-      <h3>Explore Every NFL Matchup With PlayMaker Prime</h3>
+  <p>
+    Browse all 272 NFL matchups, filter by week, search by team, and open full matchup
+    intelligence reports for every game. Each matchup page is designed to connect team analysis,
+    player intelligence, defensive tiers, and prop-focused angles into one research view.
+  </p>
 
-      <p>
-
-        Use the <strong>PlayMaker Prime NFL Matchup Hub</strong> to compare
-        weekly NFL matchups, analyze defensive profiles, review team trends,
-        identify prop betting opportunities, and open matchup-specific player
-        prop reports.
-
-      </p>
-
-      <p>
-
-        Every matchup combines schedule data, defensive rankings, weather
-        conditions, injury reports, historical trends, and PlayMaker
-        intelligence to help you understand how each game environment may
-        impact player performance.
-
-      </p>
-
-      <p>
-
-        Search all 272 regular season games, compare teams side-by-side,
-        and launch detailed matchup reports powered by PlayMaker Prime.
-
-      </p>
-
-    </div>
-
-  </section>
-
+  <div class="internal-link-row">
+    <a href="/players.html">Browse NFL Players</a>
+    <a href="/teams.html">Browse NFL Teams</a>
+    <a href="/all-matchups.html">View All Matchups</a>
+    <a href="/research/">Research Center</a>
+  </div>
   <main>
 
     <!-- MATCHUP BOARD -->
@@ -278,7 +267,7 @@
 
       <div class="report-list">
 
-        <div class="report-row">
+        <a href="/players.html" class="report-row">
           <div>
             <h4>Player Intelligence</h4>
             <p>
@@ -287,30 +276,74 @@
             </p>
           </div>
           <span>Players →</span>
-        </div>
+        </a>
 
-        <div class="report-row">
+        <a href="/teams.html" class="report-row">
+          <div>
+            <h4>Team Intelligence</h4>
+            <p>
+              Compare NFL teams by defensive profile, offensive identity, schedule context,
+              player groups, and matchup environments.
+            </p>
+          </div>
+          <span>Teams →</span>
+        </a>
+
+        <a href="/research/" class="report-row">
           <div>
             <h4>Research Center</h4>
             <p>
               Explore passing, rushing, receiving, touchdown, defensive, and weekly
-              research reports built specifically for NFL prop bettors.
+              research reports built specifically for NFL prop research.
             </p>
           </div>
           <span>Research →</span>
-        </div>
+        </a>
 
-        <div class="report-row">
-          <div>
-            <h4>Launch PlayMaker</h4>
-            <p>
-              Open the full PlayMaker platform to compare player props, defensive matchups,
-              injuries, weather, historical trends, and AI-powered betting intelligence.
-            </p>
-          </div>
-          <span>Open Tool →</span>
-        </div>
+      </div>
+      </div>
+    </section>
 
+    <section class="hq-section hq-section-alt">
+      <div class="section-header">
+        <h3>Matchups Hub FAQ</h3>
+        <p>Common questions about PlayMaker matchup reports, weekly NFL research, and prop-focused analysis.</p>
+      </div>
+
+      <div class="faq-grid">
+        <details class="faq-card" open>
+          <summary>What is included in a PlayMaker matchup report?</summary>
+          <p>
+            Each matchup report includes schedule context, team trends, defensive tiers,
+            weather impact, injury notes, player prop opportunities, historical PlayMaker results,
+            and matchup-based intelligence.
+          </p>
+        </details>
+
+        <details class="faq-card">
+          <summary>Can I search NFL matchups by week?</summary>
+          <p>
+            Yes. The Matchups Hub lets users filter the 2026 NFL schedule by week and search by
+            team name, abbreviation, or matchup to quickly open the correct report.
+          </p>
+        </details>
+
+        <details class="faq-card">
+          <summary>How does PlayMaker evaluate NFL matchups?</summary>
+          <p>
+            PlayMaker evaluates matchups by comparing offensive tendencies, defensive weaknesses,
+            player usage trends, injuries, weather, schedule context, and historical prop results.
+          </p>
+        </details>
+
+        <details class="faq-card">
+          <summary>Do matchup reports connect to player research?</summary>
+          <p>
+            Yes. Matchup reports are designed to connect directly with Player Intelligence Reports,
+            team profiles, defensive matchup data, and the PlayMaker tool so users can move from
+            game research into player-level prop analysis.
+          </p>
+        </details>
       </div>
     </section>
 
@@ -708,16 +741,11 @@
     </button>
 
     <a
-
-  href="/tool/team.html?team=${encodeURIComponent(playmakerTeam)}"
+  href="/pricing.html?redirect=${encodeURIComponent(`/tool/?team=${encodeURIComponent(playmakerTeam)}`)}"
   class="card-link secondary-link"
-
   onclick="event.stopPropagation();"
-
 >
-
   Open PlayMaker →
-
 </a>
 
   </div>

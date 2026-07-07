@@ -12,15 +12,17 @@
   <meta property="og:url" content="https://playmakerprime.com/players.html">
   <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
 
+  <link rel="canonical" href="https://playmakerprime.com/players.html">
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NFL Player Intelligence Hub | PlayMaker Prime">
   <meta name="twitter:description"
     content="Explore NFL player trends, matchup history, prop research, and PlayMaker player intelligence.">
   <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
 
-  <title>Players — PlayMaker HQ</title>
+  <title>NFL Player Intelligence Reports, Trends & Prop Research | PlayMaker Prime</title>
   <meta name="description"
-    content="Explore NFL player intelligence, prop trends, recent performance, matchup context, injuries, and PlayMaker angles before opening the prediction tool." />
+    content="Research every NFL player with AI-powered intelligence reports, recent trends, matchup analysis, prop insights, defensive context, and historical data from PlayMaker Prime.">
 
   <link rel="stylesheet" href="assets/css/players.css" />
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
@@ -43,14 +45,14 @@
         NFL Player Intelligence
       </span>
 
-      <h2>
+      <h1>
         NFL Player Intelligence Portal
-      </h2>
+      </h1>
 
       <p>
-        Search 2026 NFL players and explore trends, matchups,
-        prop intelligence, historical performance, and
-        PlayMaker research reports.
+        Research every NFL player in one place with AI-powered intelligence reports, matchup analysis, recent trends,
+        defensive context, historical performance, and prop-focused insights. Browse by player, team, or position to
+        prepare for every NFL matchup using the same data that powers PlayMaker Prime.
       </p>
 
       <div class="player-search-card">
@@ -77,6 +79,8 @@
     </div>
 
   </section>
+
+
 
   <main>
 
@@ -302,10 +306,12 @@
         </details>
 
         <details class="faq-card">
-          <summary>How often are player intelligence reports refreshed?</summary>
+          <summary>Can I research NFL players before using PlayMaker?</summary>
           <p>
-            Player intelligence reports can refresh weekly during the season, with future updates planned
-            around player usage, injuries, opponent changes, and live PlayMaker performance data.
+            Yes. Every Player Intelligence Report is designed to help you research NFL players before opening
+            PlayMaker. Review recent trends, matchup analysis, defensive context, prop-focused insights,
+            historical performance, and AI-generated intelligence to better understand each player's outlook
+            before entering a prop line into the PlayMaker tool.
           </p>
         </details>
       </div>
@@ -954,7 +960,7 @@
 
       <h4>${player.name}</h4>
 
-      <p class="player-role">${player.position} · ${teamName(player.team.codgetTeamCode(player))}</p>
+      <p class="player-role">${player.position} · ${teamName(getTeamCode(player))}</p>
 
       <ul class="player-points">
         <li>${getNextOpponentText(player)}</li>

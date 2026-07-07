@@ -7,12 +7,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>
-        All 2026 NFL Matchups | PlayMaker Prime
-    </title>
+    <title>All 2026 NFL Matchups, Schedule & Weekly Reports | PlayMaker Prime</title>
 
     <meta name="description"
-        content="Browse all 272 2026 NFL regular season matchups and open detailed PlayMaker Prime reports featuring defensive tiers, player trends, weather impact, injuries, and prop research." />
+        content="Browse all 272 2026 NFL regular season matchups by week. Open PlayMaker Prime reports with team trends, defensive tiers, weather impact, injuries, player research, and prop-focused matchup intelligence." />
 
     <!-- Canonical -->
 
@@ -63,11 +61,12 @@
         <div class="matchups-hero-content">
             <span class="hq-pill">All NFL Matchups</span>
 
-            <h2>All 2026 NFL Matchups</h2>
+            <h1>All 2026 NFL Matchups</h1>
 
             <p>
-                Browse every 2026 NFL regular season matchup and open detailed
-                PlayMaker Prime matchup reports.
+                Browse the full 2026 NFL regular season schedule with all 272 matchups organized by week.
+                Open detailed PlayMaker Prime matchup reports with team trends, defensive tiers, weather,
+                injuries, player research, and prop-focused intelligence.
             </p>
         </div>
     </section>
@@ -94,14 +93,27 @@
 
         <section class="hq-section seo-intro-section">
             <div class="seo-intro-card">
-                <h3>Every 2026 NFL Matchup in One Place</h3>
+                <h3>Complete 2026 NFL Matchup Index</h3>
 
                 <p>
-                    Use this page to access all 272 NFL regular season matchup reports.
-                    Each game links to a PlayMaker Prime matchup page with defensive tiers,
-                    prop angles, player research, team trends, weather context, injury notes,
-                    and matchup intelligence.
+                    The PlayMaker Prime matchup index organizes every 2026 NFL regular season game into one
+                    searchable schedule directory. Each matchup links to a full PlayMaker report built around
+                    team trends, defensive profiles, player prop research, weather context, injury notes,
+                    schedule details, and matchup intelligence.
                 </p>
+
+                <p>
+                    Use this page to browse games by week, open individual matchup reports, compare team
+                    environments, and continue your research through player pages, team pages, the matchup hub,
+                    and the PlayMaker tool.
+                </p>
+
+                <div class="internal-link-row">
+                    <a href="/matchups.html">Matchup Hub</a>
+                    <a href="/players.html">Player Intelligence</a>
+                    <a href="/teams.html">Team Intelligence</a>
+                    <a href="/research/">Research Center</a>
+                </div>
             </div>
         </section>
 
@@ -119,6 +131,47 @@
                     </div>
                     <span>Loading</span>
                 </div>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt">
+            <div class="section-header">
+                <h3>All Matchups FAQ</h3>
+                <p>Common questions about the 2026 NFL matchup index and PlayMaker Prime reports.</p>
+            </div>
+
+            <div class="faq-grid">
+                <details class="faq-card" open>
+                    <summary>How many 2026 NFL matchups are listed?</summary>
+                    <p>
+                        This page lists all 272 regular season NFL matchups for the 2026 season, organized by week
+                        and linked to individual PlayMaker Prime matchup reports.
+                    </p>
+                </details>
+
+                <details class="faq-card">
+                    <summary>What is included in each matchup report?</summary>
+                    <p>
+                        Each matchup report includes team context, defensive tiers, player trends, prop angles,
+                        weather impact, injury notes, schedule information, and PlayMaker intelligence.
+                    </p>
+                </details>
+
+                <details class="faq-card">
+                    <summary>Can I research teams and players from this page?</summary>
+                    <p>
+                        Yes. Each matchup connects to team intelligence pages, player reports, weekly matchup
+                        research, and the PlayMaker prediction tool.
+                    </p>
+                </details>
+
+                <details class="faq-card">
+                    <summary>How should I use the matchup index?</summary>
+                    <p>
+                        Start by selecting a week, opening a matchup report, reviewing the team and player context,
+                        then use PlayMaker to evaluate specific prop lines.
+                    </p>
+                </details>
             </div>
         </section>
 
@@ -259,15 +312,7 @@
                     return `
             <a href="${matchupUrl(game)}" class="report-row matchup-index-link">
               <div>
-                <h4>
-  <a href="/teams/${slugifyTeamName(away)}" style="color:#66FF99;">
-    ${teamName(away)}
-  </a>
-  vs
-  <a href="/teams/${slugifyTeamName(home)}" style="color:#66FF99;">
-    ${teamName(home)}
-  </a>
-</h4>
+                <h4>${teamName(away)} vs ${teamName(home)}</h4>
 
 <p>${away} @ ${home} · ${formatDate(game.date)}</p>
               </div>
