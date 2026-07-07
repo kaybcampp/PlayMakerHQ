@@ -1,18 +1,12 @@
 (function () {
+  const DEBUG_ANALYTICS = true;
+
   const IGNORE_VISITOR_IDS = new Set([
     "visitor_1781795573062_1f7hslp4"
   ]);
 
-  if (
-    localStorage.getItem("pm_ignore_analytics") === "true" ||
-    IGNORE_VISITOR_IDS.has(localStorage.getItem("pm_visitor_id"))
-  ) {
-    return;
-  }
-
   const API_URL = "/api/analytics/track";
-  const IS_INTERNAL =
-    localStorage.getItem("pm_internal") === "true";
+
   const SESSION_KEY = "pm_session_id";
   const VISITOR_KEY = "pm_visitor_id";
   const ENTRY_PAGE_KEY = "pm_entry_page";
@@ -20,6 +14,12 @@
 
   const pageLoadedAt = Date.now();
   let exitTracked = false;
+
+  function log(...args) {
+    if (DEBUG_ANALYTICS) {
+      console.log("[PM Analytics]", ...args);
+    }
+  }
 
   function createId(prefix) {
     return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
@@ -49,6 +49,16 @@
     return sessionId;
   }
 
+  function shouldIgnore() {
+    const visitorId = localStorage.getItem(VISITOR_KEY);
+
+    return (
+      localStorage.getItem("pm_ignore_analytics") === "true" ||
+      localStorage.getItem("pm_internal") === "true" ||
+      IGNORE_VISITOR_IDS.has(visitorId)
+    );
+  }
+
   function getDeviceType() {
     const ua = navigator.userAgent.toLowerCase();
 
@@ -73,37 +83,29 @@
     const path = window.location.pathname;
     const search = window.location.search;
 
-    if (path.includes("/matchups/")) {
-      return "dynamic_matchup";
-    }
+    if (path.includes("/players/")) return "dynamic_player";
+    if (path.includes("/teams/")) return "dynamic_team";
+    if (path.includes("/matchups/")) return "dynamic_matchup";
 
-    if (path.includes("matchup.html") && search.includes("game=")) {
-      return "dynamic_matchup";
-    }
+    if (path.includes("players.html")) return "players_hub";
+    if (path.includes("teams.html")) return "teams_hub";
+    if (path.includes("matchups.html")) return "matchup_hub";
+    if (path.includes("all-matchups.html")) return "all_matchups";
+    if (path.includes("/research")) return "research";
+    if (path.includes("/pricing")) return "pricing";
+    if (path.includes("/account")) return "account";
+    if (path.includes("/tool/") || path === "/tool" || path === "/tool/") return "tool";
 
-    if (path.includes("matchups.html")) {
-      return "matchup_hub";
-    }
-
-    if (path.includes("all-matchups.html")) {
-      return "all_matchups";
-    }
-
-    if (path.includes("/tool/")) {
-      return "tool";
-    }
-
-    if (path === "/" || path.includes("index.html")) {
-      return "home";
-    }
+    if (path === "/" || path.includes("index.html")) return "home";
 
     return "site_page";
   }
 
   function buildPayload(type, extra = {}) {
     return {
-      internal: IS_INTERNAL,
       type,
+      internal: localStorage.getItem("pm_internal") === "true",
+
       visitorId: getOrCreateVisitorId(),
       sessionId: getOrCreateSessionId(),
 
@@ -129,29 +131,40 @@
     };
   }
 
-  function sendAnalytics(payload, useBeacon = false) {
+  async function sendAnalytics(payload, useBeacon = false) {
     try {
       const body = JSON.stringify(payload);
+
+      log("Sending:", payload);
 
       if (useBeacon && navigator.sendBeacon) {
         const blob = new Blob([body], {
           type: "application/json"
         });
 
-        navigator.sendBeacon(API_URL, blob);
+        const sent = navigator.sendBeacon(API_URL, blob);
+        log("Beacon sent:", sent);
         return;
       }
 
-      fetch(API_URL, {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body,
         keepalive: true
-      }).catch(() => { });
+      });
+
+      log("Response:", res.status, res.statusText);
+
+      if (!res.ok) {
+        const text = await res.text().catch(() => "");
+        console.warn("[PM Analytics] Failed:", res.status, text);
+      }
+
     } catch (err) {
-      // Fail silently. Analytics should never break the site.
+      console.warn("[PM Analytics] Error:", err);
     }
   }
 
@@ -195,16 +208,24 @@
       buildPayload("click", {
         clickText: label.trim().slice(0, 120),
         clickHref: target.href || "",
-        clickClass: target.className || ""
+        clickClass: String(target.className || "")
       })
     );
   }
 
   function initAnalytics() {
+    if (shouldIgnore()) {
+      log("Ignored visitor.");
+      return;
+    }
+
+    log("Initialized.");
+    log("Visitor:", getOrCreateVisitorId());
+    log("Session:", getOrCreateSessionId());
+
     trackPageView();
 
     document.addEventListener("click", trackClick);
-
     window.addEventListener("beforeunload", trackPageExit);
 
     document.addEventListener("visibilitychange", function () {
