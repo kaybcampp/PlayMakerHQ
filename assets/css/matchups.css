@@ -2172,6 +2172,57 @@ body {
     margin-bottom: 0;
 }
 
+.internal-link-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.internal-link-row a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 20px;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+    font-size: .92rem;
+
+    color: #66FF99;
+
+    background: rgba(102, 255, 153, .08);
+
+    border: 1px solid rgba(102, 255, 153, .20);
+
+    transition: .2s ease;
+}
+
+.internal-link-row a:hover {
+    background: rgba(102, 255, 153, .16);
+    border-color: rgba(102, 255, 153, .45);
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(102, 255, 153, .16);
+}
+
+@media (max-width:768px) {
+
+    .internal-link-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .internal-link-row a {
+        width: 100%;
+    }
+
+}
+
 .week-index-row {
     background: rgba(102, 255, 153, 0.08);
     border-color: rgba(102, 255, 153, 0.22);
