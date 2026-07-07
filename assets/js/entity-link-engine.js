@@ -6,6 +6,7 @@
     "/matchups.html",
     "/teams.html",
     "/research.html",
+    "/results.html",
     "/pricing.html",
     "/tool/"
   ];
@@ -37,6 +38,7 @@
     "/matchups.html": "Matchups",
     "/teams.html": "Teams",
     "/research.html": "Research",
+    "/results.html": "Results",
     "/pricing.html": "Pro",
     "/tool/": "Tool"
   };
