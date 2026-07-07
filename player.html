@@ -58,7 +58,7 @@
 
                     <div class="player-hero-actions">
                         <a href="/players.html" class="btn-secondary">← Back to Players</a>
-                        <a href="/tool/" id="player-tool-link" class="btn-primary">Open in PlayMaker</a>
+                        <a href="/pricing.html" id="player-tool-link" class="btn-primary">Subscribe to PlayMaker</a>
                     </div>
                 </div>
 
@@ -311,8 +311,8 @@
                     enter the prop line, and let the tool do the matchup analysis.
                 </p>
 
-                <a href="/tool/" id="cta-tool-link" class="btn-primary">
-                    Open in PlayMaker
+                <a href="/pricing.html" id="cta-tool-link" class="btn-primary">
+                    Subscribe to PlayMaker
                 </a>
             </div>
         </section>
@@ -877,16 +877,68 @@
             document.getElementById("cta-copy").textContent =
                 `Open the ${teamName(team)} team page inside PlayMaker, choose ${playerName}, enter the prop line, and let the tool do the matchup analysis.`;
 
-            document.getElementById("cta-tool-link").textContent =
-                `Open ${team} in PlayMaker`;
 
-            document.getElementById("cta-tool-link").href =
-                `/tool/team.html?team=${encodeURIComponent(team)}`;
+            (async function protectPlayerToolLinks() {
+                const ctaLink = document.getElementById("cta-tool-link");
+                const playerLink = document.getElementById("player-tool-link");
 
-            document.getElementById("player-tool-link").href =
-                `/tool/team.html?team=${encodeURIComponent(team)}`;
-            document.getElementById("player-tool-link").textContent =
-                `Open ${team} in PlayMaker`;
+                function getPlayMakerTarget(team) {
+                    return `/tool/?team=${encodeURIComponent(team)}`;
+                }
+
+                function getPricingRedirectUrl(team) {
+                    const target = getPlayMakerTarget(team);
+                    return `/pricing.html?redirect=${encodeURIComponent(target)}`;
+                }
+
+                function lockLinks(team) {
+                    [ctaLink, playerLink].forEach(link => {
+                        if (!link) return;
+                        link.href = getPricingRedirectUrl(team);
+                        link.textContent = "Subscribe to PlayMaker";
+                    });
+                }
+
+                function unlockLinks(team) {
+                    [ctaLink, playerLink].forEach(link => {
+                        if (!link) return;
+                        link.href = getPlayMakerTarget(team);
+                        link.textContent = "Open PlayMaker";
+                    });
+                }
+
+                // IMPORTANT: lock immediately before any async check
+                lockLinks(team);
+
+                try {
+                    const customerId = localStorage.getItem("stripe_customer_id");
+
+                    if (!customerId) {
+                        lockLinks(team);
+                        return;
+                    }
+
+                    const res = await fetch(`/api/me?customerId=${encodeURIComponent(customerId)}`);
+
+                    if (!res.ok) {
+                        lockLinks(team);
+                        return;
+                    }
+
+                    const data = await res.json();
+
+                    if (!data.active) {
+                        lockLinks(team);
+                        return;
+                    }
+
+                    unlockLinks(team);
+
+                } catch (err) {
+                    console.error("Error checking subscription:", err);
+                    lockLinks(team);
+                }
+            })();
         }
 
         async function loadPlayerPage() {

@@ -287,6 +287,12 @@
       e.preventDefault();
 
       try {
+        const params = new URLSearchParams(window.location.search);
+
+        const redirectAfterCheckout =
+          params.get("redirect") || "/tool/";
+
+        localStorage.setItem("pm_redirect_after_checkout", redirectAfterCheckout);
 
         const res = await fetch("/api/create-checkout-session", {
           method: "POST",
@@ -296,9 +302,8 @@
           body: JSON.stringify({
             priceId: "price_1TonWLKtP3Mg50RwCuFC06rh",
 
-            // 🔥 IMPORTANT: enables proper binding later
             successUrl: `${window.location.origin}/tool?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: `${window.location.origin}/pricing.html`
+            cancelUrl: `${window.location.origin}/pricing.html?redirect=${encodeURIComponent(redirectAfterCheckout)}`
           })
         });
 
