@@ -56,7 +56,13 @@
   const currentPath = normalize(window.location.pathname);
 
   function isActive(link) {
-    return currentPath === normalize(link);
+    const normalizedLink = normalize(link);
+
+    if (normalizedLink === "/tool") {
+      return currentPath === "/tool" || currentPath.startsWith("/tool/");
+    }
+
+    return currentPath === normalizedLink;
   }
 
   function renderLinks() {
