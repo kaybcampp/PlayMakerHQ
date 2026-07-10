@@ -85,6 +85,13 @@
   <div id="entity-links"></div>
   <script src="/assets/js/entity-link-engine.js"></script>
 
+  <div class="last-updated-wrap">
+    <div class="last-updated-badge">
+      <span class="last-updated-icon" aria-hidden="true">↻</span>
+      <span id="last-updated">Player data updated weekly</span>
+    </div>
+  </div>
+
   <!-- HERO -->
   <section class="matchups-hero matchups-hub-hero">
 
@@ -978,6 +985,44 @@
         });
       });
     });
+  </script>
+
+  <script>
+    fetch("/assets/data/last-updated.json", {
+      cache: "no-store"
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Timestamp request failed: ${res.status}`);
+        }
+
+        return res.json();
+      })
+      .then(data => {
+        const timestampElement = document.getElementById("last-updated");
+
+        if (!timestampElement || !data.lastUpdated) return;
+
+        const updatedDate = new Date(data.lastUpdated);
+
+        const formattedDate = updatedDate.toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric"
+        });
+
+        const formattedTime = updatedDate.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+          timeZoneName: "short"
+        });
+
+        timestampElement.textContent =
+          `Updated ${formattedDate} at ${formattedTime}`;
+      })
+      .catch(err => {
+        console.warn("Failed to load last-updated timestamp:", err);
+      });
   </script>
 
 </body>
