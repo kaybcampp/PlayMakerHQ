@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PlayMaker Bankroll Tracker | 2026 NFL Picks</title>
+
+  <meta
+    name="description"
+    content="Follow PlayMaker Prime's public 2026 NFL bankroll tracker, including official entries, wins, losses, payouts, ROI, and bankroll movement throughout the season."
+  />
+
+  <link rel="canonical" href="https://playmakerprime.com/bankroll.html" />
+
+  <meta property="og:title" content="PlayMaker Bankroll Tracker" />
+  <meta
+    property="og:description"
+    content="Track every official PlayMaker entry, result, payout, and bankroll movement throughout the 2026 NFL season."
+  />
+  <meta
+    property="og:url"
+    content="https://playmakerprime.com/bankroll.html"
+  />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="/assets/css/bot.css" />
+  <link rel="stylesheet" href="/assets/css/entity-links.css" />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/images/favicon.png"
+  />
+</head>
+
+<body>
+
+  <!-- ENTITY LINKS -->
+  <div id="entity-links"></div>
+  <script src="/assets/js/entity-link-engine.js"></script>
+
+  <header class="pm-header">
+    <div class="pm-header-content">
+      <span class="hq-pill">Public Performance Tracker</span>
+
+      <h1>PlayMaker Bankroll Tracker</h1>
+
+      <p>
+        Follow every official PlayMaker entry throughout the 2026 NFL
+        season. Wins, losses, payouts, and bankroll movement are tracked
+        publicly.
+      </p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO / BANKROLL OVERVIEW -->
+    <section class="hq-section bankroll-hero-section">
+      <div class="section-header">
+        <span class="section-eyebrow">2026 NFL Season</span>
+
+        <h2>The PlayMaker Bankroll Challenge</h2>
+
+        <p>
+          A transparent season-long record of official PlayMaker entries.
+          No deleted losses. No hidden results. Every settled entry affects
+          the bankroll shown below.
+        </p>
+      </div>
+
+      <div
+        id="bankroll-status"
+        class="bankroll-status"
+        aria-live="polite"
+      >
+        Loading bankroll data...
+      </div>
+
+      <div class="bankroll-primary-card">
+        <div class="bankroll-primary-label">
+          Current Bankroll
+        </div>
+
+        <div
+          id="current-bankroll"
+          class="bankroll-primary-value"
+        >
+          $0.00
+        </div>
+
+        <div
+          id="bankroll-change"
+          class="bankroll-primary-change"
+        >
+          $0.00
+        </div>
+
+        <div class="bankroll-progress-wrap">
+          <div class="bankroll-progress-track">
+            <div
+              id="bankroll-progress-bar"
+              class="bankroll-progress-bar"
+              style="width: 0%;"
+            ></div>
+          </div>
+
+          <div class="bankroll-progress-labels">
+            <span>
+              Starting:
+              <strong id="starting-bankroll">$0.00</strong>
+            </span>
+
+            <span>
+              Updated:
+              <strong id="bankroll-updated">—</strong>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERFORMANCE SUMMARY -->
+    <section class="hq-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Season Performance</span>
+
+        <h2>Bankroll Summary</h2>
+
+        <p>
+          Results are calculated from settled official entries only.
+          Pending wagers are displayed separately.
+        </p>
+      </div>
+
+      <div class="bankroll-stats-grid">
+
+        <article class="bankroll-stat-card">
+          <span class="bankroll-stat-label">
+            Net Profit
+          </span>
+
+          <strong
+            id="net-profit"
+            class="bankroll-stat-value"
+          >
+            $0.00
+          </strong>
+        </article>
+
+        <article class="bankroll-stat-card">
+          <span class="bankroll-stat-label">
+            Return on Investment
+          </span>
+
+          <strong
+            id="bankroll-roi"
+            class="bankroll-stat-value"
+          >
+            0.0%
+          </strong>
+        </article>
+
+        <article class="bankroll-stat-card">
+          <span class="bankroll-stat-label">
+            Entry Record
+          </span>
+
+          <strong
+            id="entry-record"
+            class="bankroll-stat-value"
+          >
+            0-0
+          </strong>
+        </article>
+
+        <article class="bankroll-stat-card">
+          <span class="bankroll-stat-label">
+            Win Rate
+          </span>
+
+          <strong
+            id="win-rate"
+            class="bankroll-stat-value"
+          >
+            0.0%
+          </strong>
+        </article>
+
+        <article class="bankroll-stat-card">
+          <span class="bankroll-stat-label">
+            Total Wagered
+          </span>
+
+          <strong
+            id="total-wagered"
+            class="bankroll-stat-value"
+          >
+            $0.00
+          </strong>
+        </article>
+
+        <article class="bankroll-stat-card">
+          <span class="bankroll-stat-label">
+            Pending Entries
+          </span>
+
+          <strong
+            id="pending-count"
+            class="bankroll-stat-value"
+          >
+            0
+          </strong>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- BANKROLL HISTORY -->
+    <section class="hq-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Season Movement</span>
+
+        <h2>Bankroll History</h2>
+
+        <p>
+          The chart updates after each entry is officially settled.
+        </p>
+      </div>
+
+      <div class="bankroll-chart-card">
+        <div
+          id="chart-empty-state"
+          class="empty-state"
+          hidden
+        >
+          Bankroll history will appear after the first settled entry.
+        </div>
+
+        <div class="bankroll-chart-wrap">
+          <canvas
+            id="bankroll-chart"
+            width="1200"
+            height="420"
+            aria-label="PlayMaker bankroll history chart"
+          ></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- PENDING ENTRIES -->
+    <section class="hq-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Currently Active</span>
+
+        <h2>Pending Entries</h2>
+
+        <p>
+          Entries shown here have been submitted but have not yet been
+          fully graded.
+        </p>
+      </div>
+
+      <div
+        id="pending-entries"
+        class="bankroll-entry-grid"
+      >
+        <div class="empty-state">
+          Loading pending entries...
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT RESULTS -->
+    <section class="hq-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Latest Settlements</span>
+
+        <h2>Recent Results</h2>
+
+        <p>
+          The most recently completed official PlayMaker entries.
+        </p>
+      </div>
+
+      <div
+        id="recent-results"
+        class="bankroll-entry-grid"
+      >
+        <div class="empty-state">
+          Loading recent results...
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPLETE HISTORY -->
+    <section class="hq-section">
+      <div class="section-header">
+        <span class="section-eyebrow">Full Transparency</span>
+
+        <h2>Complete Entry History</h2>
+
+        <p>
+          Browse every tracked entry from the current NFL season.
+        </p>
+      </div>
+
+      <div class="bankroll-table-wrap">
+        <table class="bankroll-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Entry</th>
+              <th>Platform</th>
+              <th>Wager</th>
+              <th>Payout</th>
+              <th>Profit/Loss</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody id="entry-history-body">
+            <tr>
+              <td colspan="7">
+                Loading entry history...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section class="hq-section">
+      <div class="section-header">
+        <span class="section-eyebrow">How It Works</span>
+
+        <h2>Bankroll Tracker Rules</h2>
+      </div>
+
+      <div class="methodology-grid">
+
+        <article class="methodology-card">
+          <h3>Official Entries Only</h3>
+
+          <p>
+            Only entries officially submitted by PlayMaker are added to
+            the tracker. Visitors cannot submit or modify picks.
+          </p>
+        </article>
+
+        <article class="methodology-card">
+          <h3>Every Result Counts</h3>
+
+          <p>
+            Winning and losing entries remain permanently visible. Results
+            are not removed based on performance.
+          </p>
+        </article>
+
+        <article class="methodology-card">
+          <h3>Bankroll Calculation</h3>
+
+          <p>
+            Winning entries add the net profit to the bankroll. Losing
+            entries subtract the full wager amount. Voided entries produce
+            no profit or loss.
+          </p>
+        </article>
+
+        <article class="methodology-card">
+          <h3>Pending Entries</h3>
+
+          <p>
+            Pending wagers do not affect settled profit and loss until the
+            entry receives an official final result.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="hq-section bankroll-cta-section">
+      <div class="bankroll-cta-card">
+        <span class="section-eyebrow">
+          Build Smarter Entries
+        </span>
+
+        <h2>See the research behind the picks.</h2>
+
+        <p>
+          Explore player trends, defensive matchups, weather, injuries,
+          and historical performance inside PlayMaker.
+        </p>
+
+        <div class="bankroll-cta-actions">
+          <a
+            href="/tool/"
+            class="primary-cta"
+          >
+            Open PlayMaker
+          </a>
+
+          <a
+            href="/results.html"
+            class="secondary-cta"
+          >
+            View PlayMaker Results
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const BANKROLL_ENDPOINT = "/api/bankroll";
+
+    const elements = {
+      status: document.getElementById("bankroll-status"),
+      startingBankroll: document.getElementById("starting-bankroll"),
+      currentBankroll: document.getElementById("current-bankroll"),
+      bankrollChange: document.getElementById("bankroll-change"),
+      progressBar: document.getElementById("bankroll-progress-bar"),
+      updated: document.getElementById("bankroll-updated"),
+      netProfit: document.getElementById("net-profit"),
+      roi: document.getElementById("bankroll-roi"),
+      record: document.getElementById("entry-record"),
+      winRate: document.getElementById("win-rate"),
+      totalWagered: document.getElementById("total-wagered"),
+      pendingCount: document.getElementById("pending-count"),
+      pendingEntries: document.getElementById("pending-entries"),
+      recentResults: document.getElementById("recent-results"),
+      historyBody: document.getElementById("entry-history-body"),
+      chart: document.getElementById("bankroll-chart"),
+      chartEmptyState: document.getElementById("chart-empty-state")
+    };
+
+    let currentBankrollData = null;
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function toNumber(value, fallback = 0) {
+      const number = Number(value);
+
+      return Number.isFinite(number)
+        ? number
+        : fallback;
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+      }).format(toNumber(value));
+    }
+
+    function formatPercent(value) {
+      const number = toNumber(value);
+
+      return `${number >= 0 ? "+" : ""}${number.toFixed(1)}%`;
+    }
+
+    function formatDate(value, includeTime = false) {
+      if (!value) {
+        return "—";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return escapeHtml(value);
+      }
+
+      const options = includeTime
+        ? {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "2-digit"
+          }
+        : {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+          };
+
+      return date.toLocaleString("en-US", options);
+    }
+
+    function normalizeStatus(status) {
+      const normalized = String(status || "pending")
+        .trim()
+        .toLowerCase();
+
+      if (
+        normalized === "won" ||
+        normalized === "win"
+      ) {
+        return "won";
+      }
+
+      if (
+        normalized === "lost" ||
+        normalized === "loss"
+      ) {
+        return "lost";
+      }
+
+      if (
+        normalized === "void" ||
+        normalized === "voided" ||
+        normalized === "push" ||
+        normalized === "refunded"
+      ) {
+        return "void";
+      }
+
+      return "pending";
+    }
+
+    function getStatusLabel(status) {
+      const normalized = normalizeStatus(status);
+
+      if (normalized === "won") {
+        return "Won";
+      }
+
+      if (normalized === "lost") {
+        return "Lost";
+      }
+
+      if (normalized === "void") {
+        return "Void";
+      }
+
+      return "Pending";
+    }
+
+    function getStatusClass(status) {
+      return `status-${normalizeStatus(status)}`;
+    }
+
+    function getEntryTitle(entry) {
+      if (entry.title) {
+        return entry.title;
+      }
+
+      if (entry.entryType) {
+        return String(entry.entryType)
+          .replaceAll("-", " ")
+          .replace(/\b\w/g, letter => letter.toUpperCase());
+      }
+
+      const picks = Array.isArray(entry.picks)
+        ? entry.picks.length
+        : 0;
+
+      return picks
+        ? `${picks}-Pick Entry`
+        : "PlayMaker Entry";
+    }
+
+    function getPickDirection(pick) {
+      const direction = String(
+        pick.direction ||
+        pick.side ||
+        ""
+      ).toLowerCase();
+
+      if (
+        direction === "over" ||
+        direction === "higher" ||
+        direction === "more"
+      ) {
+        return "Higher";
+      }
+
+      if (
+        direction === "under" ||
+        direction === "lower" ||
+        direction === "less"
+      ) {
+        return "Lower";
+      }
+
+      return direction
+        ? direction.charAt(0).toUpperCase() + direction.slice(1)
+        : "";
+    }
+
+    function getPickResultLabel(result) {
+      const normalized = normalizeStatus(result);
+
+      if (normalized === "won") {
+        return "Hit";
+      }
+
+      if (normalized === "lost") {
+        return "Miss";
+      }
+
+      if (normalized === "void") {
+        return "Void";
+      }
+
+      return "Pending";
+    }
+
+    function calculateSummary(data) {
+      const startingBankroll = toNumber(
+        data.startingBankroll,
+        0
+      );
+
+      const entries = Array.isArray(data.slips)
+        ? data.slips
+        : Array.isArray(data.entries)
+          ? data.entries
+          : [];
+
+      let wins = 0;
+      let losses = 0;
+      let voids = 0;
+      let pending = 0;
+      let totalWagered = 0;
+      let settledProfitLoss = 0;
+
+      entries.forEach(entry => {
+        const status = normalizeStatus(entry.status);
+        const wager = toNumber(entry.wager);
+        const profitLoss = toNumber(
+          entry.profitLoss,
+          status === "won"
+            ? toNumber(entry.actualPayout) - wager
+            : status === "lost"
+              ? -wager
+              : 0
+        );
+
+        if (status === "pending") {
+          pending += 1;
+          return;
+        }
+
+        if (status === "won") {
+          wins += 1;
+        }
+
+        if (status === "lost") {
+          losses += 1;
+        }
+
+        if (status === "void") {
+          voids += 1;
+        }
+
+        if (
+          status === "won" ||
+          status === "lost"
+        ) {
+          totalWagered += wager;
+          settledProfitLoss += profitLoss;
+        }
+      });
+
+      const currentBankroll = Number.isFinite(
+        Number(data.currentBankroll)
+      )
+        ? Number(data.currentBankroll)
+        : startingBankroll + settledProfitLoss;
+
+      const settledEntries = wins + losses;
+
+      const winRate = settledEntries > 0
+        ? (wins / settledEntries) * 100
+        : 0;
+
+      const roi = totalWagered > 0
+        ? (settledProfitLoss / totalWagered) * 100
+        : 0;
+
+      return {
+        entries,
+        startingBankroll,
+        currentBankroll,
+        netProfit: currentBankroll - startingBankroll,
+        wins,
+        losses,
+        voids,
+        pending,
+        totalWagered,
+        winRate,
+        roi
+      };
+    }
+
+    function renderSummary(data) {
+      const summary = calculateSummary(data);
+
+      elements.startingBankroll.textContent =
+        formatCurrency(summary.startingBankroll);
+
+      elements.currentBankroll.textContent =
+        formatCurrency(summary.currentBankroll);
+
+      elements.netProfit.textContent =
+        formatCurrency(summary.netProfit);
+
+      elements.roi.textContent =
+        formatPercent(summary.roi);
+
+      elements.record.textContent =
+        `${summary.wins}-${summary.losses}`;
+
+      elements.winRate.textContent =
+        `${summary.winRate.toFixed(1)}%`;
+
+      elements.totalWagered.textContent =
+        formatCurrency(summary.totalWagered);
+
+      elements.pendingCount.textContent =
+        String(summary.pending);
+
+      elements.updated.textContent =
+        formatDate(
+          data.updatedAt ||
+          data.generatedAt,
+          true
+        );
+
+      const changePrefix = summary.netProfit > 0
+        ? "+"
+        : "";
+
+      elements.bankrollChange.textContent =
+        `${changePrefix}${formatCurrency(summary.netProfit)} from start`;
+
+      elements.bankrollChange.classList.remove(
+        "positive",
+        "negative",
+        "neutral"
+      );
+
+      elements.netProfit.classList.remove(
+        "positive",
+        "negative",
+        "neutral"
+      );
+
+      elements.roi.classList.remove(
+        "positive",
+        "negative",
+        "neutral"
+      );
+
+      const performanceClass = summary.netProfit > 0
+        ? "positive"
+        : summary.netProfit < 0
+          ? "negative"
+          : "neutral";
+
+      elements.bankrollChange.classList.add(
+        performanceClass
+      );
+
+      elements.netProfit.classList.add(
+        performanceClass
+      );
+
+      elements.roi.classList.add(
+        performanceClass
+      );
+
+      const progressPercent = summary.startingBankroll > 0
+        ? Math.max(
+            0,
+            Math.min(
+              100,
+              (
+                summary.currentBankroll /
+                (summary.startingBankroll * 2)
+              ) * 100
+            )
+          )
+        : 0;
+
+      elements.progressBar.style.width =
+        `${progressPercent}%`;
+
+      return summary;
+    }
+
+    function renderPick(pick) {
+      const player = escapeHtml(
+        pick.player ||
+        "Unknown Player"
+      );
+
+      const team = escapeHtml(
+        pick.team ||
+        ""
+      );
+
+      const opponent = escapeHtml(
+        pick.opponent ||
+        ""
+      );
+
+      const propType = escapeHtml(
+        pick.propType ||
+        pick.market ||
+        "Player Prop"
+      );
+
+      const direction = escapeHtml(
+        getPickDirection(pick)
+      );
+
+      const line = pick.line !== undefined
+        ? escapeHtml(pick.line)
+        : "—";
+
+      const actual = pick.actual !== undefined &&
+        pick.actual !== null
+        ? escapeHtml(pick.actual)
+        : "—";
+
+      const result = normalizeStatus(
+        pick.result
+      );
+
+      const matchup = team && opponent
+        ? `${team} vs ${opponent}`
+        : team || opponent || "";
+
+      return `
+        <div class="bankroll-pick-row">
+          <div class="bankroll-pick-main">
+            <strong>${player}</strong>
+
+            ${
+              matchup
+                ? `<span>${matchup}</span>`
+                : ""
+            }
+          </div>
+
+          <div class="bankroll-pick-market">
+            <span>
+              ${direction}
+              ${line}
+              ${propType}
+            </span>
+
+            ${
+              actual !== "—"
+                ? `<small>Actual: ${actual}</small>`
+                : ""
+            }
+          </div>
+
+          <span class="pick-result-badge ${getStatusClass(result)}">
+            ${getPickResultLabel(result)}
+          </span>
+        </div>
+      `;
+    }
+
+    function renderEntryCard(entry) {
+      const status = normalizeStatus(
+        entry.status
+      );
+
+      const picks = Array.isArray(entry.picks)
+        ? entry.picks
+        : [];
+
+      const wager = toNumber(entry.wager);
+      const payout = toNumber(
+        entry.actualPayout,
+        0
+      );
+
+      const profitLoss = toNumber(
+        entry.profitLoss,
+        status === "won"
+          ? payout - wager
+          : status === "lost"
+            ? -wager
+            : 0
+      );
+
+      const profitClass = profitLoss > 0
+        ? "positive"
+        : profitLoss < 0
+          ? "negative"
+          : "neutral";
+
+      const profitPrefix = profitLoss > 0
+        ? "+"
+        : "";
+
+      return `
+        <article class="bankroll-entry-card">
+          <div class="bankroll-entry-header">
+            <div>
+              <span class="bankroll-entry-date">
+                ${formatDate(
+                  entry.submittedAt ||
+                  entry.createdAt ||
+                  entry.date
+                )}
+              </span>
+
+              <h3>
+                ${escapeHtml(getEntryTitle(entry))}
+              </h3>
+
+              <p>
+                ${escapeHtml(
+                  entry.platform ||
+                  "Official PlayMaker Entry"
+                )}
+              </p>
+            </div>
+
+            <span class="entry-status-badge ${getStatusClass(status)}">
+              ${getStatusLabel(status)}
+            </span>
+          </div>
+
+          <div class="bankroll-pick-list">
+            ${
+              picks.length
+                ? picks.map(renderPick).join("")
+                : `
+                  <div class="empty-state compact">
+                    Entry picks are not available.
+                  </div>
+                `
+            }
+          </div>
+
+          <div class="bankroll-entry-footer">
+            <div>
+              <span>Wager</span>
+              <strong>${formatCurrency(wager)}</strong>
+            </div>
+
+            <div>
+              <span>
+                ${
+                  status === "pending"
+                    ? "Potential Payout"
+                    : "Payout"
+                }
+              </span>
+
+              <strong>
+                ${
+                  status === "pending"
+                    ? formatCurrency(
+                        entry.potentialPayout
+                      )
+                    : formatCurrency(payout)
+                }
+              </strong>
+            </div>
+
+            <div>
+              <span>Profit/Loss</span>
+
+              <strong class="${profitClass}">
+                ${
+                  status === "pending"
+                    ? "Pending"
+                    : `${profitPrefix}${formatCurrency(profitLoss)}`
+                }
+              </strong>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderEntrySections(entries) {
+      const sortedEntries = [...entries].sort(
+        (a, b) => {
+          const aDate = new Date(
+            a.submittedAt ||
+            a.createdAt ||
+            a.date ||
+            0
+          ).getTime();
+
+          const bDate = new Date(
+            b.submittedAt ||
+            b.createdAt ||
+            b.date ||
+            0
+          ).getTime();
+
+          return bDate - aDate;
+        }
+      );
+
+      const pendingEntries = sortedEntries.filter(
+        entry => normalizeStatus(entry.status) === "pending"
+      );
+
+      const settledEntries = sortedEntries.filter(
+        entry => normalizeStatus(entry.status) !== "pending"
+      );
+
+      elements.pendingEntries.innerHTML =
+        pendingEntries.length
+          ? pendingEntries
+              .map(renderEntryCard)
+              .join("")
+          : `
+            <div class="empty-state">
+              There are currently no pending PlayMaker entries.
+            </div>
+          `;
+
+      elements.recentResults.innerHTML =
+        settledEntries.length
+          ? settledEntries
+              .slice(0, 6)
+              .map(renderEntryCard)
+              .join("")
+          : `
+            <div class="empty-state">
+              Settled entries will appear here once the season begins.
+            </div>
+          `;
+
+      renderHistoryTable(sortedEntries);
+    }
+
+    function renderHistoryTable(entries) {
+      if (!entries.length) {
+        elements.historyBody.innerHTML = `
+          <tr>
+            <td colspan="7">
+              No official entries have been recorded yet.
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+      elements.historyBody.innerHTML = entries
+        .map(entry => {
+          const status = normalizeStatus(
+            entry.status
+          );
+
+          const wager = toNumber(
+            entry.wager
+          );
+
+          const actualPayout = toNumber(
+            entry.actualPayout
+          );
+
+          const profitLoss = toNumber(
+            entry.profitLoss,
+            status === "won"
+              ? actualPayout - wager
+              : status === "lost"
+                ? -wager
+                : 0
+          );
+
+          const profitClass = profitLoss > 0
+            ? "positive"
+            : profitLoss < 0
+              ? "negative"
+              : "neutral";
+
+          const profitPrefix = profitLoss > 0
+            ? "+"
+            : "";
+
+          return `
+            <tr>
+              <td>
+                ${formatDate(
+                  entry.submittedAt ||
+                  entry.createdAt ||
+                  entry.date
+                )}
+              </td>
+
+              <td>
+                <strong>
+                  ${escapeHtml(getEntryTitle(entry))}
+                </strong>
+
+                <small>
+                  ${
+                    Array.isArray(entry.picks)
+                      ? `${entry.picks.length} pick${
+                          entry.picks.length === 1
+                            ? ""
+                            : "s"
+                        }`
+                      : ""
+                  }
+                </small>
+              </td>
+
+              <td>
+                ${escapeHtml(entry.platform || "—")}
+              </td>
+
+              <td>
+                ${formatCurrency(wager)}
+              </td>
+
+              <td>
+                ${
+                  status === "pending"
+                    ? formatCurrency(
+                        entry.potentialPayout
+                      )
+                    : formatCurrency(actualPayout)
+                }
+              </td>
+
+              <td class="${profitClass}">
+                ${
+                  status === "pending"
+                    ? "Pending"
+                    : `${profitPrefix}${formatCurrency(profitLoss)}`
+                }
+              </td>
+
+              <td>
+                <span class="entry-status-badge ${getStatusClass(status)}">
+                  ${getStatusLabel(status)}
+                </span>
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+    }
+
+    function buildHistory(data, summary) {
+      if (
+        Array.isArray(data.history) &&
+        data.history.length
+      ) {
+        return data.history
+          .map((item, index) => ({
+            label:
+              item.label ||
+              item.date ||
+              `Entry ${index + 1}`,
+            value: toNumber(
+              item.bankroll ??
+              item.value ??
+              item.amount
+            )
+          }))
+          .filter(item =>
+            Number.isFinite(item.value)
+          );
+      }
+
+      const settledEntries = [...summary.entries]
+        .filter(
+          entry =>
+            normalizeStatus(entry.status) !== "pending"
+        )
+        .sort((a, b) => {
+          const aDate = new Date(
+            a.settledAt ||
+            a.updatedAt ||
+            a.submittedAt ||
+            a.date ||
+            0
+          ).getTime();
+
+          const bDate = new Date(
+            b.settledAt ||
+            b.updatedAt ||
+            b.submittedAt ||
+            b.date ||
+            0
+          ).getTime();
+
+          return aDate - bDate;
+        });
+
+      const history = [
+        {
+          label: "Start",
+          value: summary.startingBankroll
+        }
+      ];
+
+      let bankroll = summary.startingBankroll;
+
+      settledEntries.forEach((entry, index) => {
+        const status = normalizeStatus(
+          entry.status
+        );
+
+        const wager = toNumber(
+          entry.wager
+        );
+
+        const payout = toNumber(
+          entry.actualPayout
+        );
+
+        const profitLoss = toNumber(
+          entry.profitLoss,
+          status === "won"
+            ? payout - wager
+            : status === "lost"
+              ? -wager
+              : 0
+        );
+
+        bankroll += profitLoss;
+
+        history.push({
+          label:
+            entry.settledAt ||
+            entry.updatedAt ||
+            entry.submittedAt ||
+            `Entry ${index + 1}`,
+          value: bankroll
+        });
+      });
+
+      return history;
+    }
+
+    function drawBankrollChart(history) {
+      const canvas = elements.chart;
+      const context = canvas.getContext("2d");
+
+      const displayWidth =
+        canvas.parentElement.clientWidth || 1200;
+
+      const displayHeight = Math.max(
+        300,
+        Math.min(420, displayWidth * 0.42)
+      );
+
+      const pixelRatio =
+        window.devicePixelRatio || 1;
+
+      canvas.width =
+        Math.floor(displayWidth * pixelRatio);
+
+      canvas.height =
+        Math.floor(displayHeight * pixelRatio);
+
+      canvas.style.width =
+        `${displayWidth}px`;
+
+      canvas.style.height =
+        `${displayHeight}px`;
+
+      context.setTransform(
+        pixelRatio,
+        0,
+        0,
+        pixelRatio,
+        0,
+        0
+      );
+
+      context.clearRect(
+        0,
+        0,
+        displayWidth,
+        displayHeight
+      );
+
+      if (!history.length) {
+        elements.chartEmptyState.hidden = false;
+        canvas.hidden = true;
+        return;
+      }
+
+      elements.chartEmptyState.hidden = true;
+      canvas.hidden = false;
+
+      const padding = {
+        top: 30,
+        right: 24,
+        bottom: 52,
+        left: 68
+      };
+
+      const chartWidth =
+        displayWidth -
+        padding.left -
+        padding.right;
+
+      const chartHeight =
+        displayHeight -
+        padding.top -
+        padding.bottom;
+
+      const values = history.map(
+        item => toNumber(item.value)
+      );
+
+      let minValue = Math.min(...values);
+      let maxValue = Math.max(...values);
+
+      if (minValue === maxValue) {
+        minValue -= 10;
+        maxValue += 10;
+      }
+
+      const valuePadding =
+        Math.max(
+          5,
+          (maxValue - minValue) * 0.15
+        );
+
+      minValue -= valuePadding;
+      maxValue += valuePadding;
+
+      const xPosition = index => {
+        if (history.length === 1) {
+          return padding.left +
+            chartWidth / 2;
+        }
+
+        return padding.left +
+          (
+            index /
+            (history.length - 1)
+          ) *
+          chartWidth;
+      };
+
+      const yPosition = value => {
+        return padding.top +
+          (
+            1 -
+            (
+              value - minValue
+            ) /
+            (
+              maxValue - minValue
+            )
+          ) *
+          chartHeight;
+      };
+
+      context.font =
+        "12px Arial, sans-serif";
+
+      context.textAlign = "right";
+      context.textBaseline = "middle";
+
+      const gridLines = 5;
+
+      for (
+        let index = 0;
+        index <= gridLines;
+        index += 1
+      ) {
+        const ratio = index / gridLines;
+
+        const value =
+          maxValue -
+          (
+            maxValue - minValue
+          ) *
+          ratio;
+
+        const y =
+          padding.top +
+          chartHeight *
+          ratio;
+
+        context.beginPath();
+        context.moveTo(padding.left, y);
+        context.lineTo(
+          padding.left + chartWidth,
+          y
+        );
+
+        context.strokeStyle =
+          "rgba(255,255,255,0.09)";
+
+        context.lineWidth = 1;
+        context.stroke();
+
+        context.fillStyle =
+          "rgba(255,255,255,0.65)";
+
+        context.fillText(
+          formatCurrency(value),
+          padding.left - 10,
+          y
+        );
+      }
+
+      const gradient =
+        context.createLinearGradient(
+          0,
+          padding.top,
+          0,
+          padding.top + chartHeight
+        );
+
+      gradient.addColorStop(
+        0,
+        "rgba(102,255,153,0.32)"
+      );
+
+      gradient.addColorStop(
+        1,
+        "rgba(102,255,153,0)"
+      );
+
+      context.beginPath();
+
+      history.forEach((item, index) => {
+        const x = xPosition(index);
+        const y = yPosition(item.value);
+
+        if (index === 0) {
+          context.moveTo(x, y);
+        } else {
+          context.lineTo(x, y);
+        }
+      });
+
+      context.lineTo(
+        xPosition(history.length - 1),
+        padding.top + chartHeight
+      );
+
+      context.lineTo(
+        xPosition(0),
+        padding.top + chartHeight
+      );
+
+      context.closePath();
+      context.fillStyle = gradient;
+      context.fill();
+
+      context.beginPath();
+
+      history.forEach((item, index) => {
+        const x = xPosition(index);
+        const y = yPosition(item.value);
+
+        if (index === 0) {
+          context.moveTo(x, y);
+        } else {
+          context.lineTo(x, y);
+        }
+      });
+
+      context.strokeStyle = "#66ff99";
+      context.lineWidth = 3;
+      context.lineJoin = "round";
+      context.lineCap = "round";
+      context.stroke();
+
+      history.forEach((item, index) => {
+        const x = xPosition(index);
+        const y = yPosition(item.value);
+
+        context.beginPath();
+        context.arc(x, y, 5, 0, Math.PI * 2);
+        context.fillStyle = "#66ff99";
+        context.fill();
+
+        context.beginPath();
+        context.arc(x, y, 2.25, 0, Math.PI * 2);
+        context.fillStyle = "#07130d";
+        context.fill();
+      });
+
+      const labelIndexes = new Set([
+        0,
+        history.length - 1
+      ]);
+
+      if (history.length > 2) {
+        labelIndexes.add(
+          Math.floor(
+            (history.length - 1) / 2
+          )
+        );
+      }
+
+      context.fillStyle =
+        "rgba(255,255,255,0.62)";
+
+      context.textAlign = "center";
+      context.textBaseline = "top";
+
+      labelIndexes.forEach(index => {
+        const item = history[index];
+
+        if (!item) {
+          return;
+        }
+
+        const rawLabel = String(
+          item.label || ""
+        );
+
+        const parsedDate =
+          new Date(rawLabel);
+
+        const label =
+          !Number.isNaN(parsedDate.getTime())
+            ? parsedDate.toLocaleDateString(
+                "en-US",
+                {
+                  month: "short",
+                  day: "numeric"
+                }
+              )
+            : rawLabel;
+
+        context.fillText(
+          label,
+          xPosition(index),
+          padding.top +
+            chartHeight +
+            16
+        );
+      });
+    }
+
+    function renderBankroll(data) {
+      currentBankrollData = data;
+
+      const summary = renderSummary(data);
+
+      renderEntrySections(
+        summary.entries
+      );
+
+      const history = buildHistory(
+        data,
+        summary
+      );
+
+      drawBankrollChart(history);
+
+      elements.status.textContent =
+        summary.entries.length
+          ? `${summary.entries.length} official entr${
+              summary.entries.length === 1
+                ? "y"
+                : "ies"
+            } tracked this season.`
+          : "The tracker is ready. Official entries will appear here once submitted.";
+
+      elements.status.classList.remove(
+        "error"
+      );
+    }
+
+    function renderError(message) {
+      elements.status.textContent =
+        message;
+
+      elements.status.classList.add(
+        "error"
+      );
+
+      elements.pendingEntries.innerHTML = `
+        <div class="empty-state">
+          Pending entries are currently unavailable.
+        </div>
+      `;
+
+      elements.recentResults.innerHTML = `
+        <div class="empty-state">
+          Recent results are currently unavailable.
+        </div>
+      `;
+
+      elements.historyBody.innerHTML = `
+        <tr>
+          <td colspan="7">
+            Bankroll history is currently unavailable.
+          </td>
+        </tr>
+      `;
+
+      elements.chartEmptyState.hidden = false;
+      elements.chart.hidden = true;
+    }
+
+    async function loadBankroll() {
+      try {
+        const response = await fetch(
+          BANKROLL_ENDPOINT,
+          {
+            headers: {
+              Accept: "application/json"
+            },
+            cache: "no-store"
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Bankroll request failed with status ${response.status}.`
+          );
+        }
+
+        const data = await response.json();
+
+        if (
+          !data ||
+          typeof data !== "object"
+        ) {
+          throw new Error(
+            "The bankroll response was invalid."
+          );
+        }
+
+        renderBankroll(data);
+      } catch (error) {
+        console.error(
+          "Failed to load bankroll:",
+          error
+        );
+
+        renderError(
+          "Bankroll data is currently unavailable. Please check back shortly."
+        );
+      }
+    }
+
+    let resizeTimer = null;
+
+    window.addEventListener(
+      "resize",
+      () => {
+        clearTimeout(resizeTimer);
+
+        resizeTimer = setTimeout(
+          () => {
+            if (!currentBankrollData) {
+              return;
+            }
+
+            const summary =
+              calculateSummary(
+                currentBankrollData
+              );
+
+            const history =
+              buildHistory(
+                currentBankrollData,
+                summary
+              );
+
+            drawBankrollChart(history);
+          },
+          150
+        );
+      }
+    );
+
+    loadBankroll();
+  </script>
+
+</body>
+
+</html>

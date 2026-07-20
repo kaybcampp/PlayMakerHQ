@@ -1,172 +1,967 @@
-/* ==============================
-   PLAYMAKER PICKS TRACKER PAGE
-============================== */
+/* =========================================
+   PLAYMAKER BANKROLL TRACKER
+   Used by: /bankroll.html
+========================================= */
+
+:root {
+    --pm-bg: #0b0f1a;
+    --pm-bg-soft: #101726;
+    --pm-card: rgba(19, 26, 42, 0.9);
+    --pm-card-soft: rgba(255, 255, 255, 0.035);
+    --pm-card-dark: rgba(0, 0, 0, 0.18);
+
+    --pm-green: #66ff99;
+    --pm-green-soft: rgba(102, 255, 153, 0.12);
+    --pm-green-border: rgba(102, 255, 153, 0.25);
+
+    --pm-red: #ff6b6b;
+    --pm-red-soft: rgba(255, 107, 107, 0.12);
+
+    --pm-yellow: #ffd36a;
+    --pm-yellow-soft: rgba(255, 211, 106, 0.12);
+
+    --pm-text: #e6f6ee;
+    --pm-text-soft: #a3aabf;
+    --pm-text-muted: rgba(230, 246, 238, 0.62);
+
+    --pm-border: rgba(255, 255, 255, 0.09);
+    --pm-border-strong: rgba(255, 255, 255, 0.14);
+
+    --pm-radius-sm: 12px;
+    --pm-radius-md: 18px;
+    --pm-radius-lg: 24px;
+
+    --pm-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.28);
+
+    --pm-green-shadow:
+        0 0 28px rgba(102, 255, 153, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: #0B0F1A;
-    color: #E6F6EE;
-    line-height: 1.5;
+    min-height: 100vh;
+    font-family: "Poppins", Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(102, 255, 153, 0.08),
+            transparent 34%
+        ),
+        linear-gradient(
+            180deg,
+            #0b0f1a 0%,
+            #0a0e17 100%
+        );
+    color: var(--pm-text);
+    line-height: 1.6;
 }
 
+img,
+canvas {
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
 .pm-header {
-    background-color: #131A2A;
-    padding: 1rem 2rem;
+    position: relative;
+    overflow: hidden;
+    padding: 88px 24px 72px;
     text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    border-bottom: 1px solid var(--pm-border);
+    background:
+        linear-gradient(
+            180deg,
+            rgba(19, 26, 42, 0.96),
+            rgba(11, 15, 26, 0.94)
+        );
+}
+
+.pm-header::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    top: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: rgba(102, 255, 153, 0.14);
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.pm-header-content {
+    position: relative;
+    z-index: 1;
+    width: min(860px, 100%);
+    margin: 0 auto;
 }
 
 .pm-header h1 {
-    color: #66FF99;
-    font-size: 1.6rem;
-    font-weight: 800;
-    text-shadow: 0 0 12px rgba(102,255,153,0.4);
-    margin: 0;
+    margin: 14px 0 16px;
+    color: var(--pm-green);
+    font-size: clamp(2.15rem, 6vw, 4.2rem);
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    text-shadow:
+        0 0 24px rgba(102, 255, 153, 0.18);
 }
+
+.pm-header p {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--pm-text-soft);
+    font-size: clamp(0.98rem, 2vw, 1.08rem);
+}
+
+.hq-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border: 1px solid var(--pm-green-border);
+    border-radius: 999px;
+    background: var(--pm-green-soft);
+    color: var(--pm-green);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* =========================================
+   MAIN PAGE LAYOUT
+========================================= */
 
 main {
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 56px 0 90px;
 }
 
-section.hq-section {
-    margin-bottom: 3rem;
+.hq-section {
+    margin-bottom: 72px;
+}
+
+.section-header {
+    max-width: 790px;
+    margin-bottom: 28px;
+}
+
+.section-header h2 {
+    margin: 8px 0 10px;
+    color: var(--pm-text);
+    font-size: clamp(1.65rem, 4vw, 2.45rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
 }
 
 .section-header h3 {
-    color: #66FF99;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+    margin: 8px 0 10px;
+    color: var(--pm-text);
 }
 
 .section-header p {
-    color: #A3AABF;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-}
-
-/* FORM STYLING */
-
-#pick-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    background: rgba(19,26,42,0.92);
-    padding: 1.6rem;
-    border-radius: 16px;
-    border: 1px solid rgba(102,255,153,0.25);
-    box-shadow: 0 0 24px rgba(102,255,153,0.12);
-}
-
-#pick-form input,
-#pick-form select {
-    padding: 1rem 1.1rem;
-    border-radius: 12px;
-    border: 1px solid rgba(102,255,153,0.35);
-    background: #0B0F1A;
-    color: #E6F6EE;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: 0 0 14px rgba(102,255,153,0.12);
-}
-
-#pick-form input:focus,
-#pick-form select:focus {
-    border-color: #66FF99;
-    box-shadow: 0 0 20px rgba(102,255,153,0.35);
-}
-
-#pick-form button {
-    padding: 1rem 1.6rem;
-    border-radius: 12px;
-    border: none;
-    background: #66FF99;
-    color: #0B0F1A;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 0 18px rgba(102,255,153,0.45);
-    transition: all 0.25s ease;
-}
-
-#pick-form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 28px rgba(102,255,153,0.65);
-}
-
-/* RESULTS */
-
-#pick-results {
-    margin-top: 2rem;
-    background: rgba(19,26,42,0.85);
-    padding: 1.6rem;
-    border-radius: 16px;
-    border: 1px solid rgba(102,255,153,0.25);
-    box-shadow: 0 0 18px rgba(102,255,153,0.12);
-}
-
-#pick-results h4 {
-    margin-top: 0;
-    color: #66FF99;
-    font-size: 1.35rem;
-}
-
-#pick-results p {
-    margin: 0.3rem 0;
-    color: #A3AABF;
-    font-size: 0.95rem;
-}
-
-/* PICK ROW FORMAT FOR MULTIPLE PICKS */
-
-.pick-row {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background: rgba(0,0,0,0.18);
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 12px;
-}
-
-.pick-row h4 {
-    font-size: 1.1rem;
-    color: #66FF99;
-}
-
-.pick-row p {
     margin: 0;
+    color: var(--pm-text-soft);
+    font-size: 0.98rem;
 }
 
-.pick-row .outcome-won {
-    color: #66FF99;
+.section-eyebrow {
+    display: inline-block;
+    color: var(--pm-green);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* =========================================
+   LOADING / STATUS
+========================================= */
+
+.bankroll-status {
+    margin-bottom: 18px;
+    padding: 13px 16px;
+    border: 1px solid var(--pm-border);
+    border-radius: var(--pm-radius-sm);
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--pm-text-soft);
+    font-size: 0.9rem;
+}
+
+.bankroll-status.error {
+    color: #ff9e9e;
+    border-color: rgba(255, 107, 107, 0.24);
+    background: var(--pm-red-soft);
+}
+
+/* =========================================
+   PRIMARY BANKROLL CARD
+========================================= */
+
+.bankroll-primary-card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(28px, 5vw, 48px);
+    border: 1px solid var(--pm-green-border);
+    border-radius: var(--pm-radius-lg);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(102, 255, 153, 0.11),
+            rgba(19, 26, 42, 0.94) 42%,
+            rgba(11, 15, 26, 0.96)
+        );
+    box-shadow:
+        var(--pm-shadow),
+        var(--pm-green-shadow);
+}
+
+.bankroll-primary-card::after {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    right: -90px;
+    bottom: -130px;
+    border-radius: 50%;
+    background: rgba(102, 255, 153, 0.12);
+    filter: blur(34px);
+    pointer-events: none;
+}
+
+.bankroll-primary-label {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 8px;
+    color: var(--pm-text-soft);
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.bankroll-primary-value {
+    position: relative;
+    z-index: 1;
+    color: var(--pm-green);
+    font-size: clamp(3rem, 9vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.055em;
+    text-shadow:
+        0 0 24px rgba(102, 255, 153, 0.18);
+}
+
+.bankroll-primary-change {
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+.bankroll-progress-wrap {
+    position: relative;
+    z-index: 1;
+    margin-top: 32px;
+}
+
+.bankroll-progress-track {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.bankroll-progress-bar {
+    height: 100%;
+    min-width: 0;
+    border-radius: inherit;
+    background:
+        linear-gradient(
+            90deg,
+            #48e57d,
+            #66ff99
+        );
+    box-shadow:
+        0 0 16px rgba(102, 255, 153, 0.42);
+    transition: width 0.45s ease;
+}
+
+.bankroll-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 12px;
+    color: var(--pm-text-soft);
+    font-size: 0.82rem;
+}
+
+.bankroll-progress-labels strong {
+    color: var(--pm-text);
+}
+
+/* =========================================
+   BANKROLL SUMMARY STATS
+========================================= */
+
+.bankroll-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.bankroll-stat-card {
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--pm-border);
+    border-radius: var(--pm-radius-md);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(19, 26, 42, 0.84)
+        );
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.bankroll-stat-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(102, 255, 153, 0.22);
+}
+
+.bankroll-stat-label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--pm-text-soft);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.bankroll-stat-value {
+    display: block;
+    color: var(--pm-text);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    line-height: 1.1;
+}
+
+/* =========================================
+   PERFORMANCE COLORS
+========================================= */
+
+.positive {
+    color: var(--pm-green) !important;
+}
+
+.negative {
+    color: var(--pm-red) !important;
+}
+
+.neutral {
+    color: var(--pm-text) !important;
+}
+
+/* =========================================
+   BANKROLL CHART
+========================================= */
+
+.bankroll-chart-card {
+    padding: 22px;
+    border: 1px solid var(--pm-border);
+    border-radius: var(--pm-radius-lg);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.035),
+            rgba(19, 26, 42, 0.85)
+        );
+    box-shadow: var(--pm-shadow);
+}
+
+.bankroll-chart-wrap {
+    width: 100%;
+    overflow: hidden;
+}
+
+#bankroll-chart {
+    display: block;
+    width: 100%;
+    min-height: 300px;
+}
+
+/* =========================================
+   ENTRY CARDS
+========================================= */
+
+.bankroll-entry-grid {
+    display: grid;
+    gap: 22px;
+}
+
+.bankroll-entry-card {
+    padding: 26px;
+    border: 1px solid var(--pm-border);
+    border-radius: var(--pm-radius-lg);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.04),
+            rgba(19, 26, 42, 0.88)
+        );
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.21);
+}
+
+.bankroll-entry-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 22px;
+    margin-bottom: 20px;
+}
+
+.bankroll-entry-date {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--pm-text-muted);
+    font-size: 0.76rem;
     font-weight: 700;
 }
 
-.pick-row .outcome-lost {
-    color: #ff6b6b;
+.bankroll-entry-header h3 {
+    margin: 0 0 5px;
+    color: var(--pm-text);
+    font-size: 1.25rem;
+}
+
+.bankroll-entry-header p {
+    margin: 0;
+    color: var(--pm-text-soft);
+    font-size: 0.86rem;
+}
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+
+.entry-status-badge,
+.pick-result-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    flex-shrink: 0;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.entry-status-badge {
+    padding: 9px 12px;
+}
+
+.pick-result-badge {
+    padding: 7px 10px;
+}
+
+.status-won {
+    color: #86ffae;
+    border: 1px solid rgba(102, 255, 153, 0.22);
+    background: var(--pm-green-soft);
+}
+
+.status-lost {
+    color: #ff9696;
+    border: 1px solid rgba(255, 107, 107, 0.22);
+    background: var(--pm-red-soft);
+}
+
+.status-pending {
+    color: var(--pm-yellow);
+    border: 1px solid rgba(255, 211, 106, 0.22);
+    background: var(--pm-yellow-soft);
+}
+
+.status-void {
+    color: #d2d7e2;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.065);
+}
+
+/* =========================================
+   PICKS INSIDE ENTRIES
+========================================= */
+
+.bankroll-pick-list {
+    display: grid;
+    gap: 10px;
+}
+
+.bankroll-pick-row {
+    display: grid;
+    grid-template-columns: minmax(160px, 1fr) minmax(220px, 1.2fr) auto;
+    gap: 18px;
+    align-items: center;
+    padding: 15px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-radius: 14px;
+    background: var(--pm-card-dark);
+}
+
+.bankroll-pick-main strong {
+    display: block;
+    color: var(--pm-text);
+    font-size: 0.96rem;
+}
+
+.bankroll-pick-main span {
+    display: block;
+    margin-top: 3px;
+    color: var(--pm-text-muted);
+    font-size: 0.77rem;
+}
+
+.bankroll-pick-market span {
+    display: block;
+    color: var(--pm-text-soft);
+    font-size: 0.88rem;
     font-weight: 700;
 }
 
-.pick-row .outcome-pending {
-    color: #A3AABF;
-    font-weight: 700;
+.bankroll-pick-market small {
+    display: block;
+    margin-top: 3px;
+    color: var(--pm-text-muted);
+    font-size: 0.75rem;
 }
 
-/* RESPONSIVE */
+/* =========================================
+   ENTRY FINANCIAL FOOTER
+========================================= */
 
-@media (max-width: 600px) {
+.bankroll-entry-footer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--pm-border);
+}
+
+.bankroll-entry-footer > div {
+    padding: 14px;
+    border-radius: 13px;
+    background: rgba(0, 0, 0, 0.14);
+}
+
+.bankroll-entry-footer span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--pm-text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.bankroll-entry-footer strong {
+    color: var(--pm-text);
+    font-size: 1rem;
+}
+
+/* =========================================
+   EMPTY STATES
+========================================= */
+
+.empty-state {
+    padding: 30px;
+    border: 1px dashed var(--pm-border-strong);
+    border-radius: var(--pm-radius-md);
+    background: rgba(255, 255, 255, 0.025);
+    color: var(--pm-text-soft);
+    text-align: center;
+}
+
+.empty-state.compact {
+    padding: 18px;
+    font-size: 0.88rem;
+}
+
+/* =========================================
+   ENTRY HISTORY TABLE
+========================================= */
+
+.bankroll-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--pm-border);
+    border-radius: var(--pm-radius-lg);
+    background: rgba(19, 26, 42, 0.76);
+    box-shadow: var(--pm-shadow);
+}
+
+.bankroll-table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
+.bankroll-table th,
+.bankroll-table td {
+    padding: 17px 18px;
+    border-bottom: 1px solid var(--pm-border);
+    text-align: left;
+    vertical-align: middle;
+}
+
+.bankroll-table th {
+    color: var(--pm-text-soft);
+    background: rgba(255, 255, 255, 0.025);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.bankroll-table td {
+    color: var(--pm-text-soft);
+    font-size: 0.88rem;
+}
+
+.bankroll-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.bankroll-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.bankroll-table td strong {
+    display: block;
+    color: var(--pm-text);
+}
+
+.bankroll-table td small {
+    display: block;
+    margin-top: 3px;
+    color: var(--pm-text-muted);
+}
+
+/* =========================================
+   METHODOLOGY
+========================================= */
+
+.methodology-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.methodology-card {
+    padding: 24px;
+    border: 1px solid var(--pm-border);
+    border-radius: var(--pm-radius-md);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.035),
+            rgba(19, 26, 42, 0.8)
+        );
+}
+
+.methodology-card h3 {
+    margin: 0 0 9px;
+    color: var(--pm-green);
+    font-size: 1.05rem;
+}
+
+.methodology-card p {
+    margin: 0;
+    color: var(--pm-text-soft);
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   CTA
+========================================= */
+
+.bankroll-cta-card {
+    padding: clamp(30px, 6vw, 54px);
+    border: 1px solid var(--pm-green-border);
+    border-radius: var(--pm-radius-lg);
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(102, 255, 153, 0.12),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(19, 26, 42, 0.96),
+            rgba(11, 15, 26, 0.98)
+        );
+    text-align: center;
+    box-shadow:
+        var(--pm-shadow),
+        var(--pm-green-shadow);
+}
+
+.bankroll-cta-card h2 {
+    max-width: 680px;
+    margin: 9px auto 12px;
+    font-size: clamp(1.7rem, 4vw, 2.65rem);
+    line-height: 1.14;
+}
+
+.bankroll-cta-card p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--pm-text-soft);
+}
+
+.bankroll-cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 13px;
+    margin-top: 26px;
+}
+
+.primary-cta,
+.secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 900;
+    text-decoration: none;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.primary-cta {
+    border: 1px solid var(--pm-green);
+    background: var(--pm-green);
+    color: #07120c;
+    box-shadow:
+        0 0 20px rgba(102, 255, 153, 0.25);
+}
+
+.secondary-cta {
+    border: 1px solid var(--pm-border-strong);
+    background: rgba(255, 255, 255, 0.055);
+    color: var(--pm-text);
+}
+
+.primary-cta:hover,
+.secondary-cta:hover {
+    transform: translateY(-2px);
+}
+
+.secondary-cta:hover {
+    border-color: var(--pm-green-border);
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
     main {
-        padding: 0 0.5rem;
+        width: min(100% - 28px, 1180px);
     }
 
-    #pick-form input,
-    #pick-form select,
-    #pick-form button {
-        font-size: 0.95rem;
+    .bankroll-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .bankroll-pick-row {
+        grid-template-columns: 1fr auto;
+    }
+
+    .bankroll-pick-market {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .bankroll-entry-footer {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 640px) {
+    .pm-header {
+        padding: 62px 18px 50px;
+    }
+
+    .pm-header h1 {
+        font-size: clamp(2rem, 12vw, 3rem);
+    }
+
+    main {
+        width: min(100% - 20px, 1180px);
+        padding: 38px 0 70px;
+    }
+
+    .hq-section {
+        margin-bottom: 54px;
+    }
+
+    .section-header {
+        margin-bottom: 20px;
+    }
+
+    .bankroll-primary-card {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    .bankroll-primary-value {
+        font-size: clamp(2.75rem, 17vw, 4rem);
+    }
+
+    .bankroll-progress-labels {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .bankroll-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .bankroll-stat-card {
+        padding: 20px;
+    }
+
+    .bankroll-chart-card {
+        padding: 12px;
+        border-radius: 18px;
+    }
+
+    #bankroll-chart {
+        min-height: 280px;
+    }
+
+    .bankroll-entry-card {
+        padding: 19px;
+        border-radius: 18px;
+    }
+
+    .bankroll-entry-header {
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .bankroll-pick-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .bankroll-pick-market {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .pick-result-badge {
+        justify-self: flex-start;
+    }
+
+    .methodology-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .methodology-card {
+        padding: 20px;
+    }
+
+    .bankroll-cta-card {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+
+    .bankroll-cta-actions {
+        flex-direction: column;
+    }
+
+    .primary-cta,
+    .secondary-cta {
+        width: 100%;
+    }
+
+    .bankroll-table th,
+    .bankroll-table td {
+        padding: 14px;
+    }
+}
+
+/* =========================================
+   VERY SMALL SCREENS
+========================================= */
+
+@media (max-width: 420px) {
+    .pm-header {
+        padding-inline: 14px;
+    }
+
+    main {
+        width: min(100% - 14px, 1180px);
+    }
+
+    .bankroll-primary-card,
+    .bankroll-entry-card,
+    .bankroll-cta-card {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .bankroll-primary-value {
+        font-size: 2.75rem;
     }
 }
