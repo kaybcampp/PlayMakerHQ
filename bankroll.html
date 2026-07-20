@@ -639,7 +639,7 @@
 
       entries.forEach(entry => {
         const status = normalizeStatus(entry.status);
-        const wager = toNumber(entry.wager);
+        const wager = toNumber(entry.stake);
         const profitLoss = toNumber(
           entry.profitLoss,
           status === "won"
@@ -887,7 +887,7 @@
         ? entry.picks
         : [];
 
-      const wager = toNumber(entry.wager);
+      const wager = toNumber(entry.stake);
       const payout = toNumber(
         entry.actualPayout,
         0
@@ -930,7 +930,7 @@
 
               <p>
                 ${escapeHtml(
-                  entry.platform ||
+                  entry.sportsbook ||
                   "Official PlayMaker Entry"
                 )}
               </p>
@@ -972,7 +972,7 @@
                 ${
                   status === "pending"
                     ? formatCurrency(
-                        entry.potentialPayout
+                        entry.payout
                       )
                     : formatCurrency(payout)
                 }
@@ -1070,7 +1070,7 @@
           );
 
           const wager = toNumber(
-            entry.wager
+            entry.stake
           );
 
           const actualPayout = toNumber(
@@ -1125,7 +1125,7 @@
               </td>
 
               <td>
-                ${escapeHtml(entry.platform || "—")}
+                ${escapeHtml(entry.sportsbook || "—")}
               </td>
 
               <td>
@@ -1136,7 +1136,7 @@
                 ${
                   status === "pending"
                     ? formatCurrency(
-                        entry.potentialPayout
+                        entry.payout
                       )
                     : formatCurrency(actualPayout)
                 }
@@ -1223,7 +1223,7 @@
         );
 
         const wager = toNumber(
-          entry.wager
+          entry.stake
         );
 
         const payout = toNumber(

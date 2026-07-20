@@ -2,1728 +2,1649 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Bankroll Admin | PlayMaker Prime</title>
-
-  <meta
-    name="description"
-    content="Private PlayMaker Prime administration page for adding, grading, settling, and managing official bankroll entries."
-  />
-
-  <meta name="robots" content="noindex, nofollow, noarchive" />
-
-  <link rel="stylesheet" href="/assets/css/bot.css" />
-  <link rel="stylesheet" href="/assets/css/entity-links.css" />
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="/assets/images/favicon.png"
-  />
-
-  <style>
-    .admin-shell {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 40px 0 80px;
-    }
-
-    .admin-access-message {
-      max-width: 720px;
-      margin: 60px auto;
-      padding: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.04);
-      text-align: center;
-    }
-
-    .admin-access-message h2 {
-      margin: 0 0 12px;
-    }
-
-    .admin-access-message p {
-      margin: 0;
-      opacity: 0.75;
-    }
-
-    .admin-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-      gap: 28px;
-      align-items: start;
-    }
-
-    .admin-panel {
-      padding: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .admin-panel-header {
-      margin-bottom: 24px;
-    }
-
-    .admin-panel-header h2 {
-      margin: 0 0 8px;
-    }
-
-    .admin-panel-header p {
-      margin: 0;
-      opacity: 0.72;
-      line-height: 1.6;
-    }
-
-    .admin-form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .admin-field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .admin-field.full-width {
-      grid-column: 1 / -1;
-    }
-
-    .admin-field label {
-      font-size: 0.86rem;
-      font-weight: 700;
-      opacity: 0.82;
-    }
-
-    .admin-field input,
-    .admin-field select,
-    .admin-field textarea {
-      width: 100%;
-      min-height: 48px;
-      padding: 12px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.25);
-      color: inherit;
-      font: inherit;
-      box-sizing: border-box;
-    }
-
-    .admin-field textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .admin-field input:focus,
-    .admin-field select:focus,
-    .admin-field textarea:focus {
-      outline: none;
-      border-color: rgba(102, 255, 153, 0.75);
-      box-shadow: 0 0 0 3px rgba(102, 255, 153, 0.12);
-    }
-
-    .pick-builder {
-      grid-column: 1 / -1;
-      margin-top: 8px;
-    }
-
-    .pick-builder-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 14px;
-    }
-
-    .pick-builder-header h3 {
-      margin: 0;
-    }
-
-    .pick-row {
-      position: relative;
-      padding: 20px;
-      margin-bottom: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 18px;
-      background: rgba(0, 0, 0, 0.18);
-    }
-
-    .pick-row-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .pick-row-header strong {
-      font-size: 0.95rem;
-    }
-
-    .pick-row-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .admin-button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .admin-button {
-      min-height: 46px;
-      padding: 11px 18px;
-      border: 0;
-      border-radius: 12px;
-      font: inherit;
-      font-weight: 800;
-      cursor: pointer;
-      transition:
-        transform 0.18s ease,
-        opacity 0.18s ease;
-    }
-
-    .admin-button:hover {
-      transform: translateY(-1px);
-    }
-
-    .admin-button:disabled {
-      cursor: not-allowed;
-      opacity: 0.55;
-      transform: none;
-    }
-
-    .admin-button.primary {
-      background: #66ff99;
-      color: #06120b;
-    }
-
-    .admin-button.secondary {
-      background: rgba(255, 255, 255, 0.09);
-      color: inherit;
-      border: 1px solid rgba(255, 255, 255, 0.13);
-    }
-
-    .admin-button.danger {
-      background: rgba(255, 107, 107, 0.13);
-      color: #ff8f8f;
-      border: 1px solid rgba(255, 107, 107, 0.24);
-    }
-
-    .admin-button.small {
-      min-height: 38px;
-      padding: 8px 12px;
-      font-size: 0.84rem;
-    }
-
-    .admin-status {
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.06);
-      line-height: 1.5;
-    }
-
-    .admin-status.success {
-      color: #8dffb3;
-      background: rgba(102, 255, 153, 0.1);
-    }
-
-    .admin-status.error {
-      color: #ff9c9c;
-      background: rgba(255, 107, 107, 0.1);
-    }
-
-    .admin-summary-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .admin-summary-card {
-      padding: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.18);
-    }
-
-    .admin-summary-card span {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 0.8rem;
-      opacity: 0.65;
-    }
-
-    .admin-summary-card strong {
-      font-size: 1.35rem;
-    }
-
-    .admin-entry-section {
-      margin-top: 30px;
-    }
-
-    .admin-entry-section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .admin-entry-section-header h2 {
-      margin: 0 0 6px;
-    }
-
-    .admin-entry-section-header p {
-      margin: 0;
-      opacity: 0.68;
-    }
-
-    .admin-entry-list {
-      display: grid;
-      gap: 18px;
-    }
-
-    .admin-entry-card {
-      padding: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.11);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    .admin-entry-card-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .admin-entry-card-header h3 {
-      margin: 4px 0 6px;
-    }
-
-    .admin-entry-card-header p {
-      margin: 0;
-      opacity: 0.65;
-    }
-
-    .admin-entry-id {
-      font-size: 0.75rem;
-      opacity: 0.5;
-    }
-
-    .admin-entry-status {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: fit-content;
-      padding: 7px 11px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .admin-entry-status.pending {
-      color: #ffd87d;
-      background: rgba(255, 207, 91, 0.12);
-    }
-
-    .admin-entry-status.won {
-      color: #82ffa9;
-      background: rgba(102, 255, 153, 0.12);
-    }
-
-    .admin-entry-status.lost {
-      color: #ff9292;
-      background: rgba(255, 107, 107, 0.12);
-    }
-
-    .admin-entry-status.void {
-      color: #c8c8c8;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .admin-entry-financials {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .admin-entry-financial {
-      padding: 13px;
-      border-radius: 13px;
-      background: rgba(0, 0, 0, 0.18);
-    }
-
-    .admin-entry-financial span {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 0.75rem;
-      opacity: 0.62;
-    }
-
-    .admin-entry-picks {
-      display: grid;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .admin-entry-pick {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 14px;
-      align-items: center;
-      padding: 13px 15px;
-      border-radius: 13px;
-      background: rgba(0, 0, 0, 0.17);
-    }
-
-    .admin-entry-pick strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .admin-entry-pick span {
-      font-size: 0.83rem;
-      opacity: 0.68;
-    }
-
-    .grade-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 130px 150px;
-      gap: 12px;
-      align-items: end;
-      padding: 14px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .grade-grid:first-child {
-      border-top: 0;
-    }
-
-    .grade-pick-description {
-      padding-bottom: 12px;
-    }
-
-    .grade-pick-description strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .grade-pick-description span {
-      font-size: 0.82rem;
-      opacity: 0.65;
-    }
-
-    .admin-empty-state {
-      padding: 28px;
-      border: 1px dashed rgba(255, 255, 255, 0.14);
-      border-radius: 18px;
-      text-align: center;
-      opacity: 0.7;
-    }
-
-    .positive {
-      color: #82ffa9;
-    }
-
-    .negative {
-      color: #ff9292;
-    }
-
-    .neutral {
-      color: inherit;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-
-    @media (max-width: 900px) {
-      .admin-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .admin-entry-financials {
-        grid-template-columns: 1fr;
-      }
-
-      .grade-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .grade-pick-description {
-        grid-column: 1 / -1;
-        padding-bottom: 0;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .admin-shell {
-        width: min(100% - 20px, 1180px);
-        padding-top: 22px;
-      }
-
-      .admin-panel {
-        padding: 20px;
-      }
-
-      .admin-form-grid,
-      .pick-row-grid,
-      .admin-summary-grid,
-      .grade-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .admin-field.full-width,
-      .pick-builder,
-      .grade-pick-description {
-        grid-column: auto;
-      }
-
-      .admin-entry-card-header,
-      .admin-entry-section-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .admin-entry-pick {
-        grid-template-columns: 1fr;
-      }
-
-      .admin-button-row {
-        flex-direction: column;
-      }
-
-      .admin-button {
-        width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Bankroll Admin | PlayMaker Prime</title>
+
+    <meta name="description"
+        content="Private PlayMaker Prime administration page for adding, grading, settling, and managing official bankroll entries." />
+
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+
+    <link rel="stylesheet" href="/assets/css/bot.css" />
+    <link rel="stylesheet" href="/assets/css/entity-links.css" />
+
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+    <style>
+        .admin-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 40px 0 80px;
+        }
+
+        .admin-access-message {
+            max-width: 720px;
+            margin: 60px auto;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.04);
+            text-align: center;
+        }
+
+        .admin-access-message h2 {
+            margin: 0 0 12px;
+        }
+
+        .admin-access-message p {
+            margin: 0;
+            opacity: 0.75;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .admin-panel {
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .admin-panel-header {
+            margin-bottom: 24px;
+        }
+
+        .admin-panel-header h2 {
+            margin: 0 0 8px;
+        }
+
+        .admin-panel-header p {
+            margin: 0;
+            opacity: 0.72;
+            line-height: 1.6;
+        }
+
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .admin-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .admin-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .admin-field label {
+            font-size: 0.86rem;
+            font-weight: 700;
+            opacity: 0.82;
+        }
+
+        .admin-field input,
+        .admin-field select,
+        .admin-field textarea {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.25);
+            color: inherit;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        .admin-field textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .admin-field input:focus,
+        .admin-field select:focus,
+        .admin-field textarea:focus {
+            outline: none;
+            border-color: rgba(102, 255, 153, 0.75);
+            box-shadow: 0 0 0 3px rgba(102, 255, 153, 0.12);
+        }
+
+        .pick-builder {
+            grid-column: 1 / -1;
+            margin-top: 8px;
+        }
+
+        .pick-builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .pick-builder-header h3 {
+            margin: 0;
+        }
+
+        .pick-row {
+            position: relative;
+            padding: 20px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        .pick-row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .pick-row-header strong {
+            font-size: 0.95rem;
+        }
+
+        .pick-row-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .admin-button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .admin-button {
+            min-height: 46px;
+            padding: 11px 18px;
+            border: 0;
+            border-radius: 12px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            transition:
+                transform 0.18s ease,
+                opacity 0.18s ease;
+        }
+
+        .admin-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .admin-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+            transform: none;
+        }
+
+        .admin-button.primary {
+            background: #66ff99;
+            color: #06120b;
+        }
+
+        .admin-button.secondary {
+            background: rgba(255, 255, 255, 0.09);
+            color: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+        }
+
+        .admin-button.danger {
+            background: rgba(255, 107, 107, 0.13);
+            color: #ff8f8f;
+            border: 1px solid rgba(255, 107, 107, 0.24);
+        }
+
+        .admin-button.small {
+            min-height: 38px;
+            padding: 8px 12px;
+            font-size: 0.84rem;
+        }
+
+        .admin-status {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            line-height: 1.5;
+        }
+
+        .admin-status.success {
+            color: #8dffb3;
+            background: rgba(102, 255, 153, 0.1);
+        }
+
+        .admin-status.error {
+            color: #ff9c9c;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .admin-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .admin-summary-card {
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        .admin-summary-card span {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 0.8rem;
+            opacity: 0.65;
+        }
+
+        .admin-summary-card strong {
+            font-size: 1.35rem;
+        }
+
+        .admin-entry-section {
+            margin-top: 30px;
+        }
+
+        .admin-entry-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .admin-entry-section-header h2 {
+            margin: 0 0 6px;
+        }
+
+        .admin-entry-section-header p {
+            margin: 0;
+            opacity: 0.68;
+        }
+
+        .admin-entry-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        .admin-entry-card {
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .admin-entry-card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .admin-entry-card-header h3 {
+            margin: 4px 0 6px;
+        }
+
+        .admin-entry-card-header p {
+            margin: 0;
+            opacity: 0.65;
+        }
+
+        .admin-entry-id {
+            font-size: 0.75rem;
+            opacity: 0.5;
+        }
+
+        .admin-entry-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: fit-content;
+            padding: 7px 11px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .admin-entry-status.pending {
+            color: #ffd87d;
+            background: rgba(255, 207, 91, 0.12);
+        }
+
+        .admin-entry-status.won {
+            color: #82ffa9;
+            background: rgba(102, 255, 153, 0.12);
+        }
+
+        .admin-entry-status.lost {
+            color: #ff9292;
+            background: rgba(255, 107, 107, 0.12);
+        }
+
+        .admin-entry-status.void {
+            color: #c8c8c8;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .admin-entry-financials {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .admin-entry-financial {
+            padding: 13px;
+            border-radius: 13px;
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        .admin-entry-financial span {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+            opacity: 0.62;
+        }
+
+        .admin-entry-picks {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .admin-entry-pick {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 14px;
+            align-items: center;
+            padding: 13px 15px;
+            border-radius: 13px;
+            background: rgba(0, 0, 0, 0.17);
+        }
+
+        .admin-entry-pick strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .admin-entry-pick span {
+            font-size: 0.83rem;
+            opacity: 0.68;
+        }
+
+        .grade-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 130px 150px;
+            gap: 12px;
+            align-items: end;
+            padding: 14px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .grade-grid:first-child {
+            border-top: 0;
+        }
+
+        .grade-pick-description {
+            padding-bottom: 12px;
+        }
+
+        .grade-pick-description strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .grade-pick-description span {
+            font-size: 0.82rem;
+            opacity: 0.65;
+        }
+
+        .admin-empty-state {
+            padding: 28px;
+            border: 1px dashed rgba(255, 255, 255, 0.14);
+            border-radius: 18px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .positive {
+            color: #82ffa9;
+        }
+
+        .negative {
+            color: #ff9292;
+        }
+
+        .neutral {
+            color: inherit;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-entry-financials {
+                grid-template-columns: 1fr;
+            }
+
+            .grade-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .grade-pick-description {
+                grid-column: 1 / -1;
+                padding-bottom: 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .admin-shell {
+                width: min(100% - 20px, 1180px);
+                padding-top: 22px;
+            }
+
+            .admin-panel {
+                padding: 20px;
+            }
+
+            .admin-form-grid,
+            .pick-row-grid,
+            .admin-summary-grid,
+            .grade-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-field.full-width,
+            .pick-builder,
+            .grade-pick-description {
+                grid-column: auto;
+            }
+
+            .admin-entry-card-header,
+            .admin-entry-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .admin-entry-pick {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-button-row {
+                flex-direction: column;
+            }
+
+            .admin-button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <header class="pm-header">
-    <div class="pm-header-content">
-      <span class="hq-pill">Private Administration</span>
+    <header class="pm-header">
+        <div class="pm-header-content">
+            <span class="hq-pill">Private Administration</span>
 
-      <h1>Bankroll Admin</h1>
-
-      <p>
-        Add official PlayMaker entries, grade individual legs, and settle
-        the public bankroll tracker.
-      </p>
-    </div>
-  </header>
-
-  <main class="admin-shell">
-
-    <section
-      id="access-loading"
-      class="admin-access-message"
-    >
-      <h2>Verifying admin access...</h2>
-
-      <p>
-        Please wait while PlayMaker confirms your account.
-      </p>
-    </section>
-
-    <section
-      id="access-denied"
-      class="admin-access-message"
-      hidden
-    >
-      <h2>Admin access required</h2>
-
-      <p>
-        This page is restricted to the PlayMaker administrator account.
-      </p>
-    </section>
-
-    <div
-      id="admin-content"
-      hidden
-    >
-
-      <div class="admin-grid">
-
-        <!-- CREATE ENTRY -->
-        <section class="admin-panel">
-          <div class="admin-panel-header">
-            <h2>Add Official Entry</h2>
+            <h1>Bankroll Admin</h1>
 
             <p>
-              Create a complete PrizePicks, Underdog, or other official
-              PlayMaker entry. Visitors will only see the public tracker.
+                Add official PlayMaker entries, grade individual legs, and settle
+                the public bankroll tracker.
             </p>
-          </div>
+        </div>
+    </header>
 
-          <form id="entry-form">
-            <div class="admin-form-grid">
+    <main class="admin-shell">
 
-              <div class="admin-field">
-                <label for="platform">
-                  Platform
-                </label>
+        <section id="access-loading" class="admin-access-message">
+            <h2>Verifying admin access...</h2>
 
-                <select
-                  id="platform"
-                  name="platform"
-                  required
-                >
-                  <option value="PrizePicks">
-                    PrizePicks
-                  </option>
-
-                  <option value="Underdog">
-                    Underdog
-                  </option>
-
-                  <option value="DraftKings">
-                    DraftKings
-                  </option>
-
-                  <option value="FanDuel">
-                    FanDuel
-                  </option>
-
-                  <option value="Other">
-                    Other
-                  </option>
-                </select>
-              </div>
-
-              <div class="admin-field">
-                <label for="entryType">
-                  Entry Type
-                </label>
-
-                <input
-                  id="entryType"
-                  name="entryType"
-                  type="text"
-                  placeholder="2-Pick Power Play"
-                  required
-                />
-              </div>
-
-              <div class="admin-field">
-                <label for="wager">
-                  Wager Amount
-                </label>
-
-                <input
-                  id="wager"
-                  name="wager"
-                  type="number"
-                  min="0.01"
-                  step="0.01"
-                  placeholder="10.00"
-                  required
-                />
-              </div>
-
-              <div class="admin-field">
-                <label for="potentialPayout">
-                  Potential Total Payout
-                </label>
-
-                <input
-                  id="potentialPayout"
-                  name="potentialPayout"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="30.00"
-                  required
-                />
-              </div>
-
-              <div class="admin-field">
-                <label for="submittedAt">
-                  Submitted At
-                </label>
-
-                <input
-                  id="submittedAt"
-                  name="submittedAt"
-                  type="datetime-local"
-                  required
-                />
-              </div>
-
-              <div class="admin-field">
-                <label for="entryTitle">
-                  Public Title
-                </label>
-
-                <input
-                  id="entryTitle"
-                  name="entryTitle"
-                  type="text"
-                  placeholder="Week 1 Thursday Entry"
-                />
-              </div>
-
-              <div class="admin-field full-width">
-                <label for="entryNotes">
-                  Internal/Public Notes
-                </label>
-
-                <textarea
-                  id="entryNotes"
-                  name="entryNotes"
-                  placeholder="Optional context about the entry..."
-                ></textarea>
-              </div>
-
-              <div class="pick-builder">
-                <div class="pick-builder-header">
-                  <h3>Entry Picks</h3>
-
-                  <button
-                    id="add-pick-button"
-                    class="admin-button secondary small"
-                    type="button"
-                  >
-                    + Add Pick
-                  </button>
-                </div>
-
-                <div id="pick-rows"></div>
-              </div>
-
-            </div>
-
-            <div class="admin-button-row">
-              <button
-                id="submit-entry-button"
-                class="admin-button primary"
-                type="submit"
-              >
-                Save Official Entry
-              </button>
-
-              <button
-                id="reset-entry-button"
-                class="admin-button secondary"
-                type="button"
-              >
-                Reset Form
-              </button>
-            </div>
-
-            <div
-              id="entry-form-status"
-              class="admin-status"
-              hidden
-              aria-live="polite"
-            ></div>
-          </form>
+            <p>
+                Please wait while PlayMaker confirms your account.
+            </p>
         </section>
 
-        <!-- SUMMARY -->
-        <aside class="admin-panel">
-          <div class="admin-panel-header">
-            <h2>Tracker Summary</h2>
+        <section id="access-denied" class="admin-access-message" hidden>
+            <h2>Admin access required</h2>
 
             <p>
-              Current public bankroll calculations based on all recorded
-              entries.
+                This page is restricted to the PlayMaker administrator account.
             </p>
-          </div>
+        </section>
 
-          <div class="admin-summary-grid">
+        <div id="admin-content" hidden>
 
-            <div class="admin-summary-card">
-              <span>Starting Bankroll</span>
-              <strong id="summary-starting">$0.00</strong>
+            <div class="admin-grid">
+
+                <!-- CREATE ENTRY -->
+                <section class="admin-panel">
+                    <div class="admin-panel-header">
+                        <h2>Add Official Entry</h2>
+
+                        <p>
+                            Create a complete PrizePicks, Underdog, or other official
+                            PlayMaker entry. Visitors will only see the public tracker.
+                        </p>
+                    </div>
+
+                    <form id="entry-form">
+                        <div class="admin-form-grid">
+
+                            <div class="admin-field">
+                                <label for="platform">
+                                    Platform
+                                </label>
+
+                                <select id="platform" name="platform" required>
+                                    <option value="PrizePicks">
+                                        PrizePicks
+                                    </option>
+
+                                    <option value="Underdog">
+                                        Underdog
+                                    </option>
+
+                                    <option value="DraftKings">
+                                        DraftKings
+                                    </option>
+
+                                    <option value="FanDuel">
+                                        FanDuel
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="entryType">
+                                    Entry Type
+                                </label>
+
+                                <input id="entryType" name="entryType" type="text" placeholder="2-Pick Power Play"
+                                    required />
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="wager">
+                                    Wager Amount
+                                </label>
+
+                                <input id="wager" name="wager" type="number" min="0.01" step="0.01" placeholder="10.00"
+                                    required />
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="potentialPayout">
+                                    Potential Total Payout
+                                </label>
+
+                                <input id="potentialPayout" name="potentialPayout" type="number" min="0" step="0.01"
+                                    placeholder="30.00" required />
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="submittedAt">
+                                    Submitted At
+                                </label>
+
+                                <input id="submittedAt" name="submittedAt" type="datetime-local" required />
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="entryTitle">
+                                    Public Title
+                                </label>
+
+                                <input id="entryTitle" name="entryTitle" type="text"
+                                    placeholder="Week 1 Thursday Entry" />
+                            </div>
+
+                            <div class="admin-field full-width">
+                                <label for="entryNotes">
+                                    Internal/Public Notes
+                                </label>
+
+                                <textarea id="entryNotes" name="entryNotes"
+                                    placeholder="Optional context about the entry..."></textarea>
+                            </div>
+
+                            <div class="pick-builder">
+                                <div class="pick-builder-header">
+                                    <h3>Entry Picks</h3>
+
+                                    <button id="add-pick-button" class="admin-button secondary small" type="button">
+                                        + Add Pick
+                                    </button>
+                                </div>
+
+                                <div id="pick-rows"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="admin-button-row">
+                            <button id="submit-entry-button" class="admin-button primary" type="submit">
+                                Save Official Entry
+                            </button>
+
+                            <button id="reset-entry-button" class="admin-button secondary" type="button">
+                                Reset Form
+                            </button>
+                        </div>
+
+                        <div id="entry-form-status" class="admin-status" hidden aria-live="polite"></div>
+                    </form>
+                </section>
+
+                <!-- SUMMARY -->
+                <aside class="admin-panel">
+                    <div class="admin-panel-header">
+                        <h2>Tracker Summary</h2>
+
+                        <p>
+                            Current public bankroll calculations based on all recorded
+                            entries.
+                        </p>
+                    </div>
+
+                    <div class="admin-summary-grid">
+
+                        <div class="admin-summary-card">
+                            <span>Starting Bankroll</span>
+                            <strong id="summary-starting">$0.00</strong>
+                        </div>
+
+                        <div class="admin-summary-card">
+                            <span>Current Bankroll</span>
+                            <strong id="summary-current">$0.00</strong>
+                        </div>
+
+                        <div class="admin-summary-card">
+                            <span>Net Profit</span>
+                            <strong id="summary-profit">$0.00</strong>
+                        </div>
+
+                        <div class="admin-summary-card">
+                            <span>Record</span>
+                            <strong id="summary-record">0-0</strong>
+                        </div>
+
+                        <div class="admin-summary-card">
+                            <span>Pending</span>
+                            <strong id="summary-pending">0</strong>
+                        </div>
+
+                        <div class="admin-summary-card">
+                            <span>Total Entries</span>
+                            <strong id="summary-entries">0</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="admin-button-row">
+                        <a class="admin-button secondary" href="/bankroll.html" target="_blank" rel="noopener">
+                            Open Public Tracker
+                        </a>
+
+                        <button id="refresh-button" class="admin-button secondary" type="button">
+                            Refresh Data
+                        </button>
+                    </div>
+
+                    <div id="summary-status" class="admin-status" hidden></div>
+                </aside>
+
             </div>
 
-            <div class="admin-summary-card">
-              <span>Current Bankroll</span>
-              <strong id="summary-current">$0.00</strong>
+            <!-- MANAGE ENTRIES -->
+            <section class="admin-entry-section">
+                <div class="admin-entry-section-header">
+                    <div>
+                        <h2>Manage Official Entries</h2>
+
+                        <p>
+                            Grade pending legs, settle completed entries, or void an
+                            entry.
+                        </p>
+                    </div>
+
+                    <select id="entry-filter">
+                        <option value="all">
+                            All Entries
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                        <option value="won">
+                            Won
+                        </option>
+
+                        <option value="lost">
+                            Lost
+                        </option>
+
+                        <option value="void">
+                            Void
+                        </option>
+                    </select>
+                </div>
+
+                <div id="admin-entry-list" class="admin-entry-list">
+                    <div class="admin-empty-state">
+                        Loading bankroll entries...
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <template id="pick-row-template">
+        <div class="pick-row">
+            <div class="pick-row-header">
+                <strong class="pick-row-title">
+                    Pick
+                </strong>
+
+                <button class="admin-button danger small remove-pick-button" type="button">
+                    Remove
+                </button>
             </div>
 
-            <div class="admin-summary-card">
-              <span>Net Profit</span>
-              <strong id="summary-profit">$0.00</strong>
+            <div class="pick-row-grid">
+
+                <div class="admin-field">
+                    <label>Player</label>
+
+                    <input class="pick-player" type="text" placeholder="Jalen Hurts" required />
+                </div>
+
+                <div class="admin-field">
+                    <label>Team</label>
+
+                    <input class="pick-team" type="text" maxlength="4" placeholder="PHI" required />
+                </div>
+
+                <div class="admin-field">
+                    <label>Opponent</label>
+
+                    <input class="pick-opponent" type="text" maxlength="4" placeholder="DAL" required />
+                </div>
+
+                <div class="admin-field">
+                    <label>Game Date</label>
+
+                    <input class="pick-game-date" type="datetime-local" />
+                </div>
+
+                <div class="admin-field">
+                    <label>Prop Type</label>
+
+                    <input class="pick-prop-type" type="text" placeholder="Rushing Yards" required />
+                </div>
+
+                <div class="admin-field">
+                    <label>Direction</label>
+
+                    <select class="pick-direction" required>
+                        <option value="higher">
+                            Higher
+                        </option>
+
+                        <option value="lower">
+                            Lower
+                        </option>
+                    </select>
+                </div>
+
+                <div class="admin-field">
+                    <label>Line</label>
+
+                    <input class="pick-line" type="number" step="0.01" placeholder="34.5" required />
+                </div>
+
+                <div class="admin-field">
+                    <label>Projection</label>
+
+                    <input class="pick-projection" type="number" step="0.01" placeholder="Optional" />
+                </div>
+
             </div>
-
-            <div class="admin-summary-card">
-              <span>Record</span>
-              <strong id="summary-record">0-0</strong>
-            </div>
-
-            <div class="admin-summary-card">
-              <span>Pending</span>
-              <strong id="summary-pending">0</strong>
-            </div>
-
-            <div class="admin-summary-card">
-              <span>Total Entries</span>
-              <strong id="summary-entries">0</strong>
-            </div>
-
-          </div>
-
-          <div class="admin-button-row">
-            <a
-              class="admin-button secondary"
-              href="/bankroll.html"
-              target="_blank"
-              rel="noopener"
-            >
-              Open Public Tracker
-            </a>
-
-            <button
-              id="refresh-button"
-              class="admin-button secondary"
-              type="button"
-            >
-              Refresh Data
-            </button>
-          </div>
-
-          <div
-            id="summary-status"
-            class="admin-status"
-            hidden
-          ></div>
-        </aside>
-
-      </div>
-
-      <!-- MANAGE ENTRIES -->
-      <section class="admin-entry-section">
-        <div class="admin-entry-section-header">
-          <div>
-            <h2>Manage Official Entries</h2>
-
-            <p>
-              Grade pending legs, settle completed entries, or void an
-              entry.
-            </p>
-          </div>
-
-          <select id="entry-filter">
-            <option value="all">
-              All Entries
-            </option>
-
-            <option value="pending">
-              Pending
-            </option>
-
-            <option value="won">
-              Won
-            </option>
-
-            <option value="lost">
-              Lost
-            </option>
-
-            <option value="void">
-              Void
-            </option>
-          </select>
         </div>
-
-        <div
-          id="admin-entry-list"
-          class="admin-entry-list"
-        >
-          <div class="admin-empty-state">
-            Loading bankroll entries...
-          </div>
-        </div>
-      </section>
-
-    </div>
-
-  </main>
-
-  <template id="pick-row-template">
-    <div class="pick-row">
-      <div class="pick-row-header">
-        <strong class="pick-row-title">
-          Pick
-        </strong>
-
-        <button
-          class="admin-button danger small remove-pick-button"
-          type="button"
-        >
-          Remove
-        </button>
-      </div>
-
-      <div class="pick-row-grid">
-
-        <div class="admin-field">
-          <label>Player</label>
-
-          <input
-            class="pick-player"
-            type="text"
-            placeholder="Jalen Hurts"
-            required
-          />
-        </div>
-
-        <div class="admin-field">
-          <label>Team</label>
-
-          <input
-            class="pick-team"
-            type="text"
-            maxlength="4"
-            placeholder="PHI"
-            required
-          />
-        </div>
-
-        <div class="admin-field">
-          <label>Opponent</label>
-
-          <input
-            class="pick-opponent"
-            type="text"
-            maxlength="4"
-            placeholder="DAL"
-            required
-          />
-        </div>
-
-        <div class="admin-field">
-          <label>Game Date</label>
-
-          <input
-            class="pick-game-date"
-            type="datetime-local"
-          />
-        </div>
-
-        <div class="admin-field">
-          <label>Prop Type</label>
-
-          <input
-            class="pick-prop-type"
-            type="text"
-            placeholder="Rushing Yards"
-            required
-          />
-        </div>
-
-        <div class="admin-field">
-          <label>Direction</label>
-
-          <select
-            class="pick-direction"
-            required
-          >
-            <option value="higher">
-              Higher
-            </option>
-
-            <option value="lower">
-              Lower
-            </option>
-          </select>
-        </div>
-
-        <div class="admin-field">
-          <label>Line</label>
-
-          <input
-            class="pick-line"
-            type="number"
-            step="0.01"
-            placeholder="34.5"
-            required
-          />
-        </div>
-
-        <div class="admin-field">
-          <label>Projection</label>
-
-          <input
-            class="pick-projection"
-            type="number"
-            step="0.01"
-            placeholder="Optional"
-          />
-        </div>
-
-      </div>
-    </div>
-  </template>
-
-  <script>
-    const API_ENDPOINTS = {
-      account: "/api/me",
-      bankroll: "/api/bankroll",
-      createSlip: "/api/admin/bankroll/slips",
-
-      updateSlip(id) {
-        return `/api/admin/bankroll/slips/${encodeURIComponent(id)}`;
-      },
-
-      settleSlip(id) {
-        return `/api/admin/bankroll/slips/${encodeURIComponent(id)}/settle`;
-      },
-
-      voidSlip(id) {
-        return `/api/admin/bankroll/slips/${encodeURIComponent(id)}/void`;
-      },
-
-      deleteSlip(id) {
-        return `/api/admin/bankroll/slips/${encodeURIComponent(id)}`;
-      }
-    };
-
-    const accessLoading =
-      document.getElementById("access-loading");
-
-    const accessDenied =
-      document.getElementById("access-denied");
-
-    const adminContent =
-      document.getElementById("admin-content");
-
-    const entryForm =
-      document.getElementById("entry-form");
-
-    const pickRows =
-      document.getElementById("pick-rows");
-
-    const pickRowTemplate =
-      document.getElementById("pick-row-template");
-
-    const addPickButton =
-      document.getElementById("add-pick-button");
-
-    const resetEntryButton =
-      document.getElementById("reset-entry-button");
-
-    const submitEntryButton =
-      document.getElementById("submit-entry-button");
-
-    const entryFormStatus =
-      document.getElementById("entry-form-status");
-
-    const entryList =
-      document.getElementById("admin-entry-list");
-
-    const entryFilter =
-      document.getElementById("entry-filter");
-
-    const refreshButton =
-      document.getElementById("refresh-button");
-
-    const summaryStatus =
-      document.getElementById("summary-status");
-
-    const summaryStarting =
-      document.getElementById("summary-starting");
-
-    const summaryCurrent =
-      document.getElementById("summary-current");
-
-    const summaryProfit =
-      document.getElementById("summary-profit");
-
-    const summaryRecord =
-      document.getElementById("summary-record");
-
-    const summaryPending =
-      document.getElementById("summary-pending");
-
-    const summaryEntries =
-      document.getElementById("summary-entries");
-
-    let bankrollData = null;
-    let activeEntries = [];
-
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function toNumber(value, fallback = 0) {
-      const number = Number(value);
-
-      return Number.isFinite(number)
-        ? number
-        : fallback;
-    }
-
-    function formatCurrency(value) {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD"
-      }).format(toNumber(value));
-    }
-
-    function formatDate(value, includeTime = false) {
-      if (!value) {
-        return "—";
-      }
-
-      const date = new Date(value);
-
-      if (Number.isNaN(date.getTime())) {
-        return escapeHtml(value);
-      }
-
-      return date.toLocaleString("en-US", includeTime
-        ? {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "2-digit"
-          }
-        : {
-            month: "short",
-            day: "numeric",
-            year: "numeric"
-          }
-      );
-    }
-
-    function normalizeStatus(value) {
-      const status = String(value || "pending")
-        .trim()
-        .toLowerCase();
-
-      if (
-        status === "win" ||
-        status === "won"
-      ) {
-        return "won";
-      }
-
-      if (
-        status === "loss" ||
-        status === "lost"
-      ) {
-        return "lost";
-      }
-
-      if (
-        status === "void" ||
-        status === "voided" ||
-        status === "push" ||
-        status === "refunded"
-      ) {
-        return "void";
-      }
-
-      return "pending";
-    }
-
-    function getStatusLabel(value) {
-      const status = normalizeStatus(value);
-
-      if (status === "won") {
-        return "Won";
-      }
-
-      if (status === "lost") {
-        return "Lost";
-      }
-
-      if (status === "void") {
-        return "Void";
-      }
-
-      return "Pending";
-    }
-
-    function getEntries(data) {
-      if (Array.isArray(data?.slips)) {
-        return data.slips;
-      }
-
-      if (Array.isArray(data?.entries)) {
-        return data.entries;
-      }
-
-      return [];
-    }
-
-    function calculateEntryProfitLoss(entry) {
-      const status = normalizeStatus(entry.status);
-      const wager = toNumber(entry.wager);
-      const payout = toNumber(entry.actualPayout);
-
-      if (Number.isFinite(Number(entry.profitLoss))) {
-        return Number(entry.profitLoss);
-      }
-
-      if (status === "won") {
-        return payout - wager;
-      }
-
-      if (status === "lost") {
-        return -wager;
-      }
-
-      return 0;
-    }
-
-    function calculateSummary(data) {
-      const entries = getEntries(data);
-
-      const startingBankroll =
-        toNumber(data?.startingBankroll);
-
-      let wins = 0;
-      let losses = 0;
-      let pending = 0;
-      let netProfit = 0;
-
-      entries.forEach(entry => {
-        const status = normalizeStatus(entry.status);
-
-        if (status === "won") {
-          wins += 1;
-          netProfit += calculateEntryProfitLoss(entry);
-        }
-
-        if (status === "lost") {
-          losses += 1;
-          netProfit += calculateEntryProfitLoss(entry);
-        }
-
-        if (status === "pending") {
-          pending += 1;
-        }
-      });
-
-      const currentBankroll =
-        Number.isFinite(Number(data?.currentBankroll))
-          ? Number(data.currentBankroll)
-          : startingBankroll + netProfit;
-
-      return {
-        startingBankroll,
-        currentBankroll,
-        netProfit,
-        wins,
-        losses,
-        pending,
-        totalEntries: entries.length
-      };
-    }
-
-    function showMessage(element, message, type = "") {
-      element.hidden = false;
-      element.textContent = message;
-
-      element.classList.remove(
-        "success",
-        "error"
-      );
-
-      if (type) {
-        element.classList.add(type);
-      }
-    }
-
-    function hideMessage(element) {
-      element.hidden = true;
-      element.textContent = "";
-
-      element.classList.remove(
-        "success",
-        "error"
-      );
-    }
-
-    async function apiRequest(url, options = {}) {
-      const response = await fetch(url, {
-        credentials: "include",
-        cache: "no-store",
-        ...options,
-        headers: {
-          Accept: "application/json",
-          ...(options.body
-            ? {
-                "Content-Type": "application/json"
-              }
-            : {}),
-          ...(options.headers || {})
-        }
-      });
-
-      let data = null;
-
-      try {
-        data = await response.json();
-      } catch (error) {
-        data = null;
-      }
-
-      if (!response.ok) {
-        throw new Error(
-          data?.error ||
-          data?.message ||
-          `Request failed with status ${response.status}.`
-        );
-      }
-
-      return data;
-    }
-
-    async function verifyAdminAccess() {
-      try {
-        const account = await apiRequest(
-          API_ENDPOINTS.account
-        );
-
-        const isAdmin =
-          account?.isAdmin === true ||
-          account?.user?.isAdmin === true ||
-          account?.role === "admin" ||
-          account?.user?.role === "admin";
-
-        if (!isAdmin) {
-          throw new Error(
-            "This account does not have administrator access."
-          );
-        }
-
-        accessLoading.hidden = true;
-        accessDenied.hidden = true;
-        adminContent.hidden = false;
-
-        await loadBankroll();
-      } catch (error) {
-        console.error(
-          "Admin access verification failed:",
-          error
-        );
-
-        accessLoading.hidden = true;
-        accessDenied.hidden = false;
-        adminContent.hidden = true;
-      }
-    }
-
-    function setDefaultSubmittedTime() {
-      const now = new Date();
-
-      const localDate = new Date(
-        now.getTime() -
-        now.getTimezoneOffset() * 60000
-      );
-
-      document.getElementById("submittedAt").value =
-        localDate.toISOString().slice(0, 16);
-    }
-
-    function updatePickNumbers() {
-      const rows = [
-        ...pickRows.querySelectorAll(".pick-row")
-      ];
-
-      rows.forEach((row, index) => {
-        row.querySelector(
-          ".pick-row-title"
-        ).textContent = `Pick ${index + 1}`;
-
-        const removeButton = row.querySelector(
-          ".remove-pick-button"
-        );
-
-        removeButton.disabled =
-          rows.length === 1;
-      });
-    }
-
-    function addPickRow(initialData = {}) {
-      const fragment =
-        pickRowTemplate.content.cloneNode(true);
-
-      const row = fragment.querySelector(
-        ".pick-row"
-      );
-
-      row.querySelector(".pick-player").value =
-        initialData.player || "";
-
-      row.querySelector(".pick-team").value =
-        initialData.team || "";
-
-      row.querySelector(".pick-opponent").value =
-        initialData.opponent || "";
-
-      row.querySelector(".pick-prop-type").value =
-        initialData.propType ||
-        initialData.market ||
-        "";
-
-      row.querySelector(".pick-direction").value =
-        initialData.direction ||
-        initialData.side ||
-        "higher";
-
-      row.querySelector(".pick-line").value =
-        initialData.line ?? "";
-
-      row.querySelector(".pick-projection").value =
-        initialData.projection ?? "";
-
-      if (initialData.gameDate) {
-        const gameDate = new Date(
-          initialData.gameDate
-        );
-
-        if (!Number.isNaN(gameDate.getTime())) {
-          const localDate = new Date(
-            gameDate.getTime() -
-            gameDate.getTimezoneOffset() * 60000
-          );
-
-          row.querySelector(
-            ".pick-game-date"
-          ).value = localDate
-            .toISOString()
-            .slice(0, 16);
-        }
-      }
-
-      row.querySelector(
-        ".remove-pick-button"
-      ).addEventListener("click", () => {
-        row.remove();
-        updatePickNumbers();
-      });
-
-      pickRows.appendChild(fragment);
-      updatePickNumbers();
-    }
-
-    function resetEntryForm() {
-      entryForm.reset();
-      pickRows.innerHTML = "";
-
-      setDefaultSubmittedTime();
-      addPickRow();
-      addPickRow();
-
-      hideMessage(entryFormStatus);
-    }
-
-    function collectPickData() {
-      const rows = [
-        ...pickRows.querySelectorAll(".pick-row")
-      ];
-
-      if (!rows.length) {
-        throw new Error(
-          "Add at least one pick to the entry."
-        );
-      }
-
-      return rows.map((row, index) => {
-        const player = row
-          .querySelector(".pick-player")
-          .value
-          .trim();
-
-        const team = row
-          .querySelector(".pick-team")
-          .value
-          .trim()
-          .toUpperCase();
-
-        const opponent = row
-          .querySelector(".pick-opponent")
-          .value
-          .trim()
-          .toUpperCase();
-
-        const propType = row
-          .querySelector(".pick-prop-type")
-          .value
-          .trim();
-
-        const direction = row
-          .querySelector(".pick-direction")
-          .value;
-
-        const line = Number(
-          row.querySelector(".pick-line").value
-        );
-
-        const projectionValue = row
-          .querySelector(".pick-projection")
-          .value;
-
-        const gameDateValue = row
-          .querySelector(".pick-game-date")
-          .value;
-
-        if (
-          !player ||
-          !team ||
-          !opponent ||
-          !propType ||
-          !Number.isFinite(line)
-        ) {
-          throw new Error(
-            `Complete all required fields for Pick ${index + 1}.`
-          );
-        }
-
-        return {
-          player,
-          team,
-          opponent,
-          propType,
-          direction,
-          line,
-          projection:
-            projectionValue !== ""
-              ? Number(projectionValue)
-              : null,
-          gameDate:
-            gameDateValue
-              ? new Date(gameDateValue).toISOString()
-              : null,
-          actual: null,
-          result: "pending"
+    </template>
+
+    <script>
+        const API_ENDPOINTS = {
+            bankroll: "/api/bankroll",
+            verifyAdmin: "/api/admin/verify",
+            createSlip: "/api/admin/bankroll/slips",
+
+            updateSlip(id) {
+                return `/api/admin/bankroll/slips/${encodeURIComponent(id)}`;
+            },
+
+            settleSlip(id) {
+                return `/api/admin/bankroll/slips/${encodeURIComponent(id)}/settle`;
+            },
+
+            voidSlip(id) {
+                return `/api/admin/bankroll/slips/${encodeURIComponent(id)}/void`;
+            },
+
+            deleteSlip(id) {
+                return `/api/admin/bankroll/slips/${encodeURIComponent(id)}`;
+            }
         };
-      });
-    }
 
-    function collectEntryData() {
-      const platform =
-        document.getElementById("platform")
-          .value
-          .trim();
+        const accessLoading =
+            document.getElementById("access-loading");
 
-      const entryType =
-        document.getElementById("entryType")
-          .value
-          .trim();
+        const accessDenied =
+            document.getElementById("access-denied");
 
-      const wager = Number(
-        document.getElementById("wager").value
-      );
+        const adminContent =
+            document.getElementById("admin-content");
 
-      const potentialPayout = Number(
-        document.getElementById(
-          "potentialPayout"
-        ).value
-      );
+        const entryForm =
+            document.getElementById("entry-form");
 
-      const submittedAtValue =
-        document.getElementById("submittedAt")
-          .value;
+        const pickRows =
+            document.getElementById("pick-rows");
 
-      const title =
-        document.getElementById("entryTitle")
-          .value
-          .trim();
+        const pickRowTemplate =
+            document.getElementById("pick-row-template");
 
-      const notes =
-        document.getElementById("entryNotes")
-          .value
-          .trim();
+        const addPickButton =
+            document.getElementById("add-pick-button");
 
-      if (
-        !platform ||
-        !entryType ||
-        !Number.isFinite(wager) ||
-        wager <= 0 ||
-        !Number.isFinite(potentialPayout) ||
-        potentialPayout < 0 ||
-        !submittedAtValue
-      ) {
-        throw new Error(
-          "Complete all required entry details."
-        );
-      }
+        const resetEntryButton =
+            document.getElementById("reset-entry-button");
 
-      return {
-        platform,
-        entryType,
-        title: title || entryType,
-        notes,
-        wager,
-        potentialPayout,
-        submittedAt:
-          new Date(submittedAtValue).toISOString(),
-        status: "pending",
-        actualPayout: null,
-        profitLoss: null,
-        picks: collectPickData()
-      };
-    }
+        const submitEntryButton =
+            document.getElementById("submit-entry-button");
 
-    async function submitEntry(event) {
-      event.preventDefault();
+        const entryFormStatus =
+            document.getElementById("entry-form-status");
 
-      hideMessage(entryFormStatus);
+        const entryList =
+            document.getElementById("admin-entry-list");
 
-      try {
-        const entryData = collectEntryData();
+        const entryFilter =
+            document.getElementById("entry-filter");
 
-        submitEntryButton.disabled = true;
-        submitEntryButton.textContent =
-          "Saving Entry...";
+        const refreshButton =
+            document.getElementById("refresh-button");
 
-        await apiRequest(
-          API_ENDPOINTS.createSlip,
-          {
-            method: "POST",
-            body: JSON.stringify(entryData)
-          }
-        );
+        const summaryStatus =
+            document.getElementById("summary-status");
 
-        showMessage(
-          entryFormStatus,
-          "Official entry saved successfully.",
-          "success"
-        );
+        const summaryStarting =
+            document.getElementById("summary-starting");
 
-        resetEntryForm();
+        const summaryCurrent =
+            document.getElementById("summary-current");
 
-        showMessage(
-          entryFormStatus,
-          "Official entry saved successfully.",
-          "success"
-        );
+        const summaryProfit =
+            document.getElementById("summary-profit");
 
-        await loadBankroll();
-      } catch (error) {
-        console.error(
-          "Failed to create bankroll entry:",
-          error
-        );
+        const summaryRecord =
+            document.getElementById("summary-record");
 
-        showMessage(
-          entryFormStatus,
-          error.message,
-          "error"
-        );
-      } finally {
-        submitEntryButton.disabled = false;
-        submitEntryButton.textContent =
-          "Save Official Entry";
-      }
-    }
+        const summaryPending =
+            document.getElementById("summary-pending");
 
-    function renderSummary(data) {
-      const summary = calculateSummary(data);
+        const summaryEntries =
+            document.getElementById("summary-entries");
 
-      summaryStarting.textContent =
-        formatCurrency(summary.startingBankroll);
+        let bankrollData = null;
+        let activeEntries = [];
 
-      summaryCurrent.textContent =
-        formatCurrency(summary.currentBankroll);
+        function getAdminApiKey() {
+            let key = sessionStorage.getItem(
+                "playmaker_admin_api_key"
+            );
 
-      summaryProfit.textContent =
-        formatCurrency(summary.netProfit);
+            if (!key) {
+                key = window.prompt(
+                    "Enter the PlayMaker admin API key:"
+                );
 
-      summaryRecord.textContent =
-        `${summary.wins}-${summary.losses}`;
+                if (key) {
+                    sessionStorage.setItem(
+                        "playmaker_admin_api_key",
+                        key.trim()
+                    );
+                }
+            }
 
-      summaryPending.textContent =
-        String(summary.pending);
+            return key ? key.trim() : "";
+        }
 
-      summaryEntries.textContent =
-        String(summary.totalEntries);
+        function escapeHtml(value) {
+            return String(value ?? "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
 
-      summaryProfit.classList.remove(
-        "positive",
-        "negative",
-        "neutral"
-      );
+        function toNumber(value, fallback = 0) {
+            const number = Number(value);
 
-      summaryCurrent.classList.remove(
-        "positive",
-        "negative",
-        "neutral"
-      );
+            return Number.isFinite(number)
+                ? number
+                : fallback;
+        }
 
-      const performanceClass =
-        summary.netProfit > 0
-          ? "positive"
-          : summary.netProfit < 0
-            ? "negative"
-            : "neutral";
+        function formatCurrency(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD"
+            }).format(toNumber(value));
+        }
 
-      summaryProfit.classList.add(
-        performanceClass
-      );
+        function formatDate(value, includeTime = false) {
+            if (!value) {
+                return "—";
+            }
 
-      summaryCurrent.classList.add(
-        performanceClass
-      );
-    }
+            const date = new Date(value);
 
-    function getEntryId(entry) {
-      return (
-        entry.id ||
-        entry.slipId ||
-        entry.entryId ||
-        entry._id ||
-        ""
-      );
-    }
+            if (Number.isNaN(date.getTime())) {
+                return escapeHtml(value);
+            }
 
-    function getEntryTitle(entry) {
-      return (
-        entry.title ||
-        entry.entryType ||
-        "Official PlayMaker Entry"
-      );
-    }
+            return date.toLocaleString("en-US", includeTime
+                ? {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit"
+                }
+                : {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                }
+            );
+        }
 
-    function renderEntryPick(pick) {
-      const result = normalizeStatus(
-        pick.result
-      );
+        function normalizeStatus(value) {
+            const status = String(value || "pending")
+                .trim()
+                .toLowerCase();
 
-      const direction =
-        String(
-          pick.direction ||
-          pick.side ||
-          ""
-        ).toLowerCase() === "lower"
-          ? "Lower"
-          : "Higher";
+            if (
+                status === "win" ||
+                status === "won"
+            ) {
+                return "won";
+            }
 
-      return `
+            if (
+                status === "loss" ||
+                status === "lost"
+            ) {
+                return "lost";
+            }
+
+            if (
+                status === "void" ||
+                status === "voided" ||
+                status === "push" ||
+                status === "refunded"
+            ) {
+                return "void";
+            }
+
+            return "pending";
+        }
+
+        function getStatusLabel(value) {
+            const status = normalizeStatus(value);
+
+            if (status === "won") {
+                return "Won";
+            }
+
+            if (status === "lost") {
+                return "Lost";
+            }
+
+            if (status === "void") {
+                return "Void";
+            }
+
+            return "Pending";
+        }
+
+        function getEntries(data) {
+            if (Array.isArray(data?.slips)) {
+                return data.slips;
+            }
+
+            if (Array.isArray(data?.entries)) {
+                return data.entries;
+            }
+
+            return [];
+        }
+
+        function calculateEntryProfitLoss(entry) {
+            const status = normalizeStatus(entry.status);
+            const wager = toNumber(entry.stake);
+            const payout = toNumber(entry.actualPayout);
+
+            if (Number.isFinite(Number(entry.profitLoss))) {
+                return Number(entry.profitLoss);
+            }
+
+            if (status === "won") {
+                return payout - wager;
+            }
+
+            if (status === "lost") {
+                return -wager;
+            }
+
+            return 0;
+        }
+
+        function calculateSummary(data) {
+            const entries = getEntries(data);
+
+            const startingBankroll =
+                toNumber(data?.startingBankroll);
+
+            let wins = 0;
+            let losses = 0;
+            let pending = 0;
+            let netProfit = 0;
+
+            entries.forEach(entry => {
+                const status = normalizeStatus(entry.status);
+
+                if (status === "won") {
+                    wins += 1;
+                    netProfit += calculateEntryProfitLoss(entry);
+                }
+
+                if (status === "lost") {
+                    losses += 1;
+                    netProfit += calculateEntryProfitLoss(entry);
+                }
+
+                if (status === "pending") {
+                    pending += 1;
+                }
+            });
+
+            const hasCurrentBankroll =
+                data?.currentBankroll !== null &&
+                data?.currentBankroll !== undefined &&
+                data?.currentBankroll !== "" &&
+                Number.isFinite(Number(data.currentBankroll));
+
+            const currentBankroll =
+                hasCurrentBankroll
+                    ? Number(data.currentBankroll)
+                    : startingBankroll + netProfit;
+
+            return {
+                startingBankroll,
+                currentBankroll,
+                netProfit,
+                wins,
+                losses,
+                pending,
+                totalEntries: entries.length
+            };
+        }
+
+        function showMessage(element, message, type = "") {
+            element.hidden = false;
+            element.textContent = message;
+
+            element.classList.remove(
+                "success",
+                "error"
+            );
+
+            if (type) {
+                element.classList.add(type);
+            }
+        }
+
+        function hideMessage(element) {
+            element.hidden = true;
+            element.textContent = "";
+
+            element.classList.remove(
+                "success",
+                "error"
+            );
+        }
+
+        async function apiRequest(
+            url,
+            options = {},
+            requiresAdmin = false
+        ) {
+            const headers = {
+                Accept: "application/json",
+                ...(options.body
+                    ? {
+                        "Content-Type": "application/json"
+                    }
+                    : {}),
+                ...(options.headers || {})
+            };
+
+            if (requiresAdmin) {
+                const adminApiKey = getAdminApiKey();
+
+                if (!adminApiKey) {
+                    throw new Error(
+                        "An admin API key is required."
+                    );
+                }
+
+                headers.Authorization =
+                    `Bearer ${adminApiKey}`;
+            }
+
+            const response = await fetch(url, {
+                cache: "no-store",
+                ...options,
+                headers
+            });
+
+            let data = null;
+
+            try {
+                data = await response.json();
+            } catch {
+                data = null;
+            }
+
+            if (!response.ok) {
+                if (response.status === 403) {
+                    sessionStorage.removeItem(
+                        "playmaker_admin_api_key"
+                    );
+                }
+
+                throw new Error(
+                    data?.error ||
+                    data?.message ||
+                    `Request failed with status ${response.status}.`
+                );
+            }
+
+            return data;
+        }
+
+        async function verifyAdminAccess() {
+            try {
+                const adminApiKey = getAdminApiKey();
+
+                if (!adminApiKey) {
+                    throw new Error(
+                        "Admin API key was not provided."
+                    );
+                }
+
+                await apiRequest(
+                    API_ENDPOINTS.verifyAdmin,
+                    {},
+                    true
+                );
+
+                accessLoading.hidden = true;
+                accessDenied.hidden = true;
+                adminContent.hidden = false;
+
+                await loadBankroll();
+            } catch (error) {
+                console.error(
+                    "Admin access verification failed:",
+                    error
+                );
+
+                accessLoading.hidden = true;
+                accessDenied.hidden = false;
+                adminContent.hidden = true;
+            }
+        }
+
+        function setDefaultSubmittedTime() {
+            const now = new Date();
+
+            const localDate = new Date(
+                now.getTime() -
+                now.getTimezoneOffset() * 60000
+            );
+
+            document.getElementById("submittedAt").value =
+                localDate.toISOString().slice(0, 16);
+        }
+
+        function updatePickNumbers() {
+            const rows = [
+                ...pickRows.querySelectorAll(".pick-row")
+            ];
+
+            rows.forEach((row, index) => {
+                row.querySelector(
+                    ".pick-row-title"
+                ).textContent = `Pick ${index + 1}`;
+
+                const removeButton = row.querySelector(
+                    ".remove-pick-button"
+                );
+
+                removeButton.disabled =
+                    rows.length === 1;
+            });
+        }
+
+        function addPickRow(initialData = {}) {
+            const fragment =
+                pickRowTemplate.content.cloneNode(true);
+
+            const row = fragment.querySelector(
+                ".pick-row"
+            );
+
+            row.querySelector(".pick-player").value =
+                initialData.player || "";
+
+            row.querySelector(".pick-team").value =
+                initialData.team || "";
+
+            row.querySelector(".pick-opponent").value =
+                initialData.opponent || "";
+
+            row.querySelector(".pick-prop-type").value =
+                initialData.propType ||
+                initialData.market ||
+                "";
+
+            row.querySelector(".pick-direction").value =
+                initialData.direction ||
+                initialData.side ||
+                "higher";
+
+            row.querySelector(".pick-line").value =
+                initialData.line ?? "";
+
+            row.querySelector(".pick-projection").value =
+                initialData.projection ?? "";
+
+            if (initialData.gameDate) {
+                const gameDate = new Date(
+                    initialData.gameDate
+                );
+
+                if (!Number.isNaN(gameDate.getTime())) {
+                    const localDate = new Date(
+                        gameDate.getTime() -
+                        gameDate.getTimezoneOffset() * 60000
+                    );
+
+                    row.querySelector(
+                        ".pick-game-date"
+                    ).value = localDate
+                        .toISOString()
+                        .slice(0, 16);
+                }
+            }
+
+            row.querySelector(
+                ".remove-pick-button"
+            ).addEventListener("click", () => {
+                row.remove();
+                updatePickNumbers();
+            });
+
+            pickRows.appendChild(fragment);
+            updatePickNumbers();
+        }
+
+        function resetEntryForm() {
+            entryForm.reset();
+            pickRows.innerHTML = "";
+
+            setDefaultSubmittedTime();
+            addPickRow();
+            addPickRow();
+
+            hideMessage(entryFormStatus);
+        }
+
+        function collectPickData() {
+            const rows = [
+                ...pickRows.querySelectorAll(".pick-row")
+            ];
+
+            if (!rows.length) {
+                throw new Error(
+                    "Add at least one pick to the entry."
+                );
+            }
+
+            return rows.map((row, index) => {
+                const player = row
+                    .querySelector(".pick-player")
+                    .value
+                    .trim();
+
+                const team = row
+                    .querySelector(".pick-team")
+                    .value
+                    .trim()
+                    .toUpperCase();
+
+                const opponent = row
+                    .querySelector(".pick-opponent")
+                    .value
+                    .trim()
+                    .toUpperCase();
+
+                const propType = row
+                    .querySelector(".pick-prop-type")
+                    .value
+                    .trim();
+
+                const direction = row
+                    .querySelector(".pick-direction")
+                    .value;
+
+                const line = Number(
+                    row.querySelector(".pick-line").value
+                );
+
+                const projectionValue = row
+                    .querySelector(".pick-projection")
+                    .value;
+
+                const gameDateValue = row
+                    .querySelector(".pick-game-date")
+                    .value;
+
+                if (
+                    !player ||
+                    !team ||
+                    !opponent ||
+                    !propType ||
+                    !Number.isFinite(line)
+                ) {
+                    throw new Error(
+                        `Complete all required fields for Pick ${index + 1}.`
+                    );
+                }
+
+                return {
+                    player,
+                    team,
+                    opponent,
+                    propType,
+                    direction,
+                    line,
+                    projection:
+                        projectionValue !== ""
+                            ? Number(projectionValue)
+                            : null,
+                    gameDate:
+                        gameDateValue
+                            ? new Date(gameDateValue).toISOString()
+                            : null,
+                    actual: null,
+                    result: "pending"
+                };
+            });
+        }
+
+        function collectEntryData() {
+            const platform =
+                document.getElementById("platform")
+                    .value
+                    .trim();
+
+            const entryType =
+                document.getElementById("entryType")
+                    .value
+                    .trim();
+
+            const wager = Number(
+                document.getElementById("wager").value
+            );
+
+            const potentialPayout = Number(
+                document.getElementById(
+                    "potentialPayout"
+                ).value
+            );
+
+            const submittedAtValue =
+                document.getElementById("submittedAt")
+                    .value;
+
+            const title =
+                document.getElementById("entryTitle")
+                    .value
+                    .trim();
+
+            const notes =
+                document.getElementById("entryNotes")
+                    .value
+                    .trim();
+
+            if (
+                !platform ||
+                !entryType ||
+                !Number.isFinite(wager) ||
+                wager <= 0 ||
+                !Number.isFinite(potentialPayout) ||
+                potentialPayout < 0 ||
+                !submittedAtValue
+            ) {
+                throw new Error(
+                    "Complete all required entry details."
+                );
+            }
+
+            return {
+                sportsbook: platform,
+                entryType,
+                title: title || entryType,
+                notes,
+                stake: wager,
+                payout: potentialPayout,
+                submittedAt:
+                    new Date(submittedAtValue).toISOString(),
+                picks: collectPickData()
+            };
+        }
+
+        async function submitEntry(event) {
+            event.preventDefault();
+
+            hideMessage(entryFormStatus);
+
+            try {
+                const entryData = collectEntryData();
+
+                submitEntryButton.disabled = true;
+                submitEntryButton.textContent =
+                    "Saving Entry...";
+
+                await apiRequest(
+                    API_ENDPOINTS.createSlip,
+                    {
+                        method: "POST",
+                        body: JSON.stringify(entryData)
+                    },
+                    true
+                );
+
+                showMessage(
+                    entryFormStatus,
+                    "Official entry saved successfully.",
+                    "success"
+                );
+
+                resetEntryForm();
+
+                showMessage(
+                    entryFormStatus,
+                    "Official entry saved successfully.",
+                    "success"
+                );
+
+                await loadBankroll();
+            } catch (error) {
+                console.error(
+                    "Failed to create bankroll entry:",
+                    error
+                );
+
+                showMessage(
+                    entryFormStatus,
+                    error.message,
+                    "error"
+                );
+            } finally {
+                submitEntryButton.disabled = false;
+                submitEntryButton.textContent =
+                    "Save Official Entry";
+            }
+        }
+
+        function renderSummary(data) {
+            const summary = calculateSummary(data);
+
+            summaryStarting.textContent =
+                formatCurrency(summary.startingBankroll);
+
+            summaryCurrent.textContent =
+                formatCurrency(summary.currentBankroll);
+
+            summaryProfit.textContent =
+                formatCurrency(summary.netProfit);
+
+            summaryRecord.textContent =
+                `${summary.wins}-${summary.losses}`;
+
+            summaryPending.textContent =
+                String(summary.pending);
+
+            summaryEntries.textContent =
+                String(summary.totalEntries);
+
+            summaryProfit.classList.remove(
+                "positive",
+                "negative",
+                "neutral"
+            );
+
+            summaryCurrent.classList.remove(
+                "positive",
+                "negative",
+                "neutral"
+            );
+
+            const performanceClass =
+                summary.netProfit > 0
+                    ? "positive"
+                    : summary.netProfit < 0
+                        ? "negative"
+                        : "neutral";
+
+            summaryProfit.classList.add(
+                performanceClass
+            );
+
+            summaryCurrent.classList.add(
+                performanceClass
+            );
+        }
+
+        function getEntryId(entry) {
+            return (
+                entry.id ||
+                entry.slipId ||
+                entry.entryId ||
+                entry._id ||
+                ""
+            );
+        }
+
+        function getEntryTitle(entry) {
+            return (
+                entry.title ||
+                entry.entryType ||
+                "Official PlayMaker Entry"
+            );
+        }
+
+        function renderEntryPick(pick) {
+            const result = normalizeStatus(
+                pick.result
+            );
+
+            const direction =
+                String(
+                    pick.direction ||
+                    pick.side ||
+                    ""
+                ).toLowerCase() === "lower"
+                    ? "Lower"
+                    : "Higher";
+
+            return `
         <div class="admin-entry-pick">
           <div>
             <strong>
               ${escapeHtml(
                 pick.player ||
                 "Unknown Player"
-              )}
+            )}
             </strong>
 
             <span>
@@ -1737,7 +1658,7 @@
                 pick.propType ||
                 pick.market ||
                 ""
-              )}
+            )}
             </span>
           </div>
 
@@ -1746,22 +1667,21 @@
           </span>
         </div>
       `;
-    }
+        }
 
-    function renderGradeFields(entry) {
-      const picks = Array.isArray(entry.picks)
-        ? entry.picks
-        : [];
+        function renderGradeFields(entry) {
+            const picks = Array.isArray(entry.picks)
+                ? entry.picks
+                : [];
 
-      return `
+            return `
         <div
           class="grade-entry-form"
           data-entry-id="${escapeHtml(
-            getEntryId(entry)
-          )}"
+                getEntryId(entry)
+            )}"
         >
-          ${
-            picks.map((pick, index) => `
+          ${picks.map((pick, index) => `
               <div
                 class="grade-grid"
                 data-pick-index="${index}"
@@ -1769,23 +1689,23 @@
                 <div class="grade-pick-description">
                   <strong>
                     ${escapeHtml(
-                      pick.player ||
-                      `Pick ${index + 1}`
-                    )}
+                pick.player ||
+                `Pick ${index + 1}`
+            )}
                   </strong>
 
                   <span>
                     ${escapeHtml(
-                      pick.direction ||
-                      pick.side ||
-                      ""
-                    )}
+                pick.direction ||
+                pick.side ||
+                ""
+            )}
                     ${escapeHtml(pick.line ?? "")}
                     ${escapeHtml(
-                      pick.propType ||
-                      pick.market ||
-                      ""
-                    )}
+                pick.propType ||
+                pick.market ||
+                ""
+            )}
                   </span>
                 </div>
 
@@ -1796,12 +1716,11 @@
                     class="grade-actual"
                     type="number"
                     step="0.01"
-                    value="${
-                      pick.actual !== null &&
-                      pick.actual !== undefined
-                        ? escapeHtml(pick.actual)
-                        : ""
-                    }"
+                    value="${pick.actual !== null &&
+                    pick.actual !== undefined
+                    ? escapeHtml(pick.actual)
+                    : ""
+                }"
                   />
                 </div>
 
@@ -1811,52 +1730,48 @@
                   <select class="grade-result">
                     <option
                       value="pending"
-                      ${
-                        normalizeStatus(
-                          pick.result
-                        ) === "pending"
-                          ? "selected"
-                          : ""
-                      }
+                      ${normalizeStatus(
+                    pick.result
+                ) === "pending"
+                    ? "selected"
+                    : ""
+                }
                     >
                       Pending
                     </option>
 
                     <option
                       value="won"
-                      ${
-                        normalizeStatus(
-                          pick.result
-                        ) === "won"
-                          ? "selected"
-                          : ""
-                      }
+                      ${normalizeStatus(
+                    pick.result
+                ) === "won"
+                    ? "selected"
+                    : ""
+                }
                     >
                       Hit
                     </option>
 
                     <option
                       value="lost"
-                      ${
-                        normalizeStatus(
-                          pick.result
-                        ) === "lost"
-                          ? "selected"
-                          : ""
-                      }
+                      ${normalizeStatus(
+                    pick.result
+                ) === "lost"
+                    ? "selected"
+                    : ""
+                }
                     >
                       Miss
                     </option>
 
                     <option
                       value="void"
-                      ${
-                        normalizeStatus(
-                          pick.result
-                        ) === "void"
-                          ? "selected"
-                          : ""
-                      }
+                      ${normalizeStatus(
+                    pick.result
+                ) === "void"
+                    ? "selected"
+                    : ""
+                }
                     >
                       Void
                     </option>
@@ -1864,7 +1779,7 @@
                 </div>
               </div>
             `).join("")
-          }
+                }
 
           <div class="admin-form-grid">
             <div class="admin-field">
@@ -1879,9 +1794,6 @@
                   Lost
                 </option>
 
-                <option value="void">
-                  Void
-                </option>
               </select>
             </div>
 
@@ -1934,29 +1846,29 @@
           ></div>
         </div>
       `;
-    }
+        }
 
-    function renderEntryCard(entry) {
-      const entryId = getEntryId(entry);
-      const status = normalizeStatus(entry.status);
-      const wager = toNumber(entry.wager);
-      const actualPayout =
-        toNumber(entry.actualPayout);
-      const profitLoss =
-        calculateEntryProfitLoss(entry);
+        function renderEntryCard(entry) {
+            const entryId = getEntryId(entry);
+            const status = normalizeStatus(entry.status);
+            const wager = toNumber(entry.stake);
+            const actualPayout =
+                toNumber(entry.actualPayout);
+            const profitLoss =
+                calculateEntryProfitLoss(entry);
 
-      const profitClass =
-        profitLoss > 0
-          ? "positive"
-          : profitLoss < 0
-            ? "negative"
-            : "neutral";
+            const profitClass =
+                profitLoss > 0
+                    ? "positive"
+                    : profitLoss < 0
+                        ? "negative"
+                        : "neutral";
 
-      const picks = Array.isArray(entry.picks)
-        ? entry.picks
-        : [];
+            const picks = Array.isArray(entry.picks)
+                ? entry.picks
+                : [];
 
-      return `
+            return `
         <article class="admin-entry-card">
           <div class="admin-entry-card-header">
             <div>
@@ -1970,16 +1882,17 @@
 
               <p>
                 ${escapeHtml(
-                  entry.platform ||
-                  "Official PlayMaker Entry"
-                )}
+                entry.sportsbook ||
+                entry.platform ||
+                "Official PlayMaker Entry"
+            )}
                 ·
                 ${formatDate(
-                  entry.submittedAt ||
-                  entry.createdAt ||
-                  entry.date,
-                  true
-                )}
+                entry.submittedAt ||
+                entry.createdAt ||
+                entry.date,
+                true
+            )}
               </p>
             </div>
 
@@ -1996,19 +1909,17 @@
 
             <div class="admin-entry-financial">
               <span>
-                ${
-                  status === "pending"
+                ${status === "pending"
                     ? "Potential Payout"
                     : "Actual Payout"
                 }
               </span>
 
               <strong>
-                ${
-                  status === "pending"
+                ${status === "pending"
                     ? formatCurrency(
-                        entry.potentialPayout
-                      )
+                        entry.payout
+                    )
                     : formatCurrency(actualPayout)
                 }
               </strong>
@@ -2018,8 +1929,7 @@
               <span>Profit/Loss</span>
 
               <strong class="${profitClass}">
-                ${
-                  status === "pending"
+                ${status === "pending"
                     ? "Pending"
                     : formatCurrency(profitLoss)
                 }
@@ -2028,23 +1938,21 @@
           </div>
 
           <div class="admin-entry-picks">
-            ${
-              picks.length
-                ? picks
-                    .map(renderEntryPick)
-                    .join("")
-                : `
+            ${picks.length
+                    ? picks
+                        .map(renderEntryPick)
+                        .join("")
+                    : `
                   <div class="admin-empty-state">
                     No picks were attached to this entry.
                   </div>
                 `
-            }
+                }
           </div>
 
-          ${
-            status === "pending"
-              ? renderGradeFields(entry)
-              : `
+          ${status === "pending"
+                    ? renderGradeFields(entry)
+                    : `
                 <div class="admin-button-row">
                   <button
                     class="admin-button danger delete-settled-entry-button"
@@ -2055,467 +1963,474 @@
                   </button>
                 </div>
               `
-          }
+                }
         </article>
       `;
-    }
+        }
 
-    function renderEntries() {
-      const filter = entryFilter.value;
+        function renderEntries() {
+            const filter = entryFilter.value;
 
-      const filteredEntries =
-        filter === "all"
-          ? activeEntries
-          : activeEntries.filter(
-              entry =>
-                normalizeStatus(entry.status) === filter
-            );
+            const filteredEntries =
+                filter === "all"
+                    ? activeEntries
+                    : activeEntries.filter(
+                        entry =>
+                            normalizeStatus(entry.status) === filter
+                    );
 
-      if (!filteredEntries.length) {
-        entryList.innerHTML = `
+            if (!filteredEntries.length) {
+                entryList.innerHTML = `
           <div class="admin-empty-state">
             No ${escapeHtml(filter)} entries were found.
           </div>
         `;
 
-        return;
-      }
+                return;
+            }
 
-      entryList.innerHTML =
-        filteredEntries
-          .map(renderEntryCard)
-          .join("");
+            entryList.innerHTML =
+                filteredEntries
+                    .map(renderEntryCard)
+                    .join("");
 
-      bindEntryActions();
-    }
-
-    function collectGrades(container, entry) {
-      const gradeRows = [
-        ...container.querySelectorAll(
-          ".grade-grid"
-        )
-      ];
-
-      const originalPicks =
-        Array.isArray(entry.picks)
-          ? entry.picks
-          : [];
-
-      return gradeRows.map((row, index) => {
-        const actualValue =
-          row.querySelector(".grade-actual")
-            .value;
-
-        const result =
-          row.querySelector(".grade-result")
-            .value;
-
-        return {
-          ...originalPicks[index],
-          actual:
-            actualValue !== ""
-              ? Number(actualValue)
-              : null,
-          result
-        };
-      });
-    }
-
-    async function saveGrades(
-      entry,
-      container,
-      button
-    ) {
-      const statusElement =
-        container.querySelector(
-          ".entry-action-status"
-        );
-
-      try {
-        button.disabled = true;
-        button.textContent = "Saving...";
-
-        const picks = collectGrades(
-          container,
-          entry
-        );
-
-        await apiRequest(
-          API_ENDPOINTS.updateSlip(
-            getEntryId(entry)
-          ),
-          {
-            method: "PATCH",
-            body: JSON.stringify({
-              picks
-            })
-          }
-        );
-
-        showMessage(
-          statusElement,
-          "Pick grades saved successfully.",
-          "success"
-        );
-
-        await loadBankroll();
-      } catch (error) {
-        showMessage(
-          statusElement,
-          error.message,
-          "error"
-        );
-      } finally {
-        button.disabled = false;
-        button.textContent = "Save Leg Grades";
-      }
-    }
-
-    async function settleEntry(
-      entry,
-      container,
-      button
-    ) {
-      const statusElement =
-        container.querySelector(
-          ".entry-action-status"
-        );
-
-      const finalStatus =
-        container.querySelector(
-          ".settle-status"
-        ).value;
-
-      const payoutValue =
-        container.querySelector(
-          ".settle-payout"
-        ).value;
-
-      const actualPayout =
-        payoutValue !== ""
-          ? Number(payoutValue)
-          : 0;
-
-      if (
-        finalStatus === "won" &&
-        actualPayout <= 0
-      ) {
-        showMessage(
-          statusElement,
-          "Enter the actual payout for a winning entry.",
-          "error"
-        );
-
-        return;
-      }
-
-      try {
-        button.disabled = true;
-        button.textContent = "Settling...";
-
-        const picks = collectGrades(
-          container,
-          entry
-        );
-
-        await apiRequest(
-          API_ENDPOINTS.settleSlip(
-            getEntryId(entry)
-          ),
-          {
-            method: "POST",
-            body: JSON.stringify({
-              status: finalStatus,
-              actualPayout,
-              picks,
-              settledAt:
-                new Date().toISOString()
-            })
-          }
-        );
-
-        showMessage(
-          statusElement,
-          "Entry settled successfully.",
-          "success"
-        );
-
-        await loadBankroll();
-      } catch (error) {
-        showMessage(
-          statusElement,
-          error.message,
-          "error"
-        );
-      } finally {
-        button.disabled = false;
-        button.textContent = "Settle Entry";
-      }
-    }
-
-    async function voidEntry(
-      entry,
-      container,
-      button
-    ) {
-      const confirmed = window.confirm(
-        "Void this entry? Its bankroll profit/loss will be set to $0."
-      );
-
-      if (!confirmed) {
-        return;
-      }
-
-      const statusElement =
-        container.querySelector(
-          ".entry-action-status"
-        );
-
-      try {
-        button.disabled = true;
-        button.textContent = "Voiding...";
-
-        await apiRequest(
-          API_ENDPOINTS.voidSlip(
-            getEntryId(entry)
-          ),
-          {
-            method: "POST",
-            body: JSON.stringify({
-              status: "void",
-              actualPayout: toNumber(
-                entry.wager
-              ),
-              profitLoss: 0,
-              settledAt:
-                new Date().toISOString()
-            })
-          }
-        );
-
-        await loadBankroll();
-      } catch (error) {
-        showMessage(
-          statusElement,
-          error.message,
-          "error"
-        );
-      } finally {
-        button.disabled = false;
-        button.textContent = "Void Entry";
-      }
-    }
-
-    async function deleteEntry(entryId) {
-      const confirmed = window.confirm(
-        "Permanently delete this bankroll entry? This cannot be undone."
-      );
-
-      if (!confirmed) {
-        return;
-      }
-
-      await apiRequest(
-        API_ENDPOINTS.deleteSlip(entryId),
-        {
-          method: "DELETE"
+            bindEntryActions();
         }
-      );
 
-      await loadBankroll();
-    }
+        function collectGrades(container, entry) {
+            const gradeRows = [
+                ...container.querySelectorAll(
+                    ".grade-grid"
+                )
+            ];
 
-    function bindEntryActions() {
-      document
-        .querySelectorAll(".grade-entry-form")
-        .forEach(container => {
-          const entryId =
-            container.dataset.entryId;
+            const originalPicks =
+                Array.isArray(entry.picks)
+                    ? entry.picks
+                    : [];
 
-          const entry = activeEntries.find(
-            item =>
-              String(getEntryId(item)) ===
-              String(entryId)
-          );
+            return gradeRows.map((row, index) => {
+                const actualValue =
+                    row.querySelector(".grade-actual")
+                        .value;
 
-          if (!entry) {
-            return;
-          }
+                const result =
+                    row.querySelector(".grade-result")
+                        .value;
 
-          const saveButton =
-            container.querySelector(
-              ".save-grades-button"
-            );
+                return {
+                    ...originalPicks[index],
+                    actual:
+                        actualValue !== ""
+                            ? Number(actualValue)
+                            : null,
+                    result
+                };
+            });
+        }
 
-          const settleButton =
-            container.querySelector(
-              ".settle-entry-button"
-            );
-
-          const voidButton =
-            container.querySelector(
-              ".void-entry-button"
-            );
-
-          const deleteButton =
-            container.querySelector(
-              ".delete-entry-button"
-            );
-
-          saveButton.addEventListener(
-            "click",
-            () => saveGrades(
-              entry,
-              container,
-              saveButton
-            )
-          );
-
-          settleButton.addEventListener(
-            "click",
-            () => settleEntry(
-              entry,
-              container,
-              settleButton
-            )
-          );
-
-          voidButton.addEventListener(
-            "click",
-            () => voidEntry(
-              entry,
-              container,
-              voidButton
-            )
-          );
-
-          deleteButton.addEventListener(
-            "click",
-            async () => {
-              try {
-                await deleteEntry(entryId);
-              } catch (error) {
-                showMessage(
-                  container.querySelector(
+        async function saveGrades(
+            entry,
+            container,
+            button
+        ) {
+            const statusElement =
+                container.querySelector(
                     ".entry-action-status"
-                  ),
-                  error.message,
-                  "error"
                 );
-              }
-            }
-          );
-        });
 
-      document
-        .querySelectorAll(
-          ".delete-settled-entry-button"
-        )
-        .forEach(button => {
-          button.addEventListener(
-            "click",
-            async () => {
-              try {
-                await deleteEntry(
-                  button.dataset.entryId
+            try {
+                button.disabled = true;
+                button.textContent = "Saving...";
+
+                const picks = collectGrades(
+                    container,
+                    entry
                 );
-              } catch (error) {
-                window.alert(error.message);
-              }
+
+                await apiRequest(
+                    API_ENDPOINTS.updateSlip(
+                        getEntryId(entry)
+                    ),
+                    {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            picks
+                        })
+                    },
+                    true
+                );
+
+                showMessage(
+                    statusElement,
+                    "Pick grades saved successfully.",
+                    "success"
+                );
+
+                await loadBankroll();
+            } catch (error) {
+                showMessage(
+                    statusElement,
+                    error.message,
+                    "error"
+                );
+            } finally {
+                button.disabled = false;
+                button.textContent = "Save Leg Grades";
             }
-          );
-        });
-    }
+        }
 
-    async function loadBankroll() {
-      try {
-        refreshButton.disabled = true;
-        refreshButton.textContent =
-          "Refreshing...";
+        async function settleEntry(
+            entry,
+            container,
+            button
+        ) {
+            const statusElement =
+                container.querySelector(
+                    ".entry-action-status"
+                );
 
-        hideMessage(summaryStatus);
+            const finalStatus =
+                container.querySelector(
+                    ".settle-status"
+                ).value;
 
-        bankrollData = await apiRequest(
-          API_ENDPOINTS.bankroll
-        );
+            const payoutValue =
+                container.querySelector(
+                    ".settle-payout"
+                ).value;
 
-        activeEntries = getEntries(
-          bankrollData
-        ).sort((a, b) => {
-          const aDate = new Date(
-            a.submittedAt ||
-            a.createdAt ||
-            a.date ||
-            0
-          ).getTime();
+            const actualPayout =
+                payoutValue !== ""
+                    ? Number(payoutValue)
+                    : 0;
 
-          const bDate = new Date(
-            b.submittedAt ||
-            b.createdAt ||
-            b.date ||
-            0
-          ).getTime();
+            if (
+                finalStatus === "won" &&
+                actualPayout <= 0
+            ) {
+                showMessage(
+                    statusElement,
+                    "Enter the actual payout for a winning entry.",
+                    "error"
+                );
 
-          return bDate - aDate;
-        });
+                return;
+            }
 
-        renderSummary(bankrollData);
-        renderEntries();
-      } catch (error) {
-        console.error(
-          "Failed to load bankroll:",
-          error
-        );
+            try {
+                button.disabled = true;
+                button.textContent = "Settling...";
 
-        showMessage(
-          summaryStatus,
-          error.message,
-          "error"
-        );
+                const entryId = getEntryId(entry);
 
-        entryList.innerHTML = `
+                const picks = collectGrades(
+                    container,
+                    entry
+                );
+
+                await apiRequest(
+                    API_ENDPOINTS.updateSlip(entryId),
+                    {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            picks
+                        })
+                    },
+                    true
+                );
+
+                await apiRequest(
+                    API_ENDPOINTS.settleSlip(entryId),
+                    {
+                        method: "POST",
+                        body: JSON.stringify({
+                            result: finalStatus,
+                            ...(finalStatus === "won"
+                                ? {
+                                    payout: actualPayout
+                                }
+                                : {})
+                        })
+                    },
+                    true
+                );
+
+                showMessage(
+                    statusElement,
+                    "Entry settled successfully.",
+                    "success"
+                );
+
+                await loadBankroll();
+            } catch (error) {
+                showMessage(
+                    statusElement,
+                    error.message,
+                    "error"
+                );
+            } finally {
+                button.disabled = false;
+                button.textContent = "Settle Entry";
+            }
+        }
+
+        async function voidEntry(
+            entry,
+            container,
+            button
+        ) {
+            const confirmed = window.confirm(
+                "Void this entry? Its bankroll profit/loss will be set to $0."
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            const statusElement =
+                container.querySelector(
+                    ".entry-action-status"
+                );
+
+            try {
+                button.disabled = true;
+                button.textContent = "Voiding...";
+
+                await apiRequest(
+                    API_ENDPOINTS.voidSlip(
+                        getEntryId(entry)
+                    ),
+                    {
+                        method: "POST"
+                    },
+                    true
+                );
+
+                await loadBankroll();
+            } catch (error) {
+                showMessage(
+                    statusElement,
+                    error.message,
+                    "error"
+                );
+            } finally {
+                button.disabled = false;
+                button.textContent = "Void Entry";
+            }
+        }
+
+        async function deleteEntry(entryId) {
+            const confirmed = window.confirm(
+                "Permanently delete this bankroll entry? This cannot be undone."
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            await apiRequest(
+                API_ENDPOINTS.deleteSlip(entryId),
+                {
+                    method: "DELETE"
+                },
+                true
+            );
+
+            await loadBankroll();
+        }
+
+        function bindEntryActions() {
+            document
+                .querySelectorAll(".grade-entry-form")
+                .forEach(container => {
+                    const entryId =
+                        container.dataset.entryId;
+
+                    const entry = activeEntries.find(
+                        item =>
+                            String(getEntryId(item)) ===
+                            String(entryId)
+                    );
+
+                    if (!entry) {
+                        return;
+                    }
+
+                    const saveButton =
+                        container.querySelector(
+                            ".save-grades-button"
+                        );
+
+                    const settleButton =
+                        container.querySelector(
+                            ".settle-entry-button"
+                        );
+
+                    const voidButton =
+                        container.querySelector(
+                            ".void-entry-button"
+                        );
+
+                    const deleteButton =
+                        container.querySelector(
+                            ".delete-entry-button"
+                        );
+
+                    saveButton.addEventListener(
+                        "click",
+                        () => saveGrades(
+                            entry,
+                            container,
+                            saveButton
+                        )
+                    );
+
+                    settleButton.addEventListener(
+                        "click",
+                        () => settleEntry(
+                            entry,
+                            container,
+                            settleButton
+                        )
+                    );
+
+                    voidButton.addEventListener(
+                        "click",
+                        () => voidEntry(
+                            entry,
+                            container,
+                            voidButton
+                        )
+                    );
+
+                    deleteButton.addEventListener(
+                        "click",
+                        async () => {
+                            try {
+                                await deleteEntry(entryId);
+                            } catch (error) {
+                                showMessage(
+                                    container.querySelector(
+                                        ".entry-action-status"
+                                    ),
+                                    error.message,
+                                    "error"
+                                );
+                            }
+                        }
+                    );
+                });
+
+            document
+                .querySelectorAll(
+                    ".delete-settled-entry-button"
+                )
+                .forEach(button => {
+                    button.addEventListener(
+                        "click",
+                        async () => {
+                            try {
+                                await deleteEntry(
+                                    button.dataset.entryId
+                                );
+                            } catch (error) {
+                                window.alert(error.message);
+                            }
+                        }
+                    );
+                });
+        }
+
+        async function loadBankroll() {
+            try {
+                refreshButton.disabled = true;
+                refreshButton.textContent =
+                    "Refreshing...";
+
+                hideMessage(summaryStatus);
+
+                bankrollData = await apiRequest(
+                    API_ENDPOINTS.bankroll
+                );
+
+                activeEntries = getEntries(
+                    bankrollData
+                ).sort((a, b) => {
+                    const aDate = new Date(
+                        a.submittedAt ||
+                        a.createdAt ||
+                        a.date ||
+                        0
+                    ).getTime();
+
+                    const bDate = new Date(
+                        b.submittedAt ||
+                        b.createdAt ||
+                        b.date ||
+                        0
+                    ).getTime();
+
+                    return bDate - aDate;
+                });
+
+                renderSummary(bankrollData);
+                renderEntries();
+            } catch (error) {
+                console.error(
+                    "Failed to load bankroll:",
+                    error
+                );
+
+                showMessage(
+                    summaryStatus,
+                    error.message,
+                    "error"
+                );
+
+                entryList.innerHTML = `
           <div class="admin-empty-state">
             Bankroll entries could not be loaded.
           </div>
         `;
-      } finally {
-        refreshButton.disabled = false;
-        refreshButton.textContent =
-          "Refresh Data";
-      }
-    }
+            } finally {
+                refreshButton.disabled = false;
+                refreshButton.textContent =
+                    "Refresh Data";
+            }
+        }
 
-    addPickButton.addEventListener(
-      "click",
-      () => addPickRow()
-    );
+        addPickButton.addEventListener(
+            "click",
+            () => addPickRow()
+        );
 
-    resetEntryButton.addEventListener(
-      "click",
-      resetEntryForm
-    );
+        resetEntryButton.addEventListener(
+            "click",
+            resetEntryForm
+        );
 
-    entryForm.addEventListener(
-      "submit",
-      submitEntry
-    );
+        entryForm.addEventListener(
+            "submit",
+            submitEntry
+        );
 
-    entryFilter.addEventListener(
-      "change",
-      renderEntries
-    );
+        entryFilter.addEventListener(
+            "change",
+            renderEntries
+        );
 
-    refreshButton.addEventListener(
-      "click",
-      loadBankroll
-    );
+        refreshButton.addEventListener(
+            "click",
+            loadBankroll
+        );
 
-    setDefaultSubmittedTime();
-    addPickRow();
-    addPickRow();
+        setDefaultSubmittedTime();
+        addPickRow();
+        addPickRow();
 
-    verifyAdminAccess();
-  </script>
+        verifyAdminAccess();
+    </script>
 
 </body>
 
