@@ -2,365 +2,1264 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>WR Intelligence | NFL Wide Receiver Analytics Explained | PlayMaker Research</title>
+  <title>WR Intelligence | NFL Wide Receiver Analytics Explained | PlayMaker Research</title>
 
-    <meta name="description"
-        content="Explore WR Intelligence metrics including target share, air yards, YPRR, YAC, route participation, and matchup impact. Learn how PlayMaker evaluates wide receiver props and performance." />
+  <meta
+    name="description"
+    content="Explore NFL wide receiver analytics including target share, air yards, route participation, YPRR, yards after catch, red-zone usage, game script, and defensive matchup context."
+  />
 
-    <link rel="stylesheet" href="/assets/css/research.css" />
-    <link rel="stylesheet" href="/assets/css/entity-links.css" />
+  <link
+    rel="canonical"
+    href="https://playmakerprime.com/research/positions/wr-intelligence.html"
+  />
+
+  <meta
+    property="og:title"
+    content="WR Intelligence | NFL Wide Receiver Analytics Explained"
+  />
+
+  <meta
+    property="og:description"
+    content="Learn how target volume, air yards, route participation, receiving efficiency, game script, and coverage shape NFL wide receiver performance."
+  />
+
+  <meta
+    property="og:url"
+    content="https://playmakerprime.com/research/positions/wr-intelligence.html"
+  />
+
+  <meta
+    property="og:type"
+    content="article"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/research.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/entity-links.css"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/images/favicon.png"
+  />
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header class="pm-header">
-        <a href="/index.html" class="pm-logo">
-            <h1>PlayMaker Prime</h1>
-        </a>
+  <!-- HEADER -->
+  <header class="pm-header">
 
-        <nav class="pm-nav">
-            <a href="/players.html" class="pm-link">Players</a>
-            <a href="/teams.html" class="pm-link">Teams</a>
-            <a href="/matchups.html" class="pm-link">Matchups</a>
-            <a href="/research.html" class="pm-link">Research</a>
-        </nav>
-    </header>
+    <a
+      href="/"
+      class="pm-logo"
+      aria-label="PlayMaker Prime home"
+    >
+      <h1>PlayMaker Prime</h1>
+    </a>
 
-    <!-- HERO -->
-    <section class="research-hero">
+    <nav
+      class="pm-nav"
+      aria-label="Main navigation"
+    >
+      <a href="/players.html" class="pm-link">
+        Players
+      </a>
 
-        <div class="hero-glow"></div>
+      <a href="/teams.html" class="pm-link">
+        Teams
+      </a>
 
-        <div class="research-hero-content">
+      <a href="/matchups.html" class="pm-link">
+        Matchups
+      </a>
 
-            <a href="/research.html" class="hq-pill back-btn">
-                ← Back to Research
-            </a>
+      <a
+        href="/research.html"
+        class="pm-link active"
+        aria-current="page"
+      >
+        Research
+      </a>
 
-            <span class="hq-pill">Position Intelligence</span>
+      <a href="/results.html" class="pm-link">
+        Results
+      </a>
 
-            <h2>
-                WR Intelligence
-                <span>Wide Receiver Performance Model</span>
-            </h2>
+      <a href="/pricing.html" class="pm-link">
+        Pricing
+      </a>
+    </nav>
 
-            <p>
-                WR Intelligence evaluates wide receivers based on target share, air yards, efficiency, YAC, route usage,
-                and matchup strength — not just receptions or yards.
-            </p>
+  </header>
 
-        </div>
+  <!-- HERO -->
+  <section class="research-hero">
+
+    <div class="hero-glow"></div>
+
+    <div class="research-hero-content">
+
+      <a
+        href="/research/positions/"
+        class="hq-pill back-btn"
+      >
+        ← Back to Position Intelligence
+      </a>
+
+      <span class="hq-pill">
+        Position Intelligence
+      </span>
+
+      <h2>
+        WR Intelligence
+        <span>Wide Receiver Performance Model</span>
+      </h2>
+
+      <p>
+        WR Intelligence evaluates wide receiver performance through target volume,
+        route participation, air yards, receiving efficiency, yards after catch,
+        red-zone usage, game script, and defensive matchup context—not receptions alone.
+      </p>
+
+    </div>
+
+  </section>
+
+  <main>
+
+    <!-- OVERVIEW -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          What WR Intelligence Measures
+        </h3>
+
+        <p>
+          Wide receiver production depends on opportunity, route role,
+          target quality, efficiency, and the environment surrounding each pass play.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Core Idea
+        </span>
+
+        <h3>
+          Routes create availability. Targets and air yards define receiving opportunity.
+        </h3>
+
+        <p>
+          A receiver can run nearly every route without earning consistent targets,
+          while another player may command high-value opportunities on fewer total routes.
+          PlayMaker evaluates the complete usage profile.
+        </p>
+
+      </div>
 
     </section>
 
-    <main>
+    <!-- CORE METRICS -->
+    <section class="hq-section hq-section-alt">
 
-        <!-- CORE METRICS -->
-        <section class="hq-section">
+      <div class="section-header">
 
-            <div class="section-header">
-                <h3>Core WR Metrics</h3>
-                <p>The foundation of wide receiver evaluation in PlayMaker.</p>
-            </div>
+        <h3>
+          Core WR Metrics
+        </h3>
 
-            <div class="stack-grid">
+        <p>
+          These metrics establish a wide receiver’s role inside the passing offense.
+        </p>
 
-                <div class="stack-card">
-                    <span>01</span>
-                    <h4>Target Share</h4>
-                    <p>Percentage of team passing targets directed to the WR.</p>
-                </div>
+      </div>
 
-                <div class="stack-card">
-                    <span>02</span>
-                    <h4>Air Yards</h4>
-                    <p>Downfield opportunity volume and explosive play potential.</p>
-                </div>
+      <div class="stack-grid">
 
-                <div class="stack-card">
-                    <span>03</span>
-                    <h4>YPRR (Efficiency)</h4>
-                    <p>Yards per route run — one of the strongest WR efficiency signals.</p>
-                </div>
+        <div class="stack-card">
 
-                <div class="stack-card">
-                    <span>04</span>
-                    <h4>Route Participation</h4>
-                    <p>How often the WR is actually running routes vs blocking or rotating out.</p>
-                </div>
+          <span>
+            01
+          </span>
 
-            </div>
+          <h4>
+            Target Share
+          </h4>
 
-        </section>
-
-        <!-- EXPLOSION / AFTER CATCH -->
-        <section class="hq-section hq-section-alt">
-
-            <div class="section-header">
-                <h3>Explosive Play Ability</h3>
-                <p>WRs win props through big plays and YAC production.</p>
-            </div>
-
-            <div class="stack-grid">
-
-                <div class="stack-card">
-                    <span>01</span>
-                    <h4>YAC (After Catch)</h4>
-                    <p>Ability to turn short targets into long gains.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>02</span>
-                    <h4>Separation Ability</h4>
-                    <p>How consistently a WR gets open vs coverage.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>03</span>
-                    <h4>Deep Target Rate</h4>
-                    <p>Frequency of high-value downfield opportunities.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>04</span>
-                    <h4>Big Play Dependency</h4>
-                    <p>How reliant production is on explosive receptions.</p>
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- MATCHUP FACTORS -->
-        <section class="hq-section">
-
-            <div class="section-header">
-                <h3>Matchup Factors</h3>
-                <p>How defenses impact wide receiver production.</p>
-            </div>
-
-            <div class="stack-grid">
-
-                <div class="stack-card">
-                    <span>01</span>
-                    <h4>Coverage Quality</h4>
-                    <p>Elite CBs reduce target efficiency and separation.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>02</span>
-                    <h4>Slot vs Outside Matchups</h4>
-                    <p>Different WR alignments face different defensive weaknesses.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>03</span>
-                    <h4>Game Script Volume Boost</h4>
-                    <p>Negative scripts increase WR target share significantly.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>04</span>
-                    <h4>Pressure Impact on Timing</h4>
-                    <p>QB pressure can reduce deep shot opportunities.</p>
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- EXAMPLE -->
-        <section class="hq-section hq-section-alt">
-
-            <div class="section-header">
-                <h3>Real NFL Example</h3>
-                <p>Why WR production is a combination of usage + efficiency + matchup.</p>
-            </div>
-
-            <div class="research-highlight-card">
-
-                <span>Example</span>
-
-                <h3>
-                    WR with 30% Target Share + High Air Yards
-                </h3>
-
-                <p>
-                    This profile signals elite usage and explosive upside, especially when combined with favorable
-                    coverage matchups and positive game script.
-                </p>
-
-            </div>
-
-        </section>
-
-        <!-- HOW PLAYMAKER USES IT -->
-        <section class="hq-section">
-
-            <div class="section-header">
-                <h3>How PlayMaker Uses WR Intelligence</h3>
-                <p>This model builds WR prop projections and matchup edges.</p>
-            </div>
-
-            <div class="stack-grid">
-
-                <div class="stack-card">
-                    <span>01</span>
-                    <h4>Target-Based Projection Model</h4>
-                    <p>Uses target share + pace to estimate volume.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>02</span>
-                    <h4>Explosive Play Weighting</h4>
-                    <p>Air yards + YAC determine ceiling outcomes.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>03</span>
-                    <h4>Efficiency Adjustment</h4>
-                    <p>YPRR helps identify undervalued WRs.</p>
-                </div>
-
-                <div class="stack-card">
-                    <span>04</span>
-                    <h4>Final Prop Edge Output</h4>
-                    <p>Combines usage, matchup, and script into final lean.</p>
-                </div>
-
-            </div>
-
-        </section>
-
-        <section class="hq-section hq-section-alt">
-            <div class="section-header">
-                <h3>How WR Intelligence Connects in PlayMaker</h3>
-                <p>See how wide receiver usage, efficiency, and matchup data shape projections.</p>
-            </div>
-
-            <div class="stack-grid">
-
-                <div class="stack-card">
-                    <h4>Player Projections</h4>
-                    <p>Target share, air yards, and YPRR drive WR prop modeling.</p>
-                    <a href="/players.html">View Players →</a>
-                </div>
-
-                <div class="stack-card">
-                    <h4>Matchup Analysis</h4>
-                    <p>Coverage strength and defensive scheme impact WR output.</p>
-                    <a href="/matchups.html">View Matchups →</a>
-                </div>
-
-                <div class="stack-card">
-                    <h4>Position System</h4>
-                    <p>WR Intelligence is part of the full PlayMaker modeling structure.</p>
-                    <a href="/research/positions/index.html">View Position Hub →</a>
-                </div>
-
-                <div class="stack-card">
-                    <h4>PlayMaker Academy</h4>
-                    <p>Learn how WR analytics translate into prop betting edges.</p>
-                    <a href="/research/academy.html">Learn More →</a>
-                </div>
-
-            </div>
-        </section>
-
-        <div id="entity-links"></div>
-
-        <section class="hq-section hq-section-alt">
-            <div class="section-header">
-                <h3>Relevant Players & Matchups</h3>
-                <p>WR target, air yard, and red zone signals.</p>
-            </div>
-
-            <div class="stack-grid">
-                <div class="stack-card">
-                    <img src="/assets/images/players/cee-dee-lamb.png" alt="CeeDee Lamb" class="player-headshot">
-                    <h4>CeeDee Lamb</h4>
-                    <a href="/players/cee-dee-lamb">View Player →</a>
-                </div>
-
-                <div class="stack-card">
-                    <img src="/assets/images/players/ja-marr-chase.png" alt="Ja'Marr Chase" class="player-headshot">
-                    <h4>Ja'Marr Chase</h4>
-                    <a href="/players/ja-marr-chase">View Player →</a>
-                </div>
-
-                <div class="stack-card">
-                    <img src="/assets/images/matchups/bengals-vs-browns.png" alt="CIN @ CLE" class="matchup-thumb">
-                    <h4>CIN @ CLE</h4>
-                    <a href="/matchups/cincinnati-bengals-vs-cleveland-browns">View Matchup →</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="hq-section">
-
-            <div class="final-cta">
-                <h3>Now apply it</h3>
-                <p>See how WR Intelligence impacts real matchup projections.</p>
-                <a href="/matchups.html" class="btn-primary">View Matchups</a>
-            </div>
-
-        </section>
-
-    </main>
-
-    <footer>
-
-        <div class="footer-links">
-
-            <a href="/">Home</a>
-            <a href="/players.html">Players</a>
-            <a href="/teams.html">Teams</a>
-            <a href="/matchups.html">Matchups</a>
-            <a href="/research.html">Research</a>
-            <a href="/results.html">Results</a>
-            <a href="/pricing.html">PlayMaker Pro</a>
+          <p>
+            Measures the percentage of team passing targets
+            directed toward the wide receiver.
+          </p>
 
         </div>
 
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Route Participation
+          </h4>
+
+          <p>
+            Shows how often the receiver runs a route
+            when the offense calls a passing play.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Air Yards
+          </h4>
+
+          <p>
+            Measures the downfield distance of a player’s targets
+            and helps describe the value of the receiving opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Targets per Route
+          </h4>
+
+          <p>
+            Shows how frequently the receiver earns a target
+            when actively participating in a route.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ROUTE ROLE -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Route Role and Alignment
+        </h3>
+
         <p>
-            &copy; 2026 PlayMaker Prime. All Rights Reserved.
+          Alignment and route responsibility influence the type of targets a receiver earns.
         </p>
 
-        <p class="footer-disclaimer">
-            NFL player names, team names, and logos are trademarks of their respective owners.
-            PlayMaker Prime is an independent NFL research and analytics platform and is not
-            affiliated with or endorsed by the National Football League, PrizePicks, Underdog,
-            DraftKings, FanDuel, or any professional sports league.
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Outside Alignment
+          </h4>
+
+          <p>
+            Outside receivers may see more boundary routes,
+            contested targets, and downfield opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Slot Alignment
+          </h4>
+
+          <p>
+            Slot receivers may benefit from shorter releases,
+            inside leverage, and higher-percentage route concepts.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Route Depth
+          </h4>
+
+          <p>
+            Short, intermediate, and deep routes create
+            different reception and yardage profiles.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Motion and Formation
+          </h4>
+
+          <p>
+            Pre-snap motion and formation placement can help create releases,
+            favorable matchups, and designed touches.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EFFICIENCY -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Receiving Efficiency
+        </h3>
+
+        <p>
+          Efficiency shows how much production the receiver creates from available routes and targets.
         </p>
 
-    </footer>
+      </div>
 
-    <script src="/assets/js/entity-link-engine.js"></script>
-    <script src="/assets/js/analytics-tracker.js"></script>
+      <div class="stack-grid">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (!window.matchMedia("(max-width: 768px)").matches) return;
+        <div class="stack-card">
 
-            document.querySelectorAll(".hq-section").forEach((section, index) => {
-                const header = section.querySelector(":scope > .section-header");
-                if (!header) return;
+          <span>
+            01
+          </span>
 
-                if (index === 0) {
-                    section.classList.add("is-open");
-                }
+          <h4>
+            Yards per Route Run
+          </h4>
 
-                header.addEventListener("click", () => {
-                    section.classList.toggle("is-open");
-                });
-            });
+          <p>
+            Measures receiving yards relative to route participation
+            and helps compare production across different workloads.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Catch Rate
+          </h4>
+
+          <p>
+            Shows how often targets become receptions,
+            while reflecting target depth and quarterback accuracy.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Yards per Target
+          </h4>
+
+          <p>
+            Measures total receiving production
+            relative to the number of opportunities earned.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Success Rate
+          </h4>
+
+          <p>
+            Helps distinguish repeatable receiving efficiency
+            from production driven by isolated explosive plays.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EXPLOSIVE PLAY ABILITY -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Explosive Play Ability
+        </h3>
+
+        <p>
+          Downfield targets and post-catch production can create large receiving outcomes.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Deep Target Rate
+          </h4>
+
+          <p>
+            Measures how frequently the receiver earns
+            high-value downfield opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Yards After Catch
+          </h4>
+
+          <p>
+            Shows how much receiving production is created
+            after the player secures the football.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Separation
+          </h4>
+
+          <p>
+            Route technique, speed, scheme, and coverage
+            can all influence the space available at the catch point.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Big-Play Dependency
+          </h4>
+
+          <p>
+            PlayMaker considers whether recent production is supported
+            by stable volume or dependent on a small number of explosive catches.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RED ZONE -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Red-Zone and Scoring Role
+        </h3>
+
+        <p>
+          Scoring-area usage provides context beyond total targets and receiving yards.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Red-Zone Targets
+          </h4>
+
+          <p>
+            Targets inside the 20-yard line provide
+            increased touchdown opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            End-Zone Targets
+          </h4>
+
+          <p>
+            Direct targets in the end zone help identify
+            designed scoring involvement.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            First-Read Usage
+          </h4>
+
+          <p>
+            Some receivers are primary reads on scoring concepts,
+            while others depend on later route progression.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Touchdown Variance
+          </h4>
+
+          <p>
+            Touchdowns can fluctuate, so results should be evaluated
+            alongside repeatable red-zone opportunity.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- MATCHUP FACTORS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Wide Receiver Matchup Factors
+        </h3>
+
+        <p>
+          Coverage, pressure, alignment, and defensive structure
+          can change both target quality and efficiency.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Coverage Quality
+          </h4>
+
+          <p>
+            Cornerback ability and team coverage structure
+            can affect separation, catch probability, and route timing.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Slot Versus Outside
+          </h4>
+
+          <p>
+            Receiver alignment determines which defenders
+            and coverage responsibilities are most relevant.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Defensive Pressure
+          </h4>
+
+          <p>
+            Strong pass rushes can shorten throwing windows
+            and reduce time for deeper routes to develop.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Safety Support
+          </h4>
+
+          <p>
+            Help coverage over the top can reduce deep opportunities
+            or redirect targets toward shorter areas of the field.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- GAME SCRIPT -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Game Script and WR Volume
+        </h3>
+
+        <p>
+          Expected game flow can influence team passing volume
+          and individual receiving opportunity.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Trailing Script
+          </h4>
+
+          <p>
+            Teams playing from behind often increase pass attempts,
+            creating more available receiver targets.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Leading Script
+          </h4>
+
+          <p>
+            Teams protecting a lead may reduce passing volume
+            as they shift toward the running game.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Neutral Script
+          </h4>
+
+          <p>
+            Competitive games may preserve normal passing tendencies
+            and route distribution for longer periods.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Late-Game Volume
+          </h4>
+
+          <p>
+            Hurry-up situations can create additional routes,
+            targets, and short-area completions.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EXAMPLE -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          WR Intelligence Example
+        </h3>
+
+        <p>
+          Why usage quality matters alongside total receiving production.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Example
+        </span>
+
+        <h3>
+          Wide receiver with a 30% target share and consistent downfield usage
+        </h3>
+
+        <p>
+          That receiver owns a large portion of the passing offense
+          and receives valuable air-yard opportunity. Coverage strength,
+          quarterback pressure, and catch efficiency still determine
+          how much of that opportunity becomes production.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- HOW PLAYMAKER USES IT -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          How PlayMaker Uses WR Intelligence
+        </h3>
+
+        <p>
+          PlayMaker combines volume, efficiency, recent performance,
+          and matchup context when evaluating wide receiver props.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Recent Usage
+          </h4>
+
+          <p>
+            Targets, receptions, routes, receiving yards,
+            and recent role changes establish the player’s current baseline.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Opportunity Quality
+          </h4>
+
+          <p>
+            Target depth, air yards, red-zone usage,
+            and quarterback tendencies help describe target value.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Matchup Adjustment
+          </h4>
+
+          <p>
+            Coverage quality, defensive pressure, game script,
+            weather, and injuries help adjust the receiving baseline.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Final Evaluation
+          </h4>
+
+          <p>
+            The adjusted expectation is compared with the listed line
+            to support a ride, fade, or avoid decision.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONNECTIONS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          How WR Intelligence Connects in PlayMaker
+        </h3>
+
+        <p>
+          Explore the metrics and research pages that support wide receiver evaluation.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Target Share
+          </h4>
+
+          <p>
+            Learn how passing volume is distributed
+            between eligible receivers.
+          </p>
+
+          <a href="/research/target-share.html">
+            View Target Share →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Air Yards
+          </h4>
+
+          <p>
+            Review how target depth and downfield opportunity
+            affect receiving projections.
+          </p>
+
+          <a href="/research/air-yards.html">
+            View Air Yards →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Yards per Route Run
+          </h4>
+
+          <p>
+            Compare receiving production
+            with actual route participation.
+          </p>
+
+          <a href="/research/yards-per-route-run.html">
+            View YPRR →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Yards After Catch
+          </h4>
+
+          <p>
+            Learn how receivers create additional production
+            after securing the football.
+          </p>
+
+          <a href="/research/yards-after-catch.html">
+            View YAC →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Red-Zone Usage
+          </h4>
+
+          <p>
+            Review how scoring-area opportunity
+            affects receiving touchdown potential.
+          </p>
+
+          <a href="/research/red-zone-usage.html">
+            View Red-Zone Usage →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Position Intelligence
+          </h4>
+
+          <p>
+            Explore quarterback, running back,
+            and tight end evaluation models.
+          </p>
+
+          <a href="/research/positions/">
+            View Position Hub →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ENTITY LINKS -->
+    <div id="entity-links"></div>
+
+    <!-- RELEVANT PLAYERS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Explore Wide Receivers
+        </h3>
+
+        <p>
+          Open current player pages to review receiving trends,
+          recent production, and matchup information.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <img
+            src="/assets/images/players/cee-dee-lamb.png"
+            alt="CeeDee Lamb"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            CeeDee Lamb
+          </h4>
+
+          <p>
+            Review target volume, receiving production,
+            and matchup context.
+          </p>
+
+          <a href="/players/cee-dee-lamb">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <img
+            src="/assets/images/players/ja-marr-chase.png"
+            alt="Ja'Marr Chase"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            Ja'Marr Chase
+          </h4>
+
+          <p>
+            Review target share, downfield usage,
+            and recent receiving performance.
+          </p>
+
+          <a href="/players/ja-marr-chase">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            All NFL Players
+          </h4>
+
+          <p>
+            Search current NFL players by team,
+            position, or name.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Upcoming Matchups
+          </h4>
+
+          <p>
+            Explore wide receiver environments
+            across the 2026 NFL schedule.
+          </p>
+
+          <a href="/matchups.html">
+            Browse Matchups →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="hq-section">
+
+      <div class="final-cta">
+
+        <h3>
+          Put wide receiver opportunity into context.
+        </h3>
+
+        <p>
+          Compare routes, targets, air yards, receiving efficiency,
+          red-zone usage, coverage, pressure, and expected game flow
+          before evaluating a WR prop.
+        </p>
+
+        <a
+          href="/matchups.html"
+          class="btn-primary"
+        >
+          View Matchups
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-links">
+
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
+
+    </div>
+
+    <p>
+      &copy; 2026 PlayMaker Prime. All Rights Reserved.
+    </p>
+
+    <p class="footer-disclaimer">
+      NFL player names, team names, and logos are trademarks of their respective owners.
+      PlayMaker Prime is an independent NFL research and analytics platform and is not
+      affiliated with or endorsed by the National Football League, PrizePicks, Underdog,
+      DraftKings, FanDuel, or any professional sports league.
+    </p>
+
+  </footer>
+
+  <script src="/assets/js/entity-link-engine.js"></script>
+  <script src="/assets/js/analytics-tracker.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
+
+      document
+        .querySelectorAll(".hq-section")
+        .forEach((section, index) => {
+          const header = section.querySelector(
+            ":scope > .section-header"
+          );
+
+          if (!header) {
+            return;
+          }
+
+          if (index === 0) {
+            section.classList.add("is-open");
+          }
+
+          header.addEventListener("click", () => {
+            section.classList.toggle("is-open");
+          });
         });
-    </script>
+    });
+  </script>
 
 </body>
 

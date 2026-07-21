@@ -7,48 +7,89 @@
 
   <title>Position Intelligence Hub | NFL Analytics Explained | PlayMaker Research</title>
 
-  <meta name="description"
-    content="Explore NFL Position Intelligence including QB, RB, WR, and TE analytics. Learn how PlayMaker evaluates usage, efficiency, and matchup impact by position." />
+  <meta
+    name="description"
+    content="Explore NFL Position Intelligence for quarterbacks, running backs, wide receivers, and tight ends. Learn how PlayMaker evaluates usage, efficiency, game script, and matchup context by position."
+  />
 
-  <link rel="stylesheet" href="/assets/css/research.css" />
-  <link rel="stylesheet" href="/assets/css/entity-links.css" />
+  <link
+    rel="canonical"
+    href="https://playmakerprime.com/research/positions/"
+  />
+
+  <meta
+    property="og:title"
+    content="Position Intelligence Hub | NFL Analytics Explained"
+  />
+
+  <meta
+    property="og:description"
+    content="Explore how quarterbacks, running backs, wide receivers, and tight ends create production through usage, efficiency, role, and matchup context."
+  />
+
+  <meta
+    property="og:url"
+    content="https://playmakerprime.com/research/positions/"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/research.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/entity-links.css"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/images/favicon.png"
+  />
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="pm-header">
-    <a href="/index.html" class="pm-logo">
-      <h1>PlayMaker Prime</h1>
-    </a>
-
-    <nav class="pm-nav">
-      <a href="/players.html" class="pm-link">Players</a>
-      <a href="/teams.html" class="pm-link">Teams</a>
-      <a href="/matchups.html" class="pm-link">Matchups</a>
-      <a href="/research.html" class="pm-link">Research</a>
-    </nav>
-  </header>
+  <!-- DYNAMIC ENTITY NAVIGATION -->
+  <div id="entity-links"></div>
 
   <!-- HERO -->
   <section class="research-hero">
+
     <div class="hero-glow"></div>
 
     <div class="research-hero-content">
 
-      <span class="hq-pill">Position Intelligence</span>
+      <a
+        href="/research.html"
+        class="hq-pill back-btn"
+      >
+        ← Back to Research
+      </a>
+
+      <span class="hq-pill">
+        Position Intelligence
+      </span>
 
       <h2>
         NFL Position Intelligence
-        <span>How Every Position Actually Produces Stats</span>
+        <span>How Every Position Produces Stats</span>
       </h2>
 
       <p>
-        Break down how quarterbacks, running backs, wide receivers, and tight ends generate production using usage,
-        efficiency, and matchup context.
+        Explore how quarterbacks, running backs, wide receivers, and tight ends
+        generate production through workload, role, efficiency, game script,
+        and defensive matchup context.
       </p>
 
     </div>
+
   </section>
 
   <main>
@@ -57,163 +98,690 @@
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>What is Position Intelligence?</h3>
-        <p>A structured breakdown of how NFL roles actually create fantasy + prop value.</p>
+
+        <h3>
+          What Is Position Intelligence?
+        </h3>
+
+        <p>
+          A structured breakdown of how different NFL roles create player production.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
 
-        <span>Core Idea</span>
+        <span>
+          Core Idea
+        </span>
 
         <h3>
-          Every position has a different “path to production” — usage, role, and opportunity matter more than raw
-          talent.
+          Every position follows a different path to production.
         </h3>
 
         <p>
-          PlayMaker separates positions so projections reflect how production actually happens on the field.
+          Quarterbacks depend on passing volume and pressure conditions.
+          Running backs depend on carries, receiving work, and scoring-area usage.
+          Wide receivers and tight ends depend on routes, targets, target depth,
+          and coverage matchups.
         </p>
 
       </div>
 
     </section>
 
-    <!-- POSITION CARDS -->
+    <!-- POSITION MODELS -->
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
-        <h3>Position Models</h3>
-        <p>Select a position to explore its full analytical breakdown.</p>
+
+        <h3>
+          Position Models
+        </h3>
+
+        <p>
+          Select a position to explore its complete analytical framework.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>QB Intelligence</h4>
-          <p>Passing volume, EPA, pressure impact, rushing upside, and game script influence.</p>
-          <a href="/research/positions/qb-intelligence.html">View QB Model →</a>
+
+          <h4>
+            QB Intelligence
+          </h4>
+
+          <p>
+            Passing volume, EPA, pressure response, rushing upside,
+            weather, and expected game flow.
+          </p>
+
+          <a href="/research/positions/qb-intelligence.html">
+            View QB Model →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>RB Intelligence</h4>
-          <p>Carry share, red zone usage, receiving work, and game flow dependency.</p>
-          <a href="/research/positions/rb-intelligence.html">View RB Model →</a>
+
+          <h4>
+            RB Intelligence
+          </h4>
+
+          <p>
+            Carry share, snap share, receiving involvement,
+            red-zone usage, rushing efficiency, and game script.
+          </p>
+
+          <a href="/research/positions/rb-intelligence.html">
+            View RB Model →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>WR Intelligence</h4>
-          <p>Target share, air yards, YPRR, slot vs outside usage, and separation profile.</p>
-          <a href="/research/positions/wr-intelligence.html">View WR Model →</a>
+
+          <h4>
+            WR Intelligence
+          </h4>
+
+          <p>
+            Target share, route participation, Air Yards,
+            YPRR, yards after catch, and coverage context.
+          </p>
+
+          <a href="/research/positions/wr-intelligence.html">
+            View WR Model →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>TE Intelligence</h4>
-          <p>Route participation, red zone dependency, and matchup exploitation zones.</p>
-          <a href="/research/positions/te-intelligence.html">View TE Model →</a>
+
+          <h4>
+            TE Intelligence
+          </h4>
+
+          <p>
+            Route participation, target share, blocking responsibility,
+            red-zone usage, and linebacker or safety coverage.
+          </p>
+
+          <a href="/research/positions/te-intelligence.html">
+            View TE Model →
+          </a>
+
         </div>
 
       </div>
 
     </section>
 
-    <!-- WHY THIS MATTERS -->
+    <!-- POSITION DIFFERENCES -->
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>Why Position Matters in Betting</h3>
-        <p>Different positions require different modeling logic.</p>
+
+        <h3>
+          Why Position-Specific Analysis Matters
+        </h3>
+
+        <p>
+          Different positions require different workload and matchup signals.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>Usage is Position-Specific</h4>
-          <p>A WR’s value = targets. An RB’s value = carries + red zone work.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Opportunity Is Different
+          </h4>
+
+          <p>
+            Quarterbacks rely on attempts and dropbacks,
+            running backs rely on touches, and receivers rely on routes and targets.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Efficiency Differs by Role</h4>
-          <p>QB EPA, WR YPRR, RB yards per carry all measure different truths.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Efficiency Is Different
+          </h4>
+
+          <p>
+            EPA, success rate, yards per carry, YPRR,
+            catch rate, and YAC describe different types of performance.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Matchups Affect Positions Differently</h4>
-          <p>Defenses impact QBs, WRs, and RBs in completely different ways.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Matchups Are Different
+          </h4>
+
+          <p>
+            Pass rush affects quarterbacks differently than coverage affects receivers
+            or front-seven strength affects running backs.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Game Script Shapes Everything</h4>
-          <p>Trailing teams favor QB/WR volume, leading teams favor RB efficiency.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Game Script Is Different
+          </h4>
+
+          <p>
+            Trailing teams may increase passing volume,
+            while leading teams may create additional rushing opportunity.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
-    <!-- SYSTEM CONNECTION -->
+    <!-- QB PATH -->
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
-        <h3>How This Connects to PlayMaker</h3>
-        <p>Position models power every projection in the system.</p>
+
+        <h3>
+          Quarterback Path to Production
+        </h3>
+
+        <p>
+          Quarterback output begins with opportunity and passing environment.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>Stat Guides</h4>
-          <p>Metrics like target share and EPA feed into position models.</p>
-          <a href="/research.html">View Stats →</a>
+
+          <h4>
+            Passing Volume
+          </h4>
+
+          <p>
+            Attempts, dropbacks, pace, and expected score flow
+            establish the quarterback’s opportunity baseline.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Matchup Analysis</h4>
-          <p>Defensive tiers adjust position-based projections.</p>
-          <a href="/matchups.html">View Matchups →</a>
+
+          <h4>
+            Passing Efficiency
+          </h4>
+
+          <p>
+            Completion rate, yards per attempt, EPA,
+            and success rate refine expected production.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Strategy Guides</h4>
-          <p>Teaches how to use position data for betting edges.</p>
-          <a href="/research/strategy-guides.html">View Strategy →</a>
+
+          <h4>
+            Pressure Environment
+          </h4>
+
+          <p>
+            Defensive pressure and offensive line health
+            affect timing, accuracy, and downfield passing.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>PlayMaker Academy</h4>
-          <p>Full breakdown of how all position models work together.</p>
-          <a href="/research/academy.html">Learn More →</a>
+
+          <h4>
+            Rushing Contribution
+          </h4>
+
+          <p>
+            Designed carries, scrambles, and goal-line usage
+            add another path to quarterback production.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
-    <div id="entity-links"></div>
+    <!-- RB PATH -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Running Back Path to Production
+        </h3>
+
+        <p>
+          Running back performance depends on workload, role, and game flow.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Carry Share
+          </h4>
+
+          <p>
+            Team rushing distribution reveals whether the player
+            has a lead role or operates inside a committee.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Receiving Work
+          </h4>
+
+          <p>
+            Routes, targets, and passing-down usage
+            can preserve opportunity in negative game scripts.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Red-Zone Role
+          </h4>
+
+          <p>
+            Goal-line carries and red-zone targets
+            provide higher-value scoring opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Run Matchup
+          </h4>
+
+          <p>
+            Defensive front strength, tackling,
+            and offensive line health affect rushing efficiency.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WR PATH -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Wide Receiver Path to Production
+        </h3>
+
+        <p>
+          Wide receiver output depends on routes, target volume, and target quality.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Route Participation
+          </h4>
+
+          <p>
+            A receiver must consistently run routes
+            to remain available for passing opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Target Share
+          </h4>
+
+          <p>
+            Target share shows how much of the passing offense
+            is directed toward the receiver.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Target Depth
+          </h4>
+
+          <p>
+            Air Yards and average depth of target
+            help describe the value and volatility of each opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Coverage Context
+          </h4>
+
+          <p>
+            Alignment, cornerback matchups, safety support,
+            and defensive pressure shape target quality.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TE PATH -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Tight End Path to Production
+        </h3>
+
+        <p>
+          Tight end analysis must separate total playing time from receiving involvement.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Route Participation
+          </h4>
+
+          <p>
+            Total snaps can be misleading when the player
+            remains in protection or blocks on passing plays.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Target Involvement
+          </h4>
+
+          <p>
+            Target share and targets per route reveal
+            how frequently the player earns receiving opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Red-Zone Usage
+          </h4>
+
+          <p>
+            End-zone targets and designed scoring routes
+            help explain touchdown opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Coverage Matchup
+          </h4>
+
+          <p>
+            Linebackers, safeties, zone structure,
+            and defensive pressure affect tight end routes.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PLAYMAKER CONNECTION -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          How Position Intelligence Connects to PlayMaker
+        </h3>
+
+        <p>
+          Position models organize the signals used throughout the research system.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Stat Guides
+          </h4>
+
+          <p>
+            Learn the individual metrics used
+            inside each position model.
+          </p>
+
+          <a href="/research/stat-guides.html">
+            View Stat Guides →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Defensive Matchups
+          </h4>
+
+          <p>
+            Explore how defensive tiers, pressure,
+            and position-specific weaknesses affect projections.
+          </p>
+
+          <a href="/research/defensive-matchups.html">
+            View Defensive Matchups →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Strategy Guides
+          </h4>
+
+          <p>
+            Learn how usage, projection differences,
+            regression, and value affect decisions.
+          </p>
+
+          <a href="/research/strategy-guides.html">
+            View Strategy Guides →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            PlayMaker Academy
+          </h4>
+
+          <p>
+            Review how player trends, defensive data,
+            injuries, weather, and game conditions work together.
+          </p>
+
+          <a href="/research/academy.html">
+            View Academy →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Player Intelligence
+          </h4>
+
+          <p>
+            Open current NFL player pages
+            for recent trends and matchup information.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Matchup Reports
+          </h4>
+
+          <p>
+            Apply position-specific analysis
+            to upcoming NFL games.
+          </p>
+
+          <a href="/matchups.html">
+            Browse Matchups →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
 
     <!-- CTA -->
     <section class="hq-section">
 
       <div class="final-cta">
-        <h3>Start analyzing smarter</h3>
-        <p>Explore how each position creates real betting edges.</p>
-        <a href="/matchups.html" class="btn-primary">Open Matchups</a>
+
+        <h3>
+          Explore each position’s path to production.
+        </h3>
+
+        <p>
+          Use the QB, RB, WR, and TE Intelligence models
+          to understand which metrics and matchup conditions matter for each player.
+        </p>
+
+        <a
+          href="/matchups.html"
+          class="btn-primary"
+        >
+          View Matchups
+        </a>
+
       </div>
 
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-links">
 
-      <a href="/">Home</a>
-      <a href="/players.html">Players</a>
-      <a href="/teams.html">Teams</a>
-      <a href="/matchups.html">Matchups</a>
-      <a href="/research.html">Research</a>
-      <a href="/results.html">Results</a>
-      <a href="/pricing.html">PlayMaker Pro</a>
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
 
     </div>
 
@@ -235,20 +803,29 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
+      document
+        .querySelectorAll(".hq-section")
+        .forEach((section, index) => {
+          const header = section.querySelector(
+            ":scope > .section-header"
+          );
 
-        if (index === 0) {
-          section.classList.add("is-open");
-        }
+          if (!header) {
+            return;
+          }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
+          if (index === 0) {
+            section.classList.add("is-open");
+          }
+
+          header.addEventListener("click", () => {
+            section.classList.toggle("is-open");
+          });
         });
-      });
     });
   </script>
 

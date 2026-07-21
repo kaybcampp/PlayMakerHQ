@@ -5,29 +5,101 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>What are Air Yards? NFL Explosive Play Metric Explained | PlayMaker Research</title>
+  <title>What Are Air Yards? NFL Receiving Metric Explained | PlayMaker Research</title>
 
-  <meta name="description"
-    content="Learn what Air Yards mean in NFL analytics, how they measure deep passing volume, and why they are key for predicting explosive WR props and upside." />
+  <meta
+    name="description"
+    content="Learn what Air Yards mean in NFL analytics, how they measure downfield receiving opportunity, and how PlayMaker uses target depth, volume, and matchup context when evaluating receiver props."
+  />
 
-  <link rel="stylesheet" href="/assets/css/research.css" />
-  <link rel="stylesheet" href="/assets/css/entity-links.css" />
+  <link
+    rel="canonical"
+    href="https://playmakerprime.com/research/air-yards.html"
+  />
+
+  <meta
+    property="og:title"
+    content="What Are Air Yards? NFL Receiving Metric Explained"
+  />
+
+  <meta
+    property="og:description"
+    content="Learn how Air Yards measure downfield opportunity and how target depth, volume, quarterback play, and defensive coverage affect receiver production."
+  />
+
+  <meta
+    property="og:url"
+    content="https://playmakerprime.com/research/air-yards.html"
+  />
+
+  <meta
+    property="og:type"
+    content="article"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/research.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/entity-links.css"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/images/favicon.png"
+  />
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header class="pm-header">
-    <a href="/index.html" class="pm-logo">
+
+    <a
+      href="/"
+      class="pm-logo"
+      aria-label="PlayMaker Prime home"
+    >
       <h1>PlayMaker Prime</h1>
     </a>
 
-    <nav class="pm-nav">
-      <a href="/players.html" class="pm-link">Players</a>
-      <a href="/teams.html" class="pm-link">Teams</a>
-      <a href="/matchups.html" class="pm-link">Matchups</a>
-      <a href="/research.html" class="pm-link">Research</a>
+    <nav
+      class="pm-nav"
+      aria-label="Main navigation"
+    >
+      <a href="/players.html" class="pm-link">
+        Players
+      </a>
+
+      <a href="/teams.html" class="pm-link">
+        Teams
+      </a>
+
+      <a href="/matchups.html" class="pm-link">
+        Matchups
+      </a>
+
+      <a
+        href="/research.html"
+        class="pm-link active"
+        aria-current="page"
+      >
+        Research
+      </a>
+
+      <a href="/results.html" class="pm-link">
+        Results
+      </a>
+
+      <a href="/pricing.html" class="pm-link">
+        Pricing
+      </a>
     </nav>
+
   </header>
 
   <!-- HERO -->
@@ -37,20 +109,26 @@
 
     <div class="research-hero-content">
 
-      <a href="/research.html" class="hq-pill back-btn">
-        ← Back to Research
+      <a
+        href="/research/stat-guides.html"
+        class="hq-pill back-btn"
+      >
+        ← Back to Stat Guides
       </a>
 
-      <span class="hq-pill">NFL Efficiency Metrics</span>
+      <span class="hq-pill">
+        NFL Receiving Metrics
+      </span>
 
       <h2>
-        What are Air Yards?
-        <span>Explosive Play Indicator</span>
+        What Are Air Yards?
+        <span>Downfield Receiving Opportunity Explained</span>
       </h2>
 
       <p>
-        Air Yards measure how far the ball travels in the air on passing targets. It is one of the strongest indicators
-        of deep threat usage and explosive fantasy upside.
+        Air Yards measure how far a pass travels beyond the line of scrimmage
+        before reaching its intended receiver. The metric helps reveal target depth,
+        downfield opportunity, and the type of role a player holds in the passing offense.
       </p>
 
     </div>
@@ -61,199 +139,1142 @@
 
     <!-- DEFINITION -->
     <section class="hq-section">
+
       <div class="section-header">
-        <h3>Air Yards Definition</h3>
-        <p>Understanding downfield opportunity in the passing game.</p>
+
+        <h3>
+          Air Yards Definition
+        </h3>
+
+        <p>
+          A simple way to measure the depth of a passing opportunity.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
-        <span>Definition</span>
+
+        <span>
+          Definition
+        </span>
+
         <h3>
-          Air Yards = total yards the ball travels in the air on pass attempts to a player.
+          Air Yards measure the distance a pass travels forward from the line of scrimmage to its intended target.
         </h3>
+
         <p>
-          It does NOT include yards after the catch — only the distance the ball travels before the receiver touches it.
+          Air Yards do not include yards gained after the catch.
+          They describe the depth of the passing attempt before the receiver
+          secures the football—or before the pass falls incomplete.
         </p>
+
       </div>
+
+    </section>
+
+    <!-- HOW IT IS CALCULATED -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          How Air Yards Are Calculated
+        </h3>
+
+        <p>
+          Each target contributes positive, zero, or negative Air Yards.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Downfield Target
+          </h4>
+
+          <p>
+            A pass targeted 20 yards beyond the line of scrimmage
+            produces 20 Air Yards for the intended receiver.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Short Target
+          </h4>
+
+          <p>
+            A pass thrown five yards beyond the line of scrimmage
+            produces five Air Yards.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Behind-the-Line Target
+          </h4>
+
+          <p>
+            Screens and passes caught behind the line of scrimmage
+            can produce negative Air Yards.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Incomplete Pass
+          </h4>
+
+          <p>
+            The intended receiver can still receive Air Yards
+            even when the pass is not completed.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- AIR YARDS VS RECEIVING YARDS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Air Yards Versus Receiving Yards
+        </h3>
+
+        <p>
+          The two metrics describe different parts of the same passing play.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Air Yards
+          </h4>
+
+          <p>
+            Measure how far the pass travels before reaching
+            the intended receiver.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Receiving Yards
+          </h4>
+
+          <p>
+            Measure the total yards credited after a completed catch,
+            including yards gained after the catch.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Yards After Catch
+          </h4>
+
+          <p>
+            Measure the portion of receiving yards gained
+            after the receiver secures the football.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Incomplete Opportunity
+          </h4>
+
+          <p>
+            Air Yards preserve evidence of downfield opportunity
+            even when the target does not become a reception.
+          </p>
+
+        </div>
+
+      </div>
+
     </section>
 
     <!-- WHY IT MATTERS -->
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>Why Air Yards Matter for Props</h3>
-        <p>Deep targets create higher upside even with low catch volume.</p>
+
+        <h3>
+          Why Air Yards Matter
+        </h3>
+
+        <p>
+          Air Yards help separate target quantity from target quality.
+        </p>
+
       </div>
 
       <div class="stack-grid">
+
         <div class="stack-card">
-          <span>01</span>
-          <h4>Explosive Play Potential</h4>
-          <p>Deep targets can turn into long touchdowns in a single play.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Downfield Opportunity
+          </h4>
+
+          <p>
+            Higher Air Yards indicate that the offense is giving
+            the receiver opportunities farther downfield.
+          </p>
+
         </div>
+
         <div class="stack-card">
-          <span>02</span>
-          <h4>Volume vs Depth Balance</h4>
-          <p>Some players get fewer targets but higher-value opportunities.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Role Identification
+          </h4>
+
+          <p>
+            Air Yards help distinguish deep threats,
+            intermediate receivers, and short-area options.
+          </p>
+
         </div>
+
         <div class="stack-card">
-          <span>03</span>
-          <h4>Mismatch Detection</h4>
-          <p>High air yards indicate teams are pushing vertically vs weak coverage.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Hidden Opportunity
+          </h4>
+
+          <p>
+            A receiver can post limited yardage while still earning
+            meaningful downfield targets that did not connect.
+          </p>
+
         </div>
+
         <div class="stack-card">
-          <span>04</span>
-          <h4>Prop Upside Indicator</h4>
-          <p>Air yards strongly correlate with ceiling outcomes in WR props.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Volatility Context
+          </h4>
+
+          <p>
+            Deeper targets can create larger outcomes,
+            but they are generally less likely to be completed than short passes.
+          </p>
+
         </div>
+
       </div>
+
+    </section>
+
+    <!-- TOTAL AIR YARDS VS AVERAGE DEPTH -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Total Air Yards and Average Target Depth
+        </h3>
+
+        <p>
+          Total volume and average depth should be evaluated together.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Total Air Yards
+          </h4>
+
+          <p>
+            Add all target distances together to measure
+            total downfield opportunity over a game or sample.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Average Depth of Target
+          </h4>
+
+          <p>
+            Divides total Air Yards by targets
+            to estimate the typical depth of each opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            High Volume, Short Depth
+          </h4>
+
+          <p>
+            A receiver can accumulate targets while primarily operating
+            in short and intermediate areas.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Low Volume, Deep Role
+          </h4>
+
+          <p>
+            A receiver can receive fewer targets
+            while still carrying meaningful downfield upside.
+          </p>
+
+        </div>
+
+      </div>
+
     </section>
 
     <!-- EXAMPLE -->
-    <section class="hq-section">
+    <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>Real NFL Example</h3>
-        <p>Why air yards matter more than raw receptions.</p>
+
+        <h3>
+          Air Yards Example
+        </h3>
+
+        <p>
+          Why equal target totals do not always represent equal opportunity.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
-        <span>Example</span>
+
+        <span>
+          Example
+        </span>
+
         <h3>
-          WR with 120 Air Yards vs WR with 35 Air Yards
+          Receiver A records 120 Air Yards while Receiver B records 35 Air Yards.
         </h3>
+
         <p>
-          The high-air-yard receiver is consistently involved in downfield passing concepts, meaning fewer catches can
-          still result in higher yardage and touchdown potential.
+          Receiver A is being used farther downfield and may need fewer catches
+          to produce a large receiving-yardage result. Receiver B may have
+          a shorter-area role that depends more heavily on reception volume
+          and yards after the catch.
         </p>
+
       </div>
+
     </section>
 
-    <!-- INTERNAL LINKING SYSTEM -->
-    <div id="entity-links"></div>
-    <script src="/assets/js/entity-link-engine.js"></script>
+    <!-- WHAT CHANGES AIR YARDS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          What Changes a Player’s Air Yards?
+        </h3>
+
+        <p>
+          Target depth is influenced by the player, quarterback, offense, and defense.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Route Tree
+          </h4>
+
+          <p>
+            Go routes, posts, corners, and deep crossers
+            create more Air Yards than screens and short curls.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Quarterback Tendencies
+          </h4>
+
+          <p>
+            Arm strength, aggressiveness, timing, and accuracy
+            influence how often deep targets are attempted.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Offensive Scheme
+          </h4>
+
+          <p>
+            Play calling and formation design determine
+            which players receive vertical opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Defensive Coverage
+          </h4>
+
+          <p>
+            Safety depth, cornerback leverage, and coverage structure
+            can encourage or limit downfield passing.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PRESSURE AND PROTECTION -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Pressure, Protection, and Air Yards
+        </h3>
+
+        <p>
+          Deep routes require enough time for the play to develop.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Pass Protection
+          </h4>
+
+          <p>
+            Strong protection gives quarterbacks more time
+            to wait for downfield routes to open.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Defensive Pressure
+          </h4>
+
+          <p>
+            Frequent pressure can force quicker throws
+            before deeper routes complete their development.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Scramble Extension
+          </h4>
+
+          <p>
+            Quarterbacks who extend plays may create
+            unplanned downfield opportunities outside the original structure.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Quick-Passing Adjustment
+          </h4>
+
+          <p>
+            Offenses facing aggressive pressure may shift
+            toward screens, slants, and shorter target depths.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- GAME SCRIPT -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Game Script and Air Yards
+        </h3>
+
+        <p>
+          Expected game flow can change both passing volume and target depth.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Trailing Script
+          </h4>
+
+          <p>
+            Teams playing from behind may increase pass attempts
+            and pursue more aggressive downfield opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Leading Script
+          </h4>
+
+          <p>
+            Teams protecting a lead may reduce passing volume
+            and limit the number of available deep targets.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Close Game
+          </h4>
+
+          <p>
+            Neutral game flow may preserve the offense’s
+            normal route distribution and passing tendencies.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Late-Game Urgency
+          </h4>
+
+          <p>
+            End-of-game situations can create
+            additional vertical attempts as teams try to score quickly.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WEATHER -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Weather and Air Yards
+        </h3>
+
+        <p>
+          Outdoor conditions can affect deep passing more than short-area usage.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Wind
+          </h4>
+
+          <p>
+            Strong wind can affect ball placement
+            and reduce the reliability of deeper passing attempts.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Rain and Snow
+          </h4>
+
+          <p>
+            Precipitation may affect footing, grip,
+            route timing, and offensive play selection.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Indoor Venue
+          </h4>
+
+          <p>
+            Controlled environments remove wind and precipitation
+            as sources of downfield passing uncertainty.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Temperature
+          </h4>
+
+          <p>
+            Extreme outdoor conditions can influence
+            offensive approach and passing efficiency.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
 
     <!-- HOW PLAYMAKER USES IT -->
-    <section class="hq-section hq-section-alt">
+    <section class="hq-section">
 
       <div class="section-header">
-        <h3>How PlayMaker Uses Air Yards</h3>
-        <p>This metric feeds directly into explosive play projections.</p>
+
+        <h3>
+          How PlayMaker Uses Air Yards
+        </h3>
+
+        <p>
+          Air Yards provide context for receiving opportunity,
+          but they are not evaluated as a standalone signal.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Upside Weighting</h4>
-          <p>High air yards increase ceiling projections even in low-volume games.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Role Identification
+          </h4>
+
+          <p>
+            Air Yards help identify whether a receiver is used
+            as a deep threat, intermediate option, or short-area target.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>Deep Threat Identification</h4>
-          <p>Helps identify WRs used in vertical passing schemes.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Opportunity Quality
+          </h4>
+
+          <p>
+            Target share and route participation are combined
+            with target depth to evaluate overall receiving opportunity.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Matchup Exploitation</h4>
-          <p>Targets weak secondary deep coverage units.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Matchup Adjustment
+          </h4>
+
+          <p>
+            Defensive pressure, coverage structure, safety support,
+            weather, and game script provide context around downfield usage.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Prop Volatility Signal</h4>
-          <p>High air yards = higher ceiling, higher variance outcomes.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Volatility Evaluation
+          </h4>
+
+          <p>
+            Deep-target roles can create large outcomes,
+            but they may also produce wider game-to-game variation.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
+    <!-- CONNECTIONS -->
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>How Air Yards Connect in PlayMaker</h3>
-        <p>See how deep-target volume impacts WR projections and matchup analysis.</p>
+
+        <h3>
+          How Air Yards Connect in PlayMaker
+        </h3>
+
+        <p>
+          Explore the related metrics that complete a wide receiver evaluation.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>Player Impact</h4>
-          <p>Air yards drive WR upside and explosive play probability.</p>
-          <a href="/players.html">View Players →</a>
+
+          <h4>
+            Target Share
+          </h4>
+
+          <p>
+            Measure how much of the passing offense
+            is directed toward the receiver.
+          </p>
+
+          <a href="/research/target-share.html">
+            View Target Share →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>WR Intelligence</h4>
-          <p>Combined with target share and YPRR to build WR models.</p>
-          <a href="/research/positions/wr-intelligence.html">View WR Model →</a>
+
+          <h4>
+            Yards per Route Run
+          </h4>
+
+          <p>
+            Compare receiving production
+            with actual route participation.
+          </p>
+
+          <a href="/research/yards-per-route-run.html">
+            View YPRR →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>Matchup Evaluation</h4>
-          <p>Coverage depth allowed and defensive schemes affect air yard efficiency.</p>
-          <a href="/matchups.html">View Matchups →</a>
+
+          <h4>
+            Yards After Catch
+          </h4>
+
+          <p>
+            Separate downfield target depth
+            from production created after the catch.
+          </p>
+
+          <a href="/research/yards-after-catch.html">
+            View YAC →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>PlayMaker Academy</h4>
-          <p>Learn how deep target volume translates into betting edges.</p>
-          <a href="/research/academy.html">Learn More →</a>
+
+          <h4>
+            WR Intelligence
+          </h4>
+
+          <p>
+            See how Air Yards combine with targets,
+            routes, efficiency, and matchup context.
+          </p>
+
+          <a href="/research/positions/wr-intelligence.html">
+            View WR Intelligence →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Pressure Rate
+          </h4>
+
+          <p>
+            Learn how defensive disruption
+            can affect deeper passing opportunities.
+          </p>
+
+          <a href="/research/pressure-rate.html">
+            View Pressure Rate →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            PlayMaker Academy
+          </h4>
+
+          <p>
+            Explore how usage, efficiency,
+            matchup data, and environment work together.
+          </p>
+
+          <a href="/research/academy.html">
+            View Academy →
+          </a>
+
         </div>
 
       </div>
+
     </section>
 
-    <section class="hq-section hq-section-alt">
+    <!-- ENTITY LINKS -->
+    <div id="entity-links"></div>
+
+    <!-- RELEVANT PLAYERS -->
+    <section class="hq-section">
+
       <div class="section-header">
-        <h3>Top Players for Reference</h3>
-        <p>Click to view individual player pages and related prop analytics.</p>
+
+        <h3>
+          Explore Relevant Players
+        </h3>
+
+        <p>
+          Review current player pages for recent receiving,
+          passing, and matchup information.
+        </p>
+
       </div>
 
       <div class="stack-grid">
+
         <div class="stack-card">
-          <img src="/assets/images/players/josh-allen.png" alt="Josh Allen Headshot" class="player-headshot">
-          <h4>Josh Allen</h4>
-          <a href="/players/josh-allen">View Player →</a>
+
+          <img
+            src="/assets/images/players/cee-dee-lamb.png"
+            alt="CeeDee Lamb"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            CeeDee Lamb
+          </h4>
+
+          <p>
+            Review recent targets, receiving production,
+            and matchup context.
+          </p>
+
+          <a href="/players/cee-dee-lamb">
+            View Player →
+          </a>
+
         </div>
+
         <div class="stack-card">
-          <img src="/assets/images/players/cee-dee-lamb.png" alt="CeeDee Lamb Headshot" class="player-headshot">
-          <h4>CeeDee Lamb</h4>
-          <a href="/players/cee-dee-lamb">View Player →</a>
+
+          <img
+            src="/assets/images/players/ja-marr-chase.png"
+            alt="Ja'Marr Chase"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            Ja'Marr Chase
+          </h4>
+
+          <p>
+            Review target volume, downfield usage,
+            and recent receiving performance.
+          </p>
+
+          <a href="/players/ja-marr-chase">
+            View Player →
+          </a>
+
         </div>
+
         <div class="stack-card">
-          <img src="/assets/images/players/christian-mccaffrey.png" alt="Christian McCaffrey Headshot"
-            class="player-headshot">
-          <h4>Christian McCaffrey</h4>
-          <a href="/players/christian-mccaffrey">View Player →</a>
+
+          <img
+            src="/assets/images/players/josh-allen.png"
+            alt="Josh Allen"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            Josh Allen
+          </h4>
+
+          <p>
+            Review passing volume, quarterback trends,
+            and upcoming defensive matchup context.
+          </p>
+
+          <a href="/players/josh-allen">
+            View Player →
+          </a>
+
         </div>
+
+        <div class="stack-card">
+
+          <h4>
+            All NFL Players
+          </h4>
+
+          <p>
+            Search current NFL players
+            by team, position, or name.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
+        </div>
+
       </div>
+
     </section>
 
     <!-- CTA -->
     <section class="hq-section">
 
       <div class="final-cta">
-        <h3>Now apply it</h3>
-        <p>See how Air Yards affect real matchup projections.</p>
-        <a href="/players.html" class="btn-primary">View Players</a>
+
+        <h3>
+          Put downfield opportunity into context.
+        </h3>
+
+        <p>
+          Compare target share, route participation, Air Yards,
+          quarterback tendencies, defensive pressure, coverage,
+          weather, and game script before evaluating a receiver prop.
+        </p>
+
+        <a
+          href="/players.html"
+          class="btn-primary"
+        >
+          View Players
+        </a>
+
       </div>
 
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-links">
 
-      <a href="/">Home</a>
-      <a href="/players.html">Players</a>
-      <a href="/teams.html">Teams</a>
-      <a href="/matchups.html">Matchups</a>
-      <a href="/research.html">Research</a>
-      <a href="/results.html">Results</a>
-      <a href="/pricing.html">PlayMaker Pro</a>
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
 
     </div>
 
@@ -270,24 +1291,34 @@
 
   </footer>
 
+  <script src="/assets/js/entity-link-engine.js"></script>
   <script src="/assets/js/analytics-tracker.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
+      document
+        .querySelectorAll(".hq-section")
+        .forEach((section, index) => {
+          const header = section.querySelector(
+            ":scope > .section-header"
+          );
 
-        if (index === 0) {
-          section.classList.add("is-open");
-        }
+          if (!header) {
+            return;
+          }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
+          if (index === 0) {
+            section.classList.add("is-open");
+          }
+
+          header.addEventListener("click", () => {
+            section.classList.toggle("is-open");
+          });
         });
-      });
     });
   </script>
 

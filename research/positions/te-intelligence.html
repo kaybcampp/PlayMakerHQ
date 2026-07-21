@@ -7,27 +7,99 @@
 
   <title>TE Intelligence | NFL Tight End Analytics Explained | PlayMaker Research</title>
 
-  <meta name="description"
-    content="Explore TE Intelligence metrics including route participation, red zone usage, target share, matchup leverage, and efficiency. Learn how PlayMaker evaluates tight end props and performance." />
+  <meta
+    name="description"
+    content="Explore NFL tight end analytics including route participation, target share, red-zone usage, receiving efficiency, blocking role, game script, and defensive matchup context."
+  />
 
-  <link rel="stylesheet" href="/assets/css/research.css" />
-  <link rel="stylesheet" href="/assets/css/entity-links.css" />
+  <link
+    rel="canonical"
+    href="https://playmakerprime.com/research/positions/te-intelligence.html"
+  />
+
+  <meta
+    property="og:title"
+    content="TE Intelligence | NFL Tight End Analytics Explained"
+  />
+
+  <meta
+    property="og:description"
+    content="Learn how route participation, target share, red-zone opportunity, receiving role, and matchup context shape NFL tight end performance."
+  />
+
+  <meta
+    property="og:url"
+    content="https://playmakerprime.com/research/positions/te-intelligence.html"
+  />
+
+  <meta
+    property="og:type"
+    content="article"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/research.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/entity-links.css"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/images/favicon.png"
+  />
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header class="pm-header">
-    <a href="/index.html" class="pm-logo">
+
+    <a
+      href="/"
+      class="pm-logo"
+      aria-label="PlayMaker Prime home"
+    >
       <h1>PlayMaker Prime</h1>
     </a>
 
-    <nav class="pm-nav">
-      <a href="/players.html" class="pm-link">Players</a>
-      <a href="/teams.html" class="pm-link">Teams</a>
-      <a href="/matchups.html" class="pm-link">Matchups</a>
-      <a href="/research.html" class="pm-link">Research</a>
+    <nav
+      class="pm-nav"
+      aria-label="Main navigation"
+    >
+      <a href="/players.html" class="pm-link">
+        Players
+      </a>
+
+      <a href="/teams.html" class="pm-link">
+        Teams
+      </a>
+
+      <a href="/matchups.html" class="pm-link">
+        Matchups
+      </a>
+
+      <a
+        href="/research.html"
+        class="pm-link active"
+        aria-current="page"
+      >
+        Research
+      </a>
+
+      <a href="/results.html" class="pm-link">
+        Results
+      </a>
+
+      <a href="/pricing.html" class="pm-link">
+        Pricing
+      </a>
     </nav>
+
   </header>
 
   <!-- HERO -->
@@ -37,11 +109,16 @@
 
     <div class="research-hero-content">
 
-      <a href="/research.html" class="hq-pill back-btn">
-        ← Back to Research
+      <a
+        href="/research/positions/"
+        class="hq-pill back-btn"
+      >
+        ← Back to Position Intelligence
       </a>
 
-      <span class="hq-pill">Position Intelligence</span>
+      <span class="hq-pill">
+        Position Intelligence
+      </span>
 
       <h2>
         TE Intelligence
@@ -49,8 +126,9 @@
       </h2>
 
       <p>
-        TE Intelligence evaluates tight ends based on route participation, red zone usage, target share, and matchup
-        leverage — a position defined by scoring volatility and role dependency.
+        TE Intelligence evaluates tight end performance through route participation,
+        target share, receiving efficiency, red-zone usage, blocking responsibility,
+        game script, and defensive matchup context—not touchdowns alone.
       </p>
 
     </div>
@@ -59,76 +137,392 @@
 
   <main>
 
-    <!-- CORE METRICS -->
+    <!-- OVERVIEW -->
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>Core TE Metrics</h3>
-        <p>The foundation of tight end evaluation in PlayMaker.</p>
+
+        <h3>
+          What TE Intelligence Measures
+        </h3>
+
+        <p>
+          Tight end production depends on whether the player is functioning
+          as a true receiver, an in-line blocker, or a combination of both.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Core Idea
+        </span>
+
+        <h3>
+          Snaps create availability. Routes and targets create receiving opportunity.
+        </h3>
+
+        <p>
+          A tight end may play most offensive snaps without running enough routes
+          to support consistent receiving production. PlayMaker separates total
+          playing time from actual pass-catching opportunity.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- CORE METRICS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Core TE Metrics
+        </h3>
+
+        <p>
+          These metrics establish the tight end’s role inside the passing offense.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Route Participation</h4>
-          <p>How often a TE is actually running routes vs blocking.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Route Participation
+          </h4>
+
+          <p>
+            Measures how often the tight end runs a route
+            when the offense calls a passing play.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>Target Share</h4>
-          <p>Percentage of passing targets directed to the tight end.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Target Share
+          </h4>
+
+          <p>
+            Shows the percentage of team passing targets directed
+            toward the tight end.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Snap Share Role</h4>
-          <p>Measures overall involvement in offensive formations.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Snap Share
+          </h4>
+
+          <p>
+            Measures overall playing-time involvement,
+            while providing context for route and blocking responsibilities.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Efficiency per Target</h4>
-          <p>Yards gained per opportunity, adjusted for matchup difficulty.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Targets per Route
+          </h4>
+
+          <p>
+            Helps show how frequently the player earns an opportunity
+            when actually released into a route.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
-    <!-- RED ZONE / SCORING -->
-    <section class="hq-section hq-section-alt">
+    <!-- RECEIVING ROLE -->
+    <section class="hq-section">
 
       <div class="section-header">
-        <h3>Red Zone & Scoring Role</h3>
-        <p>TEs are often touchdown-dependent assets.</p>
+
+        <h3>
+          Receiving Role and Efficiency
+        </h3>
+
+        <p>
+          Tight end usage can range from short-area checkdowns
+          to high-value downfield and red-zone routes.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Red Zone Targets</h4>
-          <p>Inside-the-20 usage defines TE scoring upside.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Average Target Depth
+          </h4>
+
+          <p>
+            Shows whether the tight end is primarily used near the line of scrimmage
+            or on deeper intermediate routes.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>End Zone Design Plays</h4>
-          <p>Some TEs are primary end zone reads in play design.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Catch Rate
+          </h4>
+
+          <p>
+            Measures how often targets become receptions
+            and helps describe the stability of the receiving role.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Touchdown Dependency</h4>
-          <p>Many TE props rely heavily on TD variance.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Yards per Route Run
+          </h4>
+
+          <p>
+            Measures receiving production relative to actual route volume,
+            rather than total snaps alone.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Game Script Sensitivity</h4>
-          <p>Negative scripts can increase short-area TE usage.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Yards After Catch
+          </h4>
+
+          <p>
+            Shows how much production the tight end creates
+            after securing the football.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOCKING ROLE -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Route Versus Blocking Responsibility
+        </h3>
+
+        <p>
+          High snap volume does not always mean high receiving opportunity.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Pass Blocking
+          </h4>
+
+          <p>
+            Tight ends may remain in protection against strong pass rushes,
+            reducing their route volume.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Run Blocking
+          </h4>
+
+          <p>
+            In-line tight ends may play significant snaps
+            while being used primarily to support the rushing offense.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Formation Usage
+          </h4>
+
+          <p>
+            Slot, wide, wing, and traditional in-line alignments
+            can create different route and matchup opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Personnel Packages
+          </h4>
+
+          <p>
+            Multiple-tight-end formations can divide routes and targets
+            between several players.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RED ZONE -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Red-Zone and Scoring Role
+        </h3>
+
+        <p>
+          Tight ends often receive high-value opportunities near the end zone.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Red-Zone Targets
+          </h4>
+
+          <p>
+            Targets inside the 20-yard line provide increased touchdown opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            End-Zone Targets
+          </h4>
+
+          <p>
+            Direct targets in the end zone reveal whether the player
+            is a designed scoring option.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            First-Read Usage
+          </h4>
+
+          <p>
+            Some tight ends are primary reads on designed scoring concepts,
+            while others receive targets only after the play develops.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Touchdown Variance
+          </h4>
+
+          <p>
+            Touchdowns can fluctuate, so scoring results should be evaluated
+            alongside repeatable red-zone opportunity.
+          </p>
+
         </div>
 
       </div>
@@ -136,37 +530,178 @@
     </section>
 
     <!-- MATCHUP FACTORS -->
-    <section class="hq-section">
+    <section class="hq-section hq-section-alt">
 
       <div class="section-header">
-        <h3>Matchup Factors</h3>
-        <p>How defenses impact tight end production.</p>
+
+        <h3>
+          Tight End Matchup Factors
+        </h3>
+
+        <p>
+          Defensive structure can affect route volume, target quality,
+          and receiving efficiency.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Linebacker Coverage Weakness</h4>
-          <p>Slow or coverage-limited LBs increase TE efficiency.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Linebacker Coverage
+          </h4>
+
+          <p>
+            Coverage ability, athleticism, and underneath zone responsibility
+            can affect short and intermediate tight end routes.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>Safety Help Over Top</h4>
-          <p>Limits deep TE usage but opens short routes.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Safety Matchups
+          </h4>
+
+          <p>
+            Safeties may limit deeper routes and contested-catch opportunities
+            in the middle of the field.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Red Zone Defense Strength</h4>
-          <p>Strong red zone defenses reduce TE TD upside.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Defensive Pressure
+          </h4>
+
+          <p>
+            Strong pass rushes can create quick targets,
+            but they may also force tight ends to remain in protection.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Game Script Interaction</h4>
-          <p>Trailing teams often target TEs in short/intermediate zones.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Coverage Scheme
+          </h4>
+
+          <p>
+            Man coverage, zone structure, and defensive attention
+            can change where tight end targets develop.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- GAME SCRIPT -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Game Script and TE Volume
+        </h3>
+
+        <p>
+          The flow of the game can affect both route participation and target opportunity.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Trailing Script
+          </h4>
+
+          <p>
+            Pass-heavy game flow can create additional routes
+            and short-area receiving opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Leading Script
+          </h4>
+
+          <p>
+            Teams protecting a lead may use tight ends more heavily
+            as run blockers and reduce overall passing volume.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Third Downs
+          </h4>
+
+          <p>
+            Tight ends with reliable short-area roles
+            may receive valuable targets on conversion attempts.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Two-Minute Offense
+          </h4>
+
+          <p>
+            Hurry-up situations can create additional routes
+            for tight ends trusted in the passing game.
+          </p>
+
         </div>
 
       </div>
@@ -177,21 +712,31 @@
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
-        <h3>Real NFL Example</h3>
-        <p>Why TE production is highly role-dependent.</p>
+
+        <h3>
+          TE Intelligence Example
+        </h3>
+
+        <p>
+          Why receiving role matters more than total snap count alone.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
 
-        <span>Example</span>
+        <span>
+          Example
+        </span>
 
         <h3>
-          TE with 75% Route Participation + 25% Target Share
+          Tight end with 75% route participation and a 20% target share
         </h3>
 
         <p>
-          This type of usage profile signals a high-value receiving role with consistent opportunity, especially in red
-          zone situations.
+          That player is regularly involved as a receiver and earns
+          a meaningful portion of the passing offense. Red-zone usage
+          would add another layer of scoring opportunity.
         </p>
 
       </div>
@@ -202,128 +747,339 @@
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>How PlayMaker Uses TE Intelligence</h3>
-        <p>This model identifies high-leverage TE prop opportunities.</p>
+
+        <h3>
+          How PlayMaker Uses TE Intelligence
+        </h3>
+
+        <p>
+          PlayMaker combines receiving role, recent performance,
+          matchup context, and scoring-area opportunity when evaluating tight end props.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Route-Based Projection Model</h4>
-          <p>Only routes run matter for receiving projection.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Recent Usage
+          </h4>
+
+          <p>
+            Routes, targets, receptions, yardage, snaps, and recent role changes
+            establish the player’s current baseline.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>TD Upside Weighting</h4>
-          <p>Red zone usage heavily influences TE ceilings.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Route Adjustment
+          </h4>
+
+          <p>
+            PlayMaker distinguishes receiving routes from total snaps
+            so blocking-heavy usage does not inflate expectations.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Matchup Leverage Adjustment</h4>
-          <p>Weak linebacker coverage increases projections.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Matchup Adjustment
+          </h4>
+
+          <p>
+            Defensive pressure, coverage structure, red-zone defense,
+            and expected game flow help adjust the usage baseline.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Final Prop Edge Output</h4>
-          <p>Combines usage + matchup + script into final lean.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Final Evaluation
+          </h4>
+
+          <p>
+            The adjusted expectation is compared with the listed line
+            to support a ride, fade, or avoid decision.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
+    <!-- CONNECTIONS -->
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>How TE Intelligence Connects in PlayMaker</h3>
-        <p>See how tight end usage and role definition impact prop value.</p>
+
+        <h3>
+          How TE Intelligence Connects in PlayMaker
+        </h3>
+
+        <p>
+          Explore the metrics and research pages that support tight end evaluation.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>Player Projections</h4>
-          <p>Route participation and red zone usage drive TE production.</p>
-          <a href="/players.html">View Players →</a>
+
+          <h4>
+            Target Share
+          </h4>
+
+          <p>
+            Learn how passing volume is distributed between eligible receivers.
+          </p>
+
+          <a href="/research/target-share.html">
+            View Target Share →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>Matchup Analysis</h4>
-          <p>Linebacker coverage and red zone defense shape TE outcomes.</p>
-          <a href="/matchups.html">View Matchups →</a>
+
+          <h4>
+            Red-Zone Usage
+          </h4>
+
+          <p>
+            Review how scoring-area opportunity affects touchdown potential.
+          </p>
+
+          <a href="/research/red-zone-usage.html">
+            View Red-Zone Usage →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>Position System</h4>
-          <p>TE Intelligence is part of the full PlayMaker position framework.</p>
-          <a href="/research/positions/index.html">View Position Hub →</a>
+
+          <h4>
+            Yards per Route Run
+          </h4>
+
+          <p>
+            Compare receiving production with actual route participation.
+          </p>
+
+          <a href="/research/yards-per-route-run.html">
+            View YPRR →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <h4>PlayMaker Academy</h4>
-          <p>Learn how TE role dependency translates into betting edges.</p>
-          <a href="/research/academy.html">Learn More →</a>
+
+          <h4>
+            Position Intelligence
+          </h4>
+
+          <p>
+            Explore quarterback, running back, and wide receiver evaluation models.
+          </p>
+
+          <a href="/research/positions/">
+            View Position Hub →
+          </a>
+
         </div>
 
       </div>
+
     </section>
 
+    <!-- ENTITY LINKS -->
     <div id="entity-links"></div>
 
-    <section class="hq-section hq-section-alt">
+    <!-- RELEVANT PLAYERS -->
+    <section class="hq-section">
+
       <div class="section-header">
-        <h3>Relevant Players & Matchups</h3>
-        <p>TE targets, red zone, and role metrics for props.</p>
+
+        <h3>
+          Explore Tight Ends
+        </h3>
+
+        <p>
+          Open current player pages to review receiving trends,
+          matchup context, and recent production.
+        </p>
+
       </div>
 
       <div class="stack-grid">
+
         <div class="stack-card">
-          <img src="/assets/images/players/george-kittle.png" alt="George Kittle" class="player-headshot">
-          <h4>George Kittle</h4>
-          <a href="/players/george-kittle">View Player →</a>
+
+          <img
+            src="/assets/images/players/george-kittle.png"
+            alt="George Kittle"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            George Kittle
+          </h4>
+
+          <p>
+            Review target volume, receiving efficiency, and matchup context.
+          </p>
+
+          <a href="/players/george-kittle">
+            View Player →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <img src="/assets/images/players/travis-kelce.png" alt="Travis Kelce" class="player-headshot">
-          <h4>Travis Kelce</h4>
-          <a href="/players/travis-kelce">View Player →</a>
+
+          <img
+            src="/assets/images/players/travis-kelce.png"
+            alt="Travis Kelce"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            Travis Kelce
+          </h4>
+
+          <p>
+            Review recent targets, receiving production, and scoring-area usage.
+          </p>
+
+          <a href="/players/travis-kelce">
+            View Player →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <img src="/assets/images/matchups/chiefs-vs-chargers.png" alt="KC @ LAC" class="matchup-thumb">
-          <h4>KC @ LAC</h4>
-          <a href="/matchups/kansas-city-chiefs-vs-los-angeles-chargers">View Matchup →</a>
+
+          <h4>
+            All NFL Players
+          </h4>
+
+          <p>
+            Search current NFL players by team, position, or name.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
         </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Upcoming Matchups
+          </h4>
+
+          <p>
+            Explore tight end environments across the 2026 NFL schedule.
+          </p>
+
+          <a href="/matchups.html">
+            Browse Matchups →
+          </a>
+
+        </div>
+
       </div>
+
     </section>
 
     <!-- CTA -->
     <section class="hq-section">
 
       <div class="final-cta">
-        <h3>Now apply it</h3>
-        <p>See how TE Intelligence impacts real matchup projections.</p>
-        <a href="/matchups.html" class="btn-primary">View Matchups</a>
+
+        <h3>
+          Put tight end usage into context.
+        </h3>
+
+        <p>
+          Compare routes, targets, red-zone usage, defensive pressure,
+          coverage structure, and expected game flow before evaluating a TE prop.
+        </p>
+
+        <a
+          href="/matchups.html"
+          class="btn-primary"
+        >
+          View Matchups
+        </a>
+
       </div>
 
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-links">
 
-      <a href="/">Home</a>
-      <a href="/players.html">Players</a>
-      <a href="/teams.html">Teams</a>
-      <a href="/matchups.html">Matchups</a>
-      <a href="/research.html">Research</a>
-      <a href="/results.html">Results</a>
-      <a href="/pricing.html">PlayMaker Pro</a>
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
 
     </div>
 
@@ -345,20 +1101,29 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
+      document
+        .querySelectorAll(".hq-section")
+        .forEach((section, index) => {
+          const header = section.querySelector(
+            ":scope > .section-header"
+          );
 
-        if (index === 0) {
-          section.classList.add("is-open");
-        }
+          if (!header) {
+            return;
+          }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
+          if (index === 0) {
+            section.classList.add("is-open");
+          }
+
+          header.addEventListener("click", () => {
+            section.classList.toggle("is-open");
+          });
         });
-      });
     });
   </script>
 

@@ -5,226 +5,1319 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>PlayMaker Academy | How NFL Prop Modeling Actually Works</title>
+  <title>PlayMaker Academy | How NFL Prop Modeling Works</title>
 
-  <meta name="description"
-    content="Learn how PlayMaker builds NFL prop models using usage, matchup data, efficiency metrics, and game script analysis. Full transparency into the PlayMaker system." />
+  <meta
+    name="description"
+    content="Learn how PlayMaker evaluates NFL player props using recent performance, usage trends, defensive matchups, efficiency, injuries, weather, game script, and historical results."
+  />
 
-  <link rel="stylesheet" href="/assets/css/research.css" />
-  <link rel="stylesheet" href="/assets/css/entity-links.css" />
+  <link
+    rel="canonical"
+    href="https://playmakerprime.com/research/academy.html"
+  />
+
+  <meta
+    property="og:title"
+    content="PlayMaker Academy | How NFL Prop Modeling Works"
+  />
+
+  <meta
+    property="og:description"
+    content="Explore the research process behind PlayMaker NFL prop analysis, including player usage, matchup adjustments, efficiency, injuries, weather, and game environment."
+  />
+
+  <meta
+    property="og:url"
+    content="https://playmakerprime.com/research/academy.html"
+  />
+
+  <meta
+    property="og:type"
+    content="article"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/research.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/entity-links.css"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/images/favicon.png"
+  />
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header class="pm-header">
-    <a href="/index.html" class="pm-logo">
+
+    <a
+      href="/"
+      class="pm-logo"
+      aria-label="PlayMaker Prime home"
+    >
       <h1>PlayMaker Prime</h1>
     </a>
 
-    <nav class="pm-nav">
-      <a href="/players.html" class="pm-link">Players</a>
-      <a href="/teams.html" class="pm-link">Teams</a>
-      <a href="/matchups.html" class="pm-link">Matchups</a>
-      <a href="/research.html" class="pm-link">Research</a>
+    <nav
+      class="pm-nav"
+      aria-label="Main navigation"
+    >
+      <a href="/players.html" class="pm-link">
+        Players
+      </a>
+
+      <a href="/teams.html" class="pm-link">
+        Teams
+      </a>
+
+      <a href="/matchups.html" class="pm-link">
+        Matchups
+      </a>
+
+      <a
+        href="/research.html"
+        class="pm-link active"
+        aria-current="page"
+      >
+        Research
+      </a>
+
+      <a href="/results.html" class="pm-link">
+        Results
+      </a>
+
+      <a href="/pricing.html" class="pm-link">
+        Pricing
+      </a>
     </nav>
+
   </header>
 
   <!-- HERO -->
   <section class="research-hero">
+
     <div class="hero-glow"></div>
 
     <div class="research-hero-content">
 
-      <a href="/research.html" class="hq-pill back-btn">
+      <a
+        href="/research.html"
+        class="hq-pill back-btn"
+      >
         ← Back to Research
       </a>
 
-      <span class="hq-pill">PlayMaker Academy</span>
+      <span class="hq-pill">
+        PlayMaker Academy
+      </span>
 
       <h2>
         PlayMaker Academy
-        <span>How NFL Prop Modeling Actually Works</span>
+        <span>How NFL Prop Research Works</span>
       </h2>
 
       <p>
-        A transparent breakdown of how PlayMaker evaluates NFL props using usage, efficiency, matchup strength, and game
-        environment — not guesswork.
+        Learn how PlayMaker evaluates NFL player props through recent performance,
+        player usage, defensive context, injuries, weather, game environment,
+        and historical results—not guesswork or isolated box scores.
       </p>
 
     </div>
+
   </section>
 
   <main>
 
-    <!-- HOW PLAYMAKER THINKS -->
+    <!-- OVERVIEW -->
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>How PlayMaker Thinks</h3>
-        <p>The order of operations behind every projection.</p>
+
+        <h3>
+          What PlayMaker Is Designed to Do
+        </h3>
+
+        <p>
+          PlayMaker organizes the information that matters before a player prop decision.
+        </p>
+
       </div>
 
-      <div class="stack-grid">
+      <div class="research-highlight-card">
 
-        <div class="stack-card">
-          <span>01</span>
-          <h4>Usage First</h4>
-          <p>Targets, carries, snaps, and routes define opportunity.</p>
-        </div>
+        <span>
+          Core Purpose
+        </span>
 
-        <div class="stack-card">
-          <span>02</span>
-          <h4>Matchup Second</h4>
-          <p>Defensive tiers and weaknesses adjust expected output.</p>
-        </div>
+        <h3>
+          Turn scattered NFL data into one structured matchup evaluation.
+        </h3>
 
-        <div class="stack-card">
-          <span>03</span>
-          <h4>Efficiency Third</h4>
-          <p>YPRR, EPA, and explosive play ability refine projections.</p>
-        </div>
-
-        <div class="stack-card">
-          <span>04</span>
-          <h4>Game Script Last</h4>
-          <p>Flow of game determines final volume ceiling and floor.</p>
-        </div>
+        <p>
+          Instead of evaluating a line from one recent game or one season average,
+          PlayMaker compares player trends, opponent history, similar defensive matchups,
+          injuries, weather, and game context before producing a final lean.
+        </p>
 
       </div>
 
     </section>
 
-    <!-- MODEL BREAKDOWN -->
+    <!-- CORE WORKFLOW -->
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
-        <h3>Model Breakdown</h3>
-        <p>The core logic behind PlayMaker projections.</p>
+
+        <h3>
+          The PlayMaker Research Workflow
+        </h3>
+
+        <p>
+          Every evaluation begins with the player and expands outward into the matchup.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>Why Last 10 Matters</h4>
-          <p>Captures current usage trends and role changes faster than season averages.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Establish the Player Baseline
+          </h4>
+
+          <p>
+            Recent attempts, targets, carries, receptions, yardage,
+            touchdowns, and role changes establish current performance.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Why EPA Matters</h4>
-          <p>Measures true offensive impact beyond box score stats.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Identify Opportunity
+          </h4>
+
+          <p>
+            Snap share, routes, target share, carry share,
+            and red-zone usage help explain how the production was created.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Why Usage Beats Projections</h4>
-          <p>Opportunity is more stable than efficiency over time.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Evaluate the Defense
+          </h4>
+
+          <p>
+            Defensive tiers, pressure rate, pass and run strength,
+            and historical prop results provide matchup context.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Multi-Layer Signal System</h4>
-          <p>No single stat drives decisions — everything is weighted together.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Apply Game Conditions
+          </h4>
+
+          <p>
+            Injuries, weather, venue, expected game flow,
+            and opponent-specific history adjust the baseline.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
-    <!-- SYSTEM PHILOSOPHY -->
+    <!-- RECENT PERFORMANCE -->
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>System Philosophy</h3>
-        <p>The principles that guide every PlayMaker decision.</p>
+
+        <h3>
+          Why Recent Performance Matters
+        </h3>
+
+        <p>
+          Current roles can change faster than full-season averages reveal.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>No Guesswork</h4>
-          <p>Every projection is based on data signals, not intuition.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Role Changes
+          </h4>
+
+          <p>
+            Injuries, depth-chart movement, trades, and coaching adjustments
+            can quickly change a player’s workload.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>No Hot Streak Chasing</h4>
-          <p>We avoid overreacting to small sample performances.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Recent Opportunity
+          </h4>
+
+          <p>
+            A recent sample helps reveal whether targets, carries,
+            routes, or passing attempts are moving up or down.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Layered Data Model</h4>
-          <p>Usage, matchup, efficiency, and script all combine into one view.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Current Efficiency
+          </h4>
+
+          <p>
+            Recent efficiency provides context, but it is evaluated
+            alongside workload so short-term outliers do not control the projection.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Edge Over Outcome Thinking</h4>
-          <p>Focus is on long-term value, not single-game results.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Opponent History
+          </h4>
+
+          <p>
+            Direct history against the upcoming opponent can reveal
+            role and matchup patterns that broad averages may miss.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
-    <!-- TRANSPARENCY LINKS -->
+    <!-- DIRECT AND SIMILAR MATCHUPS -->
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>How PlayMaker Academy Connects</h3>
-        <p>Understand how all analytics, strategy, and modeling systems come together.</p>
+
+        <h3>
+          Direct Opponents and Similar Defenses
+        </h3>
+
+        <p>
+          PlayMaker prioritizes the most relevant matchup evidence available.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>Stat Foundations</h4>
-          <p>Core metrics like EPA, YPRR, and target share power every projection.</p>
-          <a href="/research.html">View Stat Guides →</a>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Direct Opponent Games
+          </h4>
+
+          <p>
+            Previous games against the upcoming opponent are prioritized
+            when enough relevant history is available.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Position Models</h4>
-          <p>QB, RB, WR, and TE Intelligence explain how stats translate into production.</p>
-          <a href="/research/positions/index.html">View Positions →</a>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Similar Defensive Profiles
+          </h4>
+
+          <p>
+            When direct history is limited, PlayMaker compares performances
+            against defenses with similar pass, run, and pressure characteristics.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Matchup Systems</h4>
-          <p>Defensive tiers, pressure rates, and game script shape outcomes.</p>
-          <a href="/matchups.html">View Matchups →</a>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Divisional Familiarity
+          </h4>
+
+          <p>
+            Divisional games may receive additional relevance
+            because teams face each other more regularly.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Strategy Layer</h4>
-          <p>Value betting, projection vs usage, and regression logic connect everything.</p>
-          <a href="/research/strategy-guides.html">View Strategy →</a>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Context Before Averaging
+          </h4>
+
+          <p>
+            PlayMaker avoids treating every past game as equally relevant
+            when the defensive environment is materially different.
+          </p>
+
         </div>
 
       </div>
+
     </section>
 
+    <!-- USAGE -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Why Usage Comes Before Results
+        </h3>
+
+        <p>
+          Production can fluctuate, but opportunity explains whether it may continue.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Targets and Routes
+          </h4>
+
+          <p>
+            Receivers need routes to become available
+            and targets to create receiving opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Carries and Snap Share
+          </h4>
+
+          <p>
+            Running back workload depends on backfield control,
+            playing time, and involvement across different situations.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Passing Attempts
+          </h4>
+
+          <p>
+            Quarterback yardage and completion opportunity begin
+            with expected dropbacks and passing volume.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Red-Zone Opportunity
+          </h4>
+
+          <p>
+            Scoring-area carries and targets provide more useful touchdown context
+            than touchdown results alone.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EFFICIENCY -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          How Efficiency Is Used
+        </h3>
+
+        <p>
+          Efficiency refines the workload baseline rather than replacing it.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            EPA
+          </span>
+
+          <h4>
+            Expected Points Added
+          </h4>
+
+          <p>
+            EPA provides context for how effectively individual plays
+            improve the offense’s expected scoring position.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            YPRR
+          </span>
+
+          <h4>
+            Yards per Route Run
+          </h4>
+
+          <p>
+            YPRR compares receiving production with actual route participation.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            YAC
+          </span>
+
+          <h4>
+            Yards After Catch
+          </h4>
+
+          <p>
+            YAC helps explain how much receiving production
+            the player creates after securing the ball.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            SR
+          </span>
+
+          <h4>
+            Success Rate
+          </h4>
+
+          <p>
+            Success rate helps distinguish consistent production
+            from outcomes driven by a small number of explosive plays.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- DEFENSIVE MODEL -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          How Defensive Matchups Are Evaluated
+        </h3>
+
+        <p>
+          Opponents are separated by the type of production they allow.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Overall Defensive Tier
+          </h4>
+
+          <p>
+            Provides a broad view of the defense’s total effectiveness.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Pass Defense Tier
+          </h4>
+
+          <p>
+            Helps evaluate quarterback and receiving environments separately
+            from overall defensive reputation.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Run Defense Tier
+          </h4>
+
+          <p>
+            Helps evaluate expected rushing efficiency
+            and running back matchup difficulty.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Pressure Rate
+          </h4>
+
+          <p>
+            Measures how frequently the defense disrupts opposing quarterbacks
+            on passing plays.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- INJURIES -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Injury Adjustments
+        </h3>
+
+        <p>
+          Player availability can change workload, efficiency, and matchup quality.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Player Availability
+          </h4>
+
+          <p>
+            Out, doubtful, and questionable designations
+            are treated differently based on expected availability.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Teammate Injuries
+          </h4>
+
+          <p>
+            Missing teammates may increase targets, carries,
+            routes, or red-zone opportunities for another player.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Offensive Line Injuries
+          </h4>
+
+          <p>
+            Protection and run-blocking injuries can affect
+            quarterback pressure and rushing efficiency.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Defensive Injuries
+          </h4>
+
+          <p>
+            Missing defenders may change coverage,
+            pressure generation, or run-defense strength.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WEATHER AND ENVIRONMENT -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Weather and Game Environment
+        </h3>
+
+        <p>
+          External conditions are applied when they are relevant to the prop type.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Wind
+          </h4>
+
+          <p>
+            Strong wind may affect deeper passing,
+            kicking, and long downfield attempts.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Rain and Snow
+          </h4>
+
+          <p>
+            Precipitation may affect footing, ball security,
+            passing conditions, and play selection.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Indoor Venues
+          </h4>
+
+          <p>
+            Domes and controlled environments reduce uncertainty
+            created by outdoor weather conditions.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Game Script
+          </h4>
+
+          <p>
+            Expected score flow can change passing volume,
+            rushing volume, and late-game opportunity.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- MODEL OUTPUT -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          From Research to Final Evaluation
+        </h3>
+
+        <p>
+          The final output compares the adjusted expectation with the listed line.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Build the Baseline
+          </h4>
+
+          <p>
+            Recent player performance and workload establish
+            the starting expectation.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Apply Adjustments
+          </h4>
+
+          <p>
+            Defense, injuries, weather, game script,
+            and matchup similarity adjust the baseline.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Compare With the Line
+          </h4>
+
+          <p>
+            The adjusted player expectation is compared
+            with the current prop threshold.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Ride, Fade, or Avoid
+          </h4>
+
+          <p>
+            The system can support a ride, fade, or avoid decision
+            depending on the strength and consistency of the available signals.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          PlayMaker Research Principles
+        </h3>
+
+        <p>
+          The system is designed to improve the process—not guarantee an outcome.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            No Single-Stat Decisions
+          </h4>
+
+          <p>
+            No individual metric is treated as enough evidence
+            to make a complete prop evaluation.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            No Hot-Streak Chasing
+          </h4>
+
+          <p>
+            Recent production is checked against workload,
+            efficiency, and matchup context.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            No Forced Plays
+          </h4>
+
+          <p>
+            When the evidence is weak or conflicting,
+            avoiding the line can be the strongest decision.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Process Over One Result
+          </h4>
+
+          <p>
+            A strong evaluation can still lose,
+            while a weak process can occasionally produce a winning outcome.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RESULTS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Historical Results and Model Feedback
+        </h3>
+
+        <p>
+          Completed props help evaluate how the system performs over time.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Settled Results
+          </h4>
+
+          <p>
+            Completed props are stored as wins, losses,
+            voids, and other settlement outcomes.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Prop-Type Performance
+          </h4>
+
+          <p>
+            Results can be separated by passing, rushing,
+            receiving, and other prop categories.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Defensive Trends
+          </h4>
+
+          <p>
+            Historical prop outcomes help reveal how defenses
+            have performed against different types of production.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Model Improvement
+          </h4>
+
+          <p>
+            Results provide feedback for identifying strong signals,
+            weak assumptions, and areas that require adjustment.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONNECTIONS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Explore the PlayMaker Research System
+        </h3>
+
+        <p>
+          Continue into the metrics, position models, and strategy guides behind the platform.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Stat Guides
+          </h4>
+
+          <p>
+            Learn the metrics used to evaluate player opportunity,
+            efficiency, and matchup quality.
+          </p>
+
+          <a href="/research/stat-guides.html">
+            View Stat Guides →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Position Intelligence
+          </h4>
+
+          <p>
+            Explore the separate QB, RB, WR,
+            and TE evaluation frameworks.
+          </p>
+
+          <a href="/research/positions/">
+            View Position Models →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Defensive Matchups
+          </h4>
+
+          <p>
+            Learn how defensive tiers, pressure,
+            and matchup environments affect projections.
+          </p>
+
+          <a href="/research/defensive-matchups.html">
+            View Defensive Matchups →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Strategy Guides
+          </h4>
+
+          <p>
+            Explore projection comparison, regression,
+            value, and decision-making concepts.
+          </p>
+
+          <a href="/research/strategy-guides.html">
+            View Strategy Guides →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Matchup Reports
+          </h4>
+
+          <p>
+            Apply player and defensive research
+            to upcoming NFL games.
+          </p>
+
+          <a href="/matchups.html">
+            View Matchups →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Historical Results
+          </h4>
+
+          <p>
+            Review completed PlayMaker projections
+            and prop-category performance.
+          </p>
+
+          <a href="/results.html">
+            View Results →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ENTITY LINKS -->
     <div id="entity-links"></div>
 
     <!-- CTA -->
     <section class="hq-section">
 
       <div class="final-cta">
-        <h3>Ready to apply it?</h3>
-        <p>Use PlayMaker to turn this system into real matchup decisions.</p>
-        <a href="/matchups.html" class="btn-primary">Open Matchups</a>
+
+        <h3>
+          Ready to apply the research process?
+        </h3>
+
+        <p>
+          Explore upcoming NFL games and see how player trends,
+          defensive context, injuries, weather, and matchup conditions come together.
+        </p>
+
+        <a
+          href="/matchups.html"
+          class="btn-primary"
+        >
+          View Matchups
+        </a>
+
       </div>
 
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-links">
 
-      <a href="/">Home</a>
-      <a href="/players.html">Players</a>
-      <a href="/teams.html">Teams</a>
-      <a href="/matchups.html">Matchups</a>
-      <a href="/research.html">Research</a>
-      <a href="/results.html">Results</a>
-      <a href="/pricing.html">PlayMaker Pro</a>
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
 
     </div>
 
@@ -246,20 +1339,29 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
+      document
+        .querySelectorAll(".hq-section")
+        .forEach((section, index) => {
+          const header = section.querySelector(
+            ":scope > .section-header"
+          );
 
-        if (index === 0) {
-          section.classList.add("is-open");
-        }
+          if (!header) {
+            return;
+          }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
+          if (index === 0) {
+            section.classList.add("is-open");
+          }
+
+          header.addEventListener("click", () => {
+            section.classList.toggle("is-open");
+          });
         });
-      });
     });
   </script>
 

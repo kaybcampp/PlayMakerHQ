@@ -7,27 +7,99 @@
 
   <title>RB Intelligence | NFL Running Back Analytics Explained | PlayMaker Research</title>
 
-  <meta name="description"
-    content="Explore RB Intelligence metrics including carry share, red zone usage, target involvement, efficiency, and matchup impact. Learn how PlayMaker evaluates running back props and performance." />
+  <meta
+    name="description"
+    content="Explore NFL running back analytics including carry share, snap share, red zone usage, receiving work, rushing efficiency, game script, and matchup context."
+  />
 
-  <link rel="stylesheet" href="/assets/css/research.css" />
-  <link rel="stylesheet" href="/assets/css/entity-links.css" />
+  <link
+    rel="canonical"
+    href="https://playmakerprime.com/research/positions/rb-intelligence.html"
+  />
+
+  <meta
+    property="og:title"
+    content="RB Intelligence | NFL Running Back Analytics Explained"
+  />
+
+  <meta
+    property="og:description"
+    content="Learn how workload, efficiency, receiving involvement, red zone opportunity, and game script shape NFL running back performance."
+  />
+
+  <meta
+    property="og:url"
+    content="https://playmakerprime.com/research/positions/rb-intelligence.html"
+  />
+
+  <meta
+    property="og:type"
+    content="article"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/research.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/assets/css/entity-links.css"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/images/favicon.png"
+  />
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header class="pm-header">
-    <a href="/index.html" class="pm-logo">
+
+    <a
+      href="/"
+      class="pm-logo"
+      aria-label="PlayMaker Prime home"
+    >
       <h1>PlayMaker Prime</h1>
     </a>
 
-    <nav class="pm-nav">
-      <a href="/players.html" class="pm-link">Players</a>
-      <a href="/teams.html" class="pm-link">Teams</a>
-      <a href="/matchups.html" class="pm-link">Matchups</a>
-      <a href="/research.html" class="pm-link">Research</a>
+    <nav
+      class="pm-nav"
+      aria-label="Main navigation"
+    >
+      <a href="/players.html" class="pm-link">
+        Players
+      </a>
+
+      <a href="/teams.html" class="pm-link">
+        Teams
+      </a>
+
+      <a href="/matchups.html" class="pm-link">
+        Matchups
+      </a>
+
+      <a
+        href="/research.html"
+        class="pm-link active"
+        aria-current="page"
+      >
+        Research
+      </a>
+
+      <a href="/results.html" class="pm-link">
+        Results
+      </a>
+
+      <a href="/pricing.html" class="pm-link">
+        Pricing
+      </a>
     </nav>
+
   </header>
 
   <!-- HERO -->
@@ -37,11 +109,16 @@
 
     <div class="research-hero-content">
 
-      <a href="/research.html" class="hq-pill back-btn">
-        ← Back to Research
+      <a
+        href="/research/positions/"
+        class="hq-pill back-btn"
+      >
+        ← Back to Position Intelligence
       </a>
 
-      <span class="hq-pill">Position Intelligence</span>
+      <span class="hq-pill">
+        Position Intelligence
+      </span>
 
       <h2>
         RB Intelligence
@@ -49,8 +126,9 @@
       </h2>
 
       <p>
-        RB Intelligence evaluates running backs based on workload, efficiency, red zone usage, receiving involvement,
-        and matchup strength — not just rushing yards.
+        RB Intelligence evaluates running back performance through rushing workload,
+        snap share, receiving involvement, red-zone usage, efficiency,
+        game script, and defensive matchup context—not rushing yards alone.
       </p>
 
     </div>
@@ -59,76 +137,297 @@
 
   <main>
 
-    <!-- CORE METRICS -->
+    <!-- OVERVIEW -->
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>Core RB Metrics</h3>
-        <p>The foundation of running back evaluation in PlayMaker.</p>
+
+        <h3>
+          What RB Intelligence Measures
+        </h3>
+
+        <p>
+          Running back production depends on workload, role, efficiency,
+          scoring opportunity, and the way each game unfolds.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Core Idea
+        </span>
+
+        <h3>
+          Touches create opportunity. Role and matchup determine how valuable those touches become.
+        </h3>
+
+        <p>
+          Two running backs can record similar yardage while carrying very different
+          workloads, receiving roles, red-zone usage, and future opportunity.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- CORE METRICS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Core RB Metrics
+        </h3>
+
+        <p>
+          These metrics establish a running back’s workload and role inside the offense.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Carry Share</h4>
-          <p>Percentage of team rushing attempts assigned to the RB.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Carry Share
+          </h4>
+
+          <p>
+            Measures the percentage of team rushing attempts handled by the player
+            and helps identify lead-back versus committee roles.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>Rushing Efficiency</h4>
-          <p>Yards per carry adjusted for defensive strength and game script.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Snap Share
+          </h4>
+
+          <p>
+            Shows how often the running back is on the field
+            and whether the player has access to passing-down and situational work.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Snap Share</h4>
-          <p>Measures how often the RB is on the field overall.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Touch Volume
+          </h4>
+
+          <p>
+            Carries and receptions combine to create the player’s total opportunity baseline.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Target Involvement</h4>
-          <p>Receiving usage adds stability and upside in all game scripts.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Rushing Efficiency
+          </h4>
+
+          <p>
+            Yards per carry, success rate, explosive runs, and defensive context
+            help describe how productive the workload has been.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
-    <!-- RED ZONE / TD UPSIDE -->
-    <section class="hq-section hq-section-alt">
+    <!-- RECEIVING ROLE -->
+    <section class="hq-section">
 
       <div class="section-header">
-        <h3>Scoring & Red Zone Usage</h3>
-        <p>Touchdowns drive RB fantasy and prop ceilings.</p>
+
+        <h3>
+          Receiving Involvement
+        </h3>
+
+        <p>
+          Passing-game usage can protect running back opportunity when rushing volume falls.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Red Zone Carries</h4>
-          <p>Inside-the-20 opportunities are the highest value rushes.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Target Share
+          </h4>
+
+          <p>
+            Measures how much of the team’s passing volume is directed toward the running back.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>Goal Line Role</h4>
-          <p>Determines touchdown dependency and scoring consistency.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Route Participation
+          </h4>
+
+          <p>
+            A player must run routes consistently to earn repeatable receiving opportunity.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Touchdown Conversion Rate</h4>
-          <p>How often opportunities turn into actual scores.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Checkdown Role
+          </h4>
+
+          <p>
+            Quarterback tendencies and defensive pressure can create
+            additional short-area targets for running backs.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Script Dependency</h4>
-          <p>RBs in leading teams get more red zone opportunities.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Passing-Down Usage
+          </h4>
+
+          <p>
+            Third-down and two-minute work can add receptions
+            even when the player is not receiving the majority of carries.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RED ZONE -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Scoring and Red-Zone Usage
+        </h3>
+
+        <p>
+          Total workload and scoring-area workload are not always the same.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Red-Zone Carries
+          </h4>
+
+          <p>
+            Carries inside the 20-yard line provide higher-value touchdown opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Goal-Line Role
+          </h4>
+
+          <p>
+            Carries near the goal line help identify which player
+            the offense trusts in short-yardage scoring situations.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Red-Zone Targets
+          </h4>
+
+          <p>
+            Receiving opportunities near the end zone can add another path to touchdowns.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Touchdown Variance
+          </h4>
+
+          <p>
+            Scoring can fluctuate, so PlayMaker separates repeatable opportunity
+            from short-term touchdown results.
+          </p>
+
         </div>
 
       </div>
@@ -139,34 +438,173 @@
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>Matchup Factors</h3>
-        <p>How defenses impact running back production.</p>
+
+        <h3>
+          Running Back Matchup Factors
+        </h3>
+
+        <p>
+          Defensive quality and expected game flow influence both volume and efficiency.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Run Defense Strength</h4>
-          <p>Elite run defenses reduce rushing efficiency and volume.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Run Defense Strength
+          </h4>
+
+          <p>
+            Defensive rushing efficiency, tackling, and front-seven strength
+            help shape expected rushing production.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>Game Script Dependency</h4>
-          <p>RB usage drops in negative pass-heavy scripts.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Offensive Line Health
+          </h4>
+
+          <p>
+            Injuries and blocking matchups can change rushing lanes,
+            contact timing, and short-yardage success.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>O-Line Advantage</h4>
-          <p>Blocking quality significantly impacts RB success rate.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Receiving Matchup
+          </h4>
+
+          <p>
+            Linebacker coverage and defensive pressure can affect
+            running back target and reception opportunity.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Pace of Play Influence</h4>
-          <p>Faster offenses increase total RB touch opportunities.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Pace of Play
+          </h4>
+
+          <p>
+            Faster games may create more total possessions
+            and additional opportunities for touches.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- GAME SCRIPT -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Game Script and RB Volume
+        </h3>
+
+        <p>
+          Score differential can shift the balance between rushing and receiving work.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Leading Script
+          </h4>
+
+          <p>
+            Teams protecting a lead often increase rushing volume
+            and create clock-management carries.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Trailing Script
+          </h4>
+
+          <p>
+            Negative game flow may reduce carries,
+            especially for backs without a passing-down role.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Neutral Script
+          </h4>
+
+          <p>
+            Competitive games may preserve the offense’s intended backfield rotation.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Role Versatility
+          </h4>
+
+          <p>
+            Backs who handle carries and targets may remain involved
+            across a wider range of game environments.
+          </p>
+
         </div>
 
       </div>
@@ -174,24 +612,34 @@
     </section>
 
     <!-- EXAMPLE -->
-    <section class="hq-section hq-section-alt">
+    <section class="hq-section">
 
       <div class="section-header">
-        <h3>Real NFL Example</h3>
-        <p>How RB workload changes based on game environment.</p>
+
+        <h3>
+          RB Intelligence Example
+        </h3>
+
+        <p>
+          Why a strong workload profile matters more than one box-score result.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
 
-        <span>Example</span>
+        <span>
+          Example
+        </span>
 
         <h3>
-          RB with 70% Carry Share + High Red Zone Role
+          Running back with a 70% carry share and consistent red-zone work
         </h3>
 
         <p>
-          This player becomes highly touchdown-dependent upside with strong floor stability due to consistent workload
-          across game scripts.
+          That player owns most of the team’s rushing opportunity
+          and receives valuable scoring-area touches. Receiving involvement
+          would add another layer of opportunity if the game turns pass-heavy.
         </p>
 
       </div>
@@ -199,131 +647,342 @@
     </section>
 
     <!-- HOW PLAYMAKER USES IT -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          How PlayMaker Uses RB Intelligence
+        </h3>
+
+        <p>
+          PlayMaker combines workload, efficiency, player availability,
+          and matchup context when evaluating running back props.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Recent Workload
+          </h4>
+
+          <p>
+            Carries, targets, receptions, snaps, and recent backfield distribution
+            establish the player’s current role.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Injury Adjustment
+          </h4>
+
+          <p>
+            Teammate availability and offensive line injuries
+            can change expected touches and efficiency.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Matchup Adjustment
+          </h4>
+
+          <p>
+            Run-defense tiers, game script, pace, and receiving matchup
+            help adjust the opportunity baseline.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Final Evaluation
+          </h4>
+
+          <p>
+            The adjusted expectation is compared with the listed line
+            to support a ride, fade, or avoid decision.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONNECTIONS -->
     <section class="hq-section">
 
       <div class="section-header">
-        <h3>How PlayMaker Uses RB Intelligence</h3>
-        <p>This model builds RB prop projections and matchup adjustments.</p>
+
+        <h3>
+          How RB Intelligence Connects in PlayMaker
+        </h3>
+
+        <p>
+          Explore the metrics and research pages that support running back evaluation.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Rush Projection Modeling</h4>
-          <p>Uses carry share + script to estimate rushing attempts.</p>
+
+          <h4>
+            Carry Share
+          </h4>
+
+          <p>
+            Learn how team rushing distribution defines backfield control.
+          </p>
+
+          <a href="/research/carry-share.html">
+            View Carry Share →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>TD Upside Weighting</h4>
-          <p>Red zone usage determines scoring probability.</p>
+
+          <h4>
+            Red-Zone Usage
+          </h4>
+
+          <p>
+            Separate general workload from touchdown-area opportunity.
+          </p>
+
+          <a href="/research/red-zone-usage.html">
+            View Red-Zone Usage →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Receiving Floor Adjustment</h4>
-          <p>Pass-catching RBs get more stable projections.</p>
+
+          <h4>
+            Game Script
+          </h4>
+
+          <p>
+            Understand how expected scoring flow changes rushing and receiving volume.
+          </p>
+
+          <a href="/research/game-script.html">
+            View Game Script →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Final Prop Edge Output</h4>
-          <p>Combines workload, matchup, and efficiency into lean decisions.</p>
+
+          <h4>
+            Position Intelligence
+          </h4>
+
+          <p>
+            Explore quarterback, wide receiver, and tight end evaluation models.
+          </p>
+
+          <a href="/research/positions/">
+            View Position Hub →
+          </a>
+
         </div>
 
       </div>
 
     </section>
 
-    <section class="hq-section hq-section-alt">
-      <div class="section-header">
-        <h3>How RB Intelligence Connects in PlayMaker</h3>
-        <p>See how running back usage and efficiency drive prop projections.</p>
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-          <h4>Player Projections</h4>
-          <p>Carry share, red zone usage, and receiving work shape RB props.</p>
-          <a href="/players.html">View Players →</a>
-        </div>
-
-        <div class="stack-card">
-          <h4>Matchup Analysis</h4>
-          <p>Run defense strength and game script heavily impact RB production.</p>
-          <a href="/matchups.html">View Matchups →</a>
-        </div>
-
-        <div class="stack-card">
-          <h4>Position System</h4>
-          <p>RB Intelligence is part of the full PlayMaker position modeling system.</p>
-          <a href="/research/positions/index.html">View Position Hub →</a>
-        </div>
-
-        <div class="stack-card">
-          <h4>PlayMaker Academy</h4>
-          <p>Learn how RB usage and opportunity are converted into betting edges.</p>
-          <a href="/research/academy.html">Learn More →</a>
-        </div>
-
-      </div>
-    </section>
-
+    <!-- ENTITY LINKS -->
     <div id="entity-links"></div>
 
+    <!-- RELEVANT PLAYERS -->
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>Relevant Players & Matchups</h3>
-        <p>RB usage and prop signals for top backs.</p>
+
+        <h3>
+          Explore Running Backs
+        </h3>
+
+        <p>
+          Open current player pages to review usage trends,
+          recent production, and matchup information.
+        </p>
+
       </div>
 
       <div class="stack-grid">
+
         <div class="stack-card">
-          <img src="/assets/images/players/saquon-barkley.png" alt="Saquon Barkley" class="player-headshot">
-          <h4>Saquon Barkley</h4>
-          <a href="/players/saquon-barkley">View Player →</a>
+
+          <img
+            src="/assets/images/players/saquon-barkley.png"
+            alt="Saquon Barkley"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            Saquon Barkley
+          </h4>
+
+          <p>
+            Review rushing workload, receiving involvement, and matchup context.
+          </p>
+
+          <a href="/players/saquon-barkley">
+            View Player →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <img src="/assets/images/players/christian-mccaffrey.png" alt="Christian McCaffrey" class="player-headshot">
-          <h4>Christian McCaffrey</h4>
-          <a href="/players/christian-mccaffrey">View Player →</a>
+
+          <img
+            src="/assets/images/players/christian-mccaffrey.png"
+            alt="Christian McCaffrey"
+            class="player-headshot"
+            loading="lazy"
+          />
+
+          <h4>
+            Christian McCaffrey
+          </h4>
+
+          <p>
+            Review rushing, receiving, and scoring-area usage.
+          </p>
+
+          <a href="/players/christian-mccaffrey">
+            View Player →
+          </a>
+
         </div>
 
         <div class="stack-card">
-          <img src="/assets/images/matchups/49ers-vs-panthers.png" alt="SF @ CAR" class="matchup-thumb">
-          <h4>SF @ CAR</h4>
-          <a href="/matchups/san-francisco-49ers-vs-carolina-panthers">View Matchup →</a>
+
+          <h4>
+            All NFL Players
+          </h4>
+
+          <p>
+            Search current NFL players by team, position, or name.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
         </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Upcoming Matchups
+          </h4>
+
+          <p>
+            Explore running back environments across the 2026 NFL schedule.
+          </p>
+
+          <a href="/matchups.html">
+            Browse Matchups →
+          </a>
+
+        </div>
+
       </div>
+
     </section>
 
     <!-- CTA -->
     <section class="hq-section">
 
       <div class="final-cta">
-        <h3>Now apply it</h3>
-        <p>See how RB Intelligence impacts real matchup projections.</p>
-        <a href="/matchups.html" class="btn-primary">View Matchups</a>
+
+        <h3>
+          Put running back workload into context.
+        </h3>
+
+        <p>
+          Compare carries, targets, red-zone usage, injuries,
+          defensive matchup quality, and expected game flow before evaluating an RB prop.
+        </p>
+
+        <a
+          href="/matchups.html"
+          class="btn-primary"
+        >
+          View Matchups
+        </a>
+
       </div>
 
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-links">
 
-      <a href="/">Home</a>
-      <a href="/players.html">Players</a>
-      <a href="/teams.html">Teams</a>
-      <a href="/matchups.html">Matchups</a>
-      <a href="/research.html">Research</a>
-      <a href="/results.html">Results</a>
-      <a href="/pricing.html">PlayMaker Pro</a>
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
 
     </div>
 
@@ -345,20 +1004,29 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
+      document
+        .querySelectorAll(".hq-section")
+        .forEach((section, index) => {
+          const header = section.querySelector(
+            ":scope > .section-header"
+          );
 
-        if (index === 0) {
-          section.classList.add("is-open");
-        }
+          if (!header) {
+            return;
+          }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
+          if (index === 0) {
+            section.classList.add("is-open");
+          }
+
+          header.addEventListener("click", () => {
+            section.classList.toggle("is-open");
+          });
         });
-      });
     });
   </script>
 
