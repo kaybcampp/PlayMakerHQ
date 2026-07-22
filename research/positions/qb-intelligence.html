@@ -7,1038 +7,953 @@
 
   <title>QB Intelligence | NFL Quarterback Analytics Explained | PlayMaker Research</title>
 
-  <meta
-    name="description"
-    content="Explore NFL quarterback analytics including pressure rate, EPA, game script, passing volume, rushing upside, and matchup context. Learn how PlayMaker evaluates QB performance and props."
-  />
+  <meta name="description"
+    content="Explore NFL quarterback analytics including pressure rate, EPA, game script, passing volume, rushing upside, and matchup context. Learn how PlayMaker evaluates QB performance and props." />
 
-  <link
-    rel="canonical"
-    href="https://playmakerprime.com/research/positions/qb-intelligence.html"
-  />
+  <link rel="canonical" href="https://playmakerprime.com/research/positions/qb-intelligence.html" />
 
-  <meta
-    property="og:title"
-    content="QB Intelligence | NFL Quarterback Analytics Explained"
-  />
+  <meta property="og:title" content="QB Intelligence | NFL Quarterback Analytics Explained" />
 
-  <meta
-    property="og:description"
-    content="Learn how pressure, efficiency, rushing ability, pace, and game script shape NFL quarterback performance."
-  />
+  <meta property="og:description"
+    content="Learn how pressure, efficiency, rushing ability, pace, and game script shape NFL quarterback performance." />
 
-  <meta
-    property="og:url"
-    content="https://playmakerprime.com/research/positions/qb-intelligence.html"
-  />
+  <meta property="og:url" content="https://playmakerprime.com/research/positions/qb-intelligence.html" />
 
-  <meta
-    property="og:type"
-    content="article"
-  />
+  <meta property="og:type" content="article" />
 
-  <link
-    rel="stylesheet"
-    href="/assets/css/research.css"
-  />
+  <link rel="stylesheet" href="/assets/css/research.css" />
 
-  <link
-    rel="stylesheet"
-    href="/assets/css/entity-links.css"
-  />
+  <link rel="stylesheet" href="/assets/css/entity-links.css" />
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="/assets/images/favicon.png"
-  />
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="pm-header">
+  <body>
 
-    <a
-      href="/"
-      class="pm-logo"
-      aria-label="PlayMaker Prime home"
-    >
-      <h1>PlayMaker Prime</h1>
-    </a>
-
-    <nav
-      class="pm-nav"
-      aria-label="Main navigation"
-    >
-      <a href="/players.html" class="pm-link">
-        Players
-      </a>
-
-      <a href="/teams.html" class="pm-link">
-        Teams
-      </a>
-
-      <a href="/matchups.html" class="pm-link">
-        Matchups
-      </a>
-
-      <a
-        href="/research.html"
-        class="pm-link active"
-        aria-current="page"
-      >
-        Research
-      </a>
-
-      <a href="/results.html" class="pm-link">
-        Results
-      </a>
-
-      <a href="/pricing.html" class="pm-link">
-        Pricing
-      </a>
-    </nav>
-
-  </header>
-
-  <!-- HERO -->
-  <section class="research-hero">
-
-    <div class="hero-glow"></div>
-
-    <div class="research-hero-content">
-
-      <a
-        href="/research/positions/"
-        class="hq-pill back-btn"
-      >
-        ← Back to Position Intelligence
-      </a>
-
-      <span class="hq-pill">
-        Position Intelligence
-      </span>
-
-      <h2>
-        QB Intelligence
-        <span>Quarterback Performance Model</span>
-      </h2>
-
-      <p>
-        QB Intelligence evaluates quarterback performance through passing volume,
-        efficiency, pressure response, rushing ability, game environment,
-        and defensive matchup context—not passing yards alone.
-      </p>
-
-    </div>
-
-  </section>
-
-  <main>
-
-    <!-- OVERVIEW -->
-    <section class="hq-section">
-
-      <div class="section-header">
-
-        <h3>
-          What QB Intelligence Measures
-        </h3>
-
-        <p>
-          Quarterback production comes from the interaction between opportunity,
-          efficiency, matchup quality, and game flow.
-        </p>
-
-      </div>
-
-      <div class="research-highlight-card">
-
-        <span>
-          Core Idea
-        </span>
-
-        <h3>
-          Passing volume creates opportunity. Efficiency and context determine the outcome.
-        </h3>
-
-        <p>
-          A quarterback may receive more attempts in a trailing game,
-          but pressure, coverage, weather, and offensive line performance
-          still determine how productive those attempts become.
-        </p>
-
-      </div>
-
-    </section>
-
-    <!-- CORE METRICS -->
-    <section class="hq-section hq-section-alt">
-
-      <div class="section-header">
-
-        <h3>
-          Core QB Metrics
-        </h3>
-
-        <p>
-          These metrics establish the quarterback’s baseline role and performance profile.
-        </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <span>
-            01
-          </span>
-
-          <h4>
-            Passing Volume
-          </h4>
-
-          <p>
-            Attempts, completions, dropbacks, and recent passing workload
-            establish the quarterback’s opportunity baseline.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            02
-          </span>
-
-          <h4>
-            EPA Efficiency
-          </h4>
-
-          <p>
-            Expected Points Added measures how effectively quarterback plays
-            improve the offense’s expected scoring position.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            03
-          </span>
-
-          <h4>
-            Success Rate
-          </h4>
-
-          <p>
-            Success rate helps measure how consistently the passing offense
-            produces useful plays rather than relying on isolated explosive gains.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            04
-          </span>
-
-          <h4>
-            Passing Efficiency
-          </h4>
-
-          <p>
-            Completion rate, yards per attempt, touchdown rate,
-            and interception rate help describe the quality of passing production.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- PRESSURE -->
-    <section class="hq-section">
-
-      <div class="section-header">
-
-        <h3>
-          Pressure and Pocket Performance
-        </h3>
-
-        <p>
-          Defensive pressure can change the timing, depth, and efficiency of every pass play.
-        </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <span>
-            01
-          </span>
-
-          <h4>
-            Pressure Rate
-          </h4>
-
-          <p>
-            Measures how often the quarterback is hurried, hit, or sacked
-            during passing plays.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            02
-          </span>
-
-          <h4>
-            Sack Conversion
-          </h4>
-
-          <p>
-            Some quarterbacks avoid sacks under pressure,
-            while others allow disruption to become lost-yardage plays.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            03
-          </span>
-
-          <h4>
-            Time to Throw
-          </h4>
-
-          <p>
-            Faster release times can reduce pressure risk,
-            while longer-developing concepts may require stronger protection.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            04
-          </span>
-
-          <h4>
-            Pressure Response
-          </h4>
-
-          <p>
-            Accuracy, decision-making, scrambling, and turnover risk
-            may change significantly when the pocket collapses.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- RUSHING UPSIDE -->
-    <section class="hq-section hq-section-alt">
-
-      <div class="section-header">
-
-        <h3>
-          QB Rushing Upside
-        </h3>
-
-        <p>
-          Dual-threat production can add opportunity beyond traditional passing metrics.
-        </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <span>
-            01
-          </span>
-
-          <h4>
-            Designed Runs
-          </h4>
-
-          <p>
-            Quarterback draws, read-option plays, and other designed concepts
-            create planned rushing volume.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            02
-          </span>
-
-          <h4>
-            Scramble Rate
-          </h4>
-
-          <p>
-            Scrambles create additional rushing opportunities
-            when passing plays break down.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            03
-          </span>
-
-          <h4>
-            Red-Zone Rushing
-          </h4>
-
-          <p>
-            Quarterbacks with designed goal-line usage may carry
-            additional rushing touchdown opportunity.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            04
-          </span>
-
-          <h4>
-            Rushing Floor
-          </h4>
-
-          <p>
-            Stable rushing involvement can support total production
-            when passing efficiency is limited.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- MATCHUP FACTORS -->
-    <section class="hq-section">
-
-      <div class="section-header">
-
-        <h3>
-          Quarterback Matchup Factors
-        </h3>
-
-        <p>
-          Defensive quality and game environment can change both passing volume and efficiency.
-        </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <span>
-            01
-          </span>
-
-          <h4>
-            Defensive Pressure
-          </h4>
-
-          <p>
-            High-pressure defenses can shorten throwing windows,
-            increase sack risk, and disrupt deeper passing concepts.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            02
-          </span>
-
-          <h4>
-            Coverage Strength
-          </h4>
-
-          <p>
-            Strong secondaries may reduce open targets,
-            explosive completions, and receiver separation.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            03
-          </span>
-
-          <h4>
-            Pace of Play
-          </h4>
-
-          <p>
-            Faster games can create more total possessions
-            and increase potential quarterback dropbacks.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            04
-          </span>
-
-          <h4>
-            Weather and Venue
-          </h4>
-
-          <p>
-            Wind, rain, temperature, and indoor conditions
-            may affect passing efficiency and expected play selection.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- GAME SCRIPT -->
-    <section class="hq-section hq-section-alt">
-
-      <div class="section-header">
-
-        <h3>
-          Game Script and Passing Volume
-        </h3>
-
-        <p>
-          Score differential and expected game flow often shape quarterback opportunity.
-        </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <span>
-            01
-          </span>
-
-          <h4>
-            Trailing Script
-          </h4>
-
-          <p>
-            Teams playing from behind often increase pass attempts
-            as they try to close the scoring gap.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            02
-          </span>
-
-          <h4>
-            Leading Script
-          </h4>
-
-          <p>
-            Teams protecting a lead may reduce passing volume
-            and shift toward the running game.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            03
-          </span>
-
-          <h4>
-            Neutral Script
-          </h4>
-
-          <p>
-            Competitive games may preserve the offense’s typical
-            pass-run balance for longer periods.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            04
-          </span>
-
-          <h4>
-            Late-Game Volume
-          </h4>
-
-          <p>
-            Urgency, clock management, and defensive coverage
-            can create high-volume passing stretches late in games.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- EXAMPLE -->
-    <section class="hq-section">
-
-      <div class="section-header">
-
-        <h3>
-          QB Intelligence Example
-        </h3>
-
-        <p>
-          Why additional passing volume does not always mean better passing efficiency.
-        </p>
-
-      </div>
-
-      <div class="research-highlight-card">
-
-        <span>
-          Example
-        </span>
-
-        <h3>
-          High-pressure defense plus a likely trailing game script
-        </h3>
-
-        <p>
-          The quarterback may receive additional pass attempts because the team is trailing,
-          but the difficult pass rush could reduce yards per attempt,
-          completion efficiency, and drive sustainability.
-        </p>
-
-      </div>
-
-    </section>
-
-    <!-- HOW PLAYMAKER USES IT -->
-    <section class="hq-section hq-section-alt">
-
-      <div class="section-header">
-
-        <h3>
-          How PlayMaker Uses QB Intelligence
-        </h3>
-
-        <p>
-          PlayMaker combines volume, performance trends, and matchup context
-          when evaluating quarterback props.
-        </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <span>
-            01
-          </span>
-
-          <h4>
-            Recent Performance
-          </h4>
-
-          <p>
-            Recent attempts, completions, passing yards, touchdowns,
-            interceptions, and rushing production establish the current baseline.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            02
-          </span>
-
-          <h4>
-            Defensive Adjustment
-          </h4>
-
-          <p>
-            Defensive tiers, pressure rate, and matchup similarity
-            help adjust expectations for the opposing defense.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            03
-          </span>
-
-          <h4>
-            Environment Adjustment
-          </h4>
-
-          <p>
-            Weather, venue, injuries, and expected game flow
-            provide additional context around the projection.
-          </p>
-
-        </div>
-
-        <div class="stack-card">
-
-          <span>
-            04
-          </span>
-
-          <h4>
-            Final Evaluation
-          </h4>
-
-          <p>
-            PlayMaker compares the adjusted expectation with the listed line
-            to support a ride, fade, or avoid decision.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- CONNECTIONS -->
-    <section class="hq-section">
-
-      <div class="section-header">
-
-        <h3>
-          How QB Intelligence Connects in PlayMaker
-        </h3>
-
-        <p>
-          Explore the metrics and pages that support quarterback evaluation.
-        </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <h4>
-            Pressure Rate
-          </h4>
-
-          <p>
-            Learn how defensive disruption affects passing efficiency,
-            sacks, and turnover risk.
-          </p>
-
-          <a href="/research/pressure-rate.html">
-            View Pressure Rate →
-          </a>
-
-        </div>
-
-        <div class="stack-card">
-
-          <h4>
-            Game Script
-          </h4>
-
-          <p>
-            Understand how expected scoring flow changes passing volume.
-          </p>
-
-          <a href="/research/game-script.html">
-            View Game Script →
-          </a>
-
-        </div>
-
-        <div class="stack-card">
-
-          <h4>
-            Defensive Matchups
-          </h4>
-
-          <p>
-            Review the defensive factors used to evaluate quarterback environments.
-          </p>
-
-          <a href="/research/defensive-matchups.html">
-            View Defensive Matchups →
-          </a>
-
-        </div>
-
-        <div class="stack-card">
-
-          <h4>
-            Position Intelligence
-          </h4>
-
-          <p>
-            Explore how PlayMaker evaluates running backs,
-            wide receivers, and tight ends.
-          </p>
-
-          <a href="/research/positions/">
-            View Position Hub →
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ENTITY LINKS -->
+    <!-- ENTITY NAVIGATION -->
     <div id="entity-links"></div>
 
-    <!-- RELEVANT PLAYERS -->
-    <section class="hq-section hq-section-alt">
+    <!-- HERO -->
+    <section class="research-hero">
 
-      <div class="section-header">
+      <div class="hero-glow"></div>
 
-        <h3>
-          Explore Quarterbacks
-        </h3>
+      <div class="research-hero-content">
+
+        <a href="/research/positions/" class="hq-pill back-btn">
+          ← Back to Position Intelligence
+        </a>
+
+        <span class="hq-pill">
+          Position Intelligence
+        </span>
+
+        <h2>
+          QB Intelligence
+          <span>Quarterback Performance Model</span>
+        </h2>
 
         <p>
-          Open current player pages to review quarterback trends,
-          matchup context, and recent performance.
+          QB Intelligence evaluates quarterback performance through passing volume,
+          efficiency, pressure response, rushing ability, game environment,
+          and defensive matchup context—not passing yards alone.
         </p>
-
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-
-          <img
-            src="/assets/images/players/josh-allen.png"
-            alt="Josh Allen"
-            class="player-headshot"
-            loading="lazy"
-          />
-
-          <h4>
-            Josh Allen
-          </h4>
-
-          <p>
-            Review passing volume, rushing production, and matchup context.
-          </p>
-
-          <a href="/players/josh-allen">
-            View Player →
-          </a>
-
-        </div>
-
-        <div class="stack-card">
-
-          <img
-            src="/assets/images/players/patrick-mahomes.png"
-            alt="Patrick Mahomes"
-            class="player-headshot"
-            loading="lazy"
-          />
-
-          <h4>
-            Patrick Mahomes
-          </h4>
-
-          <p>
-            Review recent passing trends and defensive matchup information.
-          </p>
-
-          <a href="/players/patrick-mahomes">
-            View Player →
-          </a>
-
-        </div>
-
-        <div class="stack-card">
-
-          <h4>
-            All NFL Players
-          </h4>
-
-          <p>
-            Search current NFL players by team, position, or name.
-          </p>
-
-          <a href="/players.html">
-            Browse Players →
-          </a>
-
-        </div>
-
-        <div class="stack-card">
-
-          <h4>
-            Upcoming Matchups
-          </h4>
-
-          <p>
-            Explore quarterback environments across the 2026 NFL schedule.
-          </p>
-
-          <a href="/matchups.html">
-            Browse Matchups →
-          </a>
-
-        </div>
 
       </div>
 
     </section>
 
-    <!-- CTA -->
-    <section class="hq-section">
+    <main>
 
-      <div class="final-cta">
+      <!-- OVERVIEW -->
+      <section class="hq-section">
 
-        <h3>
-          Put quarterback performance into context.
-        </h3>
+        <div class="section-header">
 
-        <p>
-          Compare recent production, defensive pressure, rushing ability,
-          weather, and expected game flow before evaluating a quarterback prop.
-        </p>
+          <h3>
+            What QB Intelligence Measures
+          </h3>
 
-        <a
-          href="/matchups.html"
-          class="btn-primary"
-        >
-          View Matchups
+          <p>
+            Quarterback production comes from the interaction between opportunity,
+            efficiency, matchup quality, and game flow.
+          </p>
+
+        </div>
+
+        <div class="research-highlight-card">
+
+          <span>
+            Core Idea
+          </span>
+
+          <h3>
+            Passing volume creates opportunity. Efficiency and context determine the outcome.
+          </h3>
+
+          <p>
+            A quarterback may receive more attempts in a trailing game,
+            but pressure, coverage, weather, and offensive line performance
+            still determine how productive those attempts become.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- CORE METRICS -->
+      <section class="hq-section hq-section-alt">
+
+        <div class="section-header">
+
+          <h3>
+            Core QB Metrics
+          </h3>
+
+          <p>
+            These metrics establish the quarterback’s baseline role and performance profile.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <span>
+              01
+            </span>
+
+            <h4>
+              Passing Volume
+            </h4>
+
+            <p>
+              Attempts, completions, dropbacks, and recent passing workload
+              establish the quarterback’s opportunity baseline.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              02
+            </span>
+
+            <h4>
+              EPA Efficiency
+            </h4>
+
+            <p>
+              Expected Points Added measures how effectively quarterback plays
+              improve the offense’s expected scoring position.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              03
+            </span>
+
+            <h4>
+              Success Rate
+            </h4>
+
+            <p>
+              Success rate helps measure how consistently the passing offense
+              produces useful plays rather than relying on isolated explosive gains.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              04
+            </span>
+
+            <h4>
+              Passing Efficiency
+            </h4>
+
+            <p>
+              Completion rate, yards per attempt, touchdown rate,
+              and interception rate help describe the quality of passing production.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- PRESSURE -->
+      <section class="hq-section">
+
+        <div class="section-header">
+
+          <h3>
+            Pressure and Pocket Performance
+          </h3>
+
+          <p>
+            Defensive pressure can change the timing, depth, and efficiency of every pass play.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <span>
+              01
+            </span>
+
+            <h4>
+              Pressure Rate
+            </h4>
+
+            <p>
+              Measures how often the quarterback is hurried, hit, or sacked
+              during passing plays.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              02
+            </span>
+
+            <h4>
+              Sack Conversion
+            </h4>
+
+            <p>
+              Some quarterbacks avoid sacks under pressure,
+              while others allow disruption to become lost-yardage plays.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              03
+            </span>
+
+            <h4>
+              Time to Throw
+            </h4>
+
+            <p>
+              Faster release times can reduce pressure risk,
+              while longer-developing concepts may require stronger protection.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              04
+            </span>
+
+            <h4>
+              Pressure Response
+            </h4>
+
+            <p>
+              Accuracy, decision-making, scrambling, and turnover risk
+              may change significantly when the pocket collapses.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- RUSHING UPSIDE -->
+      <section class="hq-section hq-section-alt">
+
+        <div class="section-header">
+
+          <h3>
+            QB Rushing Upside
+          </h3>
+
+          <p>
+            Dual-threat production can add opportunity beyond traditional passing metrics.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <span>
+              01
+            </span>
+
+            <h4>
+              Designed Runs
+            </h4>
+
+            <p>
+              Quarterback draws, read-option plays, and other designed concepts
+              create planned rushing volume.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              02
+            </span>
+
+            <h4>
+              Scramble Rate
+            </h4>
+
+            <p>
+              Scrambles create additional rushing opportunities
+              when passing plays break down.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              03
+            </span>
+
+            <h4>
+              Red-Zone Rushing
+            </h4>
+
+            <p>
+              Quarterbacks with designed goal-line usage may carry
+              additional rushing touchdown opportunity.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              04
+            </span>
+
+            <h4>
+              Rushing Floor
+            </h4>
+
+            <p>
+              Stable rushing involvement can support total production
+              when passing efficiency is limited.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- MATCHUP FACTORS -->
+      <section class="hq-section">
+
+        <div class="section-header">
+
+          <h3>
+            Quarterback Matchup Factors
+          </h3>
+
+          <p>
+            Defensive quality and game environment can change both passing volume and efficiency.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <span>
+              01
+            </span>
+
+            <h4>
+              Defensive Pressure
+            </h4>
+
+            <p>
+              High-pressure defenses can shorten throwing windows,
+              increase sack risk, and disrupt deeper passing concepts.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              02
+            </span>
+
+            <h4>
+              Coverage Strength
+            </h4>
+
+            <p>
+              Strong secondaries may reduce open targets,
+              explosive completions, and receiver separation.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              03
+            </span>
+
+            <h4>
+              Pace of Play
+            </h4>
+
+            <p>
+              Faster games can create more total possessions
+              and increase potential quarterback dropbacks.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              04
+            </span>
+
+            <h4>
+              Weather and Venue
+            </h4>
+
+            <p>
+              Wind, rain, temperature, and indoor conditions
+              may affect passing efficiency and expected play selection.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- GAME SCRIPT -->
+      <section class="hq-section hq-section-alt">
+
+        <div class="section-header">
+
+          <h3>
+            Game Script and Passing Volume
+          </h3>
+
+          <p>
+            Score differential and expected game flow often shape quarterback opportunity.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <span>
+              01
+            </span>
+
+            <h4>
+              Trailing Script
+            </h4>
+
+            <p>
+              Teams playing from behind often increase pass attempts
+              as they try to close the scoring gap.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              02
+            </span>
+
+            <h4>
+              Leading Script
+            </h4>
+
+            <p>
+              Teams protecting a lead may reduce passing volume
+              and shift toward the running game.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              03
+            </span>
+
+            <h4>
+              Neutral Script
+            </h4>
+
+            <p>
+              Competitive games may preserve the offense’s typical
+              pass-run balance for longer periods.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              04
+            </span>
+
+            <h4>
+              Late-Game Volume
+            </h4>
+
+            <p>
+              Urgency, clock management, and defensive coverage
+              can create high-volume passing stretches late in games.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- EXAMPLE -->
+      <section class="hq-section">
+
+        <div class="section-header">
+
+          <h3>
+            QB Intelligence Example
+          </h3>
+
+          <p>
+            Why additional passing volume does not always mean better passing efficiency.
+          </p>
+
+        </div>
+
+        <div class="research-highlight-card">
+
+          <span>
+            Example
+          </span>
+
+          <h3>
+            High-pressure defense plus a likely trailing game script
+          </h3>
+
+          <p>
+            The quarterback may receive additional pass attempts because the team is trailing,
+            but the difficult pass rush could reduce yards per attempt,
+            completion efficiency, and drive sustainability.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- HOW PLAYMAKER USES IT -->
+      <section class="hq-section hq-section-alt">
+
+        <div class="section-header">
+
+          <h3>
+            How PlayMaker Uses QB Intelligence
+          </h3>
+
+          <p>
+            PlayMaker combines volume, performance trends, and matchup context
+            when evaluating quarterback props.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <span>
+              01
+            </span>
+
+            <h4>
+              Recent Performance
+            </h4>
+
+            <p>
+              Recent attempts, completions, passing yards, touchdowns,
+              interceptions, and rushing production establish the current baseline.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              02
+            </span>
+
+            <h4>
+              Defensive Adjustment
+            </h4>
+
+            <p>
+              Defensive tiers, pressure rate, and matchup similarity
+              help adjust expectations for the opposing defense.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              03
+            </span>
+
+            <h4>
+              Environment Adjustment
+            </h4>
+
+            <p>
+              Weather, venue, injuries, and expected game flow
+              provide additional context around the projection.
+            </p>
+
+          </div>
+
+          <div class="stack-card">
+
+            <span>
+              04
+            </span>
+
+            <h4>
+              Final Evaluation
+            </h4>
+
+            <p>
+              PlayMaker compares the adjusted expectation with the listed line
+              to support a ride, fade, or avoid decision.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CONNECTIONS -->
+      <section class="hq-section">
+
+        <div class="section-header">
+
+          <h3>
+            How QB Intelligence Connects in PlayMaker
+          </h3>
+
+          <p>
+            Explore the metrics and pages that support quarterback evaluation.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <h4>
+              Pressure Rate
+            </h4>
+
+            <p>
+              Learn how defensive disruption affects passing efficiency,
+              sacks, and turnover risk.
+            </p>
+
+            <a href="/research/pressure-rate.html">
+              View Pressure Rate →
+            </a>
+
+          </div>
+
+          <div class="stack-card">
+
+            <h4>
+              Game Script
+            </h4>
+
+            <p>
+              Understand how expected scoring flow changes passing volume.
+            </p>
+
+            <a href="/research/game-script.html">
+              View Game Script →
+            </a>
+
+          </div>
+
+          <div class="stack-card">
+
+            <h4>
+              Defensive Matchups
+            </h4>
+
+            <p>
+              Review the defensive factors used to evaluate quarterback environments.
+            </p>
+
+            <a href="/research/defensive-matchups.html">
+              View Defensive Matchups →
+            </a>
+
+          </div>
+
+          <div class="stack-card">
+
+            <h4>
+              Position Intelligence
+            </h4>
+
+            <p>
+              Explore how PlayMaker evaluates running backs,
+              wide receivers, and tight ends.
+            </p>
+
+            <a href="/research/positions/">
+              View Position Hub →
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- RELEVANT PLAYERS -->
+      <section class="hq-section hq-section-alt">
+
+        <div class="section-header">
+
+          <h3>
+            Explore Quarterbacks
+          </h3>
+
+          <p>
+            Open current player pages to review quarterback trends,
+            matchup context, and recent performance.
+          </p>
+
+        </div>
+
+        <div class="stack-grid">
+
+          <div class="stack-card">
+
+            <img src="/assets/images/players/josh-allen.png" alt="Josh Allen" class="player-headshot" loading="lazy" />
+
+            <h4>
+              Josh Allen
+            </h4>
+
+            <p>
+              Review passing volume, rushing production, and matchup context.
+            </p>
+
+            <a href="/players/josh-allen">
+              View Player →
+            </a>
+
+          </div>
+
+          <div class="stack-card">
+
+            <img src="/assets/images/players/patrick-mahomes.png" alt="Patrick Mahomes" class="player-headshot"
+              loading="lazy" />
+
+            <h4>
+              Patrick Mahomes
+            </h4>
+
+            <p>
+              Review recent passing trends and defensive matchup information.
+            </p>
+
+            <a href="/players/patrick-mahomes">
+              View Player →
+            </a>
+
+          </div>
+
+          <div class="stack-card">
+
+            <h4>
+              All NFL Players
+            </h4>
+
+            <p>
+              Search current NFL players by team, position, or name.
+            </p>
+
+            <a href="/players.html">
+              Browse Players →
+            </a>
+
+          </div>
+
+          <div class="stack-card">
+
+            <h4>
+              Upcoming Matchups
+            </h4>
+
+            <p>
+              Explore quarterback environments across the 2026 NFL schedule.
+            </p>
+
+            <a href="/matchups.html">
+              Browse Matchups →
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CTA -->
+      <section class="hq-section">
+
+        <div class="final-cta">
+
+          <h3>
+            Put quarterback performance into context.
+          </h3>
+
+          <p>
+            Compare recent production, defensive pressure, rushing ability,
+            weather, and expected game flow before evaluating a quarterback prop.
+          </p>
+
+          <a href="/matchups.html" class="btn-primary">
+            View Matchups
+          </a>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+
+      <div class="footer-links">
+
+        <a href="/">
+          Home
+        </a>
+
+        <a href="/players.html">
+          Players
+        </a>
+
+        <a href="/teams.html">
+          Teams
+        </a>
+
+        <a href="/matchups.html">
+          Matchups
+        </a>
+
+        <a href="/research.html">
+          Research
+        </a>
+
+        <a href="/results.html">
+          Results
+        </a>
+
+        <a href="/pricing.html">
+          PlayMaker Pro
         </a>
 
       </div>
 
-    </section>
+      <p>
+        &copy; 2026 PlayMaker Prime. All Rights Reserved.
+      </p>
 
-  </main>
+      <p class="footer-disclaimer">
+        NFL player names, team names, and logos are trademarks of their respective owners.
+        PlayMaker Prime is an independent NFL research and analytics platform and is not
+        affiliated with or endorsed by the National Football League, PrizePicks, Underdog,
+        DraftKings, FanDuel, or any professional sports league.
+      </p>
 
-  <!-- FOOTER -->
-  <footer>
+    </footer>
 
-    <div class="footer-links">
+    <script src="/assets/js/entity-link-engine.js"></script>
+    <script src="/assets/js/analytics-tracker.js"></script>
 
-      <a href="/">
-        Home
-      </a>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!window.matchMedia("(max-width: 768px)").matches) {
+          return;
+        }
 
-      <a href="/players.html">
-        Players
-      </a>
+        document
+          .querySelectorAll(".hq-section")
+          .forEach((section, index) => {
+            const header = section.querySelector(
+              ":scope > .section-header"
+            );
 
-      <a href="/teams.html">
-        Teams
-      </a>
+            if (!header) {
+              return;
+            }
 
-      <a href="/matchups.html">
-        Matchups
-      </a>
+            if (index === 0) {
+              section.classList.add("is-open");
+            }
 
-      <a href="/research.html">
-        Research
-      </a>
-
-      <a href="/results.html">
-        Results
-      </a>
-
-      <a href="/pricing.html">
-        PlayMaker Pro
-      </a>
-
-    </div>
-
-    <p>
-      &copy; 2026 PlayMaker Prime. All Rights Reserved.
-    </p>
-
-    <p class="footer-disclaimer">
-      NFL player names, team names, and logos are trademarks of their respective owners.
-      PlayMaker Prime is an independent NFL research and analytics platform and is not
-      affiliated with or endorsed by the National Football League, PrizePicks, Underdog,
-      DraftKings, FanDuel, or any professional sports league.
-    </p>
-
-  </footer>
-
-  <script src="/assets/js/entity-link-engine.js"></script>
-  <script src="/assets/js/analytics-tracker.js"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) {
-        return;
-      }
-
-      document
-        .querySelectorAll(".hq-section")
-        .forEach((section, index) => {
-          const header = section.querySelector(
-            ":scope > .section-header"
-          );
-
-          if (!header) {
-            return;
-          }
-
-          if (index === 0) {
-            section.classList.add("is-open");
-          }
-
-          header.addEventListener("click", () => {
-            section.classList.toggle("is-open");
+            header.addEventListener("click", () => {
+              section.classList.toggle("is-open");
+            });
           });
-        });
-    });
-  </script>
+      });
+    </script>
 
-</body>
+  </body>
 
 </html>
