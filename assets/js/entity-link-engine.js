@@ -20,18 +20,6 @@
     academy: { global: GLOBAL_LINKS }
   };
 
-  function getPageType() {
-    const path = window.location.pathname.toLowerCase().split("?")[0];
-
-    if (path === "/" || path.includes("index")) return "home";
-    if (path.includes("/positions/")) return "positions";
-    if (path.includes("/academy")) return "academy";
-    if (path.includes("/matchups")) return "matchups";
-    if (path.includes("/strategy")) return "strategy";
-
-    return "stats";
-  }
-
   const LABELS = {
     "/": "Home",
     "/players.html": "Players",
@@ -43,6 +31,23 @@
     "/tool/": "Tool"
   };
 
+  const FEEDBACK_FORM_URL =
+    "https://docs.google.com/forms/d/e/1FAIpQLSdQvjfVwfVHN_r2SJcmVIa7rwRW4WP2Hlm1UvjQ0in5jeucgw/viewform?usp=dialog";
+
+  function getPageType() {
+    const path = window.location.pathname
+      .toLowerCase()
+      .split("?")[0];
+
+    if (path === "/" || path.includes("index")) return "home";
+    if (path.includes("/positions/")) return "positions";
+    if (path.includes("/academy")) return "academy";
+    if (path.includes("/matchups")) return "matchups";
+    if (path.includes("/strategy")) return "strategy";
+
+    return "stats";
+  }
+
   function normalize(path) {
     let clean = path
       .toLowerCase()
@@ -50,6 +55,7 @@
       .replace(/\/$/, "");
 
     if (clean === "" || clean === "/index.html") return "/";
+
     return clean;
   }
 
@@ -59,7 +65,10 @@
     const normalizedLink = normalize(link);
 
     if (normalizedLink === "/tool") {
-      return currentPath === "/tool" || currentPath.startsWith("/tool/");
+      return (
+        currentPath === "/tool" ||
+        currentPath.startsWith("/tool/")
+      );
     }
 
     return currentPath === normalizedLink;
@@ -90,12 +99,16 @@
 
     rules.global.forEach(link => {
       const label = LABELS[link];
+
       if (!label) return;
 
       const activeClass = isActive(link) ? "active" : "";
 
       html += `
-        <a href="${link}" class="entity-link ${activeClass}">
+        <a
+          href="${link}"
+          class="entity-link ${activeClass}"
+        >
           ${label}
         </a>
       `;
@@ -109,10 +122,55 @@
     container.innerHTML = html;
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", renderLinks);
-  } else {
+  function renderFeedbackButton() {
+    /*
+      Prevent duplicate buttons if this script is accidentally
+      loaded more than once on a page.
+    */
+    if (document.querySelector(".feedback-float")) {
+      return;
+    }
+
+    const feedbackButton = document.createElement("a");
+
+    feedbackButton.href = FEEDBACK_FORM_URL;
+    feedbackButton.className = "feedback-float";
+    feedbackButton.target = "_blank";
+    feedbackButton.rel = "noopener noreferrer";
+
+    feedbackButton.setAttribute(
+      "aria-label",
+      "Send feedback about PlayMaker Prime"
+    );
+
+    feedbackButton.innerHTML = `
+      <span
+        class="feedback-float-icon"
+        aria-hidden="true"
+      >
+        💬
+      </span>
+
+      <span class="feedback-float-text">
+        Feedback
+      </span>
+    `;
+
+    document.body.appendChild(feedbackButton);
+  }
+
+  function initializeGlobalUI() {
     renderLinks();
+    renderFeedbackButton();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializeGlobalUI
+    );
+  } else {
+    initializeGlobalUI();
   }
 
 })();

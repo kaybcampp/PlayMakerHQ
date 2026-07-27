@@ -934,3 +934,161 @@ footer {
         font-size: 1.2rem;
     }
 }
+/* ==========================================================
+   FLOATING FEEDBACK BUTTON
+========================================================== */
+
+.feedback-float {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 9999;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 50px;
+    padding: 12px 18px;
+
+    background: rgba(15, 23, 42, 0.96);
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.feedback-float:hover {
+    background: rgba(30, 41, 59, 0.98);
+    color: #ffffff;
+
+    border-color: rgba(255, 255, 255, 0.24);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.34),
+        0 0 18px rgba(255, 255, 255, 0.06);
+}
+
+.feedback-float:visited {
+    color: #ffffff;
+}
+
+.feedback-float:active {
+    color: #ffffff;
+}
+
+.feedback-float:focus-visible {
+    outline: 3px solid rgba(96, 165, 250, 0.85);
+    outline-offset: 4px;
+}
+
+.feedback-float-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.05rem;
+    line-height: 1;
+
+    flex-shrink: 0;
+}
+
+.feedback-float-text {
+    white-space: nowrap;
+}
+
+/* ==========================
+   TABLET
+========================== */
+
+@media (max-width: 768px) {
+
+    .feedback-float {
+        right: 16px;
+        bottom: 16px;
+
+        min-height: 48px;
+        padding: 11px 16px;
+    }
+
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 480px) {
+
+    .feedback-float {
+        right: 14px;
+        bottom: 14px;
+
+        width: 48px;
+        height: 48px;
+        min-height: 48px;
+
+        padding: 0;
+        gap: 0;
+
+        border-radius: 50%;
+    }
+
+    .feedback-float-text {
+        position: absolute;
+
+        width: 1px;
+        height: 1px;
+
+        padding: 0;
+        margin: -1px;
+
+        overflow: hidden;
+        white-space: nowrap;
+
+        clip: rect(0, 0, 0, 0);
+
+        border: 0;
+    }
+
+    .feedback-float-icon {
+        font-size: 1.15rem;
+    }
+
+}
+
+/* ==========================
+   REDUCED MOTION
+========================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .feedback-float {
+        transition: none;
+    }
+
+    .feedback-float:hover {
+        transform: none;
+    }
+
+}
