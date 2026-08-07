@@ -323,11 +323,70 @@
     );
   }
 
+  function injectWebsiteSchema() {
+    /*
+      Prevent duplicate WebSite schema
+      if this script is loaded more than once.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-website-schema]'
+      )
+    ) {
+      return;
+    }
+
+    const schema = {
+      "@context": "https://schema.org",
+
+      "@type":
+        "WebSite",
+
+      "@id":
+        "https://playmakerprime.com/#website",
+
+      url:
+        "https://playmakerprime.com/",
+
+      name:
+        "PlayMaker Prime",
+
+      alternateName:
+        "PlayMaker",
+
+      description:
+        "NFL player prop research, matchup intelligence, player trends, weather, injuries, defensive analysis, and the PlayMaker prediction platform.",
+
+      publisher: {
+        "@id":
+          "https://playmakerprime.com/#organization"
+      },
+
+      inLanguage:
+        "en-US"
+    };
+
+    const script =
+      document.createElement("script");
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerWebsiteSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(script);
+  }
+
   function initializeGlobalUI() {
     renderLinks();
     renderFeedbackButton();
 
     injectOrganizationSchema();
+    injectWebsiteSchema();
     injectSoftwareApplicationSchema();
   }
 
