@@ -199,6 +199,7 @@
 
       founder: {
         "@type": "Person",
+        "@id": "https://playmakerprime.com/#founder",
         name: "Kayb Campbell"
       },
 
@@ -223,10 +224,111 @@
     document.head.appendChild(script);
   }
 
+  function injectSoftwareApplicationSchema() {
+    /*
+      SoftwareApplication schema belongs on pages
+      that represent or describe the PlayMaker product.
+    */
+    const eligiblePaths = [
+      "/",
+      "/pricing.html"
+    ];
+
+    if (!eligiblePaths.includes(currentPath)) {
+      return;
+    }
+
+    /*
+      Prevent duplicate schema if this script
+      is accidentally loaded more than once.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-software-schema]'
+      )
+    ) {
+      return;
+    }
+
+    const schema = {
+      "@context": "https://schema.org",
+
+      "@type":
+        "SoftwareApplication",
+
+      "@id":
+        "https://playmakerprime.com/#software",
+
+      name:
+        "PlayMaker Prime",
+
+      alternateName:
+        "PlayMaker",
+
+      url:
+        "https://playmakerprime.com/",
+
+      applicationCategory:
+        "SportsApplication",
+
+      operatingSystem:
+        "Web",
+
+      description:
+        "PlayMaker Prime is an NFL research and sports forecasting web application that combines player trends, matchup intelligence, defensive context, injuries, weather, historical performance, and prop research in one platform.",
+
+      image:
+        "https://playmakerprime.com/assets/images/playmaker-share.png",
+
+      publisher: {
+        "@id":
+          "https://playmakerprime.com/#organization"
+      },
+
+      creator: {
+        "@id":
+          "https://playmakerprime.com/#founder"
+      },
+
+      featureList: [
+        "NFL player prop research",
+        "Player performance trends",
+        "NFL matchup intelligence",
+        "Defensive matchup analysis",
+        "Weather context",
+        "Injury context",
+        "Historical performance tracking",
+        "Player intelligence reports",
+        "NFL team research",
+        "Data-driven prop projections"
+      ]
+    };
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerSoftwareSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(
+      script
+    );
+  }
+
   function initializeGlobalUI() {
     renderLinks();
     renderFeedbackButton();
+
     injectOrganizationSchema();
+    injectSoftwareApplicationSchema();
   }
 
   if (document.readyState === "loading") {
