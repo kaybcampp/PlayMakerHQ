@@ -159,9 +159,74 @@
     document.body.appendChild(feedbackButton);
   }
 
+  function injectOrganizationSchema() {
+    /*
+      Prevent duplicate Organization schema
+      if this script is loaded more than once.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-organization-schema]'
+      )
+    ) {
+      return;
+    }
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+
+      "@id":
+        "https://playmakerprime.com/#organization",
+
+      name:
+        "PlayMaker Prime",
+
+      alternateName:
+        "PlayMaker",
+
+      url:
+        "https://playmakerprime.com/",
+
+      logo: {
+        "@type": "ImageObject",
+        url:
+          "https://playmakerprime.com/assets/images/logo.png"
+      },
+
+      description:
+        "PlayMaker Prime is an NFL research and sports forecasting platform for player props, matchup intelligence, defensive context, injuries, weather, trends, and data-driven analysis.",
+
+      founder: {
+        "@type": "Person",
+        name: "Kayb Campbell"
+      },
+
+      sameAs: [
+        "https://x.com/playmakerprime",
+        "https://www.tiktok.com/@playmakerprimehq"
+      ]
+    };
+
+    const script =
+      document.createElement("script");
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerOrganizationSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(script);
+  }
+
   function initializeGlobalUI() {
     renderLinks();
     renderFeedbackButton();
+    injectOrganizationSchema();
   }
 
   if (document.readyState === "loading") {
