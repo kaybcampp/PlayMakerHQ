@@ -1523,6 +1523,291 @@
 
   }
 
+  async function injectPlayerProfileSchema() {
+    /*
+      Player schema only belongs on
+      individual player pages.
+    */
+    if (
+      !currentPath.startsWith("/players/") ||
+      currentPath === "/players/"
+    ) {
+      return;
+    }
+
+    /*
+      Prevent duplicate schema.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-player-profile-schema]'
+      )
+    ) {
+      return;
+    }
+
+    const urlSlug =
+      currentPath
+        .split("/")
+        .filter(Boolean)
+        .pop();
+
+    if (!urlSlug) {
+      return;
+    }
+
+    /*
+      All NFL team data files used by PlayMaker.
+    */
+    const teamCodes = [
+      "ARI",
+      "ATL",
+      "BAL",
+      "BUF",
+      "CAR",
+      "CHI",
+      "CIN",
+      "CLE",
+      "DAL",
+      "DEN",
+      "DET",
+      "GB",
+      "HOU",
+      "IND",
+      "JAX",
+      "KC",
+      "LV",
+      "LAC",
+      "LAR",
+      "MIA",
+      "MIN",
+      "NE",
+      "NO",
+      "NYG",
+      "NYJ",
+      "PHI",
+      "PIT",
+      "SF",
+      "SEA",
+      "TB",
+      "TEN",
+      "WSH"
+    ];
+
+    const teamNames = {
+      ARI: "Arizona Cardinals",
+      ATL: "Atlanta Falcons",
+      BAL: "Baltimore Ravens",
+      BUF: "Buffalo Bills",
+      CAR: "Carolina Panthers",
+      CHI: "Chicago Bears",
+      CIN: "Cincinnati Bengals",
+      CLE: "Cleveland Browns",
+      DAL: "Dallas Cowboys",
+      DEN: "Denver Broncos",
+      DET: "Detroit Lions",
+      GB: "Green Bay Packers",
+      HOU: "Houston Texans",
+      IND: "Indianapolis Colts",
+      JAX: "Jacksonville Jaguars",
+      KC: "Kansas City Chiefs",
+      LV: "Las Vegas Raiders",
+      LAC: "Los Angeles Chargers",
+      LAR: "Los Angeles Rams",
+      MIA: "Miami Dolphins",
+      MIN: "Minnesota Vikings",
+      NE: "New England Patriots",
+      NO: "New Orleans Saints",
+      NYG: "New York Giants",
+      NYJ: "New York Jets",
+      PHI: "Philadelphia Eagles",
+      PIT: "Pittsburgh Steelers",
+      SF: "San Francisco 49ers",
+      SEA: "Seattle Seahawks",
+      TB: "Tampa Bay Buccaneers",
+      TEN: "Tennessee Titans",
+      WSH: "Washington Commanders"
+    };
+
+    const positionNames = {
+      QB: "Quarterback",
+      RB: "Running Back",
+      WR: "Wide Receiver",
+      TE: "Tight End"
+    };
+
+    let matchedPlayer = null;
+    let matchedTeamCode = null;
+
+    /*
+      Search the actual PlayMaker player datasets.
+  
+      These files are already loaded by the player
+      experience, so browser caching should make
+      these requests inexpensive.
+    */
+    for (const teamCode of teamCodes) {
+      try {
+        const response =
+          await fetch(
+            `/assets/data/players/players-${teamCode}.json`
+          );
+
+        if (!response.ok) {
+          continue;
+        }
+
+        const players =
+          await response.json();
+
+        if (!Array.isArray(players)) {
+          continue;
+        }
+
+        const match =
+          players.find(player => {
+            /*
+              Use PlayMaker's existing slug function
+              when available.
+            */
+            if (
+              typeof window.playerSlug ===
+              "function"
+            ) {
+              return (
+                window.playerSlug(
+                  player.name
+                ) === urlSlug
+              );
+            }
+
+            /*
+              Fallback slug builder.
+            */
+            const generatedSlug =
+              String(player.name || "")
+                .toLowerCase()
+                .replace(/[.'’]/g, "")
+                .replace(
+                  /[^a-z0-9\s-]/g,
+                  ""
+                )
+                .trim()
+                .replace(/\s+/g, "-");
+
+            return (
+              generatedSlug === urlSlug
+            );
+          });
+
+        if (match) {
+          matchedPlayer = match;
+          matchedTeamCode = teamCode;
+          break;
+        }
+      } catch (error) {
+        console.warn(
+          `Player schema lookup failed for ${teamCode}:`,
+          error
+        );
+      }
+    }
+
+    if (!matchedPlayer) {
+      return;
+    }
+
+    const canonicalUrl =
+      document.querySelector(
+        'link[rel="canonical"]'
+      )
+        ?.href ||
+      `https://playmakerprime.com${currentPath}`;
+
+    const fullPosition =
+      positionNames[
+      String(
+        matchedPlayer.position || ""
+      ).toUpperCase()
+      ] ||
+      matchedPlayer.position ||
+      "NFL Player";
+
+    const teamName =
+      teamNames[matchedTeamCode];
+
+    /*
+      ProfilePage describes the page itself.
+      Person describes the NFL player.
+    */
+    const schema = {
+      "@context":
+        "https://schema.org",
+
+      "@type":
+        "ProfilePage",
+
+      "@id":
+        `${canonicalUrl}#profile`,
+
+      url:
+        canonicalUrl,
+
+      name:
+        `${matchedPlayer.name} NFL Player Intelligence Report`,
+
+      mainEntity: {
+        "@type":
+          "Person",
+
+        "@id":
+          `${canonicalUrl}#person`,
+
+        name:
+          matchedPlayer.name,
+
+        jobTitle:
+          fullPosition,
+
+        url:
+          canonicalUrl
+      }
+    };
+
+    if (matchedPlayer.image) {
+      schema.mainEntity.image =
+        matchedPlayer.image;
+    }
+
+    if (teamName) {
+      schema.mainEntity.memberOf = {
+        "@type":
+          "SportsTeam",
+
+        name:
+          teamName
+      };
+    }
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerPlayerProfileSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(
+      script
+    );
+  }
+
   function initializeSportsEventSchema() {
     /*
       Only watch dynamic matchup pages.
@@ -1598,6 +1883,7 @@
 
     initializeSportsEventSchema();
     injectSportsTeamSchema();
+    injectPlayerProfileSchema();
   }
 
   if (document.readyState === "loading") {
