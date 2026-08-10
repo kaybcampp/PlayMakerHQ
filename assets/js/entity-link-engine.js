@@ -901,15 +901,209 @@
     );
   }
 
+  function injectArticleSchema() {
+    /*
+      Article schema is only for PlayMaker's
+      educational research and academy content.
+    */
+    const isResearchArticle =
+      currentPath.startsWith("/research/") &&
+      currentPath !== "/research/";
+
+    const isAcademyArticle =
+      currentPath.startsWith("/academy/") &&
+      currentPath !== "/academy/";
+
+    if (
+      !isResearchArticle &&
+      !isAcademyArticle
+    ) {
+      return;
+    }
+
+    /*
+      Prevent duplicate Article schema.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-article-schema]'
+      )
+    ) {
+      return;
+    }
+
+    /*
+      ARTICLE HEADLINE
+  
+      Priority:
+      1. H1
+      2. Page title
+      3. URL-derived name
+    */
+    const h1Title =
+      document.querySelector("h1")
+        ?.textContent
+        ?.replace(/\s+/g, " ")
+        .trim();
+
+    const documentTitle =
+      document.title
+        ?.split("|")[0]
+        ?.split("—")[0]
+        ?.replace(/\s+/g, " ")
+        ?.trim();
+
+    const fallbackTitle =
+      currentPath
+        .split("/")
+        .filter(Boolean)
+        .pop()
+        ?.replace(/\.html$/i, "")
+        ?.replace(/-/g, " ")
+        ?.replace(
+          /\b\w/g,
+          char => char.toUpperCase()
+        );
+
+    const headline =
+      h1Title ||
+      documentTitle ||
+      fallbackTitle;
+
+    /*
+      ARTICLE DESCRIPTION
+    */
+    const description =
+      document.querySelector(
+        'meta[name="description"]'
+      )
+        ?.content
+        ?.trim();
+
+    if (
+      !headline ||
+      !description
+    ) {
+      return;
+    }
+
+    /*
+      Prefer the canonical URL when one exists.
+  
+      Otherwise use the clean current pathname.
+    */
+    const canonicalUrl =
+      document.querySelector(
+        'link[rel="canonical"]'
+      )
+        ?.href ||
+      `https://playmakerprime.com${currentPath}`;
+
+    /*
+      Browser/server last-modified date.
+    */
+    let dateModified;
+
+    const modifiedDate =
+      new Date(
+        document.lastModified
+      );
+
+    if (
+      !Number.isNaN(
+        modifiedDate.getTime()
+      )
+    ) {
+      dateModified =
+        modifiedDate.toISOString();
+    }
+
+    const schema = {
+      "@context":
+        "https://schema.org",
+
+      "@type":
+        "Article",
+
+      "@id":
+        `${canonicalUrl}#article`,
+
+      headline,
+
+      description,
+
+      url:
+        canonicalUrl,
+
+      mainEntityOfPage: {
+        "@type":
+          "WebPage",
+
+        "@id":
+          canonicalUrl
+      },
+
+      author: {
+        "@type":
+          "Person",
+
+        "@id":
+          "https://playmakerprime.com/#founder",
+
+        name:
+          "Kayb Campbell"
+      },
+
+      publisher: {
+        "@id":
+          "https://playmakerprime.com/#organization"
+      },
+
+      image:
+        "https://playmakerprime.com/assets/images/playmaker-share.png",
+
+      inLanguage:
+        "en-US"
+    };
+
+    if (dateModified) {
+      schema.dateModified =
+        dateModified;
+    }
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerArticleSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(
+      script
+    );
+  }
+
   function initializeGlobalUI() {
+
     renderLinks();
     renderFeedbackButton();
+
 
     injectOrganizationSchema();
     injectWebsiteSchema();
     injectSoftwareApplicationSchema();
     injectBreadcrumbSchema();
     injectFAQSchema();
+
+    injectArticleSchema();
+
   }
 
   if (document.readyState === "loading") {
