@@ -770,6 +770,137 @@
     );
   }
 
+  function injectFAQSchema() {
+    /*
+      Prevent duplicate FAQ schema if the
+      global engine is accidentally loaded twice.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-faq-schema]'
+      )
+    ) {
+      return;
+    }
+
+    /*
+      Look for visible FAQ-style details blocks.
+  
+      We specifically require a <summary> because
+      that represents the FAQ question.
+    */
+    const detailsElements = [
+      ...document.querySelectorAll(
+        "details.faq-card, .faq-grid details"
+      )
+    ];
+
+    const faqItems = [];
+
+    detailsElements.forEach(details => {
+      const summary =
+        details.querySelector(
+          ":scope > summary"
+        );
+
+      if (!summary) {
+        return;
+      }
+
+      const question =
+        summary.textContent
+          .replace(/\s+/g, " ")
+          .trim();
+
+      /*
+        Clone the details element so we can remove
+        the summary and extract only the answer.
+      */
+      const answerClone =
+        details.cloneNode(true);
+
+      const clonedSummary =
+        answerClone.querySelector(
+          ":scope > summary"
+        );
+
+      if (clonedSummary) {
+        clonedSummary.remove();
+      }
+
+      const answer =
+        answerClone.textContent
+          .replace(/\s+/g, " ")
+          .trim();
+
+      /*
+        Ignore malformed / empty FAQ entries.
+      */
+      if (
+        !question ||
+        !answer
+      ) {
+        return;
+      }
+
+      faqItems.push({
+        "@type":
+          "Question",
+
+        name:
+          question,
+
+        acceptedAnswer: {
+          "@type":
+            "Answer",
+
+          text:
+            answer
+        }
+      });
+    });
+
+    /*
+      Don't inject FAQPage schema on pages
+      without real FAQ content.
+    */
+    if (!faqItems.length) {
+      return;
+    }
+
+    const schema = {
+      "@context":
+        "https://schema.org",
+
+      "@type":
+        "FAQPage",
+
+      "@id":
+        `${window.location.origin}${currentPath}#faq`,
+
+      mainEntity:
+        faqItems
+    };
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerFaqSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(
+      script
+    );
+  }
+
   function initializeGlobalUI() {
     renderLinks();
     renderFeedbackButton();
@@ -778,6 +909,7 @@
     injectWebsiteSchema();
     injectSoftwareApplicationSchema();
     injectBreadcrumbSchema();
+    injectFAQSchema();
   }
 
   if (document.readyState === "loading") {
