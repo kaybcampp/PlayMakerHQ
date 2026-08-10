@@ -1090,20 +1090,341 @@
     );
   }
 
-  function initializeGlobalUI() {
+  function injectSportsEventSchema() {
+    /*
+      SportsEvent schema only belongs on
+      individual dynamic matchup pages.
+  
+      /matchups.html is the hub and should
+      not receive SportsEvent markup.
+    */
+    if (
+      !currentPath.startsWith("/matchups/") ||
+      currentPath === "/matchups/"
+    ) {
+      return;
+    }
 
+    /*
+      Prevent duplicate SportsEvent schema.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-sports-event-schema]'
+      )
+    ) {
+      return;
+    }
+
+    /*
+      Matchup pages populate dynamically,
+      so try to find the completed matchup data.
+    */
+    const pageText =
+      document.body.innerText
+        .replace(/\s+/g, " ")
+        .trim();
+
+    let matchupName = null;
+
+    /*
+      Prefer H1 if available.
+    */
+    const h1 =
+      document.querySelector("h1");
+
+    if (h1?.textContent?.trim()) {
+      matchupName =
+        h1.textContent
+          .replace(/\s+/g, " ")
+          .trim();
+    }
+
+    /*
+      Fallback:
+      Find the matchup title from visible text.
+    */
+    if (!matchupName) {
+
+      const matchupMatch =
+        pageText.match(
+          /([A-Za-z .'-]+)\s+vs\s+([A-Za-z .'-]+)/i
+        );
+
+      if (matchupMatch) {
+        matchupName =
+          `${matchupMatch[1].trim()} vs ${matchupMatch[2].trim()}`;
+      }
+    }
+
+    /*
+      We expect a completed matchup H1 like:
+      New England Patriots vs Seattle Seahawks
+    */
+    if (
+      !matchupName ||
+      !matchupName
+        .toLowerCase()
+        .includes(" vs ")
+    ) {
+      return;
+    }
+
+    const teams =
+      matchupName
+        .split(/\s+vs\.?\s+/i)
+        .map(team =>
+          team.trim()
+        )
+        .filter(Boolean);
+
+    if (teams.length !== 2) {
+      return;
+    }
+
+    /*
+      Find a visible full date like:
+      Thursday, September 10, 2026
+    */
+    const dateMatch =
+      pageText.match(
+        /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(20\d{2})/i
+      );
+
+    if (!dateMatch) {
+      return;
+    }
+
+    const monthMap = {
+      january: "01",
+      february: "02",
+      march: "03",
+      april: "04",
+      may: "05",
+      june: "06",
+      july: "07",
+      august: "08",
+      september: "09",
+      october: "10",
+      november: "11",
+      december: "12"
+    };
+
+    const month =
+      monthMap[
+      dateMatch[1]
+        .toLowerCase()
+      ];
+
+    const day =
+      String(
+        dateMatch[2]
+      ).padStart(
+        2,
+        "0"
+      );
+
+    const year =
+      dateMatch[3];
+
+    const startDate =
+      `${year}-${month}-${day}`;
+
+    /*
+      Find the visible NFL week.
+    */
+    const weekMatch =
+      pageText.match(
+        /\bWeek\s+(\d{1,2})\b/i
+      );
+
+    const week =
+      weekMatch
+        ? Number(weekMatch[1])
+        : null;
+
+    /*
+      Prefer canonical URL when available.
+    */
+    const canonicalUrl =
+      document.querySelector(
+        'link[rel="canonical"]'
+      )
+        ?.href ||
+      `https://playmakerprime.com${currentPath}`;
+
+    const description =
+      document.querySelector(
+        'meta[name="description"]'
+      )
+        ?.content
+        ?.trim() ||
+      `${matchupName} NFL matchup report and player prop research from PlayMaker Prime.`;
+
+    const schema = {
+      "@context":
+        "https://schema.org",
+
+      "@type":
+        "SportsEvent",
+
+      "@id":
+        `${canonicalUrl}#sports-event`,
+
+      name:
+        matchupName,
+
+      url:
+        canonicalUrl,
+
+      startDate,
+
+      sport:
+        "American Football",
+
+      description,
+
+      competitor: [
+        {
+          "@type":
+            "SportsTeam",
+
+          name:
+            teams[0]
+        },
+        {
+          "@type":
+            "SportsTeam",
+
+          name:
+            teams[1]
+        }
+      ]
+    };
+
+    /*
+      Schema.org does not have a dedicated
+      NFL-week property, so keep the week
+      as additional structured context.
+    */
+    if (week) {
+      schema.additionalProperty = [
+        {
+          "@type":
+            "PropertyValue",
+
+          name:
+            "NFL Week",
+
+          value:
+            week
+        },
+        {
+          "@type":
+            "PropertyValue",
+
+          name:
+            "NFL Season",
+
+          value:
+            year
+        }
+      ];
+    }
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerSportsEventSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(
+      script
+    );
+  }
+
+  function initializeSportsEventSchema() {
+    /*
+      Only watch dynamic matchup pages.
+    */
+    if (
+      !currentPath.startsWith("/matchups/")
+    ) {
+      return;
+    }
+
+    /*
+      Try immediately in case matchup
+      data has already rendered.
+    */
+    injectSportsEventSchema();
+
+    if (
+      document.querySelector(
+        'script[data-playmaker-sports-event-schema]'
+      )
+    ) {
+      return;
+    }
+
+    /*
+      Matchup data may load after DOMContentLoaded.
+      Watch until the page has populated.
+    */
+    const observer =
+      new MutationObserver(() => {
+        injectSportsEventSchema();
+
+        if (
+          document.querySelector(
+            'script[data-playmaker-sports-event-schema]'
+          )
+        ) {
+          observer.disconnect();
+        }
+      });
+
+    observer.observe(
+      document.body,
+      {
+        childList: true,
+        subtree: true,
+        characterData: true
+      }
+    );
+
+    /*
+      Safety stop so the observer does not
+      remain active forever on a failed page.
+    */
+    setTimeout(
+      () => {
+        observer.disconnect();
+      },
+      15000
+    );
+  }
+
+  function initializeGlobalUI() {
     renderLinks();
     renderFeedbackButton();
-
 
     injectOrganizationSchema();
     injectWebsiteSchema();
     injectSoftwareApplicationSchema();
     injectBreadcrumbSchema();
     injectFAQSchema();
-
     injectArticleSchema();
 
+    initializeSportsEventSchema();
   }
 
   if (document.readyState === "loading") {
