@@ -1351,6 +1351,178 @@
     );
   }
 
+  function injectSportsTeamSchema() {
+
+    /*
+      SportsTeam schema only belongs on
+      individual team pages.
+  
+      Not /teams.html hub.
+    */
+    if (
+      !currentPath.startsWith("/teams/") ||
+      currentPath === "/teams/"
+    ) {
+      return;
+    }
+
+
+    /*
+      Prevent duplicates.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-sports-team-schema]'
+      )
+    ) {
+      return;
+    }
+
+
+    const pageText =
+      document.body.innerText
+        .replace(/\s+/g, " ")
+        .trim();
+
+
+    /*
+      Try visible heading first.
+    */
+    let teamName =
+      document.querySelector("h1")
+        ?.textContent
+        ?.replace(/\s+/g, " ")
+        ?.trim();
+
+
+    /*
+      Fallback:
+      use title if h1 missing.
+    */
+    if (!teamName) {
+
+      teamName =
+        document.title
+          .split("|")[0]
+          .split("—")[0]
+          .replace(
+            /NFL|Team|Intelligence|Hub/gi,
+            ""
+          )
+          .trim();
+    }
+
+
+    /*
+      Final URL fallback.
+    */
+    if (!teamName) {
+
+      teamName =
+        currentPath
+          .split("/")
+          .filter(Boolean)
+          .pop()
+          .replace(
+            /-/g,
+            " "
+          )
+          .replace(
+            /\b\w/g,
+            char =>
+              char.toUpperCase()
+          );
+    }
+
+
+    if (!teamName) {
+      return;
+    }
+
+
+    const canonicalUrl =
+      document.querySelector(
+        'link[rel="canonical"]'
+      )
+        ?.href ||
+      `https://playmakerprime.com${currentPath}`;
+
+
+    /*
+      Find logo if team page exposes one.
+    */
+    const image =
+      document.querySelector(
+        "img"
+      )?.src ||
+      "https://playmakerprime.com/assets/images/logo.png";
+
+
+    const schema = {
+
+      "@context":
+        "https://schema.org",
+
+      "@type":
+        "SportsTeam",
+
+      "@id":
+        `${canonicalUrl}#team`,
+
+      name:
+        teamName,
+
+      url:
+        canonicalUrl,
+
+      sport:
+        "American Football",
+
+      logo:
+        image,
+
+      memberOf: {
+
+        "@type":
+          "SportsOrganization",
+
+        name:
+          "National Football League"
+
+      },
+
+      publisher: {
+
+        "@id":
+          "https://playmakerprime.com/#organization"
+
+      }
+
+    };
+
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+
+    script.type =
+      "application/ld+json";
+
+
+    script.dataset.playmakerSportsTeamSchema =
+      "true";
+
+
+    script.textContent =
+      JSON.stringify(schema);
+
+
+    document.head.appendChild(script);
+
+  }
+
   function initializeSportsEventSchema() {
     /*
       Only watch dynamic matchup pages.
@@ -1425,6 +1597,7 @@
     injectArticleSchema();
 
     initializeSportsEventSchema();
+    injectSportsTeamSchema();
   }
 
   if (document.readyState === "loading") {
