@@ -381,6 +381,395 @@
     document.head.appendChild(script);
   }
 
+  function getBreadcrumbPageName() {
+    /*
+      Prefer the visible H1 because it usually contains
+      the cleanest human-readable page name.
+    */
+    const h1 =
+      document.querySelector("h1");
+
+    if (h1?.textContent?.trim()) {
+      return h1.textContent
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    /*
+      Fall back to the document title.
+      Remove the PlayMaker branding portion.
+    */
+    const title =
+      document.title
+        .split("|")[0]
+        .split("—")[0]
+        .trim();
+
+    if (title) {
+      return title;
+    }
+
+    /*
+      Final fallback: derive a readable name
+      from the final URL segment.
+    */
+    const segment =
+      currentPath
+        .split("/")
+        .filter(Boolean)
+        .pop() || "Page";
+
+    return segment
+      .replace(/\.html$/i, "")
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, char =>
+        char.toUpperCase()
+      );
+  }
+
+  function getBreadcrumbTrail() {
+    /*
+      Homepage doesn't need breadcrumb markup.
+    */
+    if (currentPath === "/") {
+      return [];
+    }
+
+    const currentPageName =
+      getBreadcrumbPageName();
+
+    const currentUrl =
+      `https://playmakerprime.com${currentPath}`;
+
+    const trail = [
+      {
+        name: "Home",
+        url:
+          "https://playmakerprime.com/"
+      }
+    ];
+
+    /*
+      PLAYER PAGES
+      Home → Players → Player
+    */
+    if (
+      currentPath.startsWith("/players/")
+    ) {
+      trail.push(
+        {
+          name: "Players",
+          url:
+            "https://playmakerprime.com/players.html"
+        },
+        {
+          name: currentPageName,
+          url: currentUrl
+        }
+      );
+
+      return trail;
+    }
+
+    /*
+      PLAYER HUB
+      Home → Players
+    */
+    if (
+      currentPath === "/players.html"
+    ) {
+      trail.push({
+        name: "Players",
+        url:
+          "https://playmakerprime.com/players.html"
+      });
+
+      return trail;
+    }
+
+    /*
+      TEAM PAGES
+      Home → Teams → Team
+    */
+    if (
+      currentPath.startsWith("/teams/")
+    ) {
+      trail.push(
+        {
+          name: "Teams",
+          url:
+            "https://playmakerprime.com/teams.html"
+        },
+        {
+          name: currentPageName,
+          url: currentUrl
+        }
+      );
+
+      return trail;
+    }
+
+    /*
+      TEAM HUB
+      Home → Teams
+    */
+    if (
+      currentPath === "/teams.html"
+    ) {
+      trail.push({
+        name: "Teams",
+        url:
+          "https://playmakerprime.com/teams.html"
+      });
+
+      return trail;
+    }
+
+    /*
+      MATCHUP PAGES
+      Home → Matchups → Matchup
+    */
+    if (
+      currentPath.startsWith(
+        "/matchups/"
+      )
+    ) {
+      trail.push(
+        {
+          name: "Matchups",
+          url:
+            "https://playmakerprime.com/matchups.html"
+        },
+        {
+          name: currentPageName,
+          url: currentUrl
+        }
+      );
+
+      return trail;
+    }
+
+    /*
+      MATCHUP HUB
+      Home → Matchups
+    */
+    if (
+      currentPath === "/matchups.html"
+    ) {
+      trail.push({
+        name: "Matchups",
+        url:
+          "https://playmakerprime.com/matchups.html"
+      });
+
+      return trail;
+    }
+
+    /*
+      RESEARCH POSITION PAGES
+      Home → Research → Positions → Page
+    */
+    if (
+      currentPath.startsWith(
+        "/research/positions/"
+      )
+    ) {
+      trail.push(
+        {
+          name: "Research",
+          url:
+            "https://playmakerprime.com/research.html"
+        },
+        {
+          name: "Position Intelligence",
+          url:
+            "https://playmakerprime.com/research/positions/"
+        },
+        {
+          name: currentPageName,
+          url: currentUrl
+        }
+      );
+
+      return trail;
+    }
+
+    /*
+      GENERAL RESEARCH PAGES
+      Home → Research → Page
+    */
+    if (
+      currentPath.startsWith(
+        "/research/"
+      )
+    ) {
+      trail.push(
+        {
+          name: "Research",
+          url:
+            "https://playmakerprime.com/research.html"
+        },
+        {
+          name: currentPageName,
+          url: currentUrl
+        }
+      );
+
+      return trail;
+    }
+
+    /*
+      RESEARCH HUB
+      Home → Research
+    */
+    if (
+      currentPath === "/research.html"
+    ) {
+      trail.push({
+        name: "Research",
+        url:
+          "https://playmakerprime.com/research.html"
+      });
+
+      return trail;
+    }
+
+    /*
+      ACADEMY PAGES
+      Home → Academy → Page
+    */
+    if (
+      currentPath.startsWith(
+        "/academy/"
+      )
+    ) {
+      trail.push(
+        {
+          name: "Academy",
+          url:
+            "https://playmakerprime.com/academy/"
+        },
+        {
+          name: currentPageName,
+          url: currentUrl
+        }
+      );
+
+      return trail;
+    }
+
+    /*
+      RESULTS
+    */
+    if (
+      currentPath === "/results.html"
+    ) {
+      trail.push({
+        name: "Results",
+        url:
+          "https://playmakerprime.com/results.html"
+      });
+
+      return trail;
+    }
+
+    /*
+      PRICING
+    */
+    if (
+      currentPath === "/pricing.html"
+    ) {
+      trail.push({
+        name: "PlayMaker Pro",
+        url:
+          "https://playmakerprime.com/pricing.html"
+      });
+
+      return trail;
+    }
+
+    /*
+      Unknown public page.
+      Keep a simple:
+      Home → Current Page
+    */
+    trail.push({
+      name: currentPageName,
+      url: currentUrl
+    });
+
+    return trail;
+  }
+
+  function injectBreadcrumbSchema() {
+    /*
+      Prevent duplicate BreadcrumbList schema.
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-breadcrumb-schema]'
+      )
+    ) {
+      return;
+    }
+
+    const trail =
+      getBreadcrumbTrail();
+
+    /*
+      Homepage returns no trail.
+    */
+    if (trail.length < 2) {
+      return;
+    }
+
+    const schema = {
+      "@context":
+        "https://schema.org",
+
+      "@type":
+        "BreadcrumbList",
+
+      "@id":
+        `${window.location.origin}${currentPath}#breadcrumb`,
+
+      itemListElement:
+        trail.map(
+          (item, index) => ({
+            "@type":
+              "ListItem",
+
+            position:
+              index + 1,
+
+            name:
+              item.name,
+
+            item:
+              item.url
+          })
+        )
+    };
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+    script.type =
+      "application/ld+json";
+
+    script.dataset.playmakerBreadcrumbSchema =
+      "true";
+
+    script.textContent =
+      JSON.stringify(schema);
+
+    document.head.appendChild(
+      script
+    );
+  }
+
   function initializeGlobalUI() {
     renderLinks();
     renderFeedbackButton();
@@ -388,6 +777,7 @@
     injectOrganizationSchema();
     injectWebsiteSchema();
     injectSoftwareApplicationSchema();
+    injectBreadcrumbSchema();
   }
 
   if (document.readyState === "loading") {
