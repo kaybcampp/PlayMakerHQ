@@ -199,8 +199,31 @@
 
       founder: {
         "@type": "Person",
-        "@id": "https://playmakerprime.com/#founder",
-        name: "Kayb Campbell"
+
+        "@id":
+          "https://playmakerprime.com/#founder",
+
+        name:
+          "Kayb Campbell",
+
+        jobTitle:
+          "Founder & Developer",
+
+        url:
+          "https://playmakerprime.com/#founder",
+
+        worksFor: {
+          "@id":
+            "https://playmakerprime.com/#organization"
+        },
+
+        knowsAbout: [
+          "NFL analytics",
+          "Sports data analysis",
+          "Web application development",
+          "Player prop research",
+          "Football statistics"
+        ]
       },
 
       sameAs: [
@@ -379,6 +402,108 @@
       JSON.stringify(schema);
 
     document.head.appendChild(script);
+  }
+
+  function injectFounderSchema() {
+
+    /*
+      Prevent duplicate founder schema
+    */
+    if (
+      document.querySelector(
+        'script[data-playmaker-founder-schema]'
+      )
+    ) {
+      return;
+    }
+
+
+    const schema = {
+
+      "@context":
+        "https://schema.org",
+
+      "@type":
+        "Person",
+
+      "@id":
+        "https://playmakerprime.com/#founder",
+
+
+      name:
+        "Kayb Campbell",
+
+
+      jobTitle:
+        "Founder & Developer",
+
+
+      description:
+        "Kayb Campbell is the founder and developer of PlayMaker Prime, an NFL research and sports analytics platform focused on player trends, matchup intelligence, and data-driven football analysis.",
+
+
+      worksFor: {
+
+        "@id":
+          "https://playmakerprime.com/#organization"
+
+      },
+
+
+      founder: {
+
+        "@id":
+          "https://playmakerprime.com/#organization"
+
+      },
+
+
+      knowsAbout: [
+
+        "NFL analytics",
+
+        "Sports forecasting",
+
+        "Football research",
+
+        "Full-stack web development",
+
+        "Data-driven applications"
+
+      ],
+
+
+      sameAs: [
+
+        "https://x.com/playmakerprime",
+
+        "https://www.tiktok.com/@playmakerprimehq"
+
+      ]
+
+    };
+
+
+    const script =
+      document.createElement(
+        "script"
+      );
+
+
+    script.type =
+      "application/ld+json";
+
+
+    script.dataset.playmakerFounderSchema =
+      "true";
+
+
+    script.textContent =
+      JSON.stringify(schema);
+
+
+    document.head.appendChild(script);
+
   }
 
   function getBreadcrumbPageName() {
@@ -1875,8 +2000,11 @@
     renderFeedbackButton();
 
     injectOrganizationSchema();
+    injectFounderSchema();
+
     injectWebsiteSchema();
     injectSoftwareApplicationSchema();
+
     injectBreadcrumbSchema();
     injectFAQSchema();
     injectArticleSchema();
