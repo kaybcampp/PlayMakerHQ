@@ -553,6 +553,7 @@
   }
 
   function getBreadcrumbTrail() {
+
     /*
       Homepage doesn't need breadcrumb markup.
     */
@@ -560,19 +561,26 @@
       return [];
     }
 
+
     const currentPageName =
       getBreadcrumbPageName();
+
 
     const currentUrl =
       `https://playmakerprime.com${currentPath}`;
 
+
     const trail = [
+
       {
         name: "Home",
         url:
           "https://playmakerprime.com/"
       }
+
     ];
+
+
 
     /*
       PLAYER PAGES
@@ -581,36 +589,49 @@
     if (
       currentPath.startsWith("/players/")
     ) {
+
       trail.push(
+
         {
           name: "Players",
           url:
             "https://playmakerprime.com/players.html"
         },
+
         {
           name: currentPageName,
           url: currentUrl
         }
+
       );
 
       return trail;
+
     }
+
+
 
     /*
       PLAYER HUB
-      Home → Players
     */
     if (
       currentPath === "/players.html"
     ) {
+
       trail.push({
+
         name: "Players",
+
         url:
           "https://playmakerprime.com/players.html"
+
       });
 
       return trail;
+
     }
+
+
 
     /*
       TEAM PAGES
@@ -619,105 +640,201 @@
     if (
       currentPath.startsWith("/teams/")
     ) {
+
       trail.push(
+
         {
           name: "Teams",
           url:
             "https://playmakerprime.com/teams.html"
         },
+
         {
           name: currentPageName,
           url: currentUrl
         }
+
       );
 
       return trail;
+
     }
+
+
 
     /*
       TEAM HUB
-      Home → Teams
     */
     if (
       currentPath === "/teams.html"
     ) {
+
       trail.push({
+
         name: "Teams",
+
         url:
           "https://playmakerprime.com/teams.html"
+
       });
 
       return trail;
+
     }
+
+
 
     /*
       MATCHUP PAGES
       Home → Matchups → Matchup
     */
     if (
-      currentPath.startsWith(
-        "/matchups/"
-      )
+      currentPath.startsWith("/matchups/")
     ) {
+
       trail.push(
+
         {
           name: "Matchups",
           url:
             "https://playmakerprime.com/matchups.html"
         },
+
         {
           name: currentPageName,
           url: currentUrl
         }
+
       );
 
       return trail;
+
     }
+
+
 
     /*
       MATCHUP HUB
-      Home → Matchups
     */
     if (
       currentPath === "/matchups.html"
     ) {
+
       trail.push({
+
         name: "Matchups",
+
         url:
           "https://playmakerprime.com/matchups.html"
+
       });
 
       return trail;
+
     }
 
+
+
     /*
-      RESEARCH POSITION PAGES
-      Home → Research → Positions → Page
+      POSITION INTELLIGENCE HUB
+      Home → Research → Position Intelligence
+    */
+    if (
+      currentPath ===
+      "/research/positions" ||
+      currentPath ===
+      "/research/positions/index.html"
+    ) {
+
+      trail.push(
+
+        {
+          name: "Research",
+          url:
+            "https://playmakerprime.com/research.html"
+        },
+
+        {
+          name: "Position Intelligence",
+          url:
+            "https://playmakerprime.com/research/positions/"
+        }
+
+      );
+
+      return trail;
+
+    }
+
+
+
+    /*
+      POSITION INTELLIGENCE ARTICLES
+      Home → Research → Position Intelligence → Page
     */
     if (
       currentPath.startsWith(
         "/research/positions/"
       )
     ) {
+
       trail.push(
+
         {
           name: "Research",
           url:
             "https://playmakerprime.com/research.html"
         },
+
         {
           name: "Position Intelligence",
           url:
             "https://playmakerprime.com/research/positions/"
         },
+
         {
           name: currentPageName,
           url: currentUrl
         }
+
       );
 
       return trail;
+
     }
+
+
+
+    /*
+      TARGET SHARE LEADERS
+      Home → Research → Target Share Leaders
+    */
+    if (
+      currentPath ===
+      "/research/target-share-leaders.html"
+    ) {
+
+      trail.push(
+
+        {
+          name: "Research",
+          url:
+            "https://playmakerprime.com/research.html"
+        },
+
+        {
+          name: "Target Share Leaders",
+          url:
+            "https://playmakerprime.com/research/target-share-leaders.html"
+        }
+
+      );
+
+      return trail;
+
+    }
+
+
 
     /*
       GENERAL RESEARCH PAGES
@@ -728,60 +845,77 @@
         "/research/"
       )
     ) {
+
       trail.push(
+
         {
           name: "Research",
           url:
             "https://playmakerprime.com/research.html"
         },
+
         {
           name: currentPageName,
           url: currentUrl
         }
+
       );
 
       return trail;
+
     }
+
+
 
     /*
       RESEARCH HUB
-      Home → Research
     */
     if (
       currentPath === "/research.html"
     ) {
+
       trail.push({
+
         name: "Research",
+
         url:
           "https://playmakerprime.com/research.html"
+
       });
 
       return trail;
+
     }
 
+
+
     /*
-      ACADEMY PAGES
-      Home → Academy → Page
+      ACADEMY
     */
     if (
-      currentPath.startsWith(
-        "/academy/"
-      )
+      currentPath.startsWith("/academy/")
     ) {
+
       trail.push(
+
         {
           name: "Academy",
           url:
             "https://playmakerprime.com/academy/"
         },
+
         {
           name: currentPageName,
           url: currentUrl
         }
+
       );
 
       return trail;
+
     }
+
+
 
     /*
       RESULTS
@@ -789,14 +923,21 @@
     if (
       currentPath === "/results.html"
     ) {
+
       trail.push({
+
         name: "Results",
+
         url:
           "https://playmakerprime.com/results.html"
+
       });
 
       return trail;
+
     }
+
+
 
     /*
       PRICING
@@ -804,26 +945,36 @@
     if (
       currentPath === "/pricing.html"
     ) {
+
       trail.push({
+
         name: "PlayMaker Pro",
+
         url:
           "https://playmakerprime.com/pricing.html"
+
       });
 
       return trail;
+
     }
 
+
+
     /*
-      Unknown public page.
-      Keep a simple:
-      Home → Current Page
+      UNKNOWN PUBLIC PAGE
     */
     trail.push({
+
       name: currentPageName,
+
       url: currentUrl
+
     });
 
+
     return trail;
+
   }
 
   function injectBreadcrumbSchema() {
@@ -838,17 +989,23 @@
       return;
     }
 
+
     const trail =
       getBreadcrumbTrail();
 
+
     /*
-      Homepage returns no trail.
+      Homepage returns no breadcrumb.
     */
-    if (trail.length < 2) {
+    if (
+      trail.length < 2
+    ) {
       return;
     }
 
+
     const schema = {
+
       "@context":
         "https://schema.org",
 
@@ -858,9 +1015,12 @@
       "@id":
         `${window.location.origin}${currentPath}#breadcrumb`,
 
+
       itemListElement:
+
         trail.map(
           (item, index) => ({
+
             "@type":
               "ListItem",
 
@@ -872,23 +1032,30 @@
 
             item:
               item.url
+
           })
         )
+
     };
+
 
     const script =
       document.createElement(
         "script"
       );
 
+
     script.type =
       "application/ld+json";
+
 
     script.dataset.playmakerBreadcrumbSchema =
       "true";
 
+
     script.textContent =
       JSON.stringify(schema);
+
 
     document.head.appendChild(
       script
