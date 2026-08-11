@@ -5,13 +5,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>What is EPA? Expected Points Added NFL Explained | PlayMaker Research</title>
+  <title>What Is EPA in Football? Expected Points Added NFL Explained | PlayMaker Research</title>
 
   <meta name="description"
-    content="Learn what EPA (Expected Points Added) means in NFL analytics, how it measures play impact, and how PlayMaker uses it to evaluate efficiency and game control." />
+    content="Learn what EPA means in football, how Expected Points Added is calculated, EPA per play, offensive and defensive EPA, QB EPA, and how PlayMaker uses EPA in NFL prop research." />
+
+  <link rel="canonical" href="https://playmakerprime.com/research/epa.html" />
+
+  <meta property="og:title" content="What Is EPA in Football? Expected Points Added Explained" />
+
+  <meta property="og:description"
+    content="Learn how Expected Points Added works in NFL analytics, how EPA is calculated, what EPA per play means, and why the metric matters for football research." />
+
+  <meta property="og:url" content="https://playmakerprime.com/research/epa.html" />
+
+  <meta property="og:type" content="article" />
+
+  <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="twitter:title" content="What Is EPA in Football? | PlayMaker Research" />
+
+  <meta name="twitter:description"
+    content="Understand Expected Points Added, EPA per play, offensive EPA, defensive EPA, QB EPA, and how the metric is used in NFL analytics." />
+
+  <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
 
   <link rel="stylesheet" href="/assets/css/research.css" />
+
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
+
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 </head>
 
 <body>
@@ -26,20 +51,24 @@
 
     <div class="research-hero-content">
 
-      <a href="/research.html" class="hq-pill back-btn">
-        ← Back to Research
+      <a href="/research/stat-guides.html" class="hq-pill back-btn">
+        ← Back to Stat Guides
       </a>
 
-      <span class="hq-pill">NFL Advanced Analytics</span>
+      <span class="hq-pill">
+        NFL Advanced Analytics
+      </span>
 
-      <h2>
-        What is EPA?
+      <h1>
+        What Is EPA in Football?
         <span>Expected Points Added Explained</span>
-      </h2>
+      </h1>
 
       <p>
-        EPA (Expected Points Added) measures how much a single play increases or decreases a team’s expected scoring
-        outcome.
+        EPA, or Expected Points Added, measures how much a single football play
+        increases or decreases a team's expected scoring outcome. It is one of
+        the most widely used efficiency metrics in modern NFL analytics because
+        it evaluates what a play accomplished within the context of the game.
       </p>
 
     </div>
@@ -48,162 +77,1478 @@
 
   <main>
 
-    <!-- DEFINITION -->
+    <!-- EPA DEFINITION -->
     <section class="hq-section">
+
       <div class="section-header">
-        <h3>EPA Definition</h3>
-        <p>The most important efficiency metric in modern NFL analytics.</p>
+
+        <h3>
+          What Does EPA Mean in Football?
+        </h3>
+
+        <p>
+          EPA stands for Expected Points Added and measures the change in expected
+          scoring value created by a play.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
-        <span>Definition</span>
+
+        <span>
+          Definition
+        </span>
+
         <h3>
-          EPA = change in expected points caused by a play.
+          EPA = Expected Points After the Play − Expected Points Before the Play
         </h3>
+
         <p>
-          Positive EPA means the play improved scoring chances. Negative EPA means it hurt them.
+          Positive EPA means the play improved the offense's expected scoring
+          outcome. Negative EPA means the play reduced it. A play near the goal
+          line, on third down, or in difficult field position can therefore carry
+          different value than the same number of yards gained in another situation.
         </p>
+
       </div>
+
     </section>
 
-    <!-- WHY IT MATTERS -->
+    <!-- HOW EPA IS CALCULATED -->
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>Why EPA Matters for Props</h3>
-        <p>It measures real impact — not just raw stats.</p>
+
+        <h3>
+          How Is EPA Calculated?
+        </h3>
+
+        <p>
+          EPA compares the expected scoring value of the game state before and
+          after each play.
+        </p>
+
       </div>
 
       <div class="stack-grid">
+
         <div class="stack-card">
-          <span>01</span>
-          <h4>True Efficiency Signal</h4>
-          <p>Shows how valuable a player is per play, not just per game.</p>
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Estimate Expected Points Before the Play
+          </h4>
+
+          <p>
+            An expected-points model estimates how many points an offense is
+            expected to score from its current game situation.
+          </p>
+
         </div>
+
         <div class="stack-card">
-          <span>02</span>
-          <h4>Game Control Indicator</h4>
-          <p>High EPA offenses sustain drives and increase volume stability.</p>
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Run the Play
+          </h4>
+
+          <p>
+            The result changes field position, down, distance, possession,
+            clock situation, or scoring outcome.
+          </p>
+
         </div>
+
         <div class="stack-card">
-          <span>03</span>
-          <h4>Better Than Yards</h4>
-          <p>EPA accounts for context like down, distance, and field position.</p>
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Estimate Expected Points After the Play
+          </h4>
+
+          <p>
+            The model recalculates the offense's expected scoring value from
+            the new game state.
+          </p>
+
         </div>
+
         <div class="stack-card">
-          <span>04</span>
-          <h4>Predictive Value</h4>
-          <p>More stable long-term indicator than box score production.</p>
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Calculate the Difference
+          </h4>
+
+          <p>
+            The difference between the new expected-points value and the old
+            value becomes the EPA credited to the play.
+          </p>
+
         </div>
+
       </div>
+
     </section>
 
-    <!-- EXAMPLE -->
+    <!-- EPA FORMULA -->
     <section class="hq-section">
+
       <div class="section-header">
-        <h3>Real NFL Example</h3>
-        <p>Why EPA reveals hidden team quality.</p>
+
+        <h3>
+          EPA Formula
+        </h3>
+
+        <p>
+          The basic EPA formula is simple even though the expected-points model
+          underneath it can be complex.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
-        <span>Example</span>
+
+        <span>
+          Formula
+        </span>
+
         <h3>
-          High EPA Drive vs Low EPA Drive
+          EPA = EP After Play − EP Before Play
         </h3>
+
         <p>
-          A team can gain yards but still have low EPA if they fail in key situations. EPA captures whether those yards
-          actually mattered for scoring.
+          If an offense has 1.8 expected points before a play and 2.7 expected
+          points afterward, the play generated +0.9 EPA. If the expected-points
+          value falls from 1.8 to 0.9, the play generated −0.9 EPA.
         </p>
+
       </div>
+
     </section>
 
-    <!-- INTERNAL LINKING SYSTEM -->
-    <div id="entity-links"></div>
-    <script src="/assets/js/entity-link-engine.js"></script>
-
-    <!-- HOW PLAYMAKER USES IT -->
+    <!-- EPA EXAMPLE -->
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
-        <h3>How PlayMaker Uses EPA</h3>
-        <p>EPA is a core layer in team and matchup modeling.</p>
+
+        <h3>
+          EPA Football Example
+        </h3>
+
+        <p>
+          Why identical yardage totals can have completely different values.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <span>01</span>
-          <h4>Offensive Strength Rating</h4>
-          <p>Helps determine overall offensive efficiency level.</p>
+
+          <span>
+            Example A
+          </span>
+
+          <h4>
+            8 Yards on 3rd-and-5
+          </h4>
+
+          <p>
+            An eight-yard gain converts the first down, extends the drive,
+            and can meaningfully increase expected scoring value.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>02</span>
-          <h4>Drive Sustainability</h4>
-          <p>High EPA teams sustain drives = more player opportunities.</p>
+
+          <span>
+            Example B
+          </span>
+
+          <h4>
+            8 Yards on 3rd-and-15
+          </h4>
+
+          <p>
+            The same eight-yard gain may still force a punt and therefore
+            provide much less value to the offense.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>03</span>
-          <h4>Matchup Adjustment</h4>
-          <p>Adjusts expectations vs strong or weak defenses.</p>
+
+          <span>
+            Context
+          </span>
+
+          <h4>
+            Same Yardage, Different EPA
+          </h4>
+
+          <p>
+            EPA distinguishes between the two plays because down and distance
+            determine how much each gain changes the expected scoring outcome.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <span>04</span>
-          <h4>Prop Projection Stability</h4>
-          <p>Improves consistency in player and team prop modeling.</p>
+
+          <span>
+            Takeaway
+          </span>
+
+          <h4>
+            Context Matters
+          </h4>
+
+          <p>
+            Raw yards describe what happened. EPA helps describe how valuable
+            the result was within the game situation.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
-    <section class="hq-section hq-section-alt">
-      <div class="section-header">
-        <h3>How EPA Connects in PlayMaker</h3>
-        <p>See how Expected Points Added drives offensive and quarterback evaluation.</p>
-      </div>
-
-      <div class="stack-grid">
-
-        <div class="stack-card">
-          <h4>QB Intelligence</h4>
-          <p>EPA is a core efficiency input in quarterback modeling.</p>
-          <a href="/research/positions/qb-intelligence.html">View QB Model →</a>
-        </div>
-
-        <div class="stack-card">
-          <h4>Team & Player Analysis</h4>
-          <p>Measures overall offensive efficiency across all skill positions.</p>
-          <a href="/players.html">View Players →</a>
-        </div>
-
-        <div class="stack-card">
-          <h4>Matchup Context</h4>
-          <p>Defense vs offense EPA differentials reveal weak spots.</p>
-          <a href="/matchups.html">View Matchups →</a>
-        </div>
-
-        <div class="stack-card">
-          <h4>PlayMaker Academy</h4>
-          <p>Learn how EPA is used in predictive modeling.</p>
-          <a href="/research/academy.html">Learn More →</a>
-        </div>
-
-      </div>
-    </section>
-
+    <!-- OFFENSIVE EPA -->
     <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          What Is Offensive EPA?
+        </h3>
+
+        <p>
+          Offensive EPA measures how much expected scoring value an offense
+          creates through its plays.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Offensive Efficiency
+        </span>
+
+        <h3>
+          Higher offensive EPA generally means an offense is creating more scoring value.
+        </h3>
+
+        <p>
+          Offensive EPA can be evaluated at the play, drive, player, game,
+          or team level. Positive offensive EPA indicates that the offense
+          is consistently improving its scoring position, while negative EPA
+          indicates that plays are reducing expected scoring value.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- DEFENSIVE EPA -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          What Is Defensive EPA?
+        </h3>
+
+        <p>
+          Defensive EPA measures how much expected scoring value a defense allows
+          opposing offenses to generate.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            Lower
+          </span>
+
+          <h4>
+            Strong Defensive EPA Allowed
+          </h4>
+
+          <p>
+            Defenses that consistently limit expected scoring value can force
+            inefficient drives and difficult down-and-distance situations.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Higher
+          </span>
+
+          <h4>
+            Weak Defensive EPA Allowed
+          </h4>
+
+          <p>
+            Defenses allowing greater scoring value per play may create more
+            favorable offensive environments.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Pass
+          </span>
+
+          <h4>
+            EPA Against the Pass
+          </h4>
+
+          <p>
+            Passing EPA allowed helps evaluate how efficiently opposing
+            quarterbacks and receivers create value.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Run
+          </span>
+
+          <h4>
+            EPA Against the Run
+          </h4>
+
+          <p>
+            Rushing EPA allowed helps evaluate whether a defense consistently
+            limits or enables valuable rushing outcomes.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EPA PER PLAY -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          What Is EPA Per Play?
+        </h3>
+
+        <p>
+          EPA per play normalizes total EPA by opportunity so offenses and players
+          can be compared more fairly.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          EPA / Play
+        </span>
+
+        <h3>
+          EPA per play = Total EPA ÷ Number of Plays
+        </h3>
+
+        <p>
+          Total EPA can favor teams or players with more opportunities.
+          EPA per play instead measures the average expected scoring value
+          created on each play, making it useful when comparing efficiency
+          across different workloads.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- EPA PER PLAY BREAKDOWN -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Why EPA Per Play Matters
+        </h3>
+
+        <p>
+          Efficiency and volume answer different questions.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Total EPA
+          </h4>
+
+          <p>
+            Measures the total scoring value accumulated across all qualifying plays.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            EPA Per Play
+          </h4>
+
+          <p>
+            Measures the average value produced on each play.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            High Volume
+          </h4>
+
+          <p>
+            A high-volume offense can accumulate substantial total EPA even if
+            efficiency is only moderate.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            High Efficiency
+          </h4>
+
+          <p>
+            Strong EPA per play can reveal an offense that consistently creates
+            valuable outcomes even with fewer total plays.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- QB EPA -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          What Is QB EPA?
+        </h3>
+
+        <p>
+          Quarterback EPA evaluates the expected scoring value created during
+          quarterback-involved plays.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            Passing
+          </span>
+
+          <h4>
+            Passing EPA
+          </h4>
+
+          <p>
+            Evaluates how much expected scoring value is created or lost
+            through passing plays.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Rushing
+          </span>
+
+          <h4>
+            Quarterback Rushing EPA
+          </h4>
+
+          <p>
+            Mobile quarterbacks can also create value through scrambles,
+            designed carries, and goal-line rushing opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Context
+          </span>
+
+          <h4>
+            Down and Distance
+          </h4>
+
+          <p>
+            EPA rewards plays based on situational value rather than simply
+            counting completions or passing yards.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Efficiency
+          </span>
+
+          <h4>
+            QB EPA Per Play
+          </h4>
+
+          <p>
+            EPA per play can help compare quarterback efficiency while accounting
+            for differences in passing volume.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EPA VS TRADITIONAL STATS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          EPA vs Traditional Football Stats
+        </h3>
+
+        <p>
+          EPA adds game context that basic box-score statistics cannot capture alone.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Passing Yards
+          </h4>
+
+          <p>
+            Passing yards measure distance gained but do not account for down,
+            distance, field position, or whether the drive became more valuable.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Completion Percentage
+          </h4>
+
+          <p>
+            Completion percentage measures accuracy outcomes but does not distinguish
+            between high-value and low-value completions.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Touchdowns
+          </h4>
+
+          <p>
+            Touchdowns are extremely valuable outcomes but occur much less frequently
+            than the individual plays that build a scoring drive.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            EPA
+          </h4>
+
+          <p>
+            EPA evaluates the change in expected scoring value created by each
+            play within its specific situation.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EPA AND SUCCESS RATE -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          EPA vs Success Rate
+        </h3>
+
+        <p>
+          EPA measures the magnitude of play value while Success Rate focuses
+          on how consistently positive outcomes occur.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            EPA
+          </h4>
+
+          <p>
+            A single explosive play can generate a large amount of positive EPA.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Success Rate
+          </h4>
+
+          <p>
+            Success Rate measures how frequently an offense produces successful
+            outcomes across its total play sample.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Explosiveness
+          </h4>
+
+          <p>
+            EPA can capture the value of highly explosive scoring and field-position plays.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Consistency
+          </h4>
+
+          <p>
+            Success Rate can help show whether efficiency is repeatable across
+            many individual plays.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Related Metric
+        </span>
+
+        <h3>
+          EPA and Success Rate work best together.
+        </h3>
+
+        <p>
+          An offense can create strong EPA through explosive plays while remaining
+          inconsistent from snap to snap. Combining the two metrics provides
+          additional context around both efficiency and consistency.
+        </p>
+
+        <a href="/research/success-rate.html">
+          Explore Success Rate →
+        </a>
+
+      </div>
+
+    </section>
+
+    <!-- WHY EPA MATTERS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Why EPA Matters in NFL Analytics
+        </h3>
+
+        <p>
+          EPA measures how efficiently teams and players create scoring value,
+          not simply how many yards they accumulate.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Contextual Efficiency
+          </h4>
+
+          <p>
+            EPA accounts for the game situation surrounding every play rather
+            than treating all yards equally.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Offensive Quality
+          </h4>
+
+          <p>
+            Strong EPA can identify offenses that consistently improve their
+            scoring position.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Defensive Quality
+          </h4>
+
+          <p>
+            EPA allowed helps reveal defenses that consistently reduce the value
+            of opposing plays.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Matchup Comparison
+          </h4>
+
+          <p>
+            Offensive and defensive EPA can be compared to understand where
+            efficiency advantages may exist.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WHY BETTORS USE EPA -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Why Bettors Use EPA
+        </h3>
+
+        <p>
+          EPA can provide context behind box-score production when evaluating
+          teams, game environments, and player opportunities.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Identify Efficient Offenses
+          </h4>
+
+          <p>
+            Efficient offenses may sustain more productive drives and create
+            additional scoring and player-volume opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Identify Defensive Weakness
+          </h4>
+
+          <p>
+            EPA allowed can help show whether a defense consistently permits
+            opponents to improve expected scoring position.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Look Beyond Final Scores
+          </h4>
+
+          <p>
+            Final scores can be influenced by turnovers, field position,
+            special teams, and other events that may hide underlying efficiency.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Add Matchup Context
+          </h4>
+
+          <p>
+            EPA should be combined with player usage, injuries, weather,
+            pressure, and expected game script rather than used as a standalone signal.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- EPA AND PLAYER PROPS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Why EPA Matters for NFL Player Props
+        </h3>
+
+        <p>
+          EPA provides team and matchup context around the opportunities that
+          eventually become player statistics.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            QB
+          </span>
+
+          <h4>
+            Passing Props
+          </h4>
+
+          <p>
+            Offensive efficiency, defensive EPA, and pressure context can help
+            frame the environment surrounding quarterback passing volume and production.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            RB
+          </span>
+
+          <h4>
+            Rushing Props
+          </h4>
+
+          <p>
+            Efficient offenses can create longer drives and more opportunities
+            for carries, red-zone work, and positive game scripts.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            WR
+          </span>
+
+          <h4>
+            Receiving Props
+          </h4>
+
+          <p>
+            Passing efficiency can provide context around the quality of targets
+            and the likelihood that drives remain alive.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Team
+          </span>
+
+          <h4>
+            Game Environment
+          </h4>
+
+          <p>
+            EPA can help identify efficient or inefficient matchups that may
+            influence total offensive opportunity.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- HOW PLAYMAKER USES EPA -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          How PlayMaker Uses EPA
+        </h3>
+
+        <p>
+          EPA is one efficiency signal inside a broader player and matchup
+          research system.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Offensive Strength
+          </h4>
+
+          <p>
+            EPA helps provide context around how efficiently an offense creates
+            valuable outcomes.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Defensive Baselines
+          </h4>
+
+          <p>
+            Defensive EPA allowed helps classify favorable and difficult
+            offensive environments.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Matchup Adjustment
+          </h4>
+
+          <p>
+            Offensive and defensive efficiency can be evaluated alongside
+            pressure, injuries, weather, and game script.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Player Opportunity Context
+          </h4>
+
+          <p>
+            EPA helps describe the environment surrounding player usage rather
+            than replacing targets, carries, routes, or snap information.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONNECTIONS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          How EPA Connects in PlayMaker
+        </h3>
+
+        <p>
+          Explore the related metrics and research pages that add context to EPA.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            QB Intelligence
+          </h4>
+
+          <p>
+            See how passing efficiency, pressure, volume, and rushing opportunity
+            interact in quarterback evaluation.
+          </p>
+
+          <a href="/research/positions/qb-intelligence.html">
+            View QB Intelligence →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Success Rate
+          </h4>
+
+          <p>
+            Compare EPA's magnitude of value with a measure of play-to-play consistency.
+          </p>
+
+          <a href="/research/success-rate.html">
+            View Success Rate →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Pressure Rate
+          </h4>
+
+          <p>
+            Learn how defensive disruption can affect passing efficiency
+            and quarterback performance.
+          </p>
+
+          <a href="/research/pressure-rate.html">
+            View Pressure Rate →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Game Script
+          </h4>
+
+          <p>
+            Understand how expected score flow can change offensive volume
+            and play selection.
+          </p>
+
+          <a href="/research/game-script.html">
+            View Game Script →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Matchup Reports
+          </h4>
+
+          <p>
+            Apply offensive and defensive efficiency context to upcoming NFL games.
+          </p>
+
+          <a href="/matchups.html">
+            View Matchups →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Player Intelligence
+          </h4>
+
+          <p>
+            Research current NFL players through usage, recent trends,
+            and upcoming matchup context.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FAQ -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          EPA Football FAQ
+        </h3>
+
+        <p>
+          Common questions about Expected Points Added and NFL efficiency analysis.
+        </p>
+
+      </div>
+
+      <div class="faq-grid">
+
+        <details class="faq-card">
+
+          <summary>
+            What does EPA stand for in football?
+          </summary>
+
+          <p>
+            EPA stands for Expected Points Added. It measures how much a play
+            increases or decreases a team's expected scoring value.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            What is EPA in the NFL?
+          </summary>
+
+          <p>
+            EPA is an efficiency metric used to evaluate the value created by
+            individual plays based on their game situation, including down,
+            distance, field position, and scoring context.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            How is EPA calculated in football?
+          </summary>
+
+          <p>
+            EPA is calculated by subtracting the expected-points value before
+            a play from the expected-points value after the play.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            What is EPA per play?
+          </summary>
+
+          <p>
+            EPA per play divides total EPA by the number of plays in the sample.
+            It helps compare efficiency while accounting for differences in volume.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            Is higher EPA better?
+          </summary>
+
+          <p>
+            For an offense, higher positive EPA generally indicates more efficient
+            creation of expected scoring value. When evaluating EPA allowed by
+            a defense, lower values generally indicate stronger defensive performance.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            What is QB EPA?
+          </summary>
+
+          <p>
+            QB EPA describes the expected scoring value created during plays
+            involving the quarterback, commonly including passing and sometimes
+            quarterback rushing depending on the analysis.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            Is EPA better than yards?
+          </summary>
+
+          <p>
+            EPA and yards answer different questions. Yards measure distance gained,
+            while EPA measures how much a play changed the expected scoring outcome
+            within its game situation.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            Why do NFL bettors use EPA?
+          </summary>
+
+          <p>
+            EPA can help bettors evaluate offensive and defensive efficiency beyond
+            final scores and basic box-score totals. It is most useful when combined
+            with matchup, usage, injury, weather, and game-script information.
+          </p>
+
+        </details>
+
+      </div>
+
+    </section>
+
+    <!-- RELEVANT PLAYERS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Explore Quarterbacks and Skill Players
+        </h3>
+
+        <p>
+          Review current player pages for recent usage, production,
+          and matchup context.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <img src="/assets/images/players/josh-allen.png" alt="Josh Allen" class="player-headshot" loading="lazy" />
+
+          <h4>
+            Josh Allen
+          </h4>
+
+          <p>
+            Review passing, rushing, recent trends, and matchup intelligence.
+          </p>
+
+          <a href="/players/josh-allen">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <img src="/assets/images/players/jalen-hurts.png" alt="Jalen Hurts" class="player-headshot" loading="lazy" />
+
+          <h4>
+            Jalen Hurts
+          </h4>
+
+          <p>
+            Explore quarterback efficiency, rushing contribution,
+            and upcoming matchup context.
+          </p>
+
+          <a href="/players/jalen-hurts">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <img src="/assets/images/players/lamar-jackson.png" alt="Lamar Jackson" class="player-headshot"
+            loading="lazy" />
+
+          <h4>
+            Lamar Jackson
+          </h4>
+
+          <p>
+            Review passing efficiency, rushing usage,
+            and defensive matchup context.
+          </p>
+
+          <a href="/players/lamar-jackson">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            All NFL Players
+          </h4>
+
+          <p>
+            Search current NFL players by name, position, or team.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="hq-section">
+
       <div class="final-cta">
 
-        <h3>Now understand how EPA changes betting decisions</h3>
+        <h3>
+          Put EPA into context.
+        </h3>
 
         <p>
-          EPA is only powerful when combined with usage, matchup strength, and game script.
-          See how PlayMaker turns efficiency into real prop edges.
+          Compare offensive efficiency, defensive strength, player usage,
+          pressure, injuries, weather, and game script before evaluating
+          an NFL player prop.
         </p>
 
-        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:16px;">
+        <div style="
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            justify-content:center;
+            margin-top:16px;
+          ">
 
           <a href="/matchups.html" class="btn-primary">
             View Matchups
@@ -213,65 +1558,54 @@
             Explore Players
           </a>
 
-          <a href="/tool/" class="btn-primary" style="background:transparent; border:1px solid #66FF99; color:#66FF99;">
-            Open PlayMaker Tool
+          <a href="/tool/" class="btn-primary" style="
+              background:transparent;
+              border:1px solid #66FF99;
+              color:#66FF99;
+            ">
+            Open PlayMaker
           </a>
 
         </div>
 
-      </div>
-    </section>
-
-    <section class="hq-section hq-section-alt">
-      <div class="section-header">
-        <h3>Top Players for Reference</h3>
-        <p>Click to view individual player pages and related prop analytics.</p>
-      </div>
-
-      <div class="stack-grid">
-        <div class="stack-card">
-          <img src="/assets/images/players/josh-allen.png" alt="Josh Allen Headshot" class="player-headshot">
-          <h4>Josh Allen</h4>
-          <a href="/players/josh-allen">View Player →</a>
-        </div>
-        <div class="stack-card">
-          <img src="/assets/images/players/cee-dee-lamb.png" alt="CeeDee Lamb Headshot" class="player-headshot">
-          <h4>CeeDee Lamb</h4>
-          <a href="/players/cee-dee-lamb">View Player →</a>
-        </div>
-        <div class="stack-card">
-          <img src="/assets/images/players/christian-mccaffrey.png" alt="Christian McCaffrey Headshot"
-            class="player-headshot">
-          <h4>Christian McCaffrey</h4>
-          <a href="/players/christian-mccaffrey">View Player →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="hq-section">
-
-      <div class="final-cta">
-        <h3>Now apply it</h3>
-        <p>See how Success Rate impacts real player and team projections.</p>
-        <a href="/matchups.html" class="btn-primary">View Matchups</a>
       </div>
 
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-links">
 
-      <a href="/">Home</a>
-      <a href="/players.html">Players</a>
-      <a href="/teams.html">Teams</a>
-      <a href="/matchups.html">Matchups</a>
-      <a href="/research.html">Research</a>
-      <a href="/results.html">Results</a>
-      <a href="/pricing.html">PlayMaker Pro</a>
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
 
     </div>
 
@@ -288,24 +1622,38 @@
 
   </footer>
 
+  <!-- GLOBAL UI + STRUCTURED DATA -->
+  <script src="/assets/js/entity-link-engine.js"></script>
+
+  <!-- ANALYTICS -->
   <script src="/assets/js/analytics-tracker.js"></script>
 
+  <!-- MOBILE SECTION ACCORDION -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        return;
+      }
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
+      document
+        .querySelectorAll(".hq-section")
+        .forEach((section, index) => {
+          const header = section.querySelector(
+            ":scope > .section-header"
+          );
 
-        if (index === 0) {
-          section.classList.add("is-open");
-        }
+          if (!header) {
+            return;
+          }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
+          if (index === 0) {
+            section.classList.add("is-open");
+          }
+
+          header.addEventListener("click", () => {
+            section.classList.toggle("is-open");
+          });
         });
-      });
     });
   </script>
 
