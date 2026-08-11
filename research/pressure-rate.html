@@ -5,53 +5,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>What Is Pressure Rate? NFL Pass Rush Metric Explained | PlayMaker Research</title>
+  <title>What Is Pressure Rate in Football? NFL Pass Rush Metric Explained | PlayMaker Research</title>
 
-  <meta
-    name="description"
-    content="Learn what Pressure Rate means in NFL analytics, how quarterback pressure affects passing props, and how PlayMaker uses pass-rush strength in matchup projections."
-  />
+  <meta name="description"
+    content="Learn what pressure rate means in football, how NFL pressure rate is calculated, pressure rate vs sack rate and blitz rate, and how defensive pressure affects quarterbacks and player props." />
 
-  <link
-    rel="canonical"
-    href="https://playmakerprime.com/research/pressure-rate.html"
-  />
+  <link rel="canonical" href="https://playmakerprime.com/research/pressure-rate.html" />
 
-  <meta
-    property="og:title"
-    content="What Is Pressure Rate? NFL Pass Rush Metric Explained"
-  />
+  <meta property="og:title" content="What Is Pressure Rate in Football? NFL Pass Rush Metric Explained" />
 
-  <meta
-    property="og:description"
-    content="Understand how defensive pressure affects quarterback efficiency, passing volume, sacks, turnovers, and player prop projections."
-  />
+  <meta property="og:description"
+    content="Understand NFL pressure rate, how quarterback pressures are calculated, pressure rate vs sack rate and blitz rate, and how pass rush affects offensive production." />
 
-  <meta
-    property="og:url"
-    content="https://playmakerprime.com/research/pressure-rate.html"
-  />
+  <meta property="og:url" content="https://playmakerprime.com/research/pressure-rate.html" />
 
-  <meta
-    property="og:type"
-    content="article"
-  />
+  <meta property="og:type" content="article" />
 
-  <link
-    rel="stylesheet"
-    href="/assets/css/research.css"
-  />
+  <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
 
-  <link
-    rel="stylesheet"
-    href="/assets/css/entity-links.css"
-  />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="/assets/images/favicon.png"
-  />
+  <meta name="twitter:title" content="What Is NFL Pressure Rate? | PlayMaker Research" />
+
+  <meta name="twitter:description"
+    content="Learn how pressure rate measures NFL pass-rush disruption and how it differs from sacks and blitz rate." />
+
+  <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
+
+  <link rel="stylesheet" href="/assets/css/research.css" />
+
+  <link rel="stylesheet" href="/assets/css/entity-links.css" />
+
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 </head>
 
 <body>
@@ -66,10 +51,7 @@
 
     <div class="research-hero-content">
 
-      <a
-        href="/research/stat-guides.html"
-        class="hq-pill back-btn"
-      >
+      <a href="/research/stat-guides.html" class="hq-pill back-btn">
         ← Back to Stat Guides
       </a>
 
@@ -77,15 +59,17 @@
         NFL Defensive Metrics
       </span>
 
-      <h2>
-        What is Pressure Rate?
-        <span>Pass Rush Impact Explained</span>
-      </h2>
+      <h1>
+        What Is Pressure Rate in Football?
+        <span>NFL Pass Rush Impact Explained</span>
+      </h1>
 
       <p>
-        Pressure Rate measures how often a defense disrupts the quarterback
-        on passing plays. It helps evaluate how pass-rush strength may affect
-        quarterback efficiency, sacks, turnovers, and receiving production.
+        Pressure Rate measures how frequently a defense disrupts the quarterback
+        on passing plays. Unlike sacks alone, the metric captures a broader range
+        of pass-rush disruption and helps evaluate how defensive pressure can
+        influence quarterback efficiency, target depth, sacks, turnovers,
+        and receiving opportunity.
       </p>
 
     </div>
@@ -100,11 +84,12 @@
       <div class="section-header">
 
         <h3>
-          Pressure Rate Definition
+          What Is Pressure Rate in Football?
         </h3>
 
         <p>
-          Measuring how frequently a defense disrupts the pocket.
+          Pressure Rate measures how frequently a quarterback faces pressure
+          during passing opportunities.
         </p>
 
       </div>
@@ -116,30 +101,561 @@
         </span>
 
         <h3>
-          Pressure Rate = quarterback pressures divided by opposing dropbacks.
+          Pressure Rate = Quarterback Pressures ÷ Passing Dropbacks
         </h3>
 
         <p>
-          Pressures may include sacks, quarterback hits, and hurries.
-          Unlike sack rate alone, pressure rate captures pass-rush disruption
-          even when the quarterback gets the ball away.
+          Quarterback pressures commonly include sacks, hits, and hurries,
+          depending on the data source and charting methodology. Pressure Rate
+          turns those disruptions into a percentage so defensive pass-rush
+          performance can be compared across different numbers of dropbacks.
         </p>
 
       </div>
 
     </section>
 
-    <!-- WHY IT MATTERS -->
+    <!-- WHAT COUNTS AS PRESSURE -->
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
 
         <h3>
-          Why Pressure Rate Matters for Props
+          What Counts as a Quarterback Pressure?
         </h3>
 
         <p>
-          Defensive pressure can change the timing and efficiency of an entire passing offense.
+          Pressure is broader than sacks and can affect a play even when the
+          quarterback successfully releases the football.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            Sack
+          </span>
+
+          <h4>
+            Quarterback Sack
+          </h4>
+
+          <p>
+            The quarterback is brought down behind the line of scrimmage
+            before completing the passing play.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Hit
+          </span>
+
+          <h4>
+            Quarterback Hit
+          </h4>
+
+          <p>
+            A defender reaches and contacts the quarterback around the throw,
+            even if the pass is released.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Hurry
+          </span>
+
+          <h4>
+            Quarterback Hurry
+          </h4>
+
+          <p>
+            The pass rush forces the quarterback to speed up the play,
+            move off the intended spot, or release the football earlier than planned.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Disruption
+          </span>
+
+          <h4>
+            Pocket Disruption
+          </h4>
+
+          <p>
+            Pressure can change timing and decision-making even when it does
+            not become an official sack.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CALCULATION -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          How Is Pressure Rate Calculated?
+        </h3>
+
+        <p>
+          Pressure Rate compares defensive disruption with the total number
+          of passing opportunities faced.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Count Passing Dropbacks
+          </h4>
+
+          <p>
+            Start with the passing opportunities included in the selected
+            pressure-rate data source.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Count Quarterback Pressures
+          </h4>
+
+          <p>
+            Identify qualifying sacks, hits, hurries, or other charted pressures
+            according to the provider's methodology.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Divide Pressures by Dropbacks
+          </h4>
+
+          <p>
+            Divide total pressures by the number of relevant passing dropbacks.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Convert to a Percentage
+          </h4>
+
+          <p>
+            Multiply the result by 100 to express the rate as the percentage
+            of passing plays affected by pressure.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FORMULA -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          NFL Pressure Rate Formula
+        </h3>
+
+        <p>
+          The calculation normalizes pass-rush production across different
+          passing volumes.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Formula
+        </span>
+
+        <h3>
+          Pressure Rate = Pressures ÷ Dropbacks × 100
+        </h3>
+
+        <p>
+          If a defense generates 12 pressures across 40 qualifying passing
+          dropbacks, its pressure rate for that sample is 30%.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- EXAMPLE -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Pressure Rate Example
+        </h3>
+
+        <p>
+          Why sacks alone do not tell the entire story of a pass rush.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Example
+        </span>
+
+        <h3>
+          A defense can generate frequent pressure without recording many sacks.
+        </h3>
+
+        <p>
+          Suppose a defense pressures a quarterback on 16 of 40 passing dropbacks
+          but finishes with only two sacks. That is a 40% pressure rate despite
+          the modest sack total. The other pressures may still force quicker throws,
+          reduce target depth, disrupt timing, or contribute to incomplete passes.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- PRESSURE VS SACK RATE -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Pressure Rate vs Sack Rate
+        </h3>
+
+        <p>
+          Pressure Rate measures broader disruption while Sack Rate measures
+          how often that disruption ends in a sack.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Pressure Rate
+          </h4>
+
+          <p>
+            Captures a wider range of pass-rush disruption, commonly including
+            sacks, hits, and hurries.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Sack Rate
+          </h4>
+
+          <p>
+            Measures the percentage of passing opportunities that result
+            specifically in sacks.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            High Pressure, Low Sacks
+          </h4>
+
+          <p>
+            A defense may regularly hurry the quarterback while failing
+            to convert those pressures into sacks.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Quarterback Influence
+          </h4>
+
+          <p>
+            Pocket movement, release speed, scrambling ability, and decision-making
+            can determine whether pressure becomes a sack.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PRESSURE VS BLITZ -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Pressure Rate vs Blitz Rate
+        </h3>
+
+        <p>
+          Blitz Rate describes defensive aggression. Pressure Rate measures
+          whether the pass rush actually disrupts the quarterback.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <h4>
+            Blitz Rate
+          </h4>
+
+          <p>
+            Measures how frequently a defense sends additional pass rushers
+            beyond its standard pressure structure.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Pressure Rate
+          </h4>
+
+          <p>
+            Measures how frequently the defense succeeds in creating
+            quarterback disruption.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Four-Man Pressure
+          </h4>
+
+          <p>
+            Strong defensive fronts can generate pressure without blitzing,
+            allowing more defenders to remain in coverage.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Blitz Without Pressure
+          </h4>
+
+          <p>
+            Sending additional rushers does not guarantee disruption and may
+            expose the defense if the offense handles the blitz successfully.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TEAM LEADERS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          NFL Team Pressure Rate Leaders
+        </h3>
+
+        <p>
+          Compare which defenses generate quarterback pressure most frequently.
+        </p>
+
+      </div>
+
+      <div id="team-pressure-rate-leaders" class="research-highlight-card">
+
+        <span>
+          Team Rankings
+        </span>
+
+        <h3>
+          2026 NFL Pressure Rate Leaders
+        </h3>
+
+        <p>
+          Current team pressure-rate rankings will populate from PlayMaker's
+          defensive data as the 2026 regular-season sample develops.
+        </p>
+
+        <div class="research-table-wrap">
+
+          <table class="research-table">
+
+            <thead>
+
+              <tr>
+                <th>Rank</th>
+                <th>Team</th>
+                <th>Pressure Rate</th>
+                <th>Sacks</th>
+                <th>Pass Defense</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="team-pressure-rate-body">
+
+              <tr>
+                <td colspan="5">
+                  2026 team pressure-rate data will populate as regular-season
+                  defensive data becomes available.
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- INDIVIDUAL LEADERS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          NFL Individual Pressure Leaders
+        </h3>
+
+        <p>
+          Individual pass-rush production helps identify which defenders
+          are creating the disruption behind team pressure rates.
+        </p>
+
+      </div>
+
+      <div id="individual-pressure-leaders" class="research-highlight-card">
+
+        <span>
+          Pass Rush Leaders
+        </span>
+
+        <h3>
+          2026 Individual Pressure Rankings
+        </h3>
+
+        <p>
+          Individual pressure rankings can be added when PlayMaker's defensive
+          player-level data source supports consistent pressure charting.
+        </p>
+
+        <div class="research-table-wrap">
+
+          <table class="research-table">
+
+            <thead>
+
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Team</th>
+                <th>Pressures</th>
+                <th>Sacks</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="individual-pressure-rate-body">
+
+              <tr>
+                <td colspan="5">
+                  Individual defender rankings are not yet available in the
+                  current PlayMaker data pipeline.
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WHY PRESSURE MATTERS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Why Pressure Rate Matters in NFL Analytics
+        </h3>
+
+        <p>
+          Quarterback disruption can change the efficiency and structure
+          of an entire passing offense.
         </p>
 
       </div>
@@ -157,8 +673,8 @@
           </h4>
 
           <p>
-            Frequent pressure can force shorter throws, rushed decisions,
-            and lower completion efficiency.
+            Frequent pressure can force quicker decisions, altered mechanics,
+            and less comfortable passing situations.
           </p>
 
         </div>
@@ -170,12 +686,12 @@
           </span>
 
           <h4>
-            Sack Risk
+            Sack Probability
           </h4>
 
           <p>
-            Strong pass-rush environments increase the chance of sacks,
-            lost yardage, and stalled drives.
+            Pressure creates the conditions from which sacks can occur,
+            even though quarterbacks differ in how often pressure becomes a sack.
           </p>
 
         </div>
@@ -187,12 +703,12 @@
           </span>
 
           <h4>
-            Turnover Potential
+            Turnover Opportunity
           </h4>
 
           <p>
-            Disrupted pockets can lead to forced throws, interceptions,
-            strip sacks, and other negative plays.
+            Disruption can contribute to forced throws, strip-sack opportunities,
+            and other negative offensive outcomes.
           </p>
 
         </div>
@@ -204,12 +720,12 @@
           </span>
 
           <h4>
-            Receiver Opportunity
+            Drive Sustainability
           </h4>
 
           <p>
-            Pressure can reduce time for deeper routes to develop
-            and redirect volume toward short-area receivers.
+            Negative plays and incomplete passes caused by pressure can create
+            longer down-and-distance situations and shorten drives.
           </p>
 
         </div>
@@ -218,52 +734,108 @@
 
     </section>
 
-    <!-- EXAMPLE -->
+    <!-- PRESSURE ALLOWED -->
     <section class="hq-section">
 
       <div class="section-header">
 
         <h3>
-          Pressure Rate Example
+          Defensive Pressure Rate vs Pressure Allowed
         </h3>
 
         <p>
-          Why sacks do not tell the entire story.
+          Every pass-rush matchup involves both the defense generating pressure
+          and the offense attempting to prevent it.
         </p>
 
       </div>
 
-      <div class="research-highlight-card">
+      <div class="stack-grid">
 
-        <span>
-          Example
-        </span>
+        <div class="stack-card">
 
-        <h3>
-          Defense A: 40% pressure rate but only two sacks
-        </h3>
+          <span>
+            Defense
+          </span>
 
-        <p>
-          Even with only two sacks, the defense consistently disrupted
-          the quarterback. That pressure may still lower passing efficiency,
-          shorten target depth, and reduce the offense’s ability to sustain drives.
-        </p>
+          <h4>
+            Pressure Generated
+          </h4>
+
+          <p>
+            Defensive Pressure Rate describes how frequently the pass rush
+            disrupts opposing quarterbacks.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Offense
+          </span>
+
+          <h4>
+            Pressure Allowed
+          </h4>
+
+          <p>
+            Offensive pressure allowed describes how frequently a quarterback
+            faces disruption behind the offensive line.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Matchup
+          </span>
+
+          <h4>
+            Strength vs Weakness
+          </h4>
+
+          <p>
+            A strong pass rush facing an offense that frequently allows pressure
+            can create a particularly difficult quarterback environment.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Context
+          </span>
+
+          <h4>
+            Protection Adjustments
+          </h4>
+
+          <p>
+            Offenses can respond with quicker passes, extra blockers, screens,
+            rollouts, or other changes that alter player opportunities.
+          </p>
+
+        </div>
 
       </div>
 
     </section>
 
-    <!-- WHAT CHANGES IT -->
+    <!-- OFFENSIVE LINE -->
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
 
         <h3>
-          What Changes Pressure Rate?
+          Offensive Line Impact on Pressure Rate
         </h3>
 
         <p>
-          Pass-rush performance depends on both the defense and the opposing offense.
+          Pressure is not solely a defensive statistic because protection
+          quality changes the environment on every passing play.
         </p>
 
       </div>
@@ -277,12 +849,12 @@
           </span>
 
           <h4>
-            Defensive Front
+            Pass Protection
           </h4>
 
           <p>
-            Elite edge rushers and interior defenders can generate pressure
-            without requiring additional blitzers.
+            Strong pass-blocking units can give quarterbacks additional time
+            for reads and downfield routes to develop.
           </p>
 
         </div>
@@ -294,12 +866,12 @@
           </span>
 
           <h4>
-            Blitz Frequency
+            Offensive Line Injuries
           </h4>
 
           <p>
-            Defenses can increase disruption by sending additional rushers,
-            although blitzing may also create coverage vulnerabilities.
+            Missing starters can create individual matchup weaknesses
+            and communication problems in protection.
           </p>
 
         </div>
@@ -311,12 +883,12 @@
           </span>
 
           <h4>
-            Offensive Line Quality
+            Interior Pressure
           </h4>
 
           <p>
-            Injuries, weak individual matchups, and communication problems
-            can increase pressure allowed.
+            Pressure through the middle can collapse the pocket quickly
+            and limit a quarterback's ability to step into throws.
           </p>
 
         </div>
@@ -328,12 +900,12 @@
           </span>
 
           <h4>
-            Quarterback Style
+            Edge Pressure
           </h4>
 
           <p>
-            Pocket movement, release time, scrambling ability, and decision-making
-            all affect how often pressure becomes a negative play.
+            Edge rushers can force quarterbacks to climb the pocket,
+            escape outside structure, or accelerate their release.
           </p>
 
         </div>
@@ -342,17 +914,18 @@
 
     </section>
 
-    <!-- POSITION EFFECTS -->
+    <!-- QB EFFECTS -->
     <section class="hq-section">
 
       <div class="section-header">
 
         <h3>
-          How Pressure Affects Different Positions
+          How Pressure Rate Affects Quarterbacks
         </h3>
 
         <p>
-          Pressure can shift production across the entire passing offense.
+          Quarterbacks can respond very differently to the same level
+          of defensive pressure.
         </p>
 
       </div>
@@ -362,19 +935,91 @@
         <div class="stack-card">
 
           <span>
-            QB
+            Timing
           </span>
 
           <h4>
-            Quarterbacks
+            Faster Decisions
           </h4>
 
           <p>
-            Pressure can reduce completion rate, yards per attempt,
-            passing touchdowns, and overall pocket stability.
+            Pressure can force quarterbacks to move through reads more quickly
+            or abandon deeper route concepts.
           </p>
 
         </div>
+
+        <div class="stack-card">
+
+          <span>
+            Accuracy
+          </span>
+
+          <h4>
+            Passing Mechanics
+          </h4>
+
+          <p>
+            Quarterbacks throwing while hurried or off-platform may face
+            more difficult accuracy conditions.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Mobility
+          </span>
+
+          <h4>
+            Scramble Opportunity
+          </h4>
+
+          <p>
+            Mobile quarterbacks may convert broken pockets into rushing attempts
+            or extended passing plays.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Sack
+          </span>
+
+          <h4>
+            Pressure-to-Sack Conversion
+          </h4>
+
+          <p>
+            Some quarterbacks escape pressure more effectively than others,
+            which is why similar pressure rates can produce different sack totals.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RECEIVER EFFECTS -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          How Pressure Affects Wide Receivers and Tight Ends
+        </h3>
+
+        <p>
+          Pass rush can change both target volume and target depth.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
 
         <div class="stack-card">
 
@@ -383,12 +1028,29 @@
           </span>
 
           <h4>
-            Wide Receivers
+            Deep Routes
           </h4>
 
           <p>
-            Deep and intermediate routes may suffer when the quarterback
-            has less time to throw.
+            Vertical routes require time to develop and can become less accessible
+            when the quarterback faces immediate pressure.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Slot
+          </span>
+
+          <h4>
+            Quick-Game Targets
+          </h4>
+
+          <p>
+            Short-area receivers may benefit when offenses respond to pressure
+            with faster passing concepts.
           </p>
 
         </div>
@@ -400,12 +1062,12 @@
           </span>
 
           <h4>
-            Tight Ends
+            Tight End Usage
           </h4>
 
           <p>
-            Tight ends may receive more short-area opportunities,
-            but some may also stay in to help block.
+            Tight ends can receive short targets against pressure but may also
+            be asked to remain in protection more often.
           </p>
 
         </div>
@@ -413,16 +1075,16 @@
         <div class="stack-card">
 
           <span>
-            RB
+            Depth
           </span>
 
           <h4>
-            Running Backs
+            Air Yards
           </h4>
 
           <p>
-            Checkdowns and screen passes may increase when pressure forces
-            quarterbacks to release the ball quickly.
+            Increased pressure can reduce the time available for deeper targets,
+            affecting downfield receiving opportunity.
           </p>
 
         </div>
@@ -431,7 +1093,276 @@
 
     </section>
 
-    <!-- HOW PLAYMAKER USES IT -->
+    <!-- RB EFFECTS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          How Pressure Affects Running Backs
+        </h3>
+
+        <p>
+          Running backs can become important outlets when the pocket breaks down.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            Checkdown
+          </span>
+
+          <h4>
+            Short Receiving Work
+          </h4>
+
+          <p>
+            Quarterbacks can redirect the football toward running backs
+            when deeper reads are unavailable.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Screen
+          </span>
+
+          <h4>
+            Screen Game
+          </h4>
+
+          <p>
+            Screens can be used to exploit aggressive pass rushes and create
+            space behind pursuing defenders.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Protection
+          </span>
+
+          <h4>
+            Pass Blocking
+          </h4>
+
+          <p>
+            Running backs may lose receiving routes when they are required
+            to remain in the backfield as additional protection.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Script
+          </span>
+
+          <h4>
+            Passing Game Role
+          </h4>
+
+          <p>
+            Negative game scripts can increase pass volume and make pass-protection
+            and receiving assignments more important.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- GAME SCRIPT -->
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Game Script and Pressure Rate
+        </h3>
+
+        <p>
+          Pass-rush opportunities can increase when offenses are forced
+          into predictable passing situations.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            Trailing
+          </span>
+
+          <h4>
+            More Dropbacks
+          </h4>
+
+          <p>
+            Teams playing from behind may increase passing volume,
+            giving opposing pass rushers more opportunities.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Long Yardage
+          </span>
+
+          <h4>
+            Predictable Passing Downs
+          </h4>
+
+          <p>
+            Third-and-long and similar situations allow defenses to anticipate
+            passing plays and attack the quarterback more aggressively.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Leading
+          </span>
+
+          <h4>
+            Pass-Rush Advantage
+          </h4>
+
+          <p>
+            Defenses protecting a lead can focus more heavily on rushing
+            the passer when opponents must throw.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            Neutral
+          </span>
+
+          <h4>
+            Balanced Offense
+          </h4>
+
+          <p>
+            Neutral game scripts can preserve run-pass balance and make
+            pass-rush opportunities less predictable.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WHY BETTORS USE IT -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Why Bettors Use Pressure Rate
+        </h3>
+
+        <p>
+          Pressure Rate adds context around quarterback and receiving environments
+          that traditional defensive statistics may miss.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <span>
+            01
+          </span>
+
+          <h4>
+            Quarterback Props
+          </h4>
+
+          <p>
+            Pressure context can help frame passing yards, completions,
+            touchdown, interception, and rushing expectations.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            02
+          </span>
+
+          <h4>
+            Receiving Props
+          </h4>
+
+          <p>
+            Pass-rush strength can influence target depth, route development,
+            and which receiving roles are most accessible.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            03
+          </span>
+
+          <h4>
+            Sack and Turnover Context
+          </h4>
+
+          <p>
+            Pressure creates opportunities for negative plays even when
+            previous sack totals appear modest.
+          </p>
+
+        </div>
+
+        <div class="stack-card">
+
+          <span>
+            04
+          </span>
+
+          <h4>
+            Matchup Evaluation
+          </h4>
+
+          <p>
+            Comparing pressure generated with pressure allowed can reveal
+            particularly favorable or difficult protection environments.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PLAYMAKER -->
     <section class="hq-section hq-section-alt">
 
       <div class="section-header">
@@ -441,7 +1372,8 @@
         </h3>
 
         <p>
-          Pressure rate helps adjust passing expectations for specific defensive matchups.
+          Pressure Rate is evaluated as one defensive signal inside a broader
+          matchup model.
         </p>
 
       </div>
@@ -459,8 +1391,8 @@
           </h4>
 
           <p>
-            PlayMaker compares the defense’s pressure generation
-            with the offense’s ability to protect the quarterback.
+            PlayMaker evaluates defensive disruption alongside broader
+            passing-defense context.
           </p>
 
         </div>
@@ -476,8 +1408,8 @@
           </h4>
 
           <p>
-            High-pressure matchups may reduce expected passing efficiency,
-            target depth, and drive sustainability.
+            High-pressure environments can influence expected passing efficiency,
+            target depth, and drive stability.
           </p>
 
         </div>
@@ -489,12 +1421,12 @@
           </span>
 
           <h4>
-            Player Role Adjustment
+            Role Adjustment
           </h4>
 
           <p>
-            PlayMaker considers whether pressure may shift volume toward
-            shorter routes, tight ends, running backs, or quick-game receivers.
+            Pressure context can help identify whether quick-game receivers,
+            tight ends, running backs, or mobile quarterbacks may gain opportunity.
           </p>
 
         </div>
@@ -506,12 +1438,12 @@
           </span>
 
           <h4>
-            Prop Evaluation
+            Complete Prop Context
           </h4>
 
           <p>
-            Pressure context is combined with recent performance, injuries,
-            weather, defensive tiers, and the listed prop line.
+            Pressure is combined with recent player trends, injuries,
+            weather, defensive tiers, game script, and the listed prop line.
           </p>
 
         </div>
@@ -530,7 +1462,7 @@
         </h3>
 
         <p>
-          See how quarterback pressure affects efficiency, opportunity, and matchup projections.
+          Explore the related metrics that complete a passing-matchup evaluation.
         </p>
 
       </div>
@@ -544,8 +1476,8 @@
           </h4>
 
           <p>
-            Pressure rate directly affects quarterback efficiency,
-            decision-making, and passing stability.
+            See how pressure combines with passing volume, efficiency,
+            rushing ability, and game environment.
           </p>
 
           <a href="/research/positions/qb-intelligence.html">
@@ -557,16 +1489,16 @@
         <div class="stack-card">
 
           <h4>
-            Defensive Matchups
+            EPA
           </h4>
 
           <p>
-            Compare pass-rush strength with offensive line quality
-            and opposing quarterback tendencies.
+            Understand how offensive and defensive efficiency add context
+            to pass-rush performance.
           </p>
 
-          <a href="/research/defensive-matchups.html">
-            View Defensive Matchups →
+          <a href="/research/epa.html">
+            View EPA →
           </a>
 
         </div>
@@ -574,15 +1506,16 @@
         <div class="stack-card">
 
           <h4>
-            Player Projections
+            Air Yards
           </h4>
 
           <p>
-            Review how defensive context connects to individual player trends.
+            Learn how target depth can be affected when quarterbacks
+            have less time for deep routes to develop.
           </p>
 
-          <a href="/players.html">
-            View Players →
+          <a href="/research/air-yards.html">
+            View Air Yards →
           </a>
 
         </div>
@@ -594,12 +1527,44 @@
           </h4>
 
           <p>
-            Pressure can create stalled drives, turnovers,
-            and scoring changes that alter expected game flow.
+            Understand how score flow changes pass volume
+            and defensive pass-rush opportunities.
           </p>
 
           <a href="/research/game-script.html">
-            Learn About Game Script →
+            View Game Script →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Defensive Matchups
+          </h4>
+
+          <p>
+            Compare pass-rush strength with position-specific defensive context.
+          </p>
+
+          <a href="/research/defensive-matchups.html">
+            View Defensive Matchups →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            Matchup Reports
+          </h4>
+
+          <p>
+            Apply pressure and defensive context to upcoming NFL games.
+          </p>
+
+          <a href="/matchups.html">
+            Browse Matchups →
           </a>
 
         </div>
@@ -608,28 +1573,274 @@
 
     </section>
 
-    <div id="entity-links"></div>
+    <!-- FAQ -->
+    <section class="hq-section hq-section-alt">
 
-    <!-- CTA -->
+      <div class="section-header">
+
+        <h3>
+          NFL Pressure Rate FAQ
+        </h3>
+
+        <p>
+          Common questions about quarterback pressure and NFL pass-rush analytics.
+        </p>
+
+      </div>
+
+      <div class="faq-grid">
+
+        <details class="faq-card">
+
+          <summary>
+            What is pressure rate in football?
+          </summary>
+
+          <p>
+            Pressure Rate measures how frequently a quarterback is pressured
+            during qualifying passing opportunities. It is commonly calculated
+            by dividing quarterback pressures by passing dropbacks.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            What counts as a pressure in football?
+          </summary>
+
+          <p>
+            Depending on the data source, quarterback pressures commonly include
+            sacks, hits, and hurries. Exact pressure definitions can differ
+            between charting providers.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            How is NFL pressure rate calculated?
+          </summary>
+
+          <p>
+            Pressure Rate is generally calculated by dividing total quarterback
+            pressures by qualifying passing dropbacks and converting the result
+            into a percentage.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            What is the difference between pressure rate and sack rate?
+          </summary>
+
+          <p>
+            Pressure Rate measures a broader range of quarterback disruption,
+            while Sack Rate measures only passing opportunities that end in sacks.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            What is the difference between pressure rate and blitz rate?
+          </summary>
+
+          <p>
+            Blitz Rate measures how frequently a defense sends additional rushers.
+            Pressure Rate measures how frequently the defense actually disrupts
+            the quarterback. A defense can generate high pressure without blitzing often.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            Is a higher pressure rate better for a defense?
+          </summary>
+
+          <p>
+            A higher Pressure Rate generally indicates that a defense is disrupting
+            opposing quarterbacks more frequently, although the overall quality
+            of the defense depends on additional factors.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            How does pressure rate affect quarterback props?
+          </summary>
+
+          <p>
+            Pressure can influence passing efficiency, sacks, rushing attempts,
+            turnovers, target depth, and drive sustainability. PlayMaker evaluates
+            it alongside the quarterback's own tendencies and the broader matchup.
+          </p>
+
+        </details>
+
+        <details class="faq-card">
+
+          <summary>
+            Can pressure rate affect receiving props?
+          </summary>
+
+          <p>
+            Yes. Frequent pressure can reduce the time available for deep routes,
+            encourage quicker passing concepts, create more checkdowns, or require
+            tight ends and running backs to help in protection.
+          </p>
+
+        </details>
+
+      </div>
+
+    </section>
+
+    <!-- RELEVANT PLAYERS -->
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Explore Quarterbacks Affected by Pass-Rush Matchups
+        </h3>
+
+        <p>
+          Review player pages for recent passing, rushing,
+          and matchup intelligence.
+        </p>
+
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+
+          <img src="/assets/images/players/josh-allen.png" alt="Josh Allen" class="player-headshot" loading="lazy" />
+
+          <h4>
+            Josh Allen
+          </h4>
+
+          <p>
+            Review passing volume, rushing ability,
+            and upcoming defensive matchup context.
+          </p>
+
+          <a href="/players/josh-allen">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <img src="/assets/images/players/jalen-hurts.png" alt="Jalen Hurts" class="player-headshot" loading="lazy" />
+
+          <h4>
+            Jalen Hurts
+          </h4>
+
+          <p>
+            Explore passing, rushing, and pressure-related matchup context.
+          </p>
+
+          <a href="/players/jalen-hurts">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <img src="/assets/images/players/lamar-jackson.png" alt="Lamar Jackson" class="player-headshot"
+            loading="lazy" />
+
+          <h4>
+            Lamar Jackson
+          </h4>
+
+          <p>
+            Review passing efficiency, scrambling production,
+            and upcoming defensive conditions.
+          </p>
+
+          <a href="/players/lamar-jackson">
+            View Player →
+          </a>
+
+        </div>
+
+        <div class="stack-card">
+
+          <h4>
+            All NFL Players
+          </h4>
+
+          <p>
+            Search current quarterbacks, receivers,
+            running backs, and tight ends.
+          </p>
+
+          <a href="/players.html">
+            Browse Players →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FINAL CTA -->
     <section class="hq-section">
 
       <div class="final-cta">
 
         <h3>
-          Put pass-rush pressure into context.
+          Put NFL pressure rate into context.
         </h3>
 
         <p>
-          Compare defensive pressure, quarterback performance,
-          offensive line health, and matchup conditions before evaluating passing props.
+          Compare defensive pressure, offensive line conditions, quarterback
+          tendencies, receiving roles, injuries, weather, and game script
+          before evaluating an NFL passing or receiving prop.
         </p>
 
-        <a
-          href="/matchups.html"
-          class="btn-primary"
-        >
-          View Matchups
-        </a>
+        <div style="
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            justify-content:center;
+            margin-top:16px;
+          ">
+
+          <a href="/matchups.html" class="btn-primary">
+            View Matchups
+          </a>
+
+          <a href="/players.html" class="btn-primary" style="opacity:.85;">
+            Explore Players
+          </a>
+
+          <a href="/tool/" class="btn-primary" style="
+              background:transparent;
+              border:1px solid #66FF99;
+              color:#66FF99;
+            ">
+            Open PlayMaker
+          </a>
+
+        </div>
 
       </div>
 
@@ -685,9 +1896,13 @@
 
   </footer>
 
+  <!-- GLOBAL UI + STRUCTURED DATA -->
   <script src="/assets/js/entity-link-engine.js"></script>
+
+  <!-- ANALYTICS -->
   <script src="/assets/js/analytics-tracker.js"></script>
 
+  <!-- MOBILE SECTION ACCORDION -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       if (!window.matchMedia("(max-width: 768px)").matches) {
