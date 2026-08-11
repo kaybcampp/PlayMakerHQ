@@ -277,6 +277,53 @@ body {
     font-size: .95rem;
 }
 
+/* ==========================================
+   STACK CARD BUTTON LINKS
+========================================== */
+
+.stack-card-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    margin-top: auto;
+
+    padding: 9px 13px;
+
+    background: rgba(102, 255, 153, 0.10);
+    border: 1px solid rgba(102, 255, 153, 0.32);
+    border-radius: 10px;
+
+    color: #66FF99 !important;
+    text-decoration: none;
+
+    font-size: 0.82rem;
+    font-weight: 800;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.stack-card-link:hover {
+    background: rgba(102, 255, 153, 0.16);
+    border-color: rgba(102, 255, 153, 0.55);
+
+    color: #8CFFB3 !important;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 16px rgba(102, 255, 153, 0.16);
+}
+
+.stack-card-link:visited {
+    color: #66FF99;
+}
+
 /* REPORT LIST */
 
 .report-list {
@@ -643,7 +690,7 @@ body {
 footer {
     padding: 2.5rem 1rem;
     text-align: center;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid rgba(255, 255, 255, .06);
     color: #A3AABF;
 }
 
@@ -674,21 +721,270 @@ footer {
     color: #7F889B;
 }
 
-@media (max-width:768px){
+@media (max-width:768px) {
 
-    .footer-links{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
-    .footer-links a{
-        width:100%;
-        text-align:center;
+    .footer-links a {
+        width: 100%;
+        text-align: center;
     }
 
-    .footer-disclaimer{
-        font-size:.78rem;
+    .footer-disclaimer {
+        font-size: .78rem;
+    }
+
+}
+
+/* =========================================================
+   PRESSURE RATE PAGE — POLISH
+   ========================================================= */
+
+
+/* =========================
+   DATA TABLES
+   ========================= */
+
+.research-table-wrap {
+    width: 100%;
+    margin-top: 22px;
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+.research-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.research-table thead {
+    border-bottom: 1px solid rgba(102, 255, 153, 0.18);
+}
+
+.research-table th {
+    padding: 14px 16px;
+    text-align: left;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.research-table td {
+    padding: 16px;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.research-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.research-table td[colspan] {
+    text-align: center;
+    padding: 28px 18px;
+    color: rgba(255, 255, 255, 0.55);
+    font-style: italic;
+}
+
+
+/* Keep leaderboard cards comfortably wide */
+
+#team-pressure-rate-leaders,
+#individual-pressure-leaders {
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================
+   FAQ
+   ========================= */
+
+.faq-grid {
+    width: 100%;
+    max-width: 1050px;
+    margin: 34px auto 0;
+    display: grid;
+    gap: 12px;
+}
+
+.faq-card {
+    width: 100%;
+    background: rgba(9, 15, 27, 0.72);
+    border: 1px solid rgba(102, 255, 153, 0.18);
+    border-radius: 14px;
+    overflow: hidden;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.faq-card:hover {
+    border-color: rgba(102, 255, 153, 0.38);
+}
+
+.faq-card[open] {
+    border-color: rgba(102, 255, 153, 0.35);
+    background: rgba(12, 20, 34, 0.92);
+}
+
+.faq-card summary {
+    position: relative;
+    padding: 19px 52px 19px 20px;
+    color: #ffffff;
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.45;
+    cursor: pointer;
+    list-style: none;
+}
+
+.faq-card summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-card summary::after {
+    content: "+";
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    color: #66ff99;
+    font-size: 1.35rem;
+    font-weight: 400;
+    transition: transform 0.2s ease;
+}
+
+.faq-card[open] summary::after {
+    content: "−";
+}
+
+.faq-card p {
+    margin: 0;
+    padding: 0 52px 20px 20px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.94rem;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   RELATED RESEARCH LINKS
+   ========================= */
+
+.pressure-links-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pressure-links-grid .stack-card {
+    height: 100%;
+}
+
+.pressure-links-grid .stack-card a {
+    display: inline-block;
+    margin-top: auto;
+}
+
+
+/* =========================
+   PLAYER REFERENCE CARDS
+   ========================= */
+
+.pressure-player-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.pressure-player-grid .stack-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 205px;
+}
+
+.pressure-player-grid .stack-card h4 {
+    margin-top: 0;
+}
+
+.pressure-player-grid .stack-card p {
+    flex: 1;
+}
+
+.pressure-player-grid .stack-card a {
+    margin-top: auto;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1000px) {
+
+    .pressure-links-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pressure-player-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .research-table-wrap {
+        margin-top: 18px;
+    }
+
+    .research-table {
+        min-width: 600px;
+    }
+
+    .research-table th,
+    .research-table td {
+        padding: 13px 14px;
+    }
+
+    .faq-grid {
+        margin-top: 24px;
+        gap: 10px;
+    }
+
+    .faq-card summary {
+        padding: 17px 48px 17px 17px;
+    }
+
+    .faq-card summary::after {
+        right: 17px;
+    }
+
+    .faq-card p {
+        padding:
+            0 48px 18px 17px;
+    }
+
+    .pressure-links-grid,
+    .pressure-player-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pressure-player-grid .stack-card {
+        min-height: unset;
     }
 
 }
@@ -934,6 +1230,7 @@ footer {
         font-size: 1.2rem;
     }
 }
+
 /* ==========================================================
    FLOATING FEEDBACK BUTTON
 ========================================================== */
