@@ -278,49 +278,36 @@ body {
 }
 
 /* ==========================================
-   STACK CARD BUTTON LINKS
+   CLEAN STACK CARD LINKS
 ========================================== */
 
-.stack-card-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: fit-content;
+.stack-card>a {
+    display: inline-block;
     margin-top: auto;
 
-    padding: 9px 13px;
+    color: #66FF99;
 
-    background: rgba(102, 255, 153, 0.10);
-    border: 1px solid rgba(102, 255, 153, 0.32);
-    border-radius: 10px;
-
-    color: #66FF99 !important;
-    text-decoration: none;
-
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     font-weight: 800;
 
+    text-decoration: none;
+
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
+        color 0.2s ease,
+        transform 0.2s ease,
+        text-shadow 0.2s ease;
 }
 
-.stack-card-link:hover {
-    background: rgba(102, 255, 153, 0.16);
-    border-color: rgba(102, 255, 153, 0.55);
+.stack-card>a:hover {
+    color: #8CFFB3;
 
-    color: #8CFFB3 !important;
+    transform: translateX(2px);
 
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 0 16px rgba(102, 255, 153, 0.16);
+    text-shadow:
+        0 0 10px rgba(102, 255, 153, 0.22);
 }
 
-.stack-card-link:visited {
+.stack-card>a:visited {
     color: #66FF99;
 }
 
@@ -897,6 +884,53 @@ footer {
 
 .pressure-links-grid .stack-card a {
     display: inline-block;
+    margin-top: auto;
+}
+
+/* ==========================================
+   RESEARCH HIGHLIGHT LINKS
+========================================== */
+
+.research-highlight-card a {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    color: #66FF99;
+
+    font-size: 0.9rem;
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.research-highlight-card a:hover {
+    color: #8CFFB3;
+    transform: translateX(2px);
+}
+
+.research-highlight-card a:visited {
+    color: #66FF99;
+}
+
+/* ==========================================
+   RESEARCH NAVIGATION CARDS
+========================================== */
+
+.stack-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.stack-card>p {
+    flex-grow: 1;
+}
+
+.stack-card>a {
     margin-top: auto;
 }
 
