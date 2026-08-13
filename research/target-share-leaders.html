@@ -48,10 +48,10 @@
                 NFL Receiving Usage
             </span>
 
-            <h2>
+            <h1>
                 NFL Target Share Leaders 2026
                 <span>Track Who Commands the Passing Game</span>
-            </h2>
+            </h1>
 
             <p>
                 Target share measures how much of a team's passing opportunity is directed
@@ -248,17 +248,16 @@
 
             <div id="target-share-leaders-table" class="research-highlight-card">
 
-                <span>
-                    2026 Leaderboard
+                <span id="target-share-season-label">
+                    Target Share Leaderboard
                 </span>
 
                 <h3>
                     NFL Target Share Rankings
                 </h3>
 
-                <p>
-                    Current target share rankings will populate from PlayMaker's weekly
-                    receiving-usage data once the 2026 regular-season sample begins to build.
+                <p id="target-share-status-text">
+                    Loading the latest PlayMaker target share data...
                 </p>
 
                 <div class="research-table-wrap">
@@ -1589,6 +1588,23 @@
 
                 </article>
 
+                <article class="hq-card">
+
+                    <h4>
+                        Target Share vs Air Yards
+                    </h4>
+
+                    <p>
+                        Compare receiving volume with downfield opportunity
+                        to better understand a player's receiving role.
+                    </p>
+
+                    <a href="/research/target-share-vs-air-yards.html">
+                        Compare Target Share & Air Yards →
+                    </a>
+
+                </article>
+
 
 
                 <article class="hq-card">
@@ -1654,10 +1670,10 @@
             </div>
 
 
-            <div class="faq-container">
+            <div class="faq-grid">
 
 
-                <details>
+                <details class="faq-card">
 
                     <summary>
                         What is target share in football?
@@ -1672,7 +1688,7 @@
 
 
 
-                <details>
+                <details class="faq-card">
 
                     <summary>
                         Who leads the NFL in target share?
@@ -1687,7 +1703,7 @@
 
 
 
-                <details>
+                <details class="faq-card">
 
                     <summary>
                         Why does target share matter for player props?
@@ -1702,7 +1718,7 @@
 
 
 
-                <details>
+                <details class="faq-card">
 
                     <summary>
                         Is target share better than total targets?
@@ -1808,6 +1824,466 @@
 
     <!-- GLOBAL UI + STRUCTURED DATA -->
     <script src="/assets/js/entity-link-engine.js"></script>
+
+    <script>
+        // ============================================================
+        // TARGET SHARE LEADERBOARD
+        // ============================================================
+
+        const TARGET_SHARE_DATA_URL =
+            "/assets/data/research/target-share-leaders.json";
+
+
+        function escapeHtml(value) {
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        function playerLink(player) {
+            const name =
+                escapeHtml(player.name);
+
+            if (!player.slug) {
+                return name;
+            }
+
+            return `
+            <a href="/players/${encodeURIComponent(player.slug)}">
+                ${name}
+            </a>
+        `;
+        }
+
+
+        function formatShare(value) {
+            const number =
+                Number(value);
+
+            if (!Number.isFinite(number)) {
+                return "—";
+            }
+
+            return `${number.toFixed(1)}%`;
+        }
+
+
+        function formatNumber(value) {
+            const number =
+                Number(value);
+
+            if (!Number.isFinite(number)) {
+                return "—";
+            }
+
+            return number.toLocaleString();
+        }
+
+
+        function trendText(player) {
+            if (player.trend === "up") {
+                return `↑ ${Number(player.change || 0).toFixed(1)} pts`;
+            }
+
+            if (player.trend === "down") {
+                return `↓ ${Math.abs(Number(player.change || 0)).toFixed(1)} pts`;
+            }
+
+            if (player.trend === "stable") {
+                return "→ Stable";
+            }
+
+            return "—";
+        }
+
+
+        function renderEmptyRow(
+            tbody,
+            colspan,
+            message
+        ) {
+            if (!tbody) {
+                return;
+            }
+
+            tbody.innerHTML = `
+            <tr>
+                <td colspan="${colspan}">
+                    ${escapeHtml(message)}
+                </td>
+            </tr>
+        `;
+        }
+
+
+        function renderOverallLeaderboard(players) {
+            const tbody =
+                document.getElementById(
+                    "target-share-leaders-body"
+                );
+
+            if (!tbody) {
+                return;
+            }
+
+            if (!Array.isArray(players) || !players.length) {
+                renderEmptyRow(
+                    tbody,
+                    8,
+                    "Target share rankings are not available yet."
+                );
+
+                return;
+            }
+
+            tbody.innerHTML =
+                players.map(player => `
+                <tr>
+                    <td>
+                        ${formatNumber(player.rank)}
+                    </td>
+
+                    <td>
+                        ${playerLink(player)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(player.team || "—")}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(player.position || "—")}
+                    </td>
+
+                    <td>
+                        ${formatNumber(player.targets)}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${formatShare(player.targetShare)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${formatNumber(player.receptions)}
+                    </td>
+
+                    <td>
+                        ${formatNumber(player.receivingYards)}
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+
+        function renderLast10Leaderboard(players) {
+            const tbody =
+                document.getElementById(
+                    "target-share-last10-body"
+                );
+
+            if (!tbody) {
+                return;
+            }
+
+            if (!Array.isArray(players) || !players.length) {
+                renderEmptyRow(
+                    tbody,
+                    7,
+                    "Last-10 target share rankings are not available yet."
+                );
+
+                return;
+            }
+
+            tbody.innerHTML =
+                players.map(player => `
+                <tr>
+                    <td>
+                        ${formatNumber(player.rank)}
+                    </td>
+
+                    <td>
+                        ${playerLink(player)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(player.team || "—")}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(player.position || "—")}
+                    </td>
+
+                    <td>
+                        ${formatNumber(player.targets)}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${formatShare(player.targetShare)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${trendText(player)}
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+
+        function renderPositionLeaderboard(
+            tbodyId,
+            players
+        ) {
+            const tbody =
+                document.getElementById(
+                    tbodyId
+                );
+
+            if (!tbody) {
+                return;
+            }
+
+            if (!Array.isArray(players) || !players.length) {
+                renderEmptyRow(
+                    tbody,
+                    6,
+                    "Position target share rankings are not available yet."
+                );
+
+                return;
+            }
+
+            tbody.innerHTML =
+                players.map(player => `
+                <tr>
+                    <td>
+                        ${formatNumber(player.rank)}
+                    </td>
+
+                    <td>
+                        ${playerLink(player)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(player.team || "—")}
+                    </td>
+
+                    <td>
+                        ${formatNumber(player.targets)}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${formatShare(player.targetShare)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${formatNumber(player.receivingYards)}
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+
+        function updateTargetShareStatus(data) {
+            const label =
+                document.getElementById(
+                    "target-share-season-label"
+                );
+
+            const statusText =
+                document.getElementById(
+                    "target-share-status-text"
+                );
+
+            const sourceSeason =
+                data.sourceSeason ||
+                data.season;
+
+            if (
+                data.status ===
+                "previous-season-baseline"
+            ) {
+                if (label) {
+                    label.textContent =
+                        `${sourceSeason} Baseline`;
+                }
+
+                if (statusText) {
+                    statusText.textContent =
+                        `${data.season} rankings currently use ${sourceSeason} regular-season receiving usage as the preseason baseline. The leaderboard will transition to ${data.season} data once the regular-season sample becomes available.`;
+                }
+
+                return;
+            }
+
+            if (
+                data.status ===
+                "regular-season"
+            ) {
+                if (label) {
+                    label.textContent =
+                        `${data.season} Regular Season`;
+                }
+
+                if (statusText) {
+                    statusText.textContent =
+                        `Current ${data.season} target share rankings based on PlayMaker's latest weekly receiving-usage update.`;
+                }
+
+                return;
+            }
+
+            if (label) {
+                label.textContent =
+                    `${data.season} Leaderboard`;
+            }
+
+            if (statusText) {
+                statusText.textContent =
+                    "Current-season target share data is not available yet.";
+            }
+        }
+
+
+        async function loadTargetShareLeaderboards() {
+            try {
+                const response =
+                    await fetch(
+                        TARGET_SHARE_DATA_URL,
+                        {
+                            cache: "no-store"
+                        }
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Target share data returned HTTP ${response.status}`
+                    );
+                }
+
+                const data =
+                    await response.json();
+
+                updateTargetShareStatus(
+                    data
+                );
+
+                renderOverallLeaderboard(
+                    data.leaders
+                );
+
+                renderLast10Leaderboard(
+                    data.last10
+                );
+
+                renderPositionLeaderboard(
+                    "target-share-wr-body",
+                    data.byPosition?.WR
+                );
+
+                renderPositionLeaderboard(
+                    "target-share-te-body",
+                    data.byPosition?.TE
+                );
+
+                renderPositionLeaderboard(
+                    "target-share-rb-body",
+                    data.byPosition?.RB
+                );
+
+                console.log(
+                    "✅ Target Share Leaderboards loaded",
+                    {
+                        season:
+                            data.season,
+
+                        sourceSeason:
+                            data.sourceSeason,
+
+                        status:
+                            data.status,
+
+                        overall:
+                            data.counts?.overall,
+
+                        last10:
+                            data.counts?.last10,
+
+                        WR:
+                            data.counts?.WR,
+
+                        TE:
+                            data.counts?.TE,
+
+                        RB:
+                            data.counts?.RB
+                    }
+                );
+
+            } catch (err) {
+                console.error(
+                    "❌ Target Share leaderboard failed:",
+                    err
+                );
+
+                renderEmptyRow(
+                    document.getElementById(
+                        "target-share-leaders-body"
+                    ),
+                    8,
+                    "Target share rankings are temporarily unavailable."
+                );
+
+                renderEmptyRow(
+                    document.getElementById(
+                        "target-share-last10-body"
+                    ),
+                    7,
+                    "Recent target share rankings are temporarily unavailable."
+                );
+
+                renderEmptyRow(
+                    document.getElementById(
+                        "target-share-wr-body"
+                    ),
+                    6,
+                    "Wide receiver rankings are temporarily unavailable."
+                );
+
+                renderEmptyRow(
+                    document.getElementById(
+                        "target-share-te-body"
+                    ),
+                    6,
+                    "Tight end rankings are temporarily unavailable."
+                );
+
+                renderEmptyRow(
+                    document.getElementById(
+                        "target-share-rb-body"
+                    ),
+                    6,
+                    "Running back rankings are temporarily unavailable."
+                );
+            }
+        }
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadTargetShareLeaderboards
+        );
+    </script>
 
     <!-- ANALYTICS -->
     <script src="/assets/js/analytics-tracker.js"></script>
