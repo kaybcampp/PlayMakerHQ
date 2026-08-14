@@ -37,9 +37,6 @@
 
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 
-  <!-- TEAM DISPLAY NAMES -->
-  <script src="/assets/js/team-display-names.js"></script>
-
 </head>
 
 <body>
@@ -1806,7 +1803,6 @@
   <!-- EPA LEADERBOARD -->
 
   <script>
-
     document.addEventListener("DOMContentLoaded", async () => {
 
       const DATA_URL = "/assets/data/epa.json";
@@ -1830,26 +1826,9 @@
         document.getElementById("epa-status");
 
 
-      function formatNumber(value, decimals = 2) {
-
-        if (
-          value === null ||
-          value === undefined ||
-          value === ""
-        ) {
-          return "—";
-        }
-
-        const number = Number(value);
-
-        if (!Number.isFinite(number)) {
-          return "—";
-        }
-
-        return number.toFixed(decimals);
-
-      }
-
+      /* =========================================
+         FORMATTING
+      ========================================= */
 
       function formatSigned(value, decimals = 2) {
 
@@ -1868,40 +1847,407 @@
         }
 
         return `${number >= 0 ? "+" : ""}${number.toFixed(decimals)}`;
-
       }
+
+
+      /* =========================================
+   TEAM HELPERS
+========================================= */
+
+      const EPA_TEAM_NAMES = {
+        ARI: "Arizona Cardinals",
+        ATL: "Atlanta Falcons",
+        BAL: "Baltimore Ravens",
+        BUF: "Buffalo Bills",
+        CAR: "Carolina Panthers",
+        CHI: "Chicago Bears",
+        CIN: "Cincinnati Bengals",
+        CLE: "Cleveland Browns",
+        DAL: "Dallas Cowboys",
+        DEN: "Denver Broncos",
+        DET: "Detroit Lions",
+        GB: "Green Bay Packers",
+        HOU: "Houston Texans",
+        IND: "Indianapolis Colts",
+        JAX: "Jacksonville Jaguars",
+        KC: "Kansas City Chiefs",
+        LV: "Las Vegas Raiders",
+        LAC: "Los Angeles Chargers",
+        LAR: "Los Angeles Rams",
+        MIA: "Miami Dolphins",
+        MIN: "Minnesota Vikings",
+        NE: "New England Patriots",
+        NO: "New Orleans Saints",
+        NYG: "New York Giants",
+        NYJ: "New York Jets",
+        PHI: "Philadelphia Eagles",
+        PIT: "Pittsburgh Steelers",
+        SF: "San Francisco 49ers",
+        SEA: "Seattle Seahawks",
+        TB: "Tampa Bay Buccaneers",
+        TEN: "Tennessee Titans",
+        WSH: "Washington Commanders"
+      };
 
 
       function getTeamName(code) {
 
+        const normalized =
+          String(code || "")
+            .trim()
+            .toUpperCase();
+
+        return (
+          EPA_TEAM_NAMES[normalized] ||
+          normalized ||
+          "—"
+        );
+      }
+
+
+      function slugifyText(value) {
+
+        return String(value || "")
+          .toLowerCase()
+          .replace(/[.'’]/g, "")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-");
+      }
+
+
+      function getTeamUrl(code) {
+
+        const teamName =
+          getTeamName(code);
+
+        return `/teams/${slugifyText(teamName)}`;
+      }
+
+
+      function renderTeamLink(code) {
+
+        const teamName =
+          getTeamName(code);
+
         if (
-          typeof TEAM_DISPLAY_NAMES !== "undefined" &&
-          TEAM_DISPLAY_NAMES[code]
+          !teamName ||
+          teamName === "—"
         ) {
-          return TEAM_DISPLAY_NAMES[code];
+          return "—";
         }
 
-        return code || "—";
+        return `
+    <a
+      href="${getTeamUrl(code)}"
+      class="epa-team-link"
+    >
+      <strong>${teamName}</strong>
+    </a>
+
+    <span class="epa-team-code">
+      ${code || ""}
+    </span>
+  `;
+      }
+
+
+      /* =========================================
+         PLAYER HELPERS
+      ========================================= */
+
+      const playerUrlCache = new Map();
+
+
+      /*
+       * EPA identifies quarterbacks using abbreviated
+       * names such as:
+       *
+       * D.Maye
+       * M.Stafford
+       * J.Love
+       *
+       * The canonical player JSON contains the actual
+       * player name + slug used by the website.
+       */
+
+
+      function abbreviationMatchesPlayer(
+        abbreviation,
+        fullName
+      ) {
+
+        if (!abbreviation || !fullName) {
+          return false;
+        }
+
+        const cleanAbbreviation =
+          String(abbreviation)
+            .replace(/\./g, "")
+            .replace(/\s+/g, "")
+            .toLowerCase();
+
+
+        const parts =
+          String(fullName)
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+
+        if (parts.length < 2) {
+          return false;
+        }
+
+
+        const firstName =
+          parts[0].replace(/[^a-z]/gi, "");
+
+
+        const lastName =
+          parts[parts.length - 1]
+            .replace(/[^a-z]/gi, "");
+
+
+        if (!firstName || !lastName) {
+          return false;
+        }
+
+
+        const expected =
+          `${firstName.charAt(0)}${lastName}`
+            .toLowerCase();
+
+
+        return cleanAbbreviation === expected;
+      }
+
+
+      async function resolvePlayerUrl(
+        playerName,
+        team
+      ) {
+
+        if (!playerName || !team) {
+          return null;
+        }
+
+
+        const cacheKey =
+          `${team}:${playerName}`;
+
+
+        if (playerUrlCache.has(cacheKey)) {
+          return playerUrlCache.get(cacheKey);
+        }
+
+
+        try {
+
+          const response =
+            await fetch(
+              `/assets/data/players/players-${team}.json`
+            );
+
+
+          if (!response.ok) {
+
+            playerUrlCache.set(
+              cacheKey,
+              null
+            );
+
+            return null;
+          }
+
+
+          const players =
+            await response.json();
+
+
+          if (!Array.isArray(players)) {
+
+            playerUrlCache.set(
+              cacheKey,
+              null
+            );
+
+            return null;
+          }
+
+
+          const player =
+            players.find(candidate => {
+
+              if (!candidate) {
+                return false;
+              }
+
+
+              const candidateName =
+                String(
+                  candidate.name || ""
+                ).trim();
+
+
+              return (
+                abbreviationMatchesPlayer(
+                  playerName,
+                  candidateName
+                ) ||
+
+                candidateName.toLowerCase() ===
+                String(playerName)
+                  .trim()
+                  .toLowerCase()
+              );
+
+            });
+
+
+          if (!player) {
+
+            playerUrlCache.set(
+              cacheKey,
+              null
+            );
+
+            return null;
+          }
+
+
+          /*
+           * IMPORTANT:
+           * Use the canonical slug already stored
+           * in the player data whenever available.
+           */
+
+          const slug =
+            slugifyText(player.name);
+
+
+          if (!slug) {
+
+            playerUrlCache.set(
+              cacheKey,
+              null
+            );
+
+            return null;
+          }
+
+
+          const url =
+            `/players/${slug}`;
+
+
+          playerUrlCache.set(
+            cacheKey,
+            url
+          );
+
+
+          return url;
+
+        } catch (error) {
+
+          console.warn(
+            `Could not resolve player link for ${playerName}:`,
+            error
+          );
+
+
+          playerUrlCache.set(
+            cacheKey,
+            null
+          );
+
+
+          return null;
+        }
 
       }
 
 
-      function renderMessage(element, message, colspan) {
+      async function enhanceQBPlayerLinks() {
+
+        const playerCells =
+          qbTable.querySelectorAll(
+            "[data-epa-player]"
+          );
+
+
+        await Promise.all(
+          Array.from(playerCells).map(
+            async cell => {
+
+              const playerName =
+                cell.dataset.epaPlayer;
+
+
+              const team =
+                cell.dataset.epaTeam;
+
+
+              const playerUrl =
+                await resolvePlayerUrl(
+                  playerName,
+                  team
+                );
+
+
+              if (!playerUrl) {
+                return;
+              }
+
+
+              cell.innerHTML = `
+              <a
+                href="${playerUrl}"
+                class="epa-player-link"
+              >
+                <strong>${playerName}</strong>
+              </a>
+            `;
+
+            }
+          )
+        );
+
+      }
+
+
+      /* =========================================
+         EMPTY / ERROR MESSAGE
+      ========================================= */
+
+      function renderMessage(
+        element,
+        message,
+        colspan
+      ) {
 
         element.innerHTML = `
-          <tr>
-            <td colspan="${colspan}">
-              ${message}
-            </td>
-          </tr>
-        `;
+        <tr>
+          <td colspan="${colspan}">
+            ${message}
+          </td>
+        </tr>
+      `;
 
       }
 
+
+      /* =========================================
+         TEAM EPA TABLE
+      ========================================= */
 
       function renderTeamTable(rows) {
 
-        if (!Array.isArray(rows) || !rows.length) {
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
 
           renderMessage(
             teamTable,
@@ -1910,91 +2256,110 @@
           );
 
           return;
-
         }
 
-        /*
-         * Team comparison is sorted by net EPA:
-         *
-         * Net EPA = Offensive EPA + Defensive EPA Allowed
-         *
-         * Defensive EPA is already represented as EPA allowed,
-         * so a negative defensive value improves net efficiency.
-         */
 
-        const ranked = rows
-          .map(row => {
+        const ranked =
+          rows
+            .map(row => {
 
-            const offensiveEPA =
-              Number(row.offensiveEpa) || 0;
-
-            const defensiveEPA =
-              Number(row.defensiveEpaAllowed) || 0;
-
-            return {
-              ...row,
-              netEPA:
-                offensiveEPA + defensiveEPA
-            };
-
-          })
-          .sort(
-            (a, b) =>
-              b.netEPA - a.netEPA
-          );
+              const offensiveEPA =
+                Number(row.offensiveEpa) || 0;
 
 
-        teamTable.innerHTML = ranked
-          .slice(0, 32)
-          .map((row, index) => {
+              const defensiveEPA =
+                Number(
+                  row.defensiveEpaAllowed
+                ) || 0;
 
-            const team = row.team;
 
-            return `
+              return {
+                ...row,
+
+                netEPA:
+                  offensiveEPA +
+                  defensiveEPA
+              };
+
+            })
+            .sort(
+              (a, b) =>
+                b.netEPA -
+                a.netEPA
+            );
+
+
+        teamTable.innerHTML =
+          ranked
+            .slice(0, 32)
+            .map((row, index) => {
+
+              const team =
+                row.team;
+
+
+              return `
               <tr>
-                <td>${index + 1}</td>
 
                 <td>
-                  <strong>
-                    ${getTeamName(team)}
-                  </strong>
-
-                  <span class="epa-team-code">
-                    ${team || ""}
-                  </span>
+                  ${index + 1}
                 </td>
 
                 <td>
-                  ${formatSigned(row.offensiveEpa)}
+                  ${renderTeamLink(team)}
                 </td>
 
                 <td>
-                  ${formatSigned(row.offensiveEpaPerPlay, 3)}
+                  ${formatSigned(
+                row.offensiveEpa
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.defensiveEpaAllowed)}
+                  ${formatSigned(
+                row.offensiveEpaPerPlay,
+                3
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.defensiveEpaPerPlay, 3)}
+                  ${formatSigned(
+                row.defensiveEpaAllowed
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.netEPA)}
+                  ${formatSigned(
+                row.defensiveEpaPerPlay,
+                3
+              )}
                 </td>
+
+                <td>
+                  ${formatSigned(
+                row.netEPA
+              )}
+                </td>
+
               </tr>
             `;
 
-          })
-          .join("");
+            })
+            .join("");
 
       }
 
 
+      /* =========================================
+         OFFENSIVE EPA TABLE
+      ========================================= */
+
       function renderOffenseTable(rows) {
 
-        if (!Array.isArray(rows) || !rows.length) {
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
 
           renderMessage(
             offenseTable,
@@ -2003,16 +2368,19 @@
           );
 
           return;
-
         }
 
-        offenseTable.innerHTML = rows
-          .slice(0, 32)
-          .map((row, index) => {
 
-            const team = row.team;
+        offenseTable.innerHTML =
+          rows
+            .slice(0, 32)
+            .map((row, index) => {
 
-            return `
+              const team =
+                row.team;
+
+
+              return `
               <tr>
 
                 <td>
@@ -2020,43 +2388,53 @@
                 </td>
 
                 <td>
-                  <strong>
-                    ${getTeamName(team)}
-                  </strong>
-
-                  <span class="epa-team-code">
-                    ${team || ""}
-                  </span>
+                  ${renderTeamLink(team)}
                 </td>
 
                 <td>
-                  ${formatSigned(row.offensiveEpa)}
+                  ${formatSigned(
+                row.offensiveEpa
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.offensiveEpaPerPlay, 3)}
+                  ${formatSigned(
+                row.offensiveEpaPerPlay,
+                3
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.passEpa)}
+                  ${formatSigned(
+                row.passEpa
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.rushEpa)}
+                  ${formatSigned(
+                row.rushEpa
+              )}
                 </td>
 
               </tr>
             `;
 
-          })
-          .join("");
+            })
+            .join("");
 
       }
 
 
+      /* =========================================
+         DEFENSIVE EPA TABLE
+      ========================================= */
+
       function renderDefenseTable(rows) {
 
-        if (!Array.isArray(rows) || !rows.length) {
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
 
           renderMessage(
             defenseTable,
@@ -2065,16 +2443,19 @@
           );
 
           return;
-
         }
 
-        defenseTable.innerHTML = rows
-          .slice(0, 32)
-          .map((row, index) => {
 
-            const team = row.team;
+        defenseTable.innerHTML =
+          rows
+            .slice(0, 32)
+            .map((row, index) => {
 
-            return `
+              const team =
+                row.team;
+
+
+              return `
               <tr>
 
                 <td>
@@ -2082,43 +2463,53 @@
                 </td>
 
                 <td>
-                  <strong>
-                    ${getTeamName(team)}
-                  </strong>
-
-                  <span class="epa-team-code">
-                    ${team || ""}
-                  </span>
+                  ${renderTeamLink(team)}
                 </td>
 
                 <td>
-                  ${formatSigned(row.defensiveEpaAllowed)}
+                  ${formatSigned(
+                row.defensiveEpaAllowed
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.defensiveEpaPerPlay, 3)}
+                  ${formatSigned(
+                row.defensiveEpaPerPlay,
+                3
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.defensivePassEpaAllowed)}
+                  ${formatSigned(
+                row.defensivePassEpaAllowed
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.defensiveRushEpaAllowed)}
+                  ${formatSigned(
+                row.defensiveRushEpaAllowed
+              )}
                 </td>
 
               </tr>
             `;
 
-          })
-          .join("");
+            })
+            .join("");
 
       }
 
 
+      /* =========================================
+         QB EPA TABLE
+      ========================================= */
+
       function renderQBTable(rows) {
 
-        if (!Array.isArray(rows) || !rows.length) {
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
 
           renderMessage(
             qbTable,
@@ -2127,46 +2518,59 @@
           );
 
           return;
-
         }
 
-        qbTable.innerHTML = rows
-          .slice(0, 25)
-          .map((row, index) => {
 
-            const team = row.team;
+        qbTable.innerHTML =
+          rows
+            .slice(0, 25)
+            .map((row, index) => {
 
-            return `
+              const team =
+                row.team;
+
+
+              const player =
+                row.player || "—";
+
+
+              return `
               <tr>
 
                 <td>
                   ${row.rank || index + 1}
                 </td>
 
-                <td>
+                <td
+                  data-epa-player="${player}"
+                  data-epa-team="${team || ""}"
+                >
                   <strong>
-                    ${row.player || "—"}
+                    ${player}
                   </strong>
                 </td>
 
                 <td>
-                  ${getTeamName(team)}
-
-                  <span class="epa-team-code">
-                    ${team || ""}
-                  </span>
+                  ${renderTeamLink(team)}
                 </td>
 
                 <td>
-                  ${formatSigned(row.epa)}
+                  ${formatSigned(
+                row.epa
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.epaPerPlay, 3)}
+                  ${formatSigned(
+                row.epaPerPlay,
+                3
+              )}
                 </td>
 
                 <td>
-                  ${formatSigned(row.passingEpa)}
+                  ${formatSigned(
+                row.passingEpa
+              )}
                 </td>
 
                 <td>
@@ -2176,20 +2580,28 @@
               </tr>
             `;
 
-          })
-          .join("");
+            })
+            .join("");
+
+
+        enhanceQBPlayerLinks();
 
       }
 
 
+      /* =========================================
+         LOAD EPA DATA
+      ========================================= */
+
       try {
 
-        const response = await fetch(
-          `${DATA_URL}?v=${Date.now()}`,
-          {
-            cache: "no-store"
-          }
-        );
+        const response =
+          await fetch(
+            `${DATA_URL}?v=${Date.now()}`,
+            {
+              cache: "no-store"
+            }
+          );
 
 
         if (!response.ok) {
@@ -2203,23 +2615,6 @@
 
         const data =
           await response.json();
-
-
-        /*
-         * ACTUAL PlayMaker EPA DATA STRUCTURE
-         *
-         * teams:
-         *   all
-         *   offensive
-         *   offensiveEfficiency
-         *   defensive
-         *   defensiveEfficiency
-         *
-         * quarterbacks:
-         *   all
-         *   byTotalEpa
-         *   byEpaPerPlay
-         */
 
 
         const teams =
@@ -2246,6 +2641,10 @@
 
         renderQBTable(quarterbacks);
 
+
+        /* =========================================
+           UPDATED / STATUS
+        ========================================= */
 
         const generatedAt =
           data.generatedAt || null;
@@ -2348,7 +2747,6 @@
       }
 
     });
-
   </script>
 
 

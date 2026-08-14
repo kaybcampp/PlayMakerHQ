@@ -1305,6 +1305,22 @@ footer {
     }
 }
 
+.epa-team-link,
+.epa-player-link {
+    color: #f4f7fb;
+    text-decoration: none;
+    transition: color 0.18s ease;
+}
+
+.epa-team-link:hover,
+.epa-player-link:hover {
+    color: #66ff99;
+}
+
+.epa-player-link {
+    font-weight: 700;
+}
+
 /* =========================
    RESPONSIVE
    ========================= */
