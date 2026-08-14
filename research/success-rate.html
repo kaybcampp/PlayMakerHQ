@@ -7,11 +7,14 @@
 
   <title>What is Success Rate? NFL Consistency Metric Explained | PlayMaker Research</title>
 
-  <meta name="description"
-    content="Learn what Success Rate means in NFL analytics, why it matters for consistency, and how PlayMaker uses it to evaluate stable player and team performance." />
+  <meta
+    name="description"
+    content="Learn what Success Rate means in NFL analytics, view NFL team and quarterback Success Rate leaders, and understand how PlayMaker uses consistency to evaluate player props."
+  />
 
   <link rel="stylesheet" href="/assets/css/research.css" />
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 </head>
 
 <body>
@@ -19,7 +22,10 @@
   <!-- ENTITY NAVIGATION -->
   <div id="entity-links"></div>
 
-  <!-- HERO -->
+  <!-- =========================================
+       HERO
+  ========================================== -->
+
   <section class="research-hero">
 
     <div class="hero-glow"></div>
@@ -30,7 +36,9 @@
         ← Back to Research
       </a>
 
-      <span class="hq-pill">NFL Consistency Metrics</span>
+      <span class="hq-pill">
+        NFL Consistency Metrics
+      </span>
 
       <h2>
         What is Success Rate?
@@ -38,211 +46,756 @@
       </h2>
 
       <p>
-        Success Rate measures how often a player or offense produces positive, efficient plays. It is a key indicator of
-        stability in NFL performance.
+        Success Rate measures how consistently an offense or player
+        produces efficient plays. It helps separate stable production
+        from performance driven primarily by occasional explosive plays.
       </p>
+
+      <div class="research-meta">
+        <span id="success-rate-updated">
+          Loading Success Rate data...
+        </span>
+      </div>
 
     </div>
 
   </section>
 
+
   <main>
 
-    <!-- DEFINITION -->
+    <!-- =========================================
+         LIVE SUCCESS RATE LEADERS
+    ========================================== -->
+
     <section class="hq-section">
+
       <div class="section-header">
-        <h3>Success Rate Definition</h3>
-        <p>Understanding consistency over volatility.</p>
+
+        <h3>
+          Success Rate Leaders
+        </h3>
+
+        <p>
+          PlayMaker Success Rate leaderboards generated from
+          nflverse play-by-play data.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
-        <span>Definition</span>
-        <h3>
-          Success Rate = percentage of plays that achieve positive expected value.
+
+        <span>
+          PlayMaker Data
+        </span>
+
+        <h3 id="success-rate-title">
+          Success Rate Leaders
         </h3>
-        <p>
-          A play is considered “successful” if it gains meaningful yards relative to down and distance.
+
+        <p id="success-rate-status">
+          Loading current Success Rate research data...
         </p>
+
       </div>
+
     </section>
 
-    <!-- WHY IT MATTERS -->
+
+    <!-- =========================================
+         TEAM SUCCESS RATE
+    ========================================== -->
+
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>Why Success Rate Matters for Props</h3>
-        <p>Consistency is often more important than explosive games.</p>
+
+        <h3>
+          Team Success Rate Leaders
+        </h3>
+
+        <p>
+          NFL offenses ranked by Success Rate across qualifying
+          offensive plays.
+        </p>
+
       </div>
 
-      <div class="stack-grid">
-        <div class="stack-card">
-          <span>01</span>
-          <h4>Stability Indicator</h4>
-          <p>High success rate players are more predictable week to week.</p>
-        </div>
-        <div class="stack-card">
-          <span>02</span>
-          <h4>Reduces Volatility Risk</h4>
-          <p>Helps identify players less dependent on big plays.</p>
-        </div>
-        <div class="stack-card">
-          <span>03</span>
-          <h4>Drive Sustainability</h4>
-          <p>Offenses with high success rate sustain longer drives.</p>
-        </div>
-        <div class="stack-card">
-          <span>04</span>
-          <h4>Prop Safety Signal</h4>
-          <p>Strong success rate = safer baseline for overs/unders.</p>
-        </div>
+      <div class="research-table-wrap">
+
+        <table class="research-table">
+
+          <thead>
+
+            <tr>
+              <th>Rank</th>
+              <th>Team</th>
+              <th>Success Rate</th>
+              <th>Successful Plays</th>
+              <th>Total Plays</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="team-success-rate-leaders">
+
+            <tr>
+              <td colspan="5">
+                Loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
       </div>
+
     </section>
 
-    <!-- EXAMPLE -->
+
+    <!-- =========================================
+         PASSING SUCCESS RATE
+    ========================================== -->
+
     <section class="hq-section">
+
       <div class="section-header">
-        <h3>Real NFL Example</h3>
-        <p>Why success rate matters more than highlight plays.</p>
+
+        <h3>
+          Passing Success Rate Leaders
+        </h3>
+
+        <p>
+          NFL offenses ranked by consistency on qualifying passing plays.
+        </p>
+
+      </div>
+
+      <div class="research-table-wrap">
+
+        <table class="research-table">
+
+          <thead>
+
+            <tr>
+              <th>Rank</th>
+              <th>Team</th>
+              <th>Success Rate</th>
+              <th>Successful Plays</th>
+              <th>Total Plays</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="passing-success-rate-leaders">
+
+            <tr>
+              <td colspan="5">
+                Loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RUSHING SUCCESS RATE
+    ========================================== -->
+
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Rushing Success Rate Leaders
+        </h3>
+
+        <p>
+          NFL offenses ranked by consistency on qualifying rushing plays.
+        </p>
+
+      </div>
+
+      <div class="research-table-wrap">
+
+        <table class="research-table">
+
+          <thead>
+
+            <tr>
+              <th>Rank</th>
+              <th>Team</th>
+              <th>Success Rate</th>
+              <th>Successful Plays</th>
+              <th>Total Plays</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="rushing-success-rate-leaders">
+
+            <tr>
+              <td colspan="5">
+                Loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         QUARTERBACK SUCCESS RATE
+    ========================================== -->
+
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          Quarterback Success Rate Leaders
+        </h3>
+
+        <p>
+          Quarterbacks ranked by the consistency of their qualifying
+          passing plays.
+        </p>
+
+      </div>
+
+      <div class="research-table-wrap">
+
+        <table class="research-table">
+
+          <thead>
+
+            <tr>
+              <th>Rank</th>
+              <th>Quarterback</th>
+              <th>Team</th>
+              <th>Success Rate</th>
+              <th>Successful Plays</th>
+              <th>Total Plays</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="qb-success-rate-leaders">
+
+            <tr>
+              <td colspan="6">
+                Loading...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         DEFINITION
+    ========================================== -->
+
+    <section class="hq-section hq-section-alt">
+
+      <div class="section-header">
+
+        <h3>
+          Success Rate Definition
+        </h3>
+
+        <p>
+          Understanding consistency over volatility.
+        </p>
+
       </div>
 
       <div class="research-highlight-card">
-        <span>Example</span>
+
+        <span>
+          Definition
+        </span>
+
         <h3>
-          Player with 65% Success Rate vs 45% Success Rate
+          Success Rate measures the percentage of qualifying plays
+          that meet the expected efficiency threshold for the situation.
         </h3>
+
         <p>
-          The higher success rate player consistently produces efficient plays, even if they don’t always have explosive
-          performances.
+          Unlike raw yardage, Success Rate focuses on how consistently
+          an offense creates useful outcomes across individual plays.
         </p>
+
       </div>
+
     </section>
 
-    <!-- INTERNAL LINKING SYSTEM -->
-    <div id="entity-links"></div>
-    <script src="/assets/js/entity-link-engine.js"></script>
 
-    <!-- HOW PLAYMAKER USES IT -->
-    <section class="hq-section hq-section-alt">
+    <!-- =========================================
+         WHY IT MATTERS
+    ========================================== -->
+
+    <section class="hq-section">
 
       <div class="section-header">
-        <h3>How PlayMaker Uses Success Rate</h3>
-        <p>This metric helps stabilize projections across all prop models.</p>
+
+        <h3>
+          Why Success Rate Matters for Props
+        </h3>
+
+        <p>
+          Consistency is often more important than isolated explosive games.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
+
           <span>01</span>
-          <h4>Baseline Stability</h4>
-          <p>Establishes consistent expected production levels.</p>
+
+          <h4>
+            Stability Indicator
+          </h4>
+
+          <p>
+            High Success Rate can indicate a more consistent offensive
+            baseline instead of production dependent on isolated big plays.
+          </p>
+
         </div>
 
         <div class="stack-card">
+
           <span>02</span>
-          <h4>Variance Control</h4>
-          <p>Reduces overreaction to single-game spikes.</p>
+
+          <h4>
+            Volatility Context
+          </h4>
+
+          <p>
+            Success Rate helps distinguish steady production from
+            performance driven primarily by explosive plays.
+          </p>
+
         </div>
 
         <div class="stack-card">
+
           <span>03</span>
-          <h4>Matchup Adjustment</h4>
-          <p>Helps determine if efficiency holds vs strong defenses.</p>
+
+          <h4>
+            Drive Sustainability
+          </h4>
+
+          <p>
+            Efficient plays can help offenses maintain possession
+            and sustain drives.
+          </p>
+
         </div>
 
         <div class="stack-card">
+
           <span>04</span>
-          <h4>Prop Confidence Layer</h4>
-          <p>Used to decide safe vs high-risk prop positions.</p>
+
+          <h4>
+            Prop Signal
+          </h4>
+
+          <p>
+            Success Rate provides another consistency layer when
+            evaluating player and team prop environments.
+          </p>
+
         </div>
 
       </div>
 
     </section>
 
+
+    <!-- =========================================
+         EXAMPLE
+    ========================================== -->
+
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>How Success Rate Connects in PlayMaker</h3>
-        <p>Measures efficiency and consistency across all offensive plays.</p>
+
+        <h3>
+          Real NFL Example
+        </h3>
+
+        <p>
+          Why consistency matters beyond highlight plays.
+        </p>
+
+      </div>
+
+      <div class="research-highlight-card">
+
+        <span>
+          Example
+        </span>
+
+        <h3>
+          Player with a 65% Success Rate vs. Player with a 45% Success Rate
+        </h3>
+
+        <p>
+          The higher Success Rate player has produced efficient outcomes
+          on a greater percentage of qualifying plays, providing useful
+          context when evaluating baseline consistency.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         HOW PLAYMAKER USES SUCCESS RATE
+    ========================================== -->
+
+    <section class="hq-section">
+
+      <div class="section-header">
+
+        <h3>
+          How PlayMaker Uses Success Rate
+        </h3>
+
+        <p>
+          Success Rate provides an additional consistency layer
+          across PlayMaker's research models.
+        </p>
+
       </div>
 
       <div class="stack-grid">
 
         <div class="stack-card">
-          <h4>Efficiency Modeling</h4>
-          <p>Core input for projecting consistent offensive production.</p>
-          <a href="/players.html">View Players →</a>
+
+          <span>01</span>
+
+          <h4>
+            Baseline Stability
+          </h4>
+
+          <p>
+            Helps establish whether production is supported by
+            repeatable efficient plays.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Stat Foundation</h4>
-          <p>Works alongside EPA and YPRR for performance evaluation.</p>
-          <a href="/research/stat-guides.html">View Stats →</a>
+
+          <span>02</span>
+
+          <h4>
+            Variance Control
+          </h4>
+
+          <p>
+            Adds context when recent production has been influenced
+            by unusually large plays.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>Defensive Matchups</h4>
-          <p>Efficiency drops against high pressure or elite coverage units.</p>
-          <a href="/matchups.html">View Matchups →</a>
+
+          <span>03</span>
+
+          <h4>
+            Matchup Adjustment
+          </h4>
+
+          <p>
+            Helps evaluate whether offensive efficiency is likely
+            to hold against a particular defensive environment.
+          </p>
+
         </div>
 
         <div class="stack-card">
-          <h4>PlayMaker Academy</h4>
-          <p>Learn how consistency is weighted in projections.</p>
-          <a href="/research/academy.html">Learn More →</a>
+
+          <span>04</span>
+
+          <h4>
+            Prop Confidence Layer
+          </h4>
+
+          <p>
+            Provides another signal when evaluating the stability
+            of an expected prop outcome.
+          </p>
+
         </div>
 
       </div>
+
     </section>
 
+
+    <!-- =========================================
+         CONNECTIONS
+    ========================================== -->
+
     <section class="hq-section hq-section-alt">
+
       <div class="section-header">
-        <h3>Top Players for Reference</h3>
-        <p>Click to view individual player pages and related prop analytics.</p>
+
+        <h3>
+          How Success Rate Connects in PlayMaker
+        </h3>
+
+        <p>
+          Success Rate works alongside other efficiency and matchup metrics.
+        </p>
+
       </div>
 
       <div class="stack-grid">
+
         <div class="stack-card">
-          <img src="/assets/images/players/josh-allen.png" alt="Josh Allen Headshot" class="player-headshot">
-          <h4>Josh Allen</h4>
-          <a href="/players/josh-allen">View Player →</a>
+
+          <h4>
+            EPA
+          </h4>
+
+          <p>
+            Success Rate measures consistency while EPA measures
+            expected-points value generated by plays.
+          </p>
+
+          <a href="/research/epa.html">
+            View EPA →
+          </a>
+
         </div>
+
         <div class="stack-card">
-          <img src="/assets/images/players/cee-dee-lamb.png" alt="CeeDee Lamb Headshot" class="player-headshot">
-          <h4>CeeDee Lamb</h4>
-          <a href="/players/cee-dee-lamb">View Player →</a>
+
+          <h4>
+            Player Intelligence
+          </h4>
+
+          <p>
+            Use player trends and historical production to put
+            consistency metrics into individual-player context.
+          </p>
+
+          <a href="/players.html">
+            View Players →
+          </a>
+
         </div>
+
         <div class="stack-card">
-          <img src="/assets/images/players/christian-mccaffrey.png" alt="Christian McCaffrey Headshot"
-            class="player-headshot">
-          <h4>Christian McCaffrey</h4>
-          <a href="/players/christian-mccaffrey">View Player →</a>
+
+          <h4>
+            Defensive Matchups
+          </h4>
+
+          <p>
+            Offensive consistency can change depending on the
+            quality and style of the opposing defense.
+          </p>
+
+          <a href="/matchups.html">
+            View Matchups →
+          </a>
+
         </div>
+
+        <div class="stack-card">
+
+          <h4>
+            PlayMaker Academy
+          </h4>
+
+          <p>
+            Learn how PlayMaker combines consistency, efficiency,
+            matchup context, and player trends.
+          </p>
+
+          <a href="/research/academy.html">
+            Learn More →
+          </a>
+
+        </div>
+
       </div>
+
     </section>
 
-    <!-- CTA -->
+
+    <!-- =========================================
+         TOP PLAYERS
+    ========================================== -->
+
+    <!-- =========================================
+     TOP PLAYERS
+========================================= -->
+
+<section class="hq-section">
+
+  <div class="section-header">
+
+    <h3>
+      Top Players for Reference
+    </h3>
+
+    <p>
+      Click to view individual player pages and related prop analytics.
+    </p>
+
+  </div>
+
+  <div class="success-reference-grid">
+
+    <div class="success-reference-card">
+
+      <div class="success-reference-avatar">
+        JA
+      </div>
+
+      <h4>
+        Josh Allen
+      </h4>
+
+      <a href="/players/josh-allen">
+        View Player →
+      </a>
+
+    </div>
+
+
+    <div class="success-reference-card">
+
+      <div class="success-reference-avatar">
+        CL
+      </div>
+
+      <h4>
+        CeeDee Lamb
+      </h4>
+
+      <a href="/players/cee-dee-lamb">
+        View Player →
+      </a>
+
+    </div>
+
+
+    <div class="success-reference-card">
+
+      <div class="success-reference-avatar">
+        CM
+      </div>
+
+      <h4>
+        Christian McCaffrey
+      </h4>
+
+      <a href="/players/christian-mccaffrey">
+        View Player →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+    <!-- =========================================
+         CTA
+    ========================================== -->
+
     <section class="hq-section">
 
       <div class="final-cta">
-        <h3>Now apply it</h3>
-        <p>See how Success Rate impacts real player and team projections.</p>
-        <a href="/matchups.html" class="btn-primary">View Matchups</a>
+
+        <h3>
+          Now apply it
+        </h3>
+
+        <p>
+          See how Success Rate connects with player trends,
+          matchups, EPA, and PlayMaker projections.
+        </p>
+
+        <a
+          href="/matchups.html"
+          class="btn-primary"
+        >
+          View Matchups
+        </a>
+
       </div>
 
     </section>
 
   </main>
 
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+
   <footer>
 
     <div class="footer-links">
 
-      <a href="/">Home</a>
-      <a href="/players.html">Players</a>
-      <a href="/teams.html">Teams</a>
-      <a href="/matchups.html">Matchups</a>
-      <a href="/research.html">Research</a>
-      <a href="/results.html">Results</a>
-      <a href="/pricing.html">PlayMaker Pro</a>
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/players.html">
+        Players
+      </a>
+
+      <a href="/teams.html">
+        Teams
+      </a>
+
+      <a href="/matchups.html">
+        Matchups
+      </a>
+
+      <a href="/research.html">
+        Research
+      </a>
+
+      <a href="/results.html">
+        Results
+      </a>
+
+      <a href="/pricing.html">
+        PlayMaker Pro
+      </a>
 
     </div>
 
@@ -259,25 +812,988 @@
 
   </footer>
 
+
   <script src="/assets/js/analytics-tracker.js"></script>
 
+
+  <!-- =========================================
+       SUCCESS RATE DATA ENGINE
+  ========================================== -->
+
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
+    document.addEventListener("DOMContentLoaded", async () => {
 
-        if (index === 0) {
-          section.classList.add("is-open");
+      const DATA_URL = "/assets/data/success-rate.json";
+
+      const teamTable =
+        document.getElementById("team-success-rate-leaders");
+
+      const passingTable =
+        document.getElementById("passing-success-rate-leaders");
+
+      const rushingTable =
+        document.getElementById("rushing-success-rate-leaders");
+
+      const qbTable =
+        document.getElementById("qb-success-rate-leaders");
+
+      const updatedEl =
+        document.getElementById("success-rate-updated");
+
+      const statusEl =
+        document.getElementById("success-rate-status");
+
+
+      /* =====================================
+         TEAM NAME RESOLUTION
+      ===================================== */
+
+      const TEAM_NAMES = {
+
+        ARI: "Arizona Cardinals",
+        ATL: "Atlanta Falcons",
+        BAL: "Baltimore Ravens",
+        BUF: "Buffalo Bills",
+        CAR: "Carolina Panthers",
+        CHI: "Chicago Bears",
+        CIN: "Cincinnati Bengals",
+        CLE: "Cleveland Browns",
+        DAL: "Dallas Cowboys",
+        DEN: "Denver Broncos",
+        DET: "Detroit Lions",
+        GB: "Green Bay Packers",
+        HOU: "Houston Texans",
+        IND: "Indianapolis Colts",
+        JAX: "Jacksonville Jaguars",
+        KC: "Kansas City Chiefs",
+        LV: "Las Vegas Raiders",
+        LAC: "Los Angeles Chargers",
+        LAR: "Los Angeles Rams",
+        LA: "Los Angeles Rams",
+        MIA: "Miami Dolphins",
+        MIN: "Minnesota Vikings",
+        NE: "New England Patriots",
+        NO: "New Orleans Saints",
+        NYG: "New York Giants",
+        NYJ: "New York Jets",
+        PHI: "Philadelphia Eagles",
+        PIT: "Pittsburgh Steelers",
+        SF: "San Francisco 49ers",
+        SEA: "Seattle Seahawks",
+        TB: "Tampa Bay Buccaneers",
+        TEN: "Tennessee Titans",
+        WSH: "Washington Commanders",
+        WAS: "Washington Commanders"
+
+      };
+
+
+      function getTeamName(team) {
+
+        const code =
+          String(team || "")
+            .trim()
+            .toUpperCase();
+
+        return TEAM_NAMES[code] || code || "—";
+
+      }
+
+
+      /* =====================================
+         CANONICAL SLUGS
+      ===================================== */
+
+      function slugify(value) {
+
+        return String(value || "")
+          .toLowerCase()
+          .replace(/[.'’]/g, "")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-");
+
+      }
+
+
+      /* =====================================
+         TEAM LINK
+      ===================================== */
+
+      function renderTeamLink(team) {
+
+        const name = getTeamName(team);
+
+        if (!name || name === "—") {
+          return "—";
         }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
-        });
-      });
+        return `
+          <a
+            href="/teams/${slugify(name)}"
+            class="success-rate-team-link"
+          >
+            ${name}
+          </a>
+        `;
+
+      }
+
+
+      /* =====================================
+         PLAYER DATA
+      ===================================== */
+
+      const playerCache = new Map();
+
+
+      function normalizePlayerName(value) {
+
+        return String(value || "")
+          .toLowerCase()
+          .replace(/[.'’]/g, "")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim();
+
+      }
+
+
+      function abbreviationMatchesPlayer(
+        abbreviation,
+        fullName
+      ) {
+
+        if (!abbreviation || !fullName) {
+          return false;
+        }
+
+        const cleanAbbreviation =
+          String(abbreviation)
+            .replace(/[.'’]/g, "")
+            .replace(/\s+/g, "")
+            .toLowerCase();
+
+        const parts =
+          String(fullName)
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+        if (parts.length < 2) {
+          return false;
+        }
+
+        const first =
+          parts[0]
+            .replace(/[^a-z]/gi, "")
+            .toLowerCase();
+
+        const last =
+          parts[parts.length - 1]
+            .replace(/[^a-z]/gi, "")
+            .toLowerCase();
+
+        if (!first || !last) {
+          return false;
+        }
+
+        return (
+          `${first.charAt(0)}${last}` ===
+          cleanAbbreviation
+        );
+
+      }
+
+
+      async function resolvePlayerUrl(
+        playerName,
+        team
+      ) {
+
+        if (!playerName) {
+          return null;
+        }
+
+        const teamCode =
+          String(team || "")
+            .trim()
+            .toUpperCase();
+
+        const cacheKey =
+          `${teamCode}:${playerName}`;
+
+        if (playerCache.has(cacheKey)) {
+          return playerCache.get(cacheKey);
+        }
+
+
+        /*
+         * The Success Rate dataset can contain
+         * abbreviated player names such as:
+         *
+         * B.Purdy
+         *
+         * The actual player files contain
+         * canonical names.
+         */
+
+        const possibleTeams = [];
+
+        if (teamCode) {
+          possibleTeams.push(teamCode);
+        }
+
+        /*
+         * LA is the Success Rate data identifier
+         * for the Rams.
+         */
+
+        if (
+          teamCode === "LA" &&
+          !possibleTeams.includes("LAR")
+        ) {
+          possibleTeams.push("LAR");
+        }
+
+
+        for (const lookupTeam of possibleTeams) {
+
+          try {
+
+            const response =
+              await fetch(
+                `/assets/data/players/players-${lookupTeam}.json`,
+                {
+                  cache: "no-store"
+                }
+              );
+
+            if (!response.ok) {
+              continue;
+            }
+
+            const players =
+              await response.json();
+
+            if (!Array.isArray(players)) {
+              continue;
+            }
+
+
+            const normalizedTarget =
+              normalizePlayerName(playerName);
+
+
+            const player =
+              players.find(candidate => {
+
+                const candidateName =
+                  String(
+                    candidate?.name ||
+                    candidate?.fullName ||
+                    ""
+                  ).trim();
+
+                if (!candidateName) {
+                  return false;
+                }
+
+                const normalizedCandidate =
+                  normalizePlayerName(candidateName);
+
+
+                if (
+                  normalizedCandidate ===
+                  normalizedTarget
+                ) {
+                  return true;
+                }
+
+
+                return abbreviationMatchesPlayer(
+                  playerName,
+                  candidateName
+                );
+
+              });
+
+
+            if (!player) {
+              continue;
+            }
+
+
+            const canonicalName =
+              String(
+                player.name ||
+                player.fullName ||
+                ""
+              ).trim();
+
+
+            if (!canonicalName) {
+              continue;
+            }
+
+
+            const slug =
+              slugify(canonicalName);
+
+
+            if (!slug) {
+              continue;
+            }
+
+
+            const url =
+              `/players/${slug}`;
+
+
+            playerCache.set(
+              cacheKey,
+              url
+            );
+
+
+            return url;
+
+          } catch (error) {
+
+            console.warn(
+              "Success Rate player lookup failed:",
+              lookupTeam,
+              error
+            );
+
+          }
+
+        }
+
+
+        playerCache.set(
+          cacheKey,
+          null
+        );
+
+        return null;
+
+      }
+
+
+      async function enhancePlayerLinks() {
+
+        const cells =
+          qbTable.querySelectorAll(
+            "[data-success-player]"
+          );
+
+        await Promise.all(
+
+          Array.from(cells).map(
+            async cell => {
+
+              const player =
+                cell.dataset.successPlayer;
+
+              const team =
+                cell.dataset.successTeam;
+
+              const url =
+                await resolvePlayerUrl(
+                  player,
+                  team
+                );
+
+              if (!url) {
+                return;
+              }
+
+              cell.innerHTML = `
+                <a
+                  href="${url}"
+                  class="success-rate-player-link"
+                >
+                  ${player}
+                </a>
+              `;
+
+            }
+          )
+
+        );
+
+      }
+
+
+      /* =====================================
+         FORMATTERS
+      ===================================== */
+
+      function formatRate(value) {
+
+        if (
+          value === null ||
+          value === undefined ||
+          value === ""
+        ) {
+          return "—";
+        }
+
+        const number =
+          Number(value);
+
+        if (!Number.isFinite(number)) {
+          return "—";
+        }
+
+        const percentage =
+          number <= 1
+            ? number * 100
+            : number;
+
+        return `${percentage.toFixed(1)}%`;
+
+      }
+
+
+      function formatNumber(value) {
+
+        if (
+          value === null ||
+          value === undefined ||
+          value === ""
+        ) {
+          return "—";
+        }
+
+        const number =
+          Number(value);
+
+        return Number.isFinite(number)
+          ? number.toLocaleString()
+          : "—";
+
+      }
+
+
+      function formatDate(value) {
+
+        if (!value) {
+          return null;
+        }
+
+        const date =
+          new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+          return null;
+        }
+
+        return date.toLocaleDateString(
+          "en-US",
+          {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+          }
+        );
+
+      }
+
+
+      function message(
+        element,
+        text,
+        colspan
+      ) {
+
+        element.innerHTML = `
+          <tr>
+            <td colspan="${colspan}">
+              ${text}
+            </td>
+          </tr>
+        `;
+
+      }
+
+
+      /* =====================================
+         TEAM TABLE
+      ===================================== */
+
+      function renderTeamTable(rows) {
+
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
+
+          message(
+            teamTable,
+            "No team Success Rate data available.",
+            5
+          );
+
+          return;
+
+        }
+
+
+        teamTable.innerHTML =
+          rows
+            .slice(0, 32)
+            .map(
+              (row, index) => `
+
+                <tr>
+
+                  <td>
+                    ${row.rank || index + 1}
+                  </td>
+
+                  <td>
+                    ${renderTeamLink(row.team)}
+                  </td>
+
+                  <td>
+                    ${formatRate(row.successRate)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.successfulPlays)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.totalPlays)}
+                  </td>
+
+                </tr>
+
+              `
+            )
+            .join("");
+
+      }
+
+
+      /* =====================================
+         PASSING TABLE
+      ===================================== */
+
+      function renderPassingTable(rows) {
+
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
+
+          message(
+            passingTable,
+            "No passing Success Rate data available.",
+            5
+          );
+
+          return;
+
+        }
+
+
+        passingTable.innerHTML =
+          rows
+            .slice(0, 32)
+            .map(
+              (row, index) => `
+
+                <tr>
+
+                  <td>
+                    ${row.rank || index + 1}
+                  </td>
+
+                  <td>
+                    ${renderTeamLink(row.team)}
+                  </td>
+
+                  <td>
+                    ${formatRate(row.successRate)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.successfulPlays)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.totalPlays)}
+                  </td>
+
+                </tr>
+
+              `
+            )
+            .join("");
+
+      }
+
+
+      /* =====================================
+         RUSHING TABLE
+      ===================================== */
+
+      function renderRushingTable(rows) {
+
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
+
+          message(
+            rushingTable,
+            "No rushing Success Rate data available.",
+            5
+          );
+
+          return;
+
+        }
+
+
+        rushingTable.innerHTML =
+          rows
+            .slice(0, 32)
+            .map(
+              (row, index) => `
+
+                <tr>
+
+                  <td>
+                    ${row.rank || index + 1}
+                  </td>
+
+                  <td>
+                    ${renderTeamLink(row.team)}
+                  </td>
+
+                  <td>
+                    ${formatRate(row.successRate)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.successfulPlays)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.totalPlays)}
+                  </td>
+
+                </tr>
+
+              `
+            )
+            .join("");
+
+      }
+
+
+      /* =====================================
+         QB TABLE
+      ===================================== */
+
+      function renderQBTable(rows) {
+
+        if (
+          !Array.isArray(rows) ||
+          !rows.length
+        ) {
+
+          message(
+            qbTable,
+            "No quarterback Success Rate data available.",
+            6
+          );
+
+          return;
+
+        }
+
+
+        qbTable.innerHTML =
+          rows
+            .slice(0, 25)
+            .map(
+              (row, index) => `
+
+                <tr>
+
+                  <td>
+                    ${row.rank || index + 1}
+                  </td>
+
+                  <td
+                    data-success-player="${row.player || ""}"
+                    data-success-team="${row.team || ""}"
+                  >
+                    ${row.player || "—"}
+                  </td>
+
+                  <td>
+                    ${renderTeamLink(row.team)}
+                  </td>
+
+                  <td>
+                    ${formatRate(row.successRate)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.successfulPlays)}
+                  </td>
+
+                  <td>
+                    ${formatNumber(row.totalPlays)}
+                  </td>
+
+                </tr>
+
+              `
+            )
+            .join("");
+
+      }
+
+
+      /* =====================================
+         LOAD DATA
+      ===================================== */
+
+      try {
+
+        const response =
+          await fetch(
+            `${DATA_URL}?v=${Date.now()}`,
+            {
+              cache: "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            `Success Rate request failed: ${response.status}`
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        /*
+         * Current Success Rate dataset structure:
+         *
+         * data.teams.all
+         * data.teams.passing
+         * data.teams.rushing
+         * data.leaders.quarterback
+         *
+         * The QB leaderboard may also be exposed as
+         * data.quarterbacks.bySuccessRate depending
+         * on the generated dataset.
+         */
+
+        const teams =
+          Array.isArray(data.teams?.all)
+            ? data.teams.all
+            : [];
+
+        const passing =
+          Array.isArray(data.teams?.passing)
+            ? data.teams.passing
+            : [];
+
+        const rushing =
+          Array.isArray(data.teams?.rushing)
+            ? data.teams.rushing
+            : [];
+
+        const quarterbacks =
+          Array.isArray(
+            data.quarterbacks?.bySuccessRate
+          )
+            ? data.quarterbacks.bySuccessRate
+            : (
+                Array.isArray(data.quarterbacks)
+                  ? data.quarterbacks
+                  : (
+                      data.leaders?.quarterback
+                        ? [data.leaders.quarterback]
+                        : []
+                    )
+              );
+
+
+        renderTeamTable(teams);
+
+        renderPassingTable(passing);
+
+        renderRushingTable(rushing);
+
+        renderQBTable(quarterbacks);
+
+
+        /*
+         * Resolve canonical player links
+         * after the QB table has been rendered.
+         */
+
+        await enhancePlayerLinks();
+
+
+        /* ===================================
+           META
+        =================================== */
+
+        const season =
+          data.season || 2026;
+
+        const sourceSeason =
+          data.sourceSeason || null;
+
+        const generatedAt =
+          data.generatedAt || null;
+
+        const formattedDate =
+          formatDate(generatedAt);
+
+
+        updatedEl.textContent =
+          formattedDate
+            ? `Updated ${formattedDate}`
+            : `${season} Success Rate Leaders`;
+
+
+        if (sourceSeason) {
+
+          statusEl.textContent =
+            `${season} Success Rate research using ${sourceSeason} regular-season nflverse play-by-play as the current baseline.`;
+
+        } else {
+
+          statusEl.textContent =
+            `${season} Success Rate research data generated from PlayMaker's research dataset.`;
+
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          "Success Rate leaderboard failed:",
+          error
+        );
+
+
+        message(
+          teamTable,
+          "Success Rate data is temporarily unavailable.",
+          5
+        );
+
+        message(
+          passingTable,
+          "Success Rate data is temporarily unavailable.",
+          5
+        );
+
+        message(
+          rushingTable,
+          "Success Rate data is temporarily unavailable.",
+          5
+        );
+
+        message(
+          qbTable,
+          "Success Rate data is temporarily unavailable.",
+          6
+        );
+
+
+        updatedEl.textContent =
+          "Success Rate Leaders";
+
+
+        statusEl.textContent =
+          "Current Success Rate data is temporarily unavailable while the research dataset is refreshed.";
+
+      }
+
     });
+
+  </script>
+
+
+  <!-- =========================================
+       MOBILE ACCORDION
+  ========================================== -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        if (
+          !window.matchMedia(
+            "(max-width: 768px)"
+          ).matches
+        ) {
+          return;
+        }
+
+
+        document
+          .querySelectorAll(".hq-section")
+          .forEach(
+            (section, index) => {
+
+              const header =
+                section.querySelector(
+                  ":scope > .section-header"
+                );
+
+              if (!header) {
+                return;
+              }
+
+
+              if (index === 0) {
+
+                section.classList.add(
+                  "is-open"
+                );
+
+              }
+
+
+              header.addEventListener(
+                "click",
+                () => {
+
+                  section.classList.toggle(
+                    "is-open"
+                  );
+
+                }
+              );
+
+            }
+          );
+
+      }
+    );
+
   </script>
 
 </body>

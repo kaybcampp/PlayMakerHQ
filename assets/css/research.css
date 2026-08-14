@@ -1321,6 +1321,310 @@ footer {
     font-weight: 700;
 }
 
+/* =========================================
+   RESEARCH META / LAST UPDATED
+========================================= */
+
+.research-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.research-meta span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 14px;
+
+    border: 1px solid rgba(102, 255, 153, 0.22);
+    border-radius: 999px;
+
+    background: rgba(102, 255, 153, 0.06);
+
+    color: #aebbd2;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    box-shadow:
+        0 0 18px rgba(102, 255, 153, 0.04);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   RESEARCH TABLE
+========================================= */
+
+.research-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+
+    border: 1px solid rgba(102, 255, 153, 0.14);
+    border-radius: 16px;
+
+    background: rgba(11, 17, 30, 0.72);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.18);
+
+    scrollbar-width: thin;
+}
+
+.research-table {
+    width: 100%;
+    min-width: 700px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    color: #dce6f7;
+
+    font-size: 14px;
+}
+
+
+/* HEADER */
+
+.research-table thead th {
+    padding: 16px 18px;
+
+    background: rgba(20, 29, 47, 0.95);
+
+    border-bottom: 1px solid rgba(102, 255, 153, 0.18);
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* BODY */
+
+.research-table tbody td {
+    padding: 15px 18px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+    color: #d5deee;
+
+    vertical-align: middle;
+}
+
+
+/* REMOVE LAST BORDER */
+
+.research-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ROW HOVER */
+
+.research-table tbody tr {
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+.research-table tbody tr:hover {
+    background: rgba(102, 255, 153, 0.035);
+}
+
+
+/* RANK */
+
+.research-table tbody td:first-child {
+    width: 70px;
+
+    color: #9eabc1;
+
+    font-weight: 700;
+}
+
+
+/* IMPORTANT NUMBERS */
+
+.research-table tbody td:nth-child(3) {
+    color: #ffffff;
+
+    font-weight: 800;
+}
+
+
+/* =========================================
+   SUCCESS RATE LINKS
+========================================= */
+
+.success-rate-team-link,
+.success-rate-player-link {
+    color: #66ff99;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        color 0.18s ease,
+        opacity 0.18s ease;
+}
+
+.success-rate-team-link:hover,
+.success-rate-player-link:hover {
+    color: #9affbd;
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   TOP PLAYER REFERENCE CARDS
+========================================= */
+
+.success-reference-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-top: 26px;
+}
+
+.success-reference-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 190px;
+
+    padding: 22px;
+
+    border: 1px solid rgba(102, 255, 153, 0.14);
+    border-radius: 16px;
+
+    background: rgba(11, 17, 30, 0.72);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.14);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
+}
+
+.success-reference-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(102, 255, 153, 0.30);
+
+    background: rgba(14, 22, 38, 0.88);
+}
+
+.success-reference-card h4 {
+    margin: 0 0 10px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+}
+
+.success-reference-card a {
+    margin-top: auto;
+
+    color: #66ff99;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+.success-reference-card a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   PLAYER REFERENCE BADGE
+========================================= */
+
+.success-reference-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 54px;
+    height: 54px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(102, 255, 153, 0.18);
+    border-radius: 50%;
+
+    background: rgba(102, 255, 153, 0.07);
+
+    color: #66ff99;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    overflow: hidden;
+}
+
+.success-reference-avatar img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .research-meta {
+        margin-top: 14px;
+    }
+
+    .research-meta span {
+        font-size: 10px;
+        padding: 6px 11px;
+    }
+
+    .research-table {
+        min-width: 650px;
+    }
+
+    .research-table thead th,
+    .research-table tbody td {
+        padding: 12px 14px;
+    }
+
+    .success-reference-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
 /* =========================
    RESPONSIVE
    ========================= */
