@@ -1138,6 +1138,172 @@ footer {
     margin-top: auto;
 }
 
+/* =========================================
+   EPA LEADERBOARDS
+========================================= */
+
+.epa-table-wrap {
+    width: 100%;
+    margin-top: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 1px solid rgba(102, 255, 153, 0.14);
+    border-radius: 18px;
+    background: rgba(10, 16, 28, 0.82);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    -webkit-overflow-scrolling: touch;
+}
+
+.epa-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.epa-table thead {
+    background: rgba(102, 255, 153, 0.06);
+}
+
+.epa-table th {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #66ff99;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(102, 255, 153, 0.14);
+}
+
+.epa-table td {
+    padding: 15px 18px;
+    font-size: 0.92rem;
+    color: #d8e1ee;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+    vertical-align: middle;
+}
+
+.epa-table tbody tr {
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+.epa-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.epa-table tbody tr:hover {
+    background: rgba(102, 255, 153, 0.045);
+}
+
+.epa-table td:first-child,
+.epa-table th:first-child {
+    width: 60px;
+    text-align: center;
+    color: #8fa0b8;
+}
+
+.epa-table td strong {
+    display: inline-block;
+    color: #f4f7fb;
+    font-weight: 700;
+}
+
+.epa-team-code {
+    display: inline-block;
+    margin-left: 7px;
+    color: #728198;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+/* Positive / numeric EPA columns */
+.epa-table td:nth-child(n + 3) {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Highlight the primary EPA column */
+.epa-table tbody td:nth-child(3) {
+    color: #66ff99;
+    font-weight: 700;
+}
+
+/* =========================================
+   EPA LEADERBOARD SECTION HEADERS
+========================================= */
+
+.hq-section-alt .epa-table-wrap {
+    background: rgba(7, 12, 22, 0.9);
+}
+
+.hq-section .section-header+.epa-table-wrap,
+.hq-section .section-header~.epa-table-wrap {
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   EPA STATUS CARD
+========================================= */
+
+#epa-updated {
+    margin-bottom: 8px;
+}
+
+#epa-status {
+    color: #9eabc0;
+    line-height: 1.7;
+}
+
+/* =========================================
+   EPA TABLE MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .epa-table-wrap {
+        margin-top: 16px;
+        border-radius: 14px;
+    }
+
+    .epa-table {
+        min-width: 720px;
+    }
+
+    .epa-table th {
+        padding: 13px 14px;
+        font-size: 0.72rem;
+    }
+
+    .epa-table td {
+        padding: 13px 14px;
+        font-size: 0.86rem;
+    }
+
+    .epa-team-code {
+        margin-left: 5px;
+        font-size: 0.68rem;
+    }
+
+}
+
+.epa-subsection-header {
+    margin-top: 40px;
+}
+
+.epa-subsection-header:first-child {
+    margin-top: 0;
+}
+
+@media (max-width: 768px) {
+    .epa-subsection-header {
+        margin-top: 32px;
+    }
+}
 
 /* =========================
    RESPONSIVE
