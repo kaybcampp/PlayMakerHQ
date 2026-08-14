@@ -1625,6 +1625,298 @@ footer {
 
 }
 
+/* =========================================================
+   RESEARCH DATA META / LAST UPDATED
+========================================================= */
+
+.research-data-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.data-status-pill,
+.data-updated-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.data-status-pill {
+    border: 1px solid rgba(102, 255, 153, 0.35);
+    background: rgba(102, 255, 153, 0.08);
+    color: #66ff99;
+}
+
+.data-status-pill.baseline {
+    border-color: rgba(102, 255, 153, 0.35);
+    background: rgba(102, 255, 153, 0.08);
+    color: #66ff99;
+}
+
+.data-status-pill.live {
+    border-color: rgba(102, 255, 153, 0.45);
+    background: rgba(102, 255, 153, 0.1);
+    color: #66ff99;
+}
+
+.data-status-pill.error {
+    border-color: rgba(255, 100, 100, 0.4);
+    background: rgba(255, 100, 100, 0.08);
+    color: #ff8f8f;
+}
+
+.data-updated-pill {
+    border: 1px solid rgba(150, 170, 200, 0.2);
+    background: rgba(255, 255, 255, 0.025);
+    color: #aebbd0;
+}
+
+.data-updated-pill strong {
+    color: #e7edf7;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+
+/* =========================================================
+   PRESSURE RATE QB TABLE
+   Wide desktop layout — no horizontal scrolling
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#qb-pressure-rate-leaders .research-table {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+
+/* =========================================================
+   CELL BASE
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th,
+#qb-pressure-rate-leaders .research-table td {
+    padding: 14px 14px;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   COLUMN WIDTHS
+========================================================= */
+
+/* Rank */
+#qb-pressure-rate-leaders .research-table th:nth-child(1),
+#qb-pressure-rate-leaders .research-table td:nth-child(1) {
+    width: 8%;
+    text-align: left;
+}
+
+/* Quarterback */
+#qb-pressure-rate-leaders .research-table th:nth-child(2),
+#qb-pressure-rate-leaders .research-table td:nth-child(2) {
+    width: 24%;
+    text-align: left;
+}
+
+/* Team */
+#qb-pressure-rate-leaders .research-table th:nth-child(3),
+#qb-pressure-rate-leaders .research-table td:nth-child(3) {
+    width: 27%;
+    text-align: left;
+}
+
+/* Pressure Rate */
+#qb-pressure-rate-leaders .research-table th:nth-child(4),
+#qb-pressure-rate-leaders .research-table td:nth-child(4) {
+    width: 14%;
+    text-align: center;
+}
+
+/* Pressures */
+#qb-pressure-rate-leaders .research-table th:nth-child(5),
+#qb-pressure-rate-leaders .research-table td:nth-child(5) {
+    width: 9%;
+    text-align: center;
+}
+
+/* Dropbacks */
+#qb-pressure-rate-leaders .research-table th:nth-child(6),
+#qb-pressure-rate-leaders .research-table td:nth-child(6) {
+    width: 11%;
+    text-align: center;
+}
+
+/* Sacks */
+#qb-pressure-rate-leaders .research-table th:nth-child(7),
+#qb-pressure-rate-leaders .research-table td:nth-child(7) {
+    width: 7%;
+    text-align: center;
+}
+
+
+/* =========================================================
+   TABLE HEADERS
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th {
+    white-space: nowrap;
+    line-height: 1.15;
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   QB + TEAM NAMES
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table td:nth-child(2),
+#qb-pressure-rate-leaders .research-table td:nth-child(3) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+#qb-pressure-rate-leaders .research-table td:nth-child(2) a,
+#qb-pressure-rate-leaders .research-table td:nth-child(3) a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   NUMERIC DATA
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table td:nth-child(4),
+#qb-pressure-rate-leaders .research-table td:nth-child(5),
+#qb-pressure-rate-leaders .research-table td:nth-child(6),
+#qb-pressure-rate-leaders .research-table td:nth-child(7) {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .research-data-meta {
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .data-status-pill,
+    .data-updated-pill {
+        font-size: 0.72rem;
+        padding: 7px 11px;
+    }
+
+    #qb-pressure-rate-leaders .research-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    #qb-pressure-rate-leaders .research-table th,
+    #qb-pressure-rate-leaders .research-table td {
+        padding: 11px 7px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th {
+        font-size: 0.68rem;
+        white-space: normal;
+        line-height: 1.15;
+    }
+
+    #qb-pressure-rate-leaders .research-table td {
+        font-size: 0.76rem;
+    }
+
+    /* Rank */
+    #qb-pressure-rate-leaders .research-table th:nth-child(1),
+    #qb-pressure-rate-leaders .research-table td:nth-child(1) {
+        width: 7%;
+    }
+
+    /* QB */
+    #qb-pressure-rate-leaders .research-table th:nth-child(2),
+    #qb-pressure-rate-leaders .research-table td:nth-child(2) {
+        width: 23%;
+    }
+
+    /* Team */
+    #qb-pressure-rate-leaders .research-table th:nth-child(3),
+    #qb-pressure-rate-leaders .research-table td:nth-child(3) {
+        width: 25%;
+    }
+
+    /* Pressure Rate */
+    #qb-pressure-rate-leaders .research-table th:nth-child(4),
+    #qb-pressure-rate-leaders .research-table td:nth-child(4) {
+        width: 15%;
+    }
+
+    /* Pressures */
+    #qb-pressure-rate-leaders .research-table th:nth-child(5),
+    #qb-pressure-rate-leaders .research-table td:nth-child(5) {
+        width: 10%;
+    }
+
+    /* Dropbacks */
+    #qb-pressure-rate-leaders .research-table th:nth-child(6),
+    #qb-pressure-rate-leaders .research-table td:nth-child(6) {
+        width: 12%;
+    }
+
+    /* Sacks */
+    #qb-pressure-rate-leaders .research-table th:nth-child(7),
+    #qb-pressure-rate-leaders .research-table td:nth-child(7) {
+        width: 8%;
+    }
+
+    /*
+     * Allow long names to wrap only when genuinely necessary.
+     */
+    #qb-pressure-rate-leaders .research-table td:nth-child(2),
+    #qb-pressure-rate-leaders .research-table td:nth-child(3),
+    #qb-pressure-rate-leaders .research-table td:nth-child(2) a,
+    #qb-pressure-rate-leaders .research-table td:nth-child(3) a {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        overflow-wrap: break-word;
+        line-height: 1.3;
+    }
+
+}
+
 /* =========================
    RESPONSIVE
    ========================= */
@@ -2016,6 +2308,397 @@ footer {
 
 .feedback-float-text {
     white-space: nowrap;
+}
+
+/* =========================================================
+   FINAL PRESSURE RATE QB TABLE OVERRIDE
+   PLACE THIS AT THE VERY BOTTOM OF THE CSS FILE
+========================================================= */
+
+
+/* =========================================================
+   QB LEADERBOARD CONTAINER
+========================================================= */
+
+#qb-pressure-rate-leaders {
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table-wrap {
+    width: 100%;
+    max-width: 100%;
+
+    margin-top: 22px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table {
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    table-layout: auto;
+
+    border-collapse: collapse;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table thead th {
+    padding: 15px 14px;
+
+    white-space: nowrap;
+    overflow: visible;
+
+    color: #ffffff;
+
+    font-size: 0.78rem;
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    text-align: left;
+
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table tbody td {
+    padding: 15px 14px;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   RANK
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th:nth-child(1),
+#qb-pressure-rate-leaders .research-table td:nth-child(1) {
+    width: 55px;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   QUARTERBACK
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th:nth-child(2),
+#qb-pressure-rate-leaders .research-table td:nth-child(2) {
+    width: 180px;
+
+    min-width: 160px;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th:nth-child(3),
+#qb-pressure-rate-leaders .research-table td:nth-child(3) {
+    width: 210px;
+
+    min-width: 190px;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PRESSURE RATE
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th:nth-child(4),
+#qb-pressure-rate-leaders .research-table td:nth-child(4) {
+    width: 130px;
+
+    min-width: 120px;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PRESSURES
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th:nth-child(5),
+#qb-pressure-rate-leaders .research-table td:nth-child(5) {
+    width: 110px;
+
+    min-width: 100px;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   DROPBACKS
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th:nth-child(6),
+#qb-pressure-rate-leaders .research-table td:nth-child(6) {
+    width: 120px;
+
+    min-width: 110px;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SACKS
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table th:nth-child(7),
+#qb-pressure-rate-leaders .research-table td:nth-child(7) {
+    width: 90px;
+
+    min-width: 80px;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PLAYER / TEAM LINKS
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table td:nth-child(2) a,
+#qb-pressure-rate-leaders .research-table td:nth-child(3) a {
+    display: inline;
+
+    max-width: none;
+
+    overflow: visible;
+
+    white-space: nowrap;
+
+    text-overflow: clip;
+}
+
+
+/* =========================================================
+   NUMERIC VALUES
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table td:nth-child(4),
+#qb-pressure-rate-leaders .research-table td:nth-child(5),
+#qb-pressure-rate-leaders .research-table td:nth-child(6),
+#qb-pressure-rate-leaders .research-table td:nth-child(7) {
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   TABLE ROWS
+========================================================= */
+
+#qb-pressure-rate-leaders .research-table tbody tr {
+    min-height: 56px;
+}
+
+
+/* =========================================================
+   DESKTOP — GIVE THE TABLE MORE ROOM
+========================================================= */
+
+@media (min-width: 1000px) {
+
+    #qb-pressure-rate-leaders {
+        max-width: 1100px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th,
+    #qb-pressure-rate-leaders .research-table td {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 999px) and (min-width: 769px) {
+
+    #qb-pressure-rate-leaders {
+        max-width: 100%;
+    }
+
+    #qb-pressure-rate-leaders .research-table th,
+    #qb-pressure-rate-leaders .research-table td {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th {
+        font-size: 0.72rem;
+    }
+
+    #qb-pressure-rate-leaders .research-table td {
+        font-size: 0.82rem;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #qb-pressure-rate-leaders {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #qb-pressure-rate-leaders .research-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    #qb-pressure-rate-leaders .research-table {
+        width: max-content;
+        min-width: 720px;
+        table-layout: auto;
+    }
+
+    #qb-pressure-rate-leaders .research-table th,
+    #qb-pressure-rate-leaders .research-table td {
+        padding: 12px 12px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th {
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+
+    #qb-pressure-rate-leaders .research-table td {
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    #qb-pressure-rate-leaders .research-table th:nth-child(1),
+    #qb-pressure-rate-leaders .research-table td:nth-child(1) {
+        width: 50px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th:nth-child(2),
+    #qb-pressure-rate-leaders .research-table td:nth-child(2) {
+        width: 150px;
+        min-width: 150px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th:nth-child(3),
+    #qb-pressure-rate-leaders .research-table td:nth-child(3) {
+        width: 175px;
+        min-width: 175px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th:nth-child(4),
+    #qb-pressure-rate-leaders .research-table td:nth-child(4) {
+        width: 115px;
+        min-width: 115px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th:nth-child(5),
+    #qb-pressure-rate-leaders .research-table td:nth-child(5) {
+        width: 100px;
+        min-width: 100px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th:nth-child(6),
+    #qb-pressure-rate-leaders .research-table td:nth-child(6) {
+        width: 110px;
+        min-width: 110px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th:nth-child(7),
+    #qb-pressure-rate-leaders .research-table td:nth-child(7) {
+        width: 80px;
+        min-width: 80px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    #qb-pressure-rate-leaders .research-table {
+        min-width: 680px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th,
+    #qb-pressure-rate-leaders .research-table td {
+        padding: 11px 10px;
+    }
+
+    #qb-pressure-rate-leaders .research-table th {
+        font-size: 0.66rem;
+    }
+
+    #qb-pressure-rate-leaders .research-table td {
+        font-size: 0.74rem;
+    }
+
 }
 
 /* ==========================

@@ -8,34 +8,25 @@
   <title>What Is Pressure Rate in Football? NFL Pass Rush Metric Explained | PlayMaker Research</title>
 
   <meta name="description"
-    content="Learn what pressure rate means in football, how NFL pressure rate is calculated, pressure rate vs sack rate and blitz rate, and how defensive pressure affects quarterbacks and player props." />
+    content="Learn what pressure rate means in football, how PlayMaker calculates NFL pressure rate using sacks and quarterback hits, pressure rate vs sack rate and blitz rate, and how defensive pressure affects quarterbacks and player props." />
 
   <link rel="canonical" href="https://playmakerprime.com/research/pressure-rate.html" />
 
   <meta property="og:title" content="What Is Pressure Rate in Football? NFL Pass Rush Metric Explained" />
-
   <meta property="og:description"
-    content="Understand NFL pressure rate, how quarterback pressures are calculated, pressure rate vs sack rate and blitz rate, and how pass rush affects offensive production." />
-
+    content="Understand NFL pressure rate, how PlayMaker calculates quarterback pressure, pressure rate vs sack rate and blitz rate, and how pass rush affects offensive production." />
   <meta property="og:url" content="https://playmakerprime.com/research/pressure-rate.html" />
-
   <meta property="og:type" content="article" />
-
   <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
-
   <meta name="twitter:title" content="What Is NFL Pressure Rate? | PlayMaker Research" />
-
   <meta name="twitter:description"
-    content="Learn how pressure rate measures NFL pass-rush disruption and how it differs from sacks and blitz rate." />
-
+    content="Learn how PlayMaker measures NFL pressure rate using sacks and quarterback hits and how pass rush affects player props." />
   <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
 
   <link rel="stylesheet" href="/assets/css/research.css" />
-
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
-
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 </head>
 
@@ -66,11 +57,24 @@
 
       <p>
         Pressure Rate measures how frequently a defense disrupts the quarterback
-        on passing plays. Unlike sacks alone, the metric captures a broader range
-        of pass-rush disruption and helps evaluate how defensive pressure can
-        influence quarterback efficiency, target depth, sacks, turnovers,
-        and receiving opportunity.
+        during passing opportunities. PlayMaker calculates pressure using sacks
+        and quarterback hits, providing a broader view of pass-rush disruption
+        than sack rate alone.
       </p>
+
+      <!-- LIVE DATA STATUS -->
+      <div class="research-data-meta">
+
+        <span class="data-status-pill" id="pressure-data-status">
+          Loading pressure data...
+        </span>
+
+        <span class="data-updated-pill">
+          Last Updated:
+          <strong id="pressure-last-updated">Loading...</strong>
+        </span>
+
+      </div>
 
     </div>
 
@@ -88,8 +92,8 @@
         </h3>
 
         <p>
-          Pressure Rate measures how frequently a quarterback faces pressure
-          during passing opportunities.
+          Pressure Rate measures how frequently a defense creates quarterback
+          disruption during qualifying passing opportunities.
         </p>
 
       </div>
@@ -97,18 +101,18 @@
       <div class="research-highlight-card">
 
         <span>
-          Definition
+          PlayMaker Definition
         </span>
 
         <h3>
-          Pressure Rate = Quarterback Pressures ÷ Passing Dropbacks
+          Pressure Rate = Quarterback Pressures ÷ Dropbacks
         </h3>
 
         <p>
-          Quarterback pressures commonly include sacks, hits, and hurries,
-          depending on the data source and charting methodology. Pressure Rate
-          turns those disruptions into a percentage so defensive pass-rush
-          performance can be compared across different numbers of dropbacks.
+          In PlayMaker's pressure model, a quarterback pressure is counted using
+          sacks and quarterback hits from nflverse play-by-play data. The result
+          is divided by qualifying quarterback dropbacks to create a normalized
+          pressure rate.
         </p>
 
       </div>
@@ -125,8 +129,8 @@
         </h3>
 
         <p>
-          Pressure is broader than sacks and can affect a play even when the
-          quarterback successfully releases the football.
+          PlayMaker uses a defined pressure methodology based on available
+          nflverse quarterback disruption data.
         </p>
 
       </div>
@@ -144,8 +148,8 @@
           </h4>
 
           <p>
-            The quarterback is brought down behind the line of scrimmage
-            before completing the passing play.
+            A sack occurs when the quarterback is brought down behind the line
+            of scrimmage before completing the passing play.
           </p>
 
         </div>
@@ -161,8 +165,8 @@
           </h4>
 
           <p>
-            A defender reaches and contacts the quarterback around the throw,
-            even if the pass is released.
+            A quarterback hit represents recorded contact or disruption to the
+            quarterback during the passing play, even when the pass is released.
           </p>
 
         </div>
@@ -170,16 +174,16 @@
         <div class="stack-card">
 
           <span>
-            Hurry
+            Model
           </span>
 
           <h4>
-            Quarterback Hurry
+            PlayMaker Pressure
           </h4>
 
           <p>
-            The pass rush forces the quarterback to speed up the play,
-            move off the intended spot, or release the football earlier than planned.
+            PlayMaker defines pressure as sacks plus quarterback hits in its
+            current nflverse-based pressure model.
           </p>
 
         </div>
@@ -187,16 +191,16 @@
         <div class="stack-card">
 
           <span>
-            Disruption
+            Important
           </span>
 
           <h4>
-            Pocket Disruption
+            Not a PFF-Style Hurry Model
           </h4>
 
           <p>
-            Pressure can change timing and decision-making even when it does
-            not become an official sack.
+            PlayMaker does not claim individual hurry charting or defender-level
+            pressure attribution comparable to proprietary tracking systems.
           </p>
 
         </div>
@@ -211,12 +215,12 @@
       <div class="section-header">
 
         <h3>
-          How Is Pressure Rate Calculated?
+          How Is PlayMaker Pressure Rate Calculated?
         </h3>
 
         <p>
-          Pressure Rate compares defensive disruption with the total number
-          of passing opportunities faced.
+          The model normalizes defensive disruption against the number of
+          qualifying quarterback dropbacks.
         </p>
 
       </div>
@@ -230,12 +234,12 @@
           </span>
 
           <h4>
-            Count Passing Dropbacks
+            Count Dropbacks
           </h4>
 
           <p>
-            Start with the passing opportunities included in the selected
-            pressure-rate data source.
+            PlayMaker defines quarterback dropbacks as pass attempts plus sacks
+            plus quarterback scrambles.
           </p>
 
         </div>
@@ -247,12 +251,12 @@
           </span>
 
           <h4>
-            Count Quarterback Pressures
+            Count Pressures
           </h4>
 
           <p>
-            Identify qualifying sacks, hits, hurries, or other charted pressures
-            according to the provider's methodology.
+            The current model counts sacks and quarterback hits as qualifying
+            pressure events.
           </p>
 
         </div>
@@ -268,7 +272,8 @@
           </h4>
 
           <p>
-            Divide total pressures by the number of relevant passing dropbacks.
+            Total quarterback pressures are divided by the number of qualifying
+            dropbacks.
           </p>
 
         </div>
@@ -284,8 +289,8 @@
           </h4>
 
           <p>
-            Multiply the result by 100 to express the rate as the percentage
-            of passing plays affected by pressure.
+            The resulting ratio is converted into a percentage so defenses and
+            quarterbacks can be compared across different passing volumes.
           </p>
 
         </div>
@@ -304,8 +309,7 @@
         </h3>
 
         <p>
-          The calculation normalizes pass-rush production across different
-          passing volumes.
+          PlayMaker's pressure model uses a simple normalized rate.
         </p>
 
       </div>
@@ -321,8 +325,8 @@
         </h3>
 
         <p>
-          If a defense generates 12 pressures across 40 qualifying passing
-          dropbacks, its pressure rate for that sample is 30%.
+          For example, a defense that records 20 pressures across 100 qualifying
+          quarterback dropbacks would have a 20.0% Pressure Rate.
         </p>
 
       </div>
@@ -339,7 +343,7 @@
         </h3>
 
         <p>
-          Why sacks alone do not tell the entire story of a pass rush.
+          Why pressure rate provides more context than sack totals alone.
         </p>
 
       </div>
@@ -351,14 +355,14 @@
         </span>
 
         <h3>
-          A defense can generate frequent pressure without recording many sacks.
+          A defense can create frequent disruption without an extreme sack rate.
         </h3>
 
         <p>
-          Suppose a defense pressures a quarterback on 16 of 40 passing dropbacks
-          but finishes with only two sacks. That is a 40% pressure rate despite
-          the modest sack total. The other pressures may still force quicker throws,
-          reduce target depth, disrupt timing, or contribute to incomplete passes.
+          Suppose a defense records 16 qualifying pressures across 80 quarterback
+          dropbacks. Its Pressure Rate would be 20.0%. That pressure environment
+          can still affect quarterback timing and passing efficiency even when
+          only a portion of those pressures result in sacks.
         </p>
 
       </div>
@@ -375,8 +379,8 @@
         </h3>
 
         <p>
-          Pressure Rate measures broader disruption while Sack Rate measures
-          how often that disruption ends in a sack.
+          The two metrics measure related but different aspects of defensive
+          pass-rush performance.
         </p>
 
       </div>
@@ -390,8 +394,8 @@
           </h4>
 
           <p>
-            Captures a wider range of pass-rush disruption, commonly including
-            sacks, hits, and hurries.
+            Measures sacks and quarterback hits relative to qualifying
+            quarterback dropbacks.
           </p>
 
         </div>
@@ -403,8 +407,8 @@
           </h4>
 
           <p>
-            Measures the percentage of passing opportunities that result
-            specifically in sacks.
+            Measures the percentage of qualifying quarterback dropbacks that
+            result specifically in sacks.
           </p>
 
         </div>
@@ -412,12 +416,12 @@
         <div class="stack-card">
 
           <h4>
-            High Pressure, Low Sacks
+            High Pressure, Lower Sack Rate
           </h4>
 
           <p>
-            A defense may regularly hurry the quarterback while failing
-            to convert those pressures into sacks.
+            A defense can generate frequent quarterback disruption without
+            converting every pressure into a sack.
           </p>
 
         </div>
@@ -429,8 +433,8 @@
           </h4>
 
           <p>
-            Pocket movement, release speed, scrambling ability, and decision-making
-            can determine whether pressure becomes a sack.
+            Quarterback mobility, pocket awareness, release speed, and
+            decision-making can affect whether pressure becomes a sack.
           </p>
 
         </div>
@@ -449,8 +453,8 @@
         </h3>
 
         <p>
-          Blitz Rate describes defensive aggression. Pressure Rate measures
-          whether the pass rush actually disrupts the quarterback.
+          Blitz Rate describes defensive aggression while Pressure Rate measures
+          the disruption created by the pass rush.
         </p>
 
       </div>
@@ -464,8 +468,8 @@
           </h4>
 
           <p>
-            Measures how frequently a defense sends additional pass rushers
-            beyond its standard pressure structure.
+            Measures how frequently a defense sends additional rushers beyond
+            its standard pass-rush structure.
           </p>
 
         </div>
@@ -477,8 +481,8 @@
           </h4>
 
           <p>
-            Measures how frequently the defense succeeds in creating
-            quarterback disruption.
+            Measures how frequently the defense creates qualifying quarterback
+            pressure.
           </p>
 
         </div>
@@ -490,8 +494,8 @@
           </h4>
 
           <p>
-            Strong defensive fronts can generate pressure without blitzing,
-            allowing more defenders to remain in coverage.
+            A defense can create strong pressure with its normal pass rush
+            without heavily relying on blitzing.
           </p>
 
         </div>
@@ -503,8 +507,8 @@
           </h4>
 
           <p>
-            Sending additional rushers does not guarantee disruption and may
-            expose the defense if the offense handles the blitz successfully.
+            Sending additional rushers does not guarantee quarterback disruption
+            if the offense handles the protection successfully.
           </p>
 
         </div>
@@ -534,13 +538,12 @@
           Team Rankings
         </span>
 
-        <h3>
-          2026 NFL Pressure Rate Leaders
+        <h3 id="team-pressure-title">
+          NFL Pressure Rate Leaders
         </h3>
 
-        <p>
-          Current team pressure-rate rankings will populate from PlayMaker's
-          defensive data as the 2026 regular-season sample develops.
+        <p id="team-pressure-description">
+          Loading PlayMaker pressure-rate data...
         </p>
 
         <div class="research-table-wrap">
@@ -553,8 +556,9 @@
                 <th>Rank</th>
                 <th>Team</th>
                 <th>Pressure Rate</th>
+                <th>Pressures</th>
+                <th>Dropbacks</th>
                 <th>Sacks</th>
-                <th>Pass Defense</th>
               </tr>
 
             </thead>
@@ -562,9 +566,8 @@
             <tbody id="team-pressure-rate-body">
 
               <tr>
-                <td colspan="5">
-                  2026 team pressure-rate data will populate as regular-season
-                  defensive data becomes available.
+                <td colspan="6">
+                  Loading pressure-rate rankings...
                 </td>
               </tr>
 
@@ -578,35 +581,34 @@
 
     </section>
 
-    <!-- INDIVIDUAL LEADERS -->
+    <!-- QB PRESSURE LEADERS -->
     <section class="hq-section">
 
       <div class="section-header">
 
         <h3>
-          NFL Individual Pressure Leaders
+          NFL Quarterback Pressure Rate Leaders
         </h3>
 
         <p>
-          Individual pass-rush production helps identify which defenders
-          are creating the disruption behind team pressure rates.
+          See which quarterbacks have faced pressure most frequently in the
+          available PlayMaker sample.
         </p>
 
       </div>
 
-      <div id="individual-pressure-leaders" class="research-highlight-card">
+      <div id="qb-pressure-rate-leaders" class="research-highlight-card">
 
         <span>
-          Pass Rush Leaders
+          Quarterback Rankings
         </span>
 
-        <h3>
-          2026 Individual Pressure Rankings
+        <h3 id="qb-pressure-title">
+          QB Pressure Rate
         </h3>
 
-        <p>
-          Individual pressure rankings can be added when PlayMaker's defensive
-          player-level data source supports consistent pressure charting.
+        <p id="qb-pressure-description">
+          Loading quarterback pressure-rate data...
         </p>
 
         <div class="research-table-wrap">
@@ -617,20 +619,21 @@
 
               <tr>
                 <th>Rank</th>
-                <th>Player</th>
+                <th>QB</th>
                 <th>Team</th>
+                <th>Pressure Rate</th>
                 <th>Pressures</th>
+                <th>Dropbacks</th>
                 <th>Sacks</th>
               </tr>
 
             </thead>
 
-            <tbody id="individual-pressure-rate-body">
+            <tbody id="qb-pressure-rate-body">
 
               <tr>
-                <td colspan="5">
-                  Individual defender rankings are not yet available in the
-                  current PlayMaker data pipeline.
+                <td colspan="7">
+                  Loading quarterback pressure-rate rankings...
                 </td>
               </tr>
 
@@ -654,8 +657,8 @@
         </h3>
 
         <p>
-          Quarterback disruption can change the efficiency and structure
-          of an entire passing offense.
+          Quarterback disruption can change the efficiency and structure of an
+          entire passing offense.
         </p>
 
       </div>
@@ -690,8 +693,8 @@
           </h4>
 
           <p>
-            Pressure creates the conditions from which sacks can occur,
-            even though quarterbacks differ in how often pressure becomes a sack.
+            Pressure creates opportunities for sacks, although quarterbacks
+            differ in how often pressure becomes a sack.
           </p>
 
         </div>
@@ -707,8 +710,8 @@
           </h4>
 
           <p>
-            Disruption can contribute to forced throws, strip-sack opportunities,
-            and other negative offensive outcomes.
+            Defensive disruption can contribute to forced throws, strip-sack
+            opportunities, and other negative offensive outcomes.
           </p>
 
         </div>
@@ -724,8 +727,8 @@
           </h4>
 
           <p>
-            Negative plays and incomplete passes caused by pressure can create
-            longer down-and-distance situations and shorten drives.
+            Negative plays and disrupted passing situations can create longer
+            down-and-distance situations and shorten drives.
           </p>
 
         </div>
@@ -1598,9 +1601,10 @@
           </summary>
 
           <p>
-            Pressure Rate measures how frequently a quarterback is pressured
-            during qualifying passing opportunities. It is commonly calculated
-            by dividing quarterback pressures by passing dropbacks.
+            Pressure Rate measures how frequently a quarterback is disrupted
+            during qualifying passing opportunities. PlayMaker calculates the
+            metric using sacks and quarterback hits divided by qualifying
+            quarterback dropbacks.
           </p>
 
         </details>
@@ -1608,13 +1612,12 @@
         <details class="faq-card">
 
           <summary>
-            What counts as a pressure in football?
+            What counts as a pressure in PlayMaker?
           </summary>
 
           <p>
-            Depending on the data source, quarterback pressures commonly include
-            sacks, hits, and hurries. Exact pressure definitions can differ
-            between charting providers.
+            PlayMaker's current pressure model counts quarterback sacks and
+            quarterback hits as pressure events using nflverse play-by-play data.
           </p>
 
         </details>
@@ -1626,9 +1629,8 @@
           </summary>
 
           <p>
-            Pressure Rate is generally calculated by dividing total quarterback
-            pressures by qualifying passing dropbacks and converting the result
-            into a percentage.
+            PlayMaker calculates Pressure Rate by dividing qualifying pressures
+            by quarterback dropbacks and converting the result into a percentage.
           </p>
 
         </details>
@@ -1640,8 +1642,9 @@
           </summary>
 
           <p>
-            Pressure Rate measures a broader range of quarterback disruption,
-            while Sack Rate measures only passing opportunities that end in sacks.
+            Pressure Rate includes both sacks and quarterback hits in the
+            PlayMaker model, while Sack Rate measures only the percentage of
+            qualifying dropbacks that end in sacks.
           </p>
 
         </details>
@@ -1653,9 +1656,10 @@
           </summary>
 
           <p>
-            Blitz Rate measures how frequently a defense sends additional rushers.
-            Pressure Rate measures how frequently the defense actually disrupts
-            the quarterback. A defense can generate high pressure without blitzing often.
+            Blitz Rate measures how frequently a defense sends additional
+            rushers. Pressure Rate measures how frequently the defense creates
+            qualifying quarterback disruption. A defense can generate pressure
+            without frequently blitzing.
           </p>
 
         </details>
@@ -1667,9 +1671,9 @@
           </summary>
 
           <p>
-            A higher Pressure Rate generally indicates that a defense is disrupting
-            opposing quarterbacks more frequently, although the overall quality
-            of the defense depends on additional factors.
+            A higher Pressure Rate generally indicates that a defense is creating
+            more quarterback disruption relative to opposing dropbacks, although
+            defensive quality depends on additional factors.
           </p>
 
         </details>
@@ -1683,7 +1687,7 @@
           <p>
             Pressure can influence passing efficiency, sacks, rushing attempts,
             turnovers, target depth, and drive sustainability. PlayMaker evaluates
-            it alongside the quarterback's own tendencies and the broader matchup.
+            pressure alongside quarterback tendencies and broader matchup context.
           </p>
 
         </details>
@@ -1695,9 +1699,9 @@
           </summary>
 
           <p>
-            Yes. Frequent pressure can reduce the time available for deep routes,
-            encourage quicker passing concepts, create more checkdowns, or require
-            tight ends and running backs to help in protection.
+            Yes. Pressure can change the time available for deeper routes,
+            encourage quicker passing concepts, create checkdown opportunities,
+            or require tight ends and running backs to assist in protection.
           </p>
 
         </details>
@@ -1848,33 +1852,13 @@
 
     <div class="footer-links">
 
-      <a href="/">
-        Home
-      </a>
-
-      <a href="/players.html">
-        Players
-      </a>
-
-      <a href="/teams.html">
-        Teams
-      </a>
-
-      <a href="/matchups.html">
-        Matchups
-      </a>
-
-      <a href="/research.html">
-        Research
-      </a>
-
-      <a href="/results.html">
-        Results
-      </a>
-
-      <a href="/pricing.html">
-        PlayMaker Pro
-      </a>
+      <a href="/">Home</a>
+      <a href="/players.html">Players</a>
+      <a href="/teams.html">Teams</a>
+      <a href="/matchups.html">Matchups</a>
+      <a href="/research.html">Research</a>
+      <a href="/results.html">Results</a>
+      <a href="/pricing.html">PlayMaker Pro</a>
 
     </div>
 
@@ -1891,39 +1875,877 @@
 
   </footer>
 
-  <!-- GLOBAL UI + STRUCTURED DATA -->
+  <!-- GLOBAL UI -->
   <script src="/assets/js/entity-link-engine.js"></script>
 
   <!-- ANALYTICS -->
   <script src="/assets/js/analytics-tracker.js"></script>
 
+  <!-- PRESSURE RATE DATA -->
+  <script>
+
+    /* ========================================
+       TEAM SLUGS
+    ======================================== */
+
+    const TEAM_SLUGS = {
+      ARI: "arizona-cardinals",
+      ATL: "atlanta-falcons",
+      BAL: "baltimore-ravens",
+      BUF: "buffalo-bills",
+      CAR: "carolina-panthers",
+      CHI: "chicago-bears",
+      CIN: "cincinnati-bengals",
+      CLE: "cleveland-browns",
+      DAL: "dallas-cowboys",
+      DEN: "denver-broncos",
+      DET: "detroit-lions",
+      GB: "green-bay-packers",
+      HOU: "houston-texans",
+      IND: "indianapolis-colts",
+      JAX: "jacksonville-jaguars",
+      KC: "kansas-city-chiefs",
+      LAC: "los-angeles-chargers",
+      LAR: "los-angeles-rams",
+      LV: "las-vegas-raiders",
+      MIA: "miami-dolphins",
+      MIN: "minnesota-vikings",
+      NE: "new-england-patriots",
+      NO: "new-orleans-saints",
+      NYG: "new-york-giants",
+      NYJ: "new-york-jets",
+      PHI: "philadelphia-eagles",
+      PIT: "pittsburgh-steelers",
+      SEA: "seattle-seahawks",
+      SF: "san-francisco-49ers",
+      TB: "tampa-bay-buccaneers",
+      TEN: "tennessee-titans",
+      WSH: "washington-commanders"
+    };
+
+    /* ========================================
+       TEAM DISPLAY NAMES
+    ======================================== */
+
+    const TEAM_NAMES = {
+      ARI: "Arizona Cardinals",
+      ATL: "Atlanta Falcons",
+      BAL: "Baltimore Ravens",
+      BUF: "Buffalo Bills",
+      CAR: "Carolina Panthers",
+      CHI: "Chicago Bears",
+      CIN: "Cincinnati Bengals",
+      CLE: "Cleveland Browns",
+      DAL: "Dallas Cowboys",
+      DEN: "Denver Broncos",
+      DET: "Detroit Lions",
+      GB: "Green Bay Packers",
+      HOU: "Houston Texans",
+      IND: "Indianapolis Colts",
+      JAX: "Jacksonville Jaguars",
+      KC: "Kansas City Chiefs",
+      LAC: "Los Angeles Chargers",
+      LAR: "Los Angeles Rams",
+      LV: "Las Vegas Raiders",
+      MIA: "Miami Dolphins",
+      MIN: "Minnesota Vikings",
+      NE: "New England Patriots",
+      NO: "New Orleans Saints",
+      NYG: "New York Giants",
+      NYJ: "New York Jets",
+      PHI: "Philadelphia Eagles",
+      PIT: "Pittsburgh Steelers",
+      SEA: "Seattle Seahawks",
+      SF: "San Francisco 49ers",
+      TB: "Tampa Bay Buccaneers",
+      TEN: "Tennessee Titans",
+      WSH: "Washington Commanders"
+    };
+
+    /* ========================================
+       KNOWN PLAYER SLUGS
+    ======================================== */
+
+    const PLAYER_SLUGS = {
+      "Josh Allen": "josh-allen",
+      "Jalen Hurts": "jalen-hurts",
+      "Lamar Jackson": "lamar-jackson",
+      "Patrick Mahomes": "patrick-mahomes",
+      "Joe Burrow": "joe-burrow",
+      "Jared Goff": "jared-goff",
+      "Dak Prescott": "dak-prescott",
+      "Brock Purdy": "brock-purdy",
+      "Matthew Stafford": "matthew-stafford",
+      "Jordan Love": "jordan-love",
+      "C.J. Stroud": "cj-stroud",
+      "Tua Tagovailoa": "tua-tagovailoa",
+      "Justin Herbert": "justin-herbert",
+      "Bo Nix": "bo-nix",
+      "Caleb Williams": "caleb-williams",
+      "Jayden Daniels": "jayden-daniels",
+      "Drake Maye": "drake-maye",
+      "Trevor Lawrence": "trevor-lawrence",
+      "Shedeur Sanders": "shedeur-sanders"
+    };
+
+    /* ========================================
+       PLAYER NAME NORMALIZATION
+    ======================================== */
+
+    let PLAYER_TEAM_MAP = {};
+
+    function normalizePlayerName(player) {
+
+      if (!player) {
+        return "";
+      }
+
+      const clean = String(player).trim();
+
+      if (PLAYER_SLUGS[clean]) {
+        return clean;
+      }
+
+      /*
+       * Handles nflverse abbreviated names such as:
+       * B.Purdy
+       * S.Sanders
+       * J.Hurts
+       */
+
+      const match = clean.match(/^([A-Z])\.(.+)$/i);
+
+      if (!match) {
+        return clean;
+      }
+
+      const firstInitial = match[1].toLowerCase();
+      const lastName = match[2].toLowerCase();
+
+      const candidates = Object.keys(PLAYER_TEAM_MAP);
+
+      const exact = candidates.find(fullName => {
+
+        const parts = fullName.trim().split(/\s+/);
+
+        if (parts.length < 2) {
+          return false;
+        }
+
+        const firstName = parts[0];
+        const finalName = parts[parts.length - 1];
+
+        return (
+          firstName.charAt(0).toLowerCase() === firstInitial &&
+          finalName.toLowerCase() === lastName
+        );
+
+      });
+
+      return exact || clean;
+    }
+
+    function slugifyPlayer(player) {
+
+      const normalized = normalizePlayerName(player);
+
+      if (PLAYER_SLUGS[normalized]) {
+        return PLAYER_SLUGS[normalized];
+      }
+
+      /*
+       * Only generate a fallback slug when we have a real full name.
+       * Abbreviated nflverse names should not become /players/b.purdy.
+       */
+
+      if (
+        !normalized ||
+        normalized.includes(".") ||
+        normalized.length < 4
+      ) {
+        return null;
+      }
+
+      return normalized
+        .toLowerCase()
+        .replace(/['’]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    /* ========================================
+       FORMATTING HELPERS
+    ======================================== */
+
+    function formatTeamName(code, fallback = code) {
+
+      return TEAM_NAMES[code] || fallback || code || "Unknown";
+    }
+
+    function formatPercent(value) {
+
+      if (
+        typeof value !== "number" ||
+        !Number.isFinite(value)
+      ) {
+        return "—";
+      }
+
+      const percent =
+        value <= 1
+          ? value * 100
+          : value;
+
+      return `${percent.toFixed(1)}%`;
+    }
+
+    function formatNumber(value) {
+
+      if (
+        typeof value !== "number" ||
+        !Number.isFinite(value)
+      ) {
+        return "—";
+      }
+
+      return value.toLocaleString();
+    }
+
+    function formatDate(value) {
+
+      if (!value) {
+        return "Unavailable";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return value;
+      }
+
+      return date.toLocaleString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+    }
+
+    /* ========================================
+       LINK HELPERS
+    ======================================== */
+
+    function getTeamLink(code, name) {
+
+      const slug = TEAM_SLUGS[code];
+
+      if (!slug) {
+        return document.createTextNode(
+          name || formatTeamName(code)
+        );
+      }
+
+      const link =
+        document.createElement("a");
+
+      link.href = `/teams/${slug}`;
+      link.textContent =
+        name || formatTeamName(code);
+
+      return link;
+    }
+
+    function getPlayerLink(player) {
+
+      const normalized =
+        normalizePlayerName(player);
+
+      const slug =
+        slugifyPlayer(normalized);
+
+      if (!slug) {
+
+        return document.createTextNode(
+          normalized || player || "Unknown"
+        );
+
+      }
+
+      const link =
+        document.createElement("a");
+
+      link.href =
+        `/players/${slug}`;
+
+      link.textContent =
+        normalized || player;
+
+      return link;
+    }
+
+    /* ========================================
+       TABLE HELPERS
+    ======================================== */
+
+    function createCell(value, className = "") {
+
+      const td =
+        document.createElement("td");
+
+      if (className) {
+        td.className = className;
+      }
+
+      td.textContent = value;
+
+      return td;
+    }
+
+    function createEmptyRow(colspan, message) {
+
+      const row =
+        document.createElement("tr");
+
+      const cell =
+        document.createElement("td");
+
+      cell.colSpan = colspan;
+      cell.textContent = message;
+
+      row.appendChild(cell);
+
+      return row;
+    }
+
+    /* ========================================
+       TEAM LEADERS
+    ======================================== */
+
+    function renderTeamLeaders(data) {
+
+      const tbody =
+        document.getElementById(
+          "team-pressure-rate-body"
+        );
+
+      const description =
+        document.getElementById(
+          "team-pressure-description"
+        );
+
+      const title =
+        document.getElementById(
+          "team-pressure-title"
+        );
+
+      tbody.innerHTML = "";
+
+      const teams =
+        data?.teams?.all ||
+        data?.teams ||
+        data?.teamLeaders ||
+        [];
+
+      if (
+        !Array.isArray(teams) ||
+        !teams.length
+      ) {
+
+        tbody.appendChild(
+          createEmptyRow(
+            6,
+            "No team pressure-rate data is currently available."
+          )
+        );
+
+        description.textContent =
+          "PlayMaker does not currently have a qualifying pressure-rate sample for this dataset.";
+
+        return;
+      }
+
+      const season =
+        data.season || 2026;
+
+      const sourceSeason =
+        data.sourceSeason || season;
+
+      title.textContent =
+        `${season} NFL Pressure Rate Leaders`;
+
+      if (sourceSeason !== season) {
+
+        description.textContent =
+          `Previous-season (${sourceSeason}) baseline used while the ${season} regular-season sample develops.`;
+
+      } else {
+
+        description.textContent =
+          `Current ${season} defensive pressure-rate rankings from PlayMaker's play-by-play dataset.`;
+
+      }
+
+      teams
+        .slice(0, 32)
+        .forEach((team, index) => {
+
+          const row =
+            document.createElement("tr");
+
+          const rank =
+            team.rank ||
+            index + 1;
+
+          const code =
+            team.team ||
+            team.teamCode ||
+            team.abbreviation ||
+            "";
+
+          const name =
+            team.teamName ||
+            formatTeamName(code);
+
+          row.appendChild(
+            createCell(rank)
+          );
+
+          const teamCell =
+            document.createElement("td");
+
+          teamCell.appendChild(
+            getTeamLink(code, name)
+          );
+
+          row.appendChild(teamCell);
+
+          row.appendChild(
+            createCell(
+              formatPercent(
+                team.pressureRate
+              )
+            )
+          );
+
+          row.appendChild(
+            createCell(
+              formatNumber(
+                team.pressures ??
+                team.totalPressures
+              )
+            )
+          );
+
+          row.appendChild(
+            createCell(
+              formatNumber(
+                team.dropbacks ??
+                team.passingDropbacks
+              )
+            )
+          );
+
+          row.appendChild(
+            createCell(
+              formatNumber(team.sacks)
+            )
+          );
+
+          tbody.appendChild(row);
+
+        });
+
+    }
+
+    /* ========================================
+       QB LEADERS
+    ======================================== */
+
+    function renderQBLeaders(data) {
+
+      const tbody =
+        document.getElementById(
+          "qb-pressure-rate-body"
+        );
+
+      const description =
+        document.getElementById(
+          "qb-pressure-description"
+        );
+
+      const title =
+        document.getElementById(
+          "qb-pressure-title"
+        );
+
+      tbody.innerHTML = "";
+
+      /*
+       * Support the actual generated structure:
+       *
+       * quarterbacks: {
+       *   all: [...]
+       * }
+       *
+       * while remaining compatible with
+       * alternate structures.
+       */
+
+      const quarterbacks =
+        data?.quarterbacks?.all ||
+        data?.quarterbacks ||
+        data?.qb?.all ||
+        data?.qb ||
+        data?.players?.all ||
+        data?.players ||
+        [];
+
+      if (
+        !Array.isArray(quarterbacks) ||
+        !quarterbacks.length
+      ) {
+
+        tbody.appendChild(
+          createEmptyRow(
+            7,
+            "Quarterback pressure-rate data is not currently available."
+          )
+        );
+
+        description.textContent =
+          "Quarterback pressure-rate rankings will appear when qualifying passer-level data is available.";
+
+        return;
+      }
+
+      const season =
+        data.season || 2026;
+
+      const sourceSeason =
+        data.sourceSeason || season;
+
+      title.textContent =
+        `${season} QB Pressure Rate Leaders`;
+
+      if (sourceSeason !== season) {
+
+        description.textContent =
+          `Quarterback pressure rates from the ${sourceSeason} baseline dataset.`;
+
+      } else {
+
+        description.textContent =
+          `Quarterback pressure rates from the current ${season} sample.`;
+
+      }
+
+      quarterbacks
+        .slice(0, 50)
+        .forEach((player, index) => {
+
+          const row =
+            document.createElement("tr");
+
+          const rank =
+            player.rank ||
+            index + 1;
+
+          const rawName =
+            player.player ||
+            player.name ||
+            player.qb ||
+            "Unknown";
+
+          const normalizedName =
+            normalizePlayerName(rawName);
+
+          const team =
+            player.team ||
+            player.teamCode ||
+            "";
+
+          row.appendChild(
+            createCell(rank)
+          );
+
+          const playerCell =
+            document.createElement("td");
+
+          playerCell.appendChild(
+            getPlayerLink(normalizedName)
+          );
+
+          row.appendChild(playerCell);
+
+          const teamCell =
+            document.createElement("td");
+
+          teamCell.appendChild(
+            getTeamLink(
+              team,
+              player.teamName ||
+              formatTeamName(team)
+            )
+          );
+
+          row.appendChild(teamCell);
+
+          row.appendChild(
+            createCell(
+              formatPercent(
+                player.pressureRate
+              )
+            )
+          );
+
+          row.appendChild(
+            createCell(
+              formatNumber(
+                player.pressures ??
+                player.totalPressures
+              )
+            )
+          );
+
+          row.appendChild(
+            createCell(
+              formatNumber(
+                player.dropbacks ??
+                player.passingDropbacks
+              )
+            )
+          );
+
+          row.appendChild(
+            createCell(
+              formatNumber(
+                player.sacks
+              )
+            )
+          );
+
+          tbody.appendChild(row);
+
+        });
+
+    }
+
+    /* ========================================
+       LOAD PLAYER MAP
+    ======================================== */
+
+    async function loadPlayerMap() {
+
+      try {
+
+        const response =
+          await fetch(
+            "/assets/data/player-team-map.json",
+            {
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP ${response.status}`
+          );
+        }
+
+        PLAYER_TEAM_MAP =
+          await response.json();
+
+      } catch (error) {
+
+        console.warn(
+          "Player-team map unavailable:",
+          error
+        );
+
+        PLAYER_TEAM_MAP = {};
+
+      }
+
+    }
+
+    /* ========================================
+       LOAD PRESSURE DATA
+    ======================================== */
+
+    async function loadPressureRateData() {
+
+      const status =
+        document.getElementById(
+          "pressure-data-status"
+        );
+
+      const updated =
+        document.getElementById(
+          "pressure-last-updated"
+        );
+
+      try {
+
+        const response =
+          await fetch(
+            "/assets/data/pressure-rate.json",
+            {
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP ${response.status}`
+          );
+        }
+
+        const data =
+          await response.json();
+
+        renderTeamLeaders(data);
+        renderQBLeaders(data);
+
+        updated.textContent =
+          formatDate(
+            data.generatedAt ||
+            data.updatedAt ||
+            data.lastUpdated
+          );
+
+        if (
+          data.sourceSeason &&
+          data.season &&
+          data.sourceSeason !== data.season
+        ) {
+
+          status.textContent =
+            `${data.sourceSeason} Baseline`;
+
+          status.className =
+            "data-status-pill baseline";
+
+        } else {
+
+          status.textContent =
+            "Live PlayMaker Data";
+
+          status.className =
+            "data-status-pill live";
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Failed to load pressure-rate data:",
+          error
+        );
+
+        status.textContent =
+          "Data Unavailable";
+
+        status.className =
+          "data-status-pill error";
+
+        updated.textContent =
+          "Unavailable";
+
+        const teamBody =
+          document.getElementById(
+            "team-pressure-rate-body"
+          );
+
+        teamBody.innerHTML = "";
+
+        teamBody.appendChild(
+          createEmptyRow(
+            6,
+            "Pressure-rate data could not be loaded."
+          )
+        );
+
+        const qbBody =
+          document.getElementById(
+            "qb-pressure-rate-body"
+          );
+
+        qbBody.innerHTML = "";
+
+        qbBody.appendChild(
+          createEmptyRow(
+            7,
+            "Quarterback pressure-rate data could not be loaded."
+          )
+        );
+
+      }
+
+    }
+
+    /* ========================================
+       INITIALIZE
+    ======================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async () => {
+
+        await loadPlayerMap();
+
+        await loadPressureRateData();
+
+      }
+    );
+
+  </script>
+
   <!-- MOBILE SECTION ACCORDION -->
   <script>
+
     document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) {
+
+      if (
+        !window.matchMedia(
+          "(max-width: 768px)"
+        ).matches
+      ) {
         return;
       }
 
       document
         .querySelectorAll(".hq-section")
         .forEach((section, index) => {
-          const header = section.querySelector(
-            ":scope > .section-header"
-          );
+
+          const header =
+            section.querySelector(
+              ":scope > .section-header"
+            );
 
           if (!header) {
             return;
           }
 
           if (index === 0) {
-            section.classList.add("is-open");
+            section.classList.add(
+              "is-open"
+            );
           }
 
-          header.addEventListener("click", () => {
-            section.classList.toggle("is-open");
-          });
+          header.addEventListener(
+            "click",
+            () => {
+              section.classList.toggle(
+                "is-open"
+              );
+            }
+          );
+
         });
+
     });
+
   </script>
 
 </body>
