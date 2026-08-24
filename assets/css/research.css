@@ -2546,6 +2546,95 @@ footer {
     min-height: 56px;
 }
 
+/* =========================================================
+   GAME ENVIRONMENT — FINAL CARD / STATUS POLISH
+   ========================================================= */
+
+/* Keep the Game Environment cards balanced */
+.game-environment-section .stack-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Base card */
+.game-environment-section .stack-card {
+    min-height: 215px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================================
+   STATUS LABELS
+   Available / Coming Soon / Future
+   ========================================================= */
+
+.game-environment-section .stack-card>span:first-child {
+    display: inline-flex;
+    align-items: center;
+
+    width: fit-content;
+    max-width: 100%;
+
+    min-height: 34px;
+
+    margin: 0 0 1rem;
+    padding: 7px 13px;
+
+    border: 1px solid rgba(102, 255, 153, 0.28);
+    border-radius: 999px;
+
+    background: rgba(102, 255, 153, 0.08);
+
+    color: #66FF99;
+
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.game-environment-section .stack-card h3 {
+    margin-bottom: 0.65rem;
+    line-height: 1.25;
+}
+
+.game-environment-section .stack-card p {
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.game-environment-section .stack-card>a {
+    margin-top: auto;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .game-environment-section .stack-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-environment-section .stack-card {
+        min-height: unset;
+    }
+
+    .game-environment-section .stack-card>span:first-child {
+        font-size: 0.76rem;
+    }
+
+}
 
 /* =========================================================
    DESKTOP — GIVE THE TABLE MORE ROOM
