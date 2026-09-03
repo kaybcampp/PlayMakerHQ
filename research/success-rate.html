@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="/assets/css/research.css" />
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+  <!-- SHARED PLAYER LINK RESOLVER -->
+  <script src="/assets/js/player-link-resolver.js"></script>
 </head>
 
 <body>
@@ -653,10 +656,6 @@
          TOP PLAYERS
     ========================================== -->
 
-    <!-- =========================================
-     TOP PLAYERS
-========================================= -->
-
     <section class="hq-section">
 
       <div class="section-header">
@@ -937,413 +936,33 @@
 
 
       /* =====================================
-         PLAYER DATA
+         SHARED PLAYER LINK RESOLUTION
       ===================================== */
-
-      const playerCache = new Map();
-
-
-      function normalizePlayerName(value) {
-
-        return String(value || "")
-          .toLowerCase()
-          .replace(/[.'’]/g, " ")
-          .replace(/[^a-z0-9\s-]/g, "")
-          .replace(/\s+/g, " ")
-          .trim();
-
-      }
-
-
-      function abbreviationMatchesPlayer(
-        abbreviation,
-        fullName
-      ) {
-
-        if (!abbreviation || !fullName) {
-          return false;
-        }
-
-
-        const clean =
-          String(abbreviation)
-            .replace(/[.'’]/g, "")
-            .replace(/\s+/g, "")
-            .toLowerCase();
-
-
-        const suffixes = [
-          "jr",
-          "sr",
-          "ii",
-          "iii",
-          "iv",
-          "v"
-        ];
-
-
-        const parts =
-          String(fullName)
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean)
-            .filter(part => {
-
-              const normalized =
-                part
-                  .replace(/[^a-z]/gi, "")
-                  .toLowerCase();
-
-              return !suffixes.includes(normalized);
-
-            });
-
-
-        if (parts.length < 2) {
-          return false;
-        }
-
-
-        const first =
-          parts[0]
-            .replace(/[^a-z]/gi, "")
-            .toLowerCase();
-
-
-        const last =
-          parts[parts.length - 1]
-            .replace(/[^a-z]/gi, "")
-            .toLowerCase();
-
-
-        if (!first || !last) {
-          return false;
-        }
-
-
-        return (
-          `${first.charAt(0)}${last}` === clean
-        );
-
-      }
 
       async function resolvePlayerUrl(
         playerName,
         team
       ) {
 
-        if (!playerName) {
-          return null;
-        }
-
-
-        const teamCode =
-          String(team || "")
-            .trim()
-            .toUpperCase();
-
-
-        const cacheKey =
-          `${teamCode}:${playerName}`;
-
-
-        if (playerCache.has(cacheKey)) {
-          return playerCache.get(cacheKey);
-        }
-
-
-        const normalizedTarget =
-          normalizePlayerName(playerName);
-
-
-        /*
-         * Search order:
-         *
-         * 1. Expected team file
-         * 2. Alternate team aliases
-         * 3. Full player directory fallback
-         *
-         * This protects against offseason
-         * roster movement / ESPN delays.
-         */
-
-
-        const possibleTeams = [];
-
-
-        if (teamCode) {
-          possibleTeams.push(teamCode);
-        }
-
-
         if (
-          teamCode === "LA" &&
-          !possibleTeams.includes("LAR")
+          !window.PlayMakerPlayerLinkResolver
         ) {
-          possibleTeams.push("LAR");
-        }
-
-
-
-        async function searchPlayerFile(
-          lookupTeam
-        ) {
-
-          try {
-
-            const response =
-              await fetch(
-                `/assets/data/players/players-${lookupTeam}.json`,
-                {
-                  cache: "no-store"
-                }
-              );
-
-
-            if (!response.ok) {
-              return null;
-            }
-
-
-            const players =
-              await response.json();
-
-
-            if (!Array.isArray(players)) {
-              return null;
-            }
-
-
-            return players.find(candidate => {
-
-              const candidateName =
-                String(
-                  candidate?.name ||
-                  candidate?.fullName ||
-                  ""
-                ).trim();
-
-
-              if (!candidateName) {
-                return false;
-              }
-
-
-              const normalizedCandidate =
-                normalizePlayerName(candidateName);
-
-
-              if (
-                normalizedCandidate ===
-                normalizedTarget
-              ) {
-                return true;
-              }
-
-
-              return abbreviationMatchesPlayer(
-                playerName,
-                candidateName
-              );
-
-            });
-
-
-          } catch (error) {
-
-            return null;
-
-          }
-
-        }
-
-
-
-        /*
-         * STEP 1:
-         * Search expected team file
-         */
-
-        for (
-          const lookupTeam of possibleTeams
-        ) {
-
-          const player =
-            await searchPlayerFile(
-              lookupTeam
-            );
-
-
-          if (player) {
-
-            const slug =
-              slugify(
-                player.name ||
-                player.fullName
-              );
-
-
-            const url =
-              `/players/${slug}`;
-
-
-            playerCache.set(
-              cacheKey,
-              url
-            );
-
-
-            return url;
-
-          }
-
-        }
-
-
-
-        /*
-         * STEP 2:
-         * Search all player files
-         *
-         * Handles:
-         *
-         * T.Tagovailoa listed as ATL
-         * but player page exists in MIA
-         *
-         */
-
-        try {
-
-          const playerDirectory =
-            await fetch(
-              "/assets/data/player-index.json",
-              {
-                cache: "no-store"
-              }
-            );
-
-
-          if (playerDirectory.ok) {
-
-            const players =
-              await playerDirectory.json();
-
-
-            const player =
-              players.find(candidate => {
-
-                const candidateName =
-                  String(
-                    candidate?.name ||
-                    ""
-                  ).trim();
-
-
-                if (!candidateName) {
-                  return false;
-                }
-
-
-                return (
-                  normalizePlayerName(
-                    candidateName
-                  ) === normalizedTarget
-                  ||
-                  abbreviationMatchesPlayer(
-                    playerName,
-                    candidateName
-                  )
-                );
-
-              });
-
-
-            if (player) {
-
-              const url =
-                `/players/${slugify(player.name)}`;
-
-
-              playerCache.set(
-                cacheKey,
-                url
-              );
-
-
-              return url;
-
-            }
-
-          }
-
-
-        } catch (error) {
 
           console.warn(
-            "Player index fallback unavailable"
+            "PlayMakerPlayerLinkResolver is not loaded."
           );
 
-        }
-
-
-
-        /*
-         * STEP 3:
-         * Direct file scan fallback
-         *
-         * Slower, but only happens
-         * when normal lookup fails.
-         */
-
-        const teamsToScan = [
-          "ARI", "ATL", "BAL", "BUF",
-          "CAR", "CHI", "CIN", "CLE",
-          "DAL", "DEN", "DET", "GB",
-          "HOU", "IND", "JAX", "KC",
-          "LV", "LAC", "LAR", "MIA",
-          "MIN", "NE", "NO", "NYG",
-          "NYJ", "PHI", "PIT", "SF",
-          "SEA", "TB", "TEN", "WSH"
-        ];
-
-
-        for (
-          const scanTeam of teamsToScan
-        ) {
-
-          const player =
-            await searchPlayerFile(
-              scanTeam
-            );
-
-
-          if (player) {
-
-            const url =
-              `/players/${slugify(player.name)}`;
-
-
-            playerCache.set(
-              cacheKey,
-              url
-            );
-
-
-            return url;
-
-          }
+          return null;
 
         }
 
 
-
-        playerCache.set(
-          cacheKey,
-          null
-        );
-
-
-        return null;
+        return window
+          .PlayMakerPlayerLinkResolver
+          .resolvePlayerUrl(
+            playerName,
+            team
+          );
 
       }
 
@@ -1354,6 +973,7 @@
           qbTable.querySelectorAll(
             "[data-success-player]"
           );
+
 
         await Promise.all(
 
@@ -1366,11 +986,13 @@
               const team =
                 cell.dataset.successTeam;
 
+
               const url =
                 await resolvePlayerUrl(
                   player,
                   team
                 );
+
 
               if (!url) {
 
@@ -1383,6 +1005,7 @@
                 return;
 
               }
+
 
               cell.innerHTML = `
                 <a

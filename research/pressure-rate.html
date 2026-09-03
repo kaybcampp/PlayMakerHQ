@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="/assets/css/research.css" />
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <script src="/assets/js/player-link-resolver.js"></script>
 </head>
 
 <body>
@@ -1882,6 +1883,7 @@
   <script src="/assets/js/analytics-tracker.js"></script>
 
   <!-- PRESSURE RATE DATA -->
+
   <script>
 
     /* ========================================
@@ -1923,6 +1925,7 @@
       WSH: "washington-commanders"
     };
 
+
     /* ========================================
        TEAM DISPLAY NAMES
     ======================================== */
@@ -1962,116 +1965,6 @@
       WSH: "Washington Commanders"
     };
 
-    /* ========================================
-       KNOWN PLAYER SLUGS
-    ======================================== */
-
-    const PLAYER_SLUGS = {
-      "Josh Allen": "josh-allen",
-      "Jalen Hurts": "jalen-hurts",
-      "Lamar Jackson": "lamar-jackson",
-      "Patrick Mahomes": "patrick-mahomes",
-      "Joe Burrow": "joe-burrow",
-      "Jared Goff": "jared-goff",
-      "Dak Prescott": "dak-prescott",
-      "Brock Purdy": "brock-purdy",
-      "Matthew Stafford": "matthew-stafford",
-      "Jordan Love": "jordan-love",
-      "C.J. Stroud": "cj-stroud",
-      "Tua Tagovailoa": "tua-tagovailoa",
-      "Justin Herbert": "justin-herbert",
-      "Bo Nix": "bo-nix",
-      "Caleb Williams": "caleb-williams",
-      "Jayden Daniels": "jayden-daniels",
-      "Drake Maye": "drake-maye",
-      "Trevor Lawrence": "trevor-lawrence",
-      "Shedeur Sanders": "shedeur-sanders"
-    };
-
-    /* ========================================
-       PLAYER NAME NORMALIZATION
-    ======================================== */
-
-    let PLAYER_TEAM_MAP = {};
-
-    function normalizePlayerName(player) {
-
-      if (!player) {
-        return "";
-      }
-
-      const clean = String(player).trim();
-
-      if (PLAYER_SLUGS[clean]) {
-        return clean;
-      }
-
-      /*
-       * Handles nflverse abbreviated names such as:
-       * B.Purdy
-       * S.Sanders
-       * J.Hurts
-       */
-
-      const match = clean.match(/^([A-Z])\.(.+)$/i);
-
-      if (!match) {
-        return clean;
-      }
-
-      const firstInitial = match[1].toLowerCase();
-      const lastName = match[2].toLowerCase();
-
-      const candidates = Object.keys(PLAYER_TEAM_MAP);
-
-      const exact = candidates.find(fullName => {
-
-        const parts = fullName.trim().split(/\s+/);
-
-        if (parts.length < 2) {
-          return false;
-        }
-
-        const firstName = parts[0];
-        const finalName = parts[parts.length - 1];
-
-        return (
-          firstName.charAt(0).toLowerCase() === firstInitial &&
-          finalName.toLowerCase() === lastName
-        );
-
-      });
-
-      return exact || clean;
-    }
-
-    function slugifyPlayer(player) {
-
-      const normalized = normalizePlayerName(player);
-
-      if (PLAYER_SLUGS[normalized]) {
-        return PLAYER_SLUGS[normalized];
-      }
-
-      /*
-       * Only generate a fallback slug when we have a real full name.
-       * Abbreviated nflverse names should not become /players/b.purdy.
-       */
-
-      if (
-        !normalized ||
-        normalized.includes(".") ||
-        normalized.length < 4
-      ) {
-        return null;
-      }
-
-      return normalized
-        .toLowerCase()
-        .replace(/['’]/g, "")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-    }
 
     /* ========================================
        FORMATTING HELPERS
@@ -2079,8 +1972,15 @@
 
     function formatTeamName(code, fallback = code) {
 
-      return TEAM_NAMES[code] || fallback || code || "Unknown";
+      return (
+        TEAM_NAMES[code] ||
+        fallback ||
+        code ||
+        "Unknown"
+      );
+
     }
+
 
     function formatPercent(value) {
 
@@ -2097,7 +1997,9 @@
           : value;
 
       return `${percent.toFixed(1)}%`;
+
     }
+
 
     function formatNumber(value) {
 
@@ -2109,7 +2011,9 @@
       }
 
       return value.toLocaleString();
+
     }
+
 
     function formatDate(value) {
 
@@ -2117,57 +2021,48 @@
         return "Unavailable";
       }
 
-      const date = new Date(value);
+      const date =
+        new Date(value);
 
-      if (Number.isNaN(date.getTime())) {
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
         return value;
       }
 
-      return date.toLocaleString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit"
-      });
+      return date.toLocaleString(
+        "en-US",
+        {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit"
+        }
+      );
+
     }
+
 
     /* ========================================
-       LINK HELPERS
+       TEAM LINK
     ======================================== */
 
-    function getTeamLink(code, name) {
-
-      const slug = TEAM_SLUGS[code];
-
-      if (!slug) {
-        return document.createTextNode(
-          name || formatTeamName(code)
-        );
-      }
-
-      const link =
-        document.createElement("a");
-
-      link.href = `/teams/${slug}`;
-      link.textContent =
-        name || formatTeamName(code);
-
-      return link;
-    }
-
-    function getPlayerLink(player) {
-
-      const normalized =
-        normalizePlayerName(player);
+    function getTeamLink(
+      code,
+      name
+    ) {
 
       const slug =
-        slugifyPlayer(normalized);
+        TEAM_SLUGS[code];
 
       if (!slug) {
 
         return document.createTextNode(
-          normalized || player || "Unknown"
+          name ||
+          formatTeamName(code)
         );
 
       }
@@ -2176,33 +2071,163 @@
         document.createElement("a");
 
       link.href =
-        `/players/${slug}`;
+        `/teams/${slug}`;
 
       link.textContent =
-        normalized || player;
+        name ||
+        formatTeamName(code);
 
       return link;
+
     }
+
+
+    /* ========================================
+       SHARED PLAYER RESOLVER
+    ======================================== */
+
+    /*
+     * Pressure Rate now uses the same shared
+     * player resolver as EPA and future
+     * leaderboard pages.
+     *
+     * The resolver lives at:
+     *
+     * /assets/js/player-link-resolver.js
+     *
+     * It is responsible for:
+     *
+     * - full player names
+     * - abbreviated names
+     * - punctuation differences
+     * - apostrophes
+     * - hyphenated names
+     * - suffixes
+     * - middle initials
+     * - abbreviated last names
+     * - team mismatch fallback
+     * - canonical player slugs
+     *
+     * Do NOT maintain a local player-name map
+     * here.
+     */
+
+    async function getPlayerLink(
+      player,
+      team
+    ) {
+
+      const playerName =
+        String(player || "").trim();
+
+
+      if (!playerName) {
+
+        const fallback =
+          document.createElement("span");
+
+        fallback.textContent =
+          "Unknown";
+
+        return fallback;
+
+      }
+
+
+      const link =
+        document.createElement("a");
+
+
+      /*
+       * Use the shared resolver whenever
+       * available.
+       */
+
+      if (
+        typeof window.resolvePlayerUrl ===
+        "function"
+      ) {
+
+        try {
+
+          const playerUrl =
+            await window.resolvePlayerUrl(
+              playerName,
+              team
+            );
+
+
+          if (playerUrl) {
+
+            link.href =
+              playerUrl;
+
+            link.textContent =
+              playerName;
+
+            return link;
+
+          }
+
+        } catch (error) {
+
+          console.warn(
+            `Could not resolve player link for ${playerName}:`,
+            error
+          );
+
+        }
+
+      }
+
+
+      /*
+       * If the resolver cannot resolve the
+       * player, preserve the player name as
+       * normal text instead of generating an
+       * incorrect /players/ slug.
+       */
+
+      const fallback =
+        document.createElement("span");
+
+      fallback.textContent =
+        playerName;
+
+      return fallback;
+
+    }
+
 
     /* ========================================
        TABLE HELPERS
     ======================================== */
 
-    function createCell(value, className = "") {
+    function createCell(
+      value,
+      className = ""
+    ) {
 
       const td =
         document.createElement("td");
 
       if (className) {
-        td.className = className;
+        td.className =
+          className;
       }
 
-      td.textContent = value;
+      td.textContent =
+        value;
 
       return td;
+
     }
 
-    function createEmptyRow(colspan, message) {
+
+    function createEmptyRow(
+      colspan,
+      message
+    ) {
 
       const row =
         document.createElement("tr");
@@ -2210,19 +2235,28 @@
       const cell =
         document.createElement("td");
 
-      cell.colSpan = colspan;
-      cell.textContent = message;
+      cell.colSpan =
+        colspan;
 
-      row.appendChild(cell);
+      cell.textContent =
+        message;
+
+      row.appendChild(
+        cell
+      );
 
       return row;
+
     }
+
 
     /* ========================================
        TEAM LEADERS
     ======================================== */
 
-    function renderTeamLeaders(data) {
+    function renderTeamLeaders(
+      data
+    ) {
 
       const tbody =
         document.getElementById(
@@ -2239,13 +2273,17 @@
           "team-pressure-title"
         );
 
-      tbody.innerHTML = "";
+
+      tbody.innerHTML =
+        "";
+
 
       const teams =
         data?.teams?.all ||
         data?.teams ||
         data?.teamLeaders ||
         [];
+
 
       if (
         !Array.isArray(teams) ||
@@ -2263,18 +2301,27 @@
           "PlayMaker does not currently have a qualifying pressure-rate sample for this dataset.";
 
         return;
+
       }
 
+
       const season =
-        data.season || 2026;
+        data.season ||
+        2026;
+
 
       const sourceSeason =
-        data.sourceSeason || season;
+        data.sourceSeason ||
+        season;
+
 
       title.textContent =
         `${season} NFL Pressure Rate Leaders`;
 
-      if (sourceSeason !== season) {
+
+      if (
+        sourceSeason !== season
+      ) {
 
         description.textContent =
           `Previous-season (${sourceSeason}) baseline used while the ${season} regular-season sample develops.`;
@@ -2286,83 +2333,110 @@
 
       }
 
+
       teams
         .slice(0, 32)
-        .forEach((team, index) => {
+        .forEach(
+          (team, index) => {
 
-          const row =
-            document.createElement("tr");
+            const row =
+              document.createElement("tr");
 
-          const rank =
-            team.rank ||
-            index + 1;
 
-          const code =
-            team.team ||
-            team.teamCode ||
-            team.abbreviation ||
-            "";
+            const rank =
+              team.rank ||
+              index + 1;
 
-          const name =
-            team.teamName ||
-            formatTeamName(code);
 
-          row.appendChild(
-            createCell(rank)
-          );
+            const code =
+              team.team ||
+              team.teamCode ||
+              team.abbreviation ||
+              "";
 
-          const teamCell =
-            document.createElement("td");
 
-          teamCell.appendChild(
-            getTeamLink(code, name)
-          );
+            const name =
+              team.teamName ||
+              formatTeamName(code);
 
-          row.appendChild(teamCell);
 
-          row.appendChild(
-            createCell(
-              formatPercent(
-                team.pressureRate
+            row.appendChild(
+              createCell(rank)
+            );
+
+
+            const teamCell =
+              document.createElement("td");
+
+
+            teamCell.appendChild(
+              getTeamLink(
+                code,
+                name
               )
-            )
-          );
+            );
 
-          row.appendChild(
-            createCell(
-              formatNumber(
-                team.pressures ??
-                team.totalPressures
+
+            row.appendChild(
+              teamCell
+            );
+
+
+            row.appendChild(
+              createCell(
+                formatPercent(
+                  team.pressureRate
+                )
               )
-            )
-          );
+            );
 
-          row.appendChild(
-            createCell(
-              formatNumber(
-                team.dropbacks ??
-                team.passingDropbacks
+
+            row.appendChild(
+              createCell(
+                formatNumber(
+                  team.pressures ??
+                  team.totalPressures
+                )
               )
-            )
-          );
+            );
 
-          row.appendChild(
-            createCell(
-              formatNumber(team.sacks)
-            )
-          );
 
-          tbody.appendChild(row);
+            row.appendChild(
+              createCell(
+                formatNumber(
+                  team.dropbacks ??
+                  team.passingDropbacks
+                )
+              )
+            );
 
-        });
+
+            row.appendChild(
+              createCell(
+                formatNumber(
+                  team.sacks
+                )
+              )
+            );
+
+
+            tbody.appendChild(
+              row
+            );
+
+          }
+        );
 
     }
+
 
     /* ========================================
        QB LEADERS
     ======================================== */
 
-    function renderQBLeaders(data) {
+    async function renderQBLeaders(
+      data
+    ) {
 
       const tbody =
         document.getElementById(
@@ -2379,18 +2453,10 @@
           "qb-pressure-title"
         );
 
-      tbody.innerHTML = "";
 
-      /*
-       * Support the actual generated structure:
-       *
-       * quarterbacks: {
-       *   all: [...]
-       * }
-       *
-       * while remaining compatible with
-       * alternate structures.
-       */
+      tbody.innerHTML =
+        "";
+
 
       const quarterbacks =
         data?.quarterbacks?.all ||
@@ -2400,6 +2466,7 @@
         data?.players?.all ||
         data?.players ||
         [];
+
 
       if (
         !Array.isArray(quarterbacks) ||
@@ -2417,18 +2484,27 @@
           "Quarterback pressure-rate rankings will appear when qualifying passer-level data is available.";
 
         return;
+
       }
 
+
       const season =
-        data.season || 2026;
+        data.season ||
+        2026;
+
 
       const sourceSeason =
-        data.sourceSeason || season;
+        data.sourceSeason ||
+        season;
+
 
       title.textContent =
         `${season} QB Pressure Rate Leaders`;
 
-      if (sourceSeason !== season) {
+
+      if (
+        sourceSeason !== season
+      ) {
 
         description.textContent =
           `Quarterback pressure rates from the ${sourceSeason} baseline dataset.`;
@@ -2440,46 +2516,97 @@
 
       }
 
-      quarterbacks
-        .slice(0, 50)
-        .forEach((player, index) => {
+
+      /*
+       * Resolve every quarterback through
+       * the shared player resolver.
+       *
+       * Promise.all allows the player links
+       * to resolve without blocking one another.
+       */
+
+      const playerRows =
+        await Promise.all(
+
+          quarterbacks
+            .slice(0, 50)
+            .map(
+              async (player, index) => {
+
+                const rank =
+                  player.rank ||
+                  index + 1;
+
+
+                const rawName =
+                  player.player ||
+                  player.name ||
+                  player.qb ||
+                  "Unknown";
+
+
+                const team =
+                  player.team ||
+                  player.teamCode ||
+                  "";
+
+
+                const playerLink =
+                  await getPlayerLink(
+                    rawName,
+                    team
+                  );
+
+
+                return {
+                  player,
+                  rank,
+                  rawName,
+                  team,
+                  playerLink
+                };
+
+              }
+            )
+
+        );
+
+
+      playerRows.forEach(
+        ({
+          player,
+          rank,
+          rawName,
+          team,
+          playerLink
+        }) => {
 
           const row =
             document.createElement("tr");
 
-          const rank =
-            player.rank ||
-            index + 1;
-
-          const rawName =
-            player.player ||
-            player.name ||
-            player.qb ||
-            "Unknown";
-
-          const normalizedName =
-            normalizePlayerName(rawName);
-
-          const team =
-            player.team ||
-            player.teamCode ||
-            "";
 
           row.appendChild(
             createCell(rank)
           );
 
+
           const playerCell =
             document.createElement("td");
 
+
           playerCell.appendChild(
-            getPlayerLink(normalizedName)
+            playerLink
           );
 
-          row.appendChild(playerCell);
+
+          row.appendChild(
+            playerCell
+          );
+
 
           const teamCell =
             document.createElement("td");
+
 
           teamCell.appendChild(
             getTeamLink(
@@ -2489,7 +2616,11 @@
             )
           );
 
-          row.appendChild(teamCell);
+
+          row.appendChild(
+            teamCell
+          );
+
 
           row.appendChild(
             createCell(
@@ -2498,6 +2629,7 @@
               )
             )
           );
+
 
           row.appendChild(
             createCell(
@@ -2508,6 +2640,7 @@
             )
           );
 
+
           row.appendChild(
             createCell(
               formatNumber(
@@ -2517,6 +2650,7 @@
             )
           );
 
+
           row.appendChild(
             createCell(
               formatNumber(
@@ -2525,49 +2659,16 @@
             )
           );
 
-          tbody.appendChild(row);
 
-        });
-
-    }
-
-    /* ========================================
-       LOAD PLAYER MAP
-    ======================================== */
-
-    async function loadPlayerMap() {
-
-      try {
-
-        const response =
-          await fetch(
-            "/assets/data/player-team-map.json",
-            {
-              cache: "no-store"
-            }
+          tbody.appendChild(
+            row
           );
 
-        if (!response.ok) {
-          throw new Error(
-            `HTTP ${response.status}`
-          );
         }
-
-        PLAYER_TEAM_MAP =
-          await response.json();
-
-      } catch (error) {
-
-        console.warn(
-          "Player-team map unavailable:",
-          error
-        );
-
-        PLAYER_TEAM_MAP = {};
-
-      }
+      );
 
     }
+
 
     /* ========================================
        LOAD PRESSURE DATA
@@ -2580,10 +2681,12 @@
           "pressure-data-status"
         );
 
+
       const updated =
         document.getElementById(
           "pressure-last-updated"
         );
+
 
       try {
 
@@ -2595,17 +2698,29 @@
             }
           );
 
+
         if (!response.ok) {
+
           throw new Error(
             `HTTP ${response.status}`
           );
+
         }
+
 
         const data =
           await response.json();
 
-        renderTeamLeaders(data);
-        renderQBLeaders(data);
+
+        renderTeamLeaders(
+          data
+        );
+
+
+        await renderQBLeaders(
+          data
+        );
+
 
         updated.textContent =
           formatDate(
@@ -2613,6 +2728,7 @@
             data.updatedAt ||
             data.lastUpdated
           );
+
 
         if (
           data.sourceSeason &&
@@ -2643,21 +2759,28 @@
           error
         );
 
+
         status.textContent =
           "Data Unavailable";
+
 
         status.className =
           "data-status-pill error";
 
+
         updated.textContent =
           "Unavailable";
+
 
         const teamBody =
           document.getElementById(
             "team-pressure-rate-body"
           );
 
-        teamBody.innerHTML = "";
+
+        teamBody.innerHTML =
+          "";
+
 
         teamBody.appendChild(
           createEmptyRow(
@@ -2666,12 +2789,16 @@
           )
         );
 
+
         const qbBody =
           document.getElementById(
             "qb-pressure-rate-body"
           );
 
-        qbBody.innerHTML = "";
+
+        qbBody.innerHTML =
+          "";
+
 
         qbBody.appendChild(
           createEmptyRow(
@@ -2684,17 +2811,16 @@
 
     }
 
+
     /* ========================================
        INITIALIZE
     ======================================== */
 
     document.addEventListener(
       "DOMContentLoaded",
-      async () => {
+      () => {
 
-        await loadPlayerMap();
-
-        await loadPressureRateData();
+        loadPressureRateData();
 
       }
     );

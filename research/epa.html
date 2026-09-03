@@ -37,6 +37,8 @@
 
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 
+  <script src="/assets/js/player-link-resolver.js"></script>
+
 </head>
 
 <body>
@@ -1799,7 +1801,6 @@
 
   <script src="/assets/js/analytics-tracker.js"></script>
 
-
   <!-- EPA LEADERBOARD -->
 
   <script>
@@ -1847,14 +1848,16 @@
         }
 
         return `${number >= 0 ? "+" : ""}${number.toFixed(decimals)}`;
+
       }
 
 
       /* =========================================
-   TEAM HELPERS
-========================================= */
+         TEAM HELPERS
+      ========================================= */
 
       const EPA_TEAM_NAMES = {
+
         ARI: "Arizona Cardinals",
         ATL: "Atlanta Falcons",
         BAL: "Baltimore Ravens",
@@ -1887,6 +1890,7 @@
         TB: "Tampa Bay Buccaneers",
         TEN: "Tennessee Titans",
         WSH: "Washington Commanders"
+
       };
 
 
@@ -1902,6 +1906,7 @@
           normalized ||
           "—"
         );
+
       }
 
 
@@ -1913,6 +1918,7 @@
           .replace(/[^a-z0-9\s-]/g, "")
           .trim()
           .replace(/\s+/g, "-");
+
       }
 
 
@@ -1922,6 +1928,7 @@
           getTeamName(code);
 
         return `/teams/${slugifyText(teamName)}`;
+
       }
 
 
@@ -1938,216 +1945,72 @@
         }
 
         return `
-    <a
-      href="${getTeamUrl(code)}"
-      class="epa-team-link"
-    >
-      <strong>${teamName}</strong>
-    </a>
+        <a
+          href="${getTeamUrl(code)}"
+          class="epa-team-link"
+        >
+          <strong>${teamName}</strong>
+        </a>
 
-    <span class="epa-team-code">
-      ${code || ""}
-    </span>
-  `;
+        <span class="epa-team-code">
+          ${code || ""}
+        </span>
+      `;
+
       }
 
 
       /* =========================================
-         PLAYER HELPERS
+         SHARED PLAYER RESOLVER
       ========================================= */
 
-      const playerUrlCache = new Map();
-
-
       /*
-       * EPA identifies quarterbacks using abbreviated
-       * names such as:
+       * IMPORTANT:
        *
-       * D.Maye
-       * M.Stafford
-       * J.Love
+       * EPA does NOT maintain its own player-name matcher.
        *
-       * The canonical player JSON contains the actual
-       * player name + slug used by the website.
+       * The shared resolver in:
+       *
+       * /assets/js/player-link-resolver.js
+       *
+       * handles canonical player resolution across the site.
+       *
+       * This allows EPA, Success Rate, Pressure Rate,
+       * and future leaderboard pages to use the same
+       * player-link logic.
+       *
+       * The shared resolver is responsible for handling:
+       *
+       * - full names
+       * - abbreviations
+       * - punctuation
+       * - apostrophes
+       * - hyphenated names
+       * - suffixes
+       * - middle initials
+       * - abbreviated last names
+       * - team mismatches / fallback resolution
+       * - canonical player slugs
        */
 
-
-      function abbreviationMatchesPlayer(
-        abbreviation,
-        fullName
-      ) {
-
-        if (!abbreviation || !fullName) {
-          return false;
-        }
-
-        const cleanAbbreviation =
-          String(abbreviation)
-            .replace(/\./g, "")
-            .replace(/\s+/g, "")
-            .toLowerCase();
-
-
-        const parts =
-          String(fullName)
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean);
-
-
-        if (parts.length < 2) {
-          return false;
-        }
-
-
-        const firstName =
-          parts[0].replace(/[^a-z]/gi, "");
-
-
-        const lastName =
-          parts[parts.length - 1]
-            .replace(/[^a-z]/gi, "");
-
-
-        if (!firstName || !lastName) {
-          return false;
-        }
-
-
-        const expected =
-          `${firstName.charAt(0)}${lastName}`
-            .toLowerCase();
-
-
-        return cleanAbbreviation === expected;
-      }
-
-
-      async function resolvePlayerUrl(
+      async function resolveEPAPlayerUrl(
         playerName,
         team
       ) {
 
-        if (!playerName || !team) {
+        if (
+          !playerName ||
+          typeof window.resolvePlayerUrl !== "function"
+        ) {
           return null;
         }
 
-
-        const cacheKey =
-          `${team}:${playerName}`;
-
-
-        if (playerUrlCache.has(cacheKey)) {
-          return playerUrlCache.get(cacheKey);
-        }
-
-
         try {
 
-          const response =
-            await fetch(
-              `/assets/data/players/players-${team}.json`
-            );
-
-
-          if (!response.ok) {
-
-            playerUrlCache.set(
-              cacheKey,
-              null
-            );
-
-            return null;
-          }
-
-
-          const players =
-            await response.json();
-
-
-          if (!Array.isArray(players)) {
-
-            playerUrlCache.set(
-              cacheKey,
-              null
-            );
-
-            return null;
-          }
-
-
-          const player =
-            players.find(candidate => {
-
-              if (!candidate) {
-                return false;
-              }
-
-
-              const candidateName =
-                String(
-                  candidate.name || ""
-                ).trim();
-
-
-              return (
-                abbreviationMatchesPlayer(
-                  playerName,
-                  candidateName
-                ) ||
-
-                candidateName.toLowerCase() ===
-                String(playerName)
-                  .trim()
-                  .toLowerCase()
-              );
-
-            });
-
-
-          if (!player) {
-
-            playerUrlCache.set(
-              cacheKey,
-              null
-            );
-
-            return null;
-          }
-
-
-          /*
-           * IMPORTANT:
-           * Use the canonical slug already stored
-           * in the player data whenever available.
-           */
-
-          const slug =
-            slugifyText(player.name);
-
-
-          if (!slug) {
-
-            playerUrlCache.set(
-              cacheKey,
-              null
-            );
-
-            return null;
-          }
-
-
-          const url =
-            `/players/${slug}`;
-
-
-          playerUrlCache.set(
-            cacheKey,
-            url
+          return await window.resolvePlayerUrl(
+            playerName,
+            team
           );
-
-
-          return url;
 
         } catch (error) {
 
@@ -2156,20 +2019,23 @@
             error
           );
 
-
-          playerUrlCache.set(
-            cacheKey,
-            null
-          );
-
-
           return null;
+
         }
 
       }
 
 
+      /* =========================================
+         QB PLAYER LINK ENHANCEMENT
+      ========================================= */
+
       async function enhanceQBPlayerLinks() {
+
+        if (!qbTable) {
+          return;
+        }
+
 
         const playerCells =
           qbTable.querySelectorAll(
@@ -2178,19 +2044,25 @@
 
 
         await Promise.all(
+
           Array.from(playerCells).map(
             async cell => {
 
               const playerName =
-                cell.dataset.epaPlayer;
+                cell.dataset.epaPlayer || "";
 
 
               const team =
-                cell.dataset.epaTeam;
+                cell.dataset.epaTeam || "";
+
+
+              if (!playerName) {
+                return;
+              }
 
 
               const playerUrl =
-                await resolvePlayerUrl(
+                await resolveEPAPlayerUrl(
                   playerName,
                   team
                 );
@@ -2206,12 +2078,15 @@
                 href="${playerUrl}"
                 class="epa-player-link"
               >
-                <strong>${playerName}</strong>
+                <strong>
+                  ${playerName}
+                </strong>
               </a>
             `;
 
             }
           )
+
         );
 
       }
@@ -2226,6 +2101,10 @@
         message,
         colspan
       ) {
+
+        if (!element) {
+          return;
+        }
 
         element.innerHTML = `
         <tr>
@@ -2527,7 +2406,7 @@
             .map((row, index) => {
 
               const team =
-                row.team;
+                row.team || "";
 
 
               const player =
@@ -2542,11 +2421,23 @@
                 </td>
 
                 <td
-                  data-epa-player="${player}"
-                  data-epa-team="${team || ""}"
+                  data-epa-player="${String(player)
+                  .replace(/&/g, "&amp;")
+                  .replace(/"/g, "&quot;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")}"
+
+                  data-epa-team="${String(team)
+                  .replace(/&/g, "&amp;")
+                  .replace(/"/g, "&quot;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")}"
                 >
                   <strong>
-                    ${player}
+                    ${String(player)
+                  .replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")}
                   </strong>
                 </td>
 
@@ -2556,21 +2447,21 @@
 
                 <td>
                   ${formatSigned(
-                row.epa
-              )}
+                    row.epa
+                  )}
                 </td>
 
                 <td>
                   ${formatSigned(
-                row.epaPerPlay,
-                3
-              )}
+                    row.epaPerPlay,
+                    3
+                  )}
                 </td>
 
                 <td>
                   ${formatSigned(
-                row.passingEpa
-              )}
+                    row.passingEpa
+                  )}
                 </td>
 
                 <td>
@@ -2583,8 +2474,6 @@
             })
             .join("");
 
-
-        enhanceQBPlayerLinks();
 
       }
 
@@ -2640,6 +2529,14 @@
         renderDefenseTable(defense);
 
         renderQBTable(quarterbacks);
+
+
+        /*
+         * Enhance QB names AFTER the table has been
+         * rendered, using the shared player resolver.
+         */
+
+        await enhanceQBPlayerLinks();
 
 
         /* =========================================
@@ -2748,7 +2645,6 @@
 
     });
   </script>
-
 
   <!-- MOBILE SECTION ACCORDION -->
 

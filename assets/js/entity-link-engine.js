@@ -2196,9 +2196,36 @@
     );
   }
 
+  function injectFavicon() {
+
+    if (document.querySelector('link[rel="icon"]')) {
+      return;
+    }
+
+    const favicon = document.createElement("link");
+
+    favicon.rel = "icon";
+    favicon.type = "image/png";
+    favicon.href = "/assets/images/favicon.png";
+
+    document.head.appendChild(favicon);
+
+
+    const appleIcon = document.createElement("link");
+
+    appleIcon.rel = "apple-touch-icon";
+    appleIcon.href = "/assets/images/favicon.png";
+
+    document.head.appendChild(appleIcon);
+
+  }
+
   function initializeGlobalUI() {
+
     renderLinks();
     renderFeedbackButton();
+
+    injectFavicon();
 
     injectOrganizationSchema();
     injectFounderSchema();
