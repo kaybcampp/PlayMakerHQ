@@ -1674,6 +1674,7 @@
                         capturedAt,
 
                         backfilled:
+                            pick.analysisSnapshot?.backfilled === true ||
                             !pick.analysisSnapshot?.capturedAt
                     }
                 };
