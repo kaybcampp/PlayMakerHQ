@@ -842,6 +842,39 @@
                     <input class="pick-projection" type="number" step="0.01" placeholder="Optional" />
                 </div>
 
+                <div class="admin-field">
+                    <label>PlayMaker Probability</label>
+
+                    <input class="pick-probability" type="number" min="0" max="100" step="1" placeholder="e.g. 72" />
+                </div>
+
+                <div class="admin-field">
+                    <label>Confidence Grade</label>
+
+                    <input class="pick-confidence-grade" type="text" placeholder="e.g. B+" />
+                </div>
+
+                <div class="admin-field">
+                    <label>Confidence Score</label>
+
+                    <input class="pick-confidence-score" type="number" min="0" max="100" step="1"
+                        placeholder="e.g. 78" />
+                </div>
+
+                <div class="admin-field">
+                    <label>Confidence Tier</label>
+
+                    <input class="pick-confidence-tier" type="text" placeholder="e.g. Strong" />
+                </div>
+
+                <div class="admin-field full-width">
+                    <button type="button" class="admin-button secondary load-analysis-button">
+                        Load PlayMaker Analysis
+                    </button>
+
+                    <div class="analysis-load-status" style="margin-top: 8px; font-size: 0.82rem; opacity: 0.75;"></div>
+                </div>
+
             </div>
         </div>
     </template>
@@ -1283,6 +1316,424 @@
             });
         }
 
+        function normalizePlayMakerTeam(team) {
+            const value = String(team || "")
+                .trim()
+                .toUpperCase();
+
+            return value === "WAS"
+                ? "WSH"
+                : value;
+        }
+
+        function parsePlayMakerPercent(value) {
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return null;
+            }
+
+            const number = Number(
+                String(value).replace("%", "").trim()
+            );
+
+            return Number.isFinite(number)
+                ? number
+                : null;
+        }
+
+        async function loadPickAnalysis(row, button) {
+            const statusElement =
+                row.querySelector(".analysis-load-status");
+
+            const player = row
+                .querySelector(".pick-player")
+                .value
+                .trim();
+
+            const team = normalizePlayMakerTeam(
+                row.querySelector(".pick-team").value
+            );
+
+            const opponent = normalizePlayMakerTeam(
+                row.querySelector(".pick-opponent").value
+            );
+
+            const propType = row
+                .querySelector(".pick-prop-type")
+                .value
+                .trim();
+
+            const direction = row
+                .querySelector(".pick-direction")
+                .value;
+
+            const line = Number(
+                row.querySelector(".pick-line").value
+            );
+
+            const gameDateValue = row
+                .querySelector(".pick-game-date")
+                .value;
+
+            if (
+                !player ||
+                !team ||
+                !opponent ||
+                !propType ||
+                !Number.isFinite(line)
+            ) {
+                statusElement.textContent =
+                    "Complete player, team, opponent, prop type, direction, and line first.";
+
+                return;
+            }
+
+            const side =
+                direction === "lower"
+                    ? "under"
+                    : "over";
+
+            const gameDate =
+                gameDateValue
+                    ? gameDateValue.slice(0, 10)
+                    : "";
+
+            const selectedGame =
+                gameDate
+                    ? `${opponent} on ${gameDate}`
+                    : opponent;
+
+            try {
+                button.disabled = true;
+                button.textContent =
+                    "Running PlayMaker...";
+
+                statusElement.textContent =
+                    "Calculating projection and probability...";
+
+                const data = await apiRequest(
+                    "/api/fetch-player-prop",
+                    {
+                        method: "POST",
+                        body: JSON.stringify({
+                            player,
+                            line,
+                            team,
+                            opponent,
+                            propType:
+                                propType.toLowerCase(),
+                            game: selectedGame,
+                            side
+                        })
+                    }
+                );
+
+                if (data?.error) {
+                    throw new Error(data.error);
+                }
+
+                const projection =
+                    data?.analysis?.stats?.projected ??
+                    data?.projected ??
+                    null;
+
+                const probability =
+                    parsePlayMakerPercent(
+                        data?.analysis?.stats?.hitRate ??
+                        data?.hitRate
+                    );
+
+                if (
+                    projection === null &&
+                    probability === null
+                ) {
+                    throw new Error(
+                        "PlayMaker returned no projection or probability."
+                    );
+                }
+
+                row.querySelector(
+                    ".pick-projection"
+                ).value =
+                    projection ?? "";
+
+                row.querySelector(
+                    ".pick-probability"
+                ).value =
+                    probability ?? "";
+
+                row.querySelector(
+                    ".pick-confidence-grade"
+                ).value =
+                    data?.confidence ?? "";
+
+                row.querySelector(
+                    ".pick-confidence-score"
+                ).value =
+                    data?.confidenceScore ?? "";
+
+                row.querySelector(
+                    ".pick-confidence-tier"
+                ).value =
+                    data?.confidenceTier ?? "";
+
+                // Freeze the exact moment this analysis was generated.
+                row.dataset.analysisCapturedAt =
+                    new Date().toISOString();
+
+                statusElement.textContent =
+                    `Loaded: ${probability ?? "—"}% · Projection ${projection ?? "—"}`;
+
+            } catch (error) {
+                console.error(
+                    "Failed to load PlayMaker analysis:",
+                    error
+                );
+
+                statusElement.textContent =
+                    `Analysis failed: ${error.message}`;
+            } finally {
+                button.disabled = false;
+                button.textContent =
+                    "Load PlayMaker Analysis";
+            }
+        }
+
+        async function loadExistingPickAnalysis(
+            entry,
+            pickIndex,
+            row,
+            button
+        ) {
+            const statusElement =
+                row.querySelector(
+                    ".existing-analysis-status"
+                );
+
+            const picks =
+                Array.isArray(entry.picks)
+                    ? entry.picks
+                    : [];
+
+            const pick = picks[pickIndex];
+
+            if (!pick) {
+                statusElement.textContent =
+                    "Pick could not be found.";
+
+                return;
+            }
+
+            const player =
+                String(pick.player || "").trim();
+
+            const team =
+                normalizePlayMakerTeam(pick.team);
+
+            const opponent =
+                normalizePlayMakerTeam(pick.opponent);
+
+            const propType =
+                String(
+                    pick.propType ||
+                    pick.market ||
+                    ""
+                ).trim();
+
+            const line = Number(pick.line);
+
+            const direction =
+                String(
+                    pick.direction ||
+                    pick.side ||
+                    ""
+                ).toLowerCase();
+
+            if (
+                !player ||
+                !team ||
+                !opponent ||
+                !propType ||
+                !Number.isFinite(line)
+            ) {
+                statusElement.textContent =
+                    "This pick is missing required PlayMaker data.";
+
+                return;
+            }
+
+            const side =
+                direction === "lower" ||
+                    direction === "under"
+                    ? "under"
+                    : "over";
+
+            const gameDate =
+                pick.gameDate
+                    ? String(pick.gameDate).slice(0, 10)
+                    : "";
+
+            const selectedGame =
+                gameDate
+                    ? `${opponent} on ${gameDate}`
+                    : opponent;
+
+            try {
+                button.disabled = true;
+                button.textContent =
+                    "Running PlayMaker...";
+
+                statusElement.textContent =
+                    "Calculating current PlayMaker analysis...";
+
+                const data = await apiRequest(
+                    "/api/fetch-player-prop",
+                    {
+                        method: "POST",
+                        body: JSON.stringify({
+                            player,
+                            line,
+                            team,
+                            opponent,
+                            propType:
+                                propType.toLowerCase(),
+                            game: selectedGame,
+                            side
+                        })
+                    }
+                );
+
+                if (data?.error) {
+                    throw new Error(data.error);
+                }
+
+                const rawProjection =
+                    data?.analysis?.stats?.projected ??
+                    data?.projected ??
+                    null;
+
+                const projection =
+                    rawProjection !== null &&
+                        rawProjection !== undefined &&
+                        rawProjection !== ""
+                        ? Number(rawProjection)
+                        : null;
+
+                const probability =
+                    parsePlayMakerPercent(
+                        data?.analysis?.stats?.hitRate ??
+                        data?.hitRate
+                    );
+
+                const rawLast10Average =
+                    data?.analysis?.stats?.last10Average ??
+                    null;
+
+                const last10Average =
+                    rawLast10Average !== null &&
+                        rawLast10Average !== undefined &&
+                        rawLast10Average !== ""
+                        ? Number(rawLast10Average)
+                        : null;
+
+                if (
+                    projection === null &&
+                    probability === null
+                ) {
+                    throw new Error(
+                        "PlayMaker returned no projection or probability."
+                    );
+                }
+
+                const capturedAt =
+                    new Date().toISOString();
+
+                const updatedPick = {
+                    ...pick,
+
+                    projection:
+                        projection ?? pick.projection ?? null,
+
+                    analysisSnapshot: {
+                        probability,
+                        projection,
+                        last10Average,
+
+                        confidenceGrade:
+                            data?.confidence ?? null,
+
+                        confidenceScore:
+                            data?.confidenceScore ?? null,
+
+                        confidenceTier:
+                            data?.confidenceTier ?? null,
+
+                        capturedAt,
+
+                        backfilled:
+                            !pick.analysisSnapshot?.capturedAt
+                    }
+                };
+
+                const updatedPicks =
+                    picks.map((existingPick, index) =>
+                        index === pickIndex
+                            ? updatedPick
+                            : existingPick
+                    );
+
+                console.log(
+                    "SAVING PLAYMAKER SNAPSHOT:",
+                    {
+                        entryId: getEntryId(entry),
+                        pickIndex,
+                        updatedPick,
+                        updatedPicks
+                    }
+                );
+
+                const saveResponse = await apiRequest(
+                    API_ENDPOINTS.updateSlip(
+                        getEntryId(entry)
+                    ),
+                    {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            picks: updatedPicks
+                        })
+                    },
+                    true
+                );
+
+                console.log(
+                    "PLAYMAKER SNAPSHOT SAVE RESPONSE:",
+                    saveResponse
+                );
+
+                statusElement.textContent =
+                    `Saved: ${probability ?? "—"}% · Projection ${projection ?? "—"} · ${data?.confidence ?? "—"}`;
+
+                await loadBankroll();
+
+            } catch (error) {
+                console.error(
+                    "Failed to load existing pick analysis:",
+                    error
+                );
+
+                statusElement.textContent =
+                    `Analysis failed: ${error.message}`;
+
+            } finally {
+                button.disabled = false;
+                button.textContent =
+                    "Load PlayMaker Analysis";
+            }
+        }
+
         function addPickRow(initialData = {}) {
             const fragment =
                 pickRowTemplate.content.cloneNode(true);
@@ -1316,6 +1767,32 @@
             row.querySelector(".pick-projection").value =
                 initialData.projection ?? "";
 
+            const snapshot =
+                initialData.analysisSnapshot || {};
+
+            row.dataset.analysisCapturedAt =
+                snapshot.capturedAt || "";
+
+            row.querySelector(".pick-probability").value =
+                snapshot.probability ??
+                initialData.playmakerProbability ??
+                "";
+
+            row.querySelector(".pick-confidence-grade").value =
+                snapshot.confidenceGrade ??
+                initialData.confidenceGrade ??
+                "";
+
+            row.querySelector(".pick-confidence-score").value =
+                snapshot.confidenceScore ??
+                initialData.confidenceScore ??
+                "";
+
+            row.querySelector(".pick-confidence-tier").value =
+                snapshot.confidenceTier ??
+                initialData.confidenceTier ??
+                "";
+
             if (initialData.gameDate) {
                 const gameDate = new Date(
                     initialData.gameDate
@@ -1341,6 +1818,19 @@
                 row.remove();
                 updatePickNumbers();
             });
+
+            const loadAnalysisButton =
+                row.querySelector(
+                    ".load-analysis-button"
+                );
+
+            loadAnalysisButton.addEventListener(
+                "click",
+                () => loadPickAnalysis(
+                    row,
+                    loadAnalysisButton
+                )
+            );
 
             pickRows.appendChild(fragment);
             updatePickNumbers();
@@ -1403,6 +1893,24 @@
                     .querySelector(".pick-projection")
                     .value;
 
+                const probabilityValue = row
+                    .querySelector(".pick-probability")
+                    .value;
+
+                const confidenceGradeValue = row
+                    .querySelector(".pick-confidence-grade")
+                    .value
+                    .trim();
+
+                const confidenceScoreValue = row
+                    .querySelector(".pick-confidence-score")
+                    .value;
+
+                const confidenceTierValue = row
+                    .querySelector(".pick-confidence-tier")
+                    .value
+                    .trim();
+
                 const gameDateValue = row
                     .querySelector(".pick-game-date")
                     .value;
@@ -1430,6 +1938,37 @@
                         projectionValue !== ""
                             ? Number(projectionValue)
                             : null,
+
+                    analysisSnapshot: {
+                        probability:
+                            probabilityValue !== ""
+                                ? Number(probabilityValue)
+                                : null,
+
+                        projection:
+                            projectionValue !== ""
+                                ? Number(projectionValue)
+                                : null,
+
+                        last10Average:
+                            data?.analysis?.stats?.last10Average ??
+                            null,
+
+                        confidenceGrade:
+                            confidenceGradeValue || null,
+
+                        confidenceScore:
+                            confidenceScoreValue !== ""
+                                ? Number(confidenceScoreValue)
+                                : null,
+
+                        confidenceTier:
+                            confidenceTierValue || null,
+
+                        capturedAt:
+                            row.dataset.analysisCapturedAt ||
+                            null
+                    },
                     gameDate:
                         gameDateValue
                             ? new Date(gameDateValue).toISOString()
@@ -1687,27 +2226,69 @@
                 data-pick-index="${index}"
               >
                 <div class="grade-pick-description">
-                  <strong>
-                    ${escapeHtml(
+  <strong>
+    ${escapeHtml(
                 pick.player ||
                 `Pick ${index + 1}`
             )}
-                  </strong>
+  </strong>
 
-                  <span>
-                    ${escapeHtml(
+  <span>
+    ${escapeHtml(
                 pick.direction ||
                 pick.side ||
                 ""
             )}
-                    ${escapeHtml(pick.line ?? "")}
-                    ${escapeHtml(
+    ${escapeHtml(pick.line ?? "")}
+    ${escapeHtml(
                 pick.propType ||
                 pick.market ||
                 ""
             )}
-                  </span>
-                </div>
+  </span>
+
+  <div
+    class="existing-analysis-summary"
+    style="margin-top: 8px;"
+  >
+    ${pick.analysisSnapshot
+                    ? `
+                <span>
+                  PlayMaker:
+                  ${escapeHtml(
+                        pick.analysisSnapshot.probability ?? "—"
+                    )}%
+                  · Projection
+                  ${escapeHtml(
+                        pick.analysisSnapshot.projection ?? "—"
+                    )}
+                  · ${escapeHtml(
+                        pick.analysisSnapshot.confidenceGrade ?? "—"
+                    )}
+                </span>
+              `
+                    : `
+                <span>
+                  No PlayMaker snapshot saved.
+                </span>
+              `
+                }
+  </div>
+
+  <button
+    type="button"
+    class="admin-button secondary small load-existing-analysis-button"
+    data-pick-index="${index}"
+    style="margin-top: 10px;"
+  >
+    Load PlayMaker Analysis
+  </button>
+
+  <div
+    class="existing-analysis-status"
+    style="margin-top: 7px; font-size: 0.8rem; opacity: 0.75;"
+  ></div>
+</div>
 
                 <div class="admin-field">
                   <label>Actual</label>
@@ -2256,6 +2837,36 @@
                     if (!entry) {
                         return;
                     }
+
+                    container
+                        .querySelectorAll(
+                            ".load-existing-analysis-button"
+                        )
+                        .forEach(button => {
+
+                            button.addEventListener(
+                                "click",
+                                () => {
+
+                                    const pickIndex =
+                                        Number(
+                                            button.dataset.pickIndex
+                                        );
+
+                                    const gradeRow =
+                                        button.closest(
+                                            ".grade-grid"
+                                        );
+
+                                    loadExistingPickAnalysis(
+                                        entry,
+                                        pickIndex,
+                                        gradeRow,
+                                        button
+                                    );
+                                }
+                            );
+                        });
 
                     const saveButton =
                         container.querySelector(
