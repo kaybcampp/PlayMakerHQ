@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Login — PlayMaker Prime</title>
-  <meta name="description"
-    content="Login to PlayMaker Prime to access NFL prop research, matchup intelligence, player trends, and the PlayMaker prediction tool." />
+
+  <meta
+    name="description"
+    content="Login to PlayMaker Prime to access NFL prop research, matchup intelligence, player trends, and the PlayMaker prediction tool."
+  />
 
   <link rel="stylesheet" href="assets/css/pricing.css" />
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
@@ -25,7 +28,10 @@
       <div class="hero-glow"></div>
 
       <div class="pricing-hero-content">
-        <span class="hq-pill">Member Access</span>
+
+        <span class="hq-pill">
+          Member Access
+        </span>
 
         <h2>
           Login to PlayMaker Prime.
@@ -33,25 +39,65 @@
         </h2>
 
         <p>
-          Login access will connect to your PlayMaker Pro subscription once Stripe and account verification are live.
+          Sign in with the PlayMaker account linked to your active
+          PlayMaker Pro subscription.
         </p>
 
         <div class="login-card">
+
           <h3>Login</h3>
 
           <form id="login-form">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="you@example.com" required />
 
-            <button type="submit" class="btn-primary">Login</button>
+            <label for="email">
+              Email
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+
+            <label for="password">
+              Password
+            </label>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+
+            <button
+              id="login-button"
+              type="submit"
+              class="btn-primary"
+            >
+              Login
+            </button>
+
           </form>
 
-          <p id="login-message" class="login-message"></p>
+          <p
+            id="login-message"
+            class="login-message"
+          ></p>
 
           <div class="login-links">
-            <a href="forgot-password.html">Forgot password?</a>
-            <a href="pricing.html">Need Pro access?</a>
+            <a href="forgot-password.html">
+              Forgot password?
+            </a>
+
+            <a href="pricing.html">
+              Need Pro access?
+            </a>
           </div>
+
         </div>
       </div>
     </section>
@@ -85,66 +131,261 @@
   </footer>
 
   <script>
-    document.getElementById("login-form").addEventListener("submit", async function (event) {
-      event.preventDefault();
+    function getOrCreateDeviceId() {
+      let deviceId =
+        localStorage.getItem(
+          "playmaker_device_id"
+        );
 
-      const message = document.getElementById("login-message");
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-
-      message.textContent = "Checking login...";
-      message.className = "login-message";
-
-      try {
-        const res = await fetch("/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ email })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok || !data.success) {
-          message.textContent = data.error || "Login failed. Please try again.";
-          message.className = "login-message error";
-          return;
+      if (!deviceId) {
+        if (
+          window.crypto &&
+          typeof window.crypto.randomUUID === "function"
+        ) {
+          deviceId =
+            window.crypto.randomUUID();
+        } else {
+          deviceId =
+            "device_" +
+            Date.now() +
+            "_" +
+            Math.random()
+              .toString(36)
+              .slice(2);
         }
 
-        localStorage.setItem("pm_token", data.token);
-        localStorage.setItem("pm_user_email", email);
-
-        message.textContent = "Login successful. Redirecting...";
-        message.className = "login-message success";
-
-        window.location.href = data.redirect || "/account.html";
-      } catch (err) {
-        message.textContent = "Login is not connected yet. Stripe/account setup is still in progress.";
-        message.className = "login-message error";
+        localStorage.setItem(
+          "playmaker_device_id",
+          deviceId
+        );
       }
-    });
+
+      return deviceId;
+    }
+
+    function getDeviceName() {
+      const ua =
+        navigator.userAgent || "";
+
+      if (/iphone/i.test(ua)) {
+        return "iPhone";
+      }
+
+      if (/ipad/i.test(ua)) {
+        return "iPad";
+      }
+
+      if (/android/i.test(ua)) {
+        return "Android Device";
+      }
+
+      if (/windows/i.test(ua)) {
+        return "Windows PC";
+      }
+
+      if (/macintosh|mac os x/i.test(ua)) {
+        return "Mac";
+      }
+
+      return "Browser Device";
+    }
+
+    document
+      .getElementById("login-form")
+      .addEventListener(
+        "submit",
+        async function (event) {
+          event.preventDefault();
+
+          const message =
+            document.getElementById(
+              "login-message"
+            );
+
+          const button =
+            document.getElementById(
+              "login-button"
+            );
+
+          const email =
+            document.getElementById(
+              "email"
+            ).value
+              .trim()
+              .toLowerCase();
+
+          const password =
+            document.getElementById(
+              "password"
+            ).value;
+
+          message.textContent =
+            "Checking login...";
+
+          message.className =
+            "login-message";
+
+          button.disabled = true;
+          button.textContent =
+            "Signing In...";
+
+          try {
+            const res =
+              await fetch(
+                "/api/login",
+                {
+                  method: "POST",
+
+                  headers: {
+                    "Content-Type":
+                      "application/json"
+                  },
+
+                  body:
+                    JSON.stringify({
+                      email,
+                      password,
+
+                      deviceId:
+                        getOrCreateDeviceId(),
+
+                      deviceName:
+                        getDeviceName()
+                    })
+                }
+              );
+
+            const data =
+              await res.json();
+
+            if (
+              !res.ok ||
+              !data.success
+            ) {
+              throw new Error(
+                data.error ||
+                "Login failed. Please try again."
+              );
+            }
+
+            /*
+             * Keep pm_token so existing
+             * PlayMaker pages can continue
+             * using the same storage key.
+             */
+            localStorage.setItem(
+              "pm_token",
+              data.token
+            );
+
+            localStorage.setItem(
+              "pm_user_email",
+              data.account?.email ||
+              email
+            );
+
+            if (
+              data.account?.accountId
+            ) {
+              localStorage.setItem(
+                "pm_account_id",
+                data.account.accountId
+              );
+            }
+
+            if (
+              data.session?.deviceId
+            ) {
+              localStorage.setItem(
+                "playmaker_device_id",
+                data.session.deviceId
+              );
+            }
+
+            message.textContent =
+              "Login successful. Redirecting...";
+
+            message.className =
+              "login-message success";
+
+            window.location.href =
+              data.redirect ||
+              "/account.html";
+
+          } catch (err) {
+
+            console.error(
+              "Login failed:",
+              err
+            );
+
+            message.textContent =
+              err.message ||
+              "Login failed. Please try again.";
+
+            message.className =
+              "login-message error";
+
+          } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+              "Login";
+          }
+        }
+      );
   </script>
 
   <script src="/assets/js/analytics-tracker.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
-
-        if (index === 0) {
-          section.classList.add("is-open");
+        if (
+          !window.matchMedia(
+            "(max-width: 768px)"
+          ).matches
+        ) {
+          return;
         }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
-        });
-      });
-    });
+        document
+          .querySelectorAll(
+            ".hq-section"
+          )
+          .forEach(
+            (section, index) => {
+
+              const header =
+                section.querySelector(
+                  ":scope > .section-header"
+                );
+
+              if (!header) {
+                return;
+              }
+
+              if (index === 0) {
+                section.classList.add(
+                  "is-open"
+                );
+              }
+
+              header.addEventListener(
+                "click",
+                () => {
+                  section.classList.toggle(
+                    "is-open"
+                  );
+                }
+              );
+            }
+          );
+      }
+    );
   </script>
 
 </body>

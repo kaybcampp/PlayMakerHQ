@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Account — PlayMaker Prime</title>
-  <meta name="description"
-    content="Manage your PlayMaker Prime account, subscription status, billing access, and PlayMaker Pro membership." />
+
+  <meta
+    name="description"
+    content="Manage your PlayMaker Prime account, subscription status, billing access, and PlayMaker Pro membership."
+  />
 
   <link rel="stylesheet" href="assets/css/pricing.css" />
   <link rel="stylesheet" href="/assets/css/entity-links.css" />
@@ -24,7 +27,10 @@
     <div class="hero-glow"></div>
 
     <div class="pricing-hero-content">
-      <span class="hq-pill">Member Dashboard</span>
+
+      <span class="hq-pill">
+        Member Dashboard
+      </span>
 
       <h2>
         Your PlayMaker account.
@@ -32,39 +38,96 @@
       </h2>
 
       <p>
-        View your subscription status, billing access, account email, and quick links into PlayMaker Prime.
+        View your subscription status, billing access, account email,
+        and active PlayMaker device access.
       </p>
 
       <div class="login-card">
+
         <h3>Account Overview</h3>
 
         <div class="account-detail">
           <span>Email</span>
-          <strong id="account-email">Not logged in</strong>
+          <strong id="account-email">
+            Loading...
+          </strong>
         </div>
 
         <div class="account-detail">
           <span>Plan</span>
-          <strong id="account-plan">PlayMaker Pro</strong>
+          <strong id="account-plan">
+            Loading...
+          </strong>
         </div>
 
         <div class="account-detail">
           <span>Status</span>
-          <strong id="account-status">Pending Connection</strong>
+          <strong id="account-status">
+            Loading...
+          </strong>
         </div>
 
         <div class="account-detail">
           <span>Renewal</span>
-          <strong id="account-renewal">Available after Stripe setup</strong>
+          <strong id="account-renewal">
+            Loading...
+          </strong>
+        </div>
+
+        <div class="account-detail">
+          <span>Active Devices</span>
+          <strong id="account-devices">
+            Loading...
+          </strong>
+        </div>
+
+        <div class="account-detail">
+          <span>Current Device</span>
+          <strong id="account-current-device">
+            Loading...
+          </strong>
         </div>
 
         <div class="account-actions">
-          <a href="/tool/" class="btn-primary">Launch PlayMaker</a>
-          <button id="billing-btn" class="plan-btn secondary" type="button">Manage Billing</button>
-          <button id="logout-btn" class="plan-btn secondary" type="button">Logout</button>
+
+          <a
+            href="/tool/"
+            class="btn-primary"
+          >
+            Launch PlayMaker
+          </a>
+
+          <button
+            id="billing-btn"
+            class="plan-btn secondary"
+            type="button"
+          >
+            Manage Billing
+          </button>
+
+          <button
+            id="devices-btn"
+            class="plan-btn secondary"
+            type="button"
+          >
+            Manage Devices
+          </button>
+
+          <button
+            id="logout-btn"
+            class="plan-btn secondary"
+            type="button"
+          >
+            Logout
+          </button>
+
         </div>
 
-        <p id="account-message" class="login-message"></p>
+        <p
+          id="account-message"
+          class="login-message"
+        ></p>
+
       </div>
     </div>
   </section>
@@ -72,39 +135,96 @@
   <main>
 
     <section class="hq-section">
+
       <div class="section-header">
         <h3>Pro Access</h3>
-        <p>Your account will unlock the full PlayMaker prediction engine once subscription logic is connected.</p>
+
+        <p>
+          Your active PlayMaker Pro subscription unlocks the full
+          PlayMaker prediction engine across your approved devices.
+        </p>
       </div>
 
       <div class="value-grid">
+
         <div class="value-card">
           <h4>Prediction Tool</h4>
-          <p>Run player props through PlayMaker’s research engine, projections, and ride/fade logic.</p>
+
+          <p>
+            Run player props through PlayMaker’s research engine,
+            projections, and ride/fade logic.
+          </p>
         </div>
 
         <div class="value-card">
           <h4>Matchup Intelligence</h4>
-          <p>Use defensive tiers, similar matchups, pressure rates, injuries, and weather context.</p>
+
+          <p>
+            Use defensive tiers, similar matchups, pressure rates,
+            injuries, and weather context.
+          </p>
         </div>
 
         <div class="value-card">
           <h4>Results Tracking</h4>
-          <p>Review tracked PlayMaker performance across passing, rushing, receiving, and prop categories.</p>
+
+          <p>
+            Review tracked PlayMaker performance across passing,
+            rushing, receiving, and prop categories.
+          </p>
         </div>
 
         <div class="value-card">
-          <h4>Billing Portal</h4>
-          <p>Manage your subscription, payment method, and cancellation settings once Stripe is connected.</p>
+          <h4>Multi-Device Access</h4>
+
+          <p>
+            Use the same PlayMaker Pro account across approved
+            desktop and mobile devices.
+          </p>
         </div>
+
       </div>
     </section>
 
+    <section
+      id="device-section"
+      class="hq-section hq-section-alt"
+      style="display: none;"
+    >
+
+      <div class="section-header">
+        <h3>Active Devices</h3>
+
+        <p>
+          Devices currently signed into this PlayMaker account.
+        </p>
+      </div>
+
+      <div
+        id="device-list"
+        class="value-grid"
+      ></div>
+
+    </section>
+
     <section class="hq-section hq-section-alt">
+
       <div class="final-cta">
+
         <h3>Need Pro access?</h3>
-        <p>Subscribe to PlayMaker Pro when Stripe checkout is connected.</p>
-        <a href="pricing.html" class="btn-primary">View Pricing</a>
+
+        <p>
+          Subscribe to PlayMaker Pro to unlock the full research
+          and prediction platform.
+        </p>
+
+        <a
+          href="pricing.html"
+          class="btn-primary"
+        >
+          View Pricing
+        </a>
+
       </div>
     </section>
 
@@ -139,90 +259,650 @@
 
   <script>
     (function () {
-      const emailEl = document.getElementById("account-email");
-      const messageEl = document.getElementById("account-message");
-      const billingBtn = document.getElementById("billing-btn");
-      const logoutBtn = document.getElementById("logout-btn");
+
+      const emailEl =
+        document.getElementById(
+          "account-email"
+        );
+
+      const planEl =
+        document.getElementById(
+          "account-plan"
+        );
+
+      const statusEl =
+        document.getElementById(
+          "account-status"
+        );
+
+      const renewalEl =
+        document.getElementById(
+          "account-renewal"
+        );
+
+      const devicesEl =
+        document.getElementById(
+          "account-devices"
+        );
+
+      const currentDeviceEl =
+        document.getElementById(
+          "account-current-device"
+        );
+
+      const messageEl =
+        document.getElementById(
+          "account-message"
+        );
+
+      const billingBtn =
+        document.getElementById(
+          "billing-btn"
+        );
+
+      const devicesBtn =
+        document.getElementById(
+          "devices-btn"
+        );
+
+      const logoutBtn =
+        document.getElementById(
+          "logout-btn"
+        );
+
+      const deviceSection =
+        document.getElementById(
+          "device-section"
+        );
+
+      const deviceList =
+        document.getElementById(
+          "device-list"
+        );
+
+
+      function getToken() {
+        return localStorage.getItem(
+          "pm_token"
+        );
+      }
+
+
+      function clearLocalSession() {
+        localStorage.removeItem(
+          "pm_token"
+        );
+
+        localStorage.removeItem(
+          "pm_user_email"
+        );
+
+        localStorage.removeItem(
+          "pm_account_id"
+        );
+      }
+
+
+      async function authenticatedFetch(
+        url,
+        options = {}
+      ) {
+
+        const token =
+          getToken();
+
+        if (!token) {
+          clearLocalSession();
+
+          window.location.href =
+            "/login.html";
+
+          throw new Error(
+            "Not authenticated."
+          );
+        }
+
+        const headers = {
+          ...(options.headers || {}),
+          Authorization:
+            `Bearer ${token}`
+        };
+
+        return fetch(
+          url,
+          {
+            ...options,
+            headers
+          }
+        );
+      }
+
+
+      function formatRenewalDate(value) {
+
+        if (!value) {
+          return "N/A";
+        }
+
+        const date =
+          new Date(value);
+
+        if (
+          Number.isNaN(
+            date.getTime()
+          )
+        ) {
+          return value;
+        }
+
+        return date.toLocaleDateString(
+          undefined,
+          {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+          }
+        );
+      }
+
 
       async function loadAccount() {
-        const email = localStorage.getItem("pm_user_email");
 
-        if (!email) {
-          window.location.href = "/login.html";
+        const token =
+          getToken();
+
+        if (!token) {
+          window.location.href =
+            "/login.html";
+
           return;
         }
 
         try {
-          const res = await fetch(`/api/account?email=${email}`);
-          const data = await res.json();
 
-          if (!res.ok) throw new Error("Failed to load account");
+          const res =
+            await authenticatedFetch(
+              "/api/account"
+            );
 
-          document.getElementById("account-email").textContent = data.email;
-          document.getElementById("account-status").textContent = data.status;
-          document.getElementById("account-plan").textContent = data.plan || "PlayMaker Pro";
-          document.getElementById("account-renewal").textContent = data.renewal || "N/A";
+          const data =
+            await res.json();
+
+          if (
+            res.status === 401 ||
+            res.status === 403
+          ) {
+
+            clearLocalSession();
+
+            window.location.href =
+              "/login.html";
+
+            return;
+          }
+
+          if (!res.ok) {
+            throw new Error(
+              data.error ||
+              "Failed to load account."
+            );
+          }
+
+          emailEl.textContent =
+            data.email ||
+            "Unknown";
+
+          planEl.textContent =
+            data.plan ||
+            "PlayMaker Pro";
+
+          statusEl.textContent =
+            data.status ||
+            "Unknown";
+
+          renewalEl.textContent =
+            formatRenewalDate(
+              data.renewal
+            );
+
+          devicesEl.textContent =
+            `${data.activeDevices || 0} / ${data.maxDevices || 3}`;
+
+          currentDeviceEl.textContent =
+            data.currentDevice
+              ?.deviceName ||
+            "Unknown Device";
+
+          if (data.accountId) {
+
+            localStorage.setItem(
+              "pm_account_id",
+              data.accountId
+            );
+
+          }
+
+          if (data.email) {
+
+            localStorage.setItem(
+              "pm_user_email",
+              data.email
+            );
+
+          }
 
         } catch (err) {
-          console.error(err);
+
+          console.error(
+            "Account load failed:",
+            err
+          );
+
+          messageEl.textContent =
+            err.message ||
+            "Unable to load account.";
+
+          messageEl.className =
+            "login-message error";
+
         }
       }
 
-      loadAccount();
-      const loggedIn = localStorage.getItem("pm_logged_in") === "true";
 
-      if (loggedIn && storedEmail) {
-        emailEl.textContent = storedEmail;
-      } else {
-        emailEl.textContent = "Not logged in";
-        messageEl.textContent = "Login will be required once account access is connected.";
+      async function loadDevices() {
+
+        try {
+
+          devicesBtn.disabled =
+            true;
+
+          devicesBtn.textContent =
+            "Loading Devices...";
+
+          const res =
+            await authenticatedFetch(
+              "/api/account/devices"
+            );
+
+          const data =
+            await res.json();
+
+          if (
+            res.status === 401 ||
+            res.status === 403
+          ) {
+
+            clearLocalSession();
+
+            window.location.href =
+              "/login.html";
+
+            return;
+          }
+
+          if (!res.ok) {
+            throw new Error(
+              data.error ||
+              "Failed to load devices."
+            );
+          }
+
+          deviceList.innerHTML =
+            "";
+
+          if (
+            !Array.isArray(
+              data.devices
+            ) ||
+            data.devices.length === 0
+          ) {
+
+            deviceList.innerHTML =
+              `
+                <div class="value-card">
+                  <h4>No Active Devices</h4>
+                  <p>No active device sessions were found.</p>
+                </div>
+              `;
+
+          } else {
+
+            data.devices.forEach(
+              device => {
+
+                const card =
+                  document.createElement(
+                    "div"
+                  );
+
+                card.className =
+                  "value-card";
+
+                const lastUsed =
+                  device.lastUsedAt
+                    ? new Date(
+                        device.lastUsedAt
+                      )
+                        .toLocaleString()
+                    : "Unknown";
+
+                const expires =
+                  device.expiresAt
+                    ? new Date(
+                        device.expiresAt
+                      )
+                        .toLocaleString()
+                    : "Unknown";
+
+                card.innerHTML =
+                  `
+                    <h4>
+                      ${device.deviceName || "Unknown Device"}
+                      ${device.current ? " — Current" : ""}
+                    </h4>
+
+                    <p>
+                      Last used: ${lastUsed}
+                    </p>
+
+                    <p>
+                      Session expires: ${expires}
+                    </p>
+
+                    ${
+                      device.current
+                        ? ""
+                        : `
+                          <button
+                            type="button"
+                            class="plan-btn secondary remove-device-btn"
+                            data-session-id="${device.sessionId}"
+                          >
+                            Remove Device
+                          </button>
+                        `
+                    }
+                  `;
+
+                deviceList.appendChild(
+                  card
+                );
+
+              }
+            );
+
+          }
+
+          deviceSection.style.display =
+            "block";
+
+          bindRemoveDeviceButtons();
+
+        } catch (err) {
+
+          console.error(
+            "Device load failed:",
+            err
+          );
+
+          messageEl.textContent =
+            err.message ||
+            "Unable to load devices.";
+
+          messageEl.className =
+            "login-message error";
+
+        } finally {
+
+          devicesBtn.disabled =
+            false;
+
+          devicesBtn.textContent =
+            "Manage Devices";
+
+        }
       }
 
-      billingBtn.addEventListener("click", async function () {
-        messageEl.className = "login-message";
-        messageEl.textContent = "Billing portal is not connected yet.";
 
-        /*
-        Later:
-        const res = await fetch("/api/customer-portal", { method: "POST" });
-        const data = await res.json();
-        window.location.href = data.url;
-        */
-      });
+      function bindRemoveDeviceButtons() {
 
-      logoutBtn.addEventListener("click", function () {
-        localStorage.removeItem("pm_logged_in");
-        localStorage.removeItem("pm_user_email");
+        document
+          .querySelectorAll(
+            ".remove-device-btn"
+          )
+          .forEach(
+            button => {
 
-        messageEl.className = "login-message success";
-        messageEl.textContent = "Logged out. Redirecting...";
+              button.addEventListener(
+                "click",
+                async () => {
 
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 800);
-      });
+                  const sessionId =
+                    button.dataset
+                      .sessionId;
+
+                  if (!sessionId) {
+                    return;
+                  }
+
+                  try {
+
+                    button.disabled =
+                      true;
+
+                    button.textContent =
+                      "Removing...";
+
+                    const res =
+                      await authenticatedFetch(
+                        `/api/account/devices/${encodeURIComponent(sessionId)}`,
+                        {
+                          method:
+                            "DELETE"
+                        }
+                      );
+
+                    const data =
+                      await res.json();
+
+                    if (!res.ok) {
+                      throw new Error(
+                        data.error ||
+                        "Failed to remove device."
+                      );
+                    }
+
+                    messageEl.textContent =
+                      "Device removed.";
+
+                    messageEl.className =
+                      "login-message success";
+
+                    await loadAccount();
+                    await loadDevices();
+
+                  } catch (err) {
+
+                    console.error(
+                      "Device removal failed:",
+                      err
+                    );
+
+                    messageEl.textContent =
+                      err.message ||
+                      "Failed to remove device.";
+
+                    messageEl.className =
+                      "login-message error";
+
+                    button.disabled =
+                      false;
+
+                    button.textContent =
+                      "Remove Device";
+                  }
+                }
+              );
+            }
+          );
+      }
+
+
+      billingBtn.addEventListener(
+        "click",
+        async function () {
+
+          messageEl.className =
+            "login-message";
+
+          messageEl.textContent =
+            "Billing portal is not connected yet.";
+
+          /*
+          Later:
+
+          const res =
+            await authenticatedFetch(
+              "/api/customer-portal",
+              {
+                method: "POST"
+              }
+            );
+
+          const data =
+            await res.json();
+
+          window.location.href =
+            data.url;
+          */
+
+        }
+      );
+
+
+      devicesBtn.addEventListener(
+        "click",
+        loadDevices
+      );
+
+
+      logoutBtn.addEventListener(
+        "click",
+        async function () {
+
+          logoutBtn.disabled =
+            true;
+
+          logoutBtn.textContent =
+            "Logging Out...";
+
+          try {
+
+            const token =
+              getToken();
+
+            if (token) {
+
+              await fetch(
+                "/api/logout",
+                {
+                  method:
+                    "POST",
+
+                  headers: {
+                    Authorization:
+                      `Bearer ${token}`
+                  }
+                }
+              );
+
+            }
+
+          } catch (err) {
+
+            console.warn(
+              "Server logout failed:",
+              err
+            );
+
+          } finally {
+
+            clearLocalSession();
+
+            messageEl.className =
+              "login-message success";
+
+            messageEl.textContent =
+              "Logged out. Redirecting...";
+
+            setTimeout(
+              () => {
+                window.location.href =
+                  "/login.html";
+              },
+              500
+            );
+
+          }
+        }
+      );
+
+
+      loadAccount();
+
     })();
   </script>
 
   <script src="/assets/js/analytics-tracker.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!window.matchMedia("(max-width: 768px)").matches) return;
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
 
-      document.querySelectorAll(".hq-section").forEach((section, index) => {
-        const header = section.querySelector(":scope > .section-header");
-        if (!header) return;
-
-        if (index === 0) {
-          section.classList.add("is-open");
+        if (
+          !window.matchMedia(
+            "(max-width: 768px)"
+          ).matches
+        ) {
+          return;
         }
 
-        header.addEventListener("click", () => {
-          section.classList.toggle("is-open");
-        });
-      });
-    });
+        document
+          .querySelectorAll(
+            ".hq-section"
+          )
+          .forEach(
+            (section, index) => {
+
+              const header =
+                section.querySelector(
+                  ":scope > .section-header"
+                );
+
+              if (!header) {
+                return;
+              }
+
+              if (index === 0) {
+                section.classList.add(
+                  "is-open"
+                );
+              }
+
+              header.addEventListener(
+                "click",
+                () => {
+                  section.classList.toggle(
+                    "is-open"
+                  );
+                }
+              );
+
+            }
+          );
+      }
+    );
   </script>
 
 </body>
