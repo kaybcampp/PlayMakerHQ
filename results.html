@@ -108,6 +108,37 @@
 
     <section class="hq-section hq-section-alt">
       <div class="section-header">
+        <h3>PlayMaker Probability Calibration</h3>
+        <p>
+          Compare PlayMaker's saved probability at the time of the pick with actual graded results.
+          Calibration becomes more meaningful as the tracked sample grows.
+        </p>
+      </div>
+
+      <div class="results-table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>PlayMaker Probability</th>
+              <th>Actual Accuracy</th>
+              <th>Record</th>
+              <th>Sample Size</th>
+            </tr>
+          </thead>
+
+          <tbody id="calibration-table-body">
+            <tr>
+              <td colspan="4">
+                Loading calibration data...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="hq-section hq-section-alt">
+      <div class="section-header">
         <h3>Results by Prop Type</h3>
         <p>Performance by prop family, updated from the current PlayMaker results log.</p>
       </div>
@@ -324,6 +355,137 @@
       return `${wins}-${losses} record · ${rate}% win rate across ${total} tracked plays.`;
     }
 
+    function getCalibrationStats(results) {
+      const buckets = [
+        {
+          label: "50–59%",
+          min: 50,
+          max: 59
+        },
+        {
+          label: "60–69%",
+          min: 60,
+          max: 69
+        },
+        {
+          label: "70–79%",
+          min: 70,
+          max: 79
+        },
+        {
+          label: "80–89%",
+          min: 80,
+          max: 89
+        },
+        {
+          label: "90%+",
+          min: 90,
+          max: 100
+        }
+      ];
+
+      const graded = results.filter(result => {
+        const probability =
+          Number(result.playmakerProbability);
+
+        const outcome =
+          String(result.result || "").toLowerCase();
+
+        return (
+          Number.isFinite(probability) &&
+          probability >= 50 &&
+          ["won", "lost"].includes(outcome)
+        );
+      });
+
+      return buckets.map(bucket => {
+        const picks = graded.filter(result => {
+          const probability =
+            Number(result.playmakerProbability);
+
+          return (
+            probability >= bucket.min &&
+            probability <= bucket.max
+          );
+        });
+
+        const wins = picks.filter(
+          result =>
+            String(result.result).toLowerCase() === "won"
+        ).length;
+
+        const losses = picks.filter(
+          result =>
+            String(result.result).toLowerCase() === "lost"
+        ).length;
+
+        const total =
+          wins + losses;
+
+        const accuracy =
+          total
+            ? (wins / total) * 100
+            : null;
+
+        return {
+          label: bucket.label,
+          wins,
+          losses,
+          total,
+          accuracy
+        };
+      });
+    }
+
+    function renderCalibrationTable(results) {
+      const tbody =
+        document.getElementById(
+          "calibration-table-body"
+        );
+
+      if (!tbody) {
+        return;
+      }
+
+      const calibration =
+        getCalibrationStats(results);
+
+      tbody.innerHTML =
+        calibration
+          .map(bucket => {
+            const accuracyText =
+              bucket.accuracy !== null
+                ? `${bucket.accuracy.toFixed(1)}%`
+                : "—";
+
+            const recordText =
+              bucket.total
+                ? `${bucket.wins}-${bucket.losses}`
+                : "—";
+
+            return `
+          <tr>
+            <td>
+              ${bucket.label}
+            </td>
+
+            <td>
+              ${accuracyText}
+            </td>
+
+            <td>
+              ${recordText}
+            </td>
+
+            <td>
+              ${bucket.total}
+            </td>
+          </tr>
+        `;
+          })
+          .join("");
+    }
+
     function renderResultsTable(results) {
       const tbody = document.getElementById("results-table-body");
       if (!tbody) return;
@@ -391,6 +553,7 @@
         document.getElementById("receiving-results").textContent = getCategoryStats(results, "receiving");
 
         renderResultsTable(results);
+        renderCalibrationTable(results);
       } catch (err) {
         console.error(err);
 
