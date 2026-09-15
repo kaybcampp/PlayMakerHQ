@@ -275,6 +275,28 @@
       return await res.json();
     }
 
+    function getUniqueResults(results) {
+      const seen = new Set();
+
+      return results.filter(result => {
+        const key = [
+          String(result.date || "").trim().toLowerCase(),
+          String(result.player || "").trim().toLowerCase(),
+          String(result.matchup || "").trim().toLowerCase(),
+          String(result.market || "").trim().toLowerCase(),
+          String(result.side || "").trim().toLowerCase(),
+          Number(result.line)
+        ].join("|");
+
+        if (seen.has(key)) {
+          return false;
+        }
+
+        seen.add(key);
+        return true;
+      });
+    }
+
     function getResultStats(results) {
       const graded = results.filter(r =>
         ["won", "lost"].includes(String(r.result || "").toLowerCase())
@@ -337,8 +359,22 @@
 
     async function renderResultsPage() {
       try {
-        const results = await loadResultsJson();
-        const { wins, losses, total, winRate } = getResultStats(results);
+        const rawResults = await loadResultsJson();
+
+        const results = getUniqueResults(rawResults);
+
+        console.log(
+          "Results dedupe:",
+          {
+            raw: rawResults.length,
+            unique: results.length,
+            duplicatesRemoved:
+              rawResults.length - results.length
+          }
+        );
+
+        const { wins, losses, total, winRate } =
+          getResultStats(results);
 
         document.getElementById("hero-total-plays").textContent = total;
         document.getElementById("hero-win-rate").textContent = `${winRate}%`;

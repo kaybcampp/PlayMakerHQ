@@ -1468,6 +1468,10 @@
                         data?.hitRate
                     );
 
+                const last10Average =
+                    data?.analysis?.stats?.last10Average ??
+                    null;
+
                 if (
                     projection === null &&
                     probability === null
@@ -1505,6 +1509,9 @@
                 // Freeze the exact moment this analysis was generated.
                 row.dataset.analysisCapturedAt =
                     new Date().toISOString();
+
+                row.dataset.last10Average =
+                    last10Average ?? "";
 
                 statusElement.textContent =
                     `Loaded: ${probability ?? "—"}% · Projection ${projection ?? "—"}`;
@@ -1811,6 +1818,9 @@
             row.dataset.analysisCapturedAt =
                 snapshot.capturedAt || "";
 
+            row.dataset.last10Average =
+                snapshot.last10Average ?? "";
+
             row.querySelector(".pick-probability").value =
                 snapshot.probability ??
                 initialData.playmakerProbability ??
@@ -1989,8 +1999,9 @@
                                 : null,
 
                         last10Average:
-                            data?.analysis?.stats?.last10Average ??
-                            null,
+                            row.dataset.last10Average
+                                ? Number(row.dataset.last10Average)
+                                : null,
 
                         confidenceGrade:
                             confidenceGradeValue || null,
