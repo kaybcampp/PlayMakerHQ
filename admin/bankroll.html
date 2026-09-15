@@ -965,6 +965,13 @@
         let bankrollData = null;
         let activeEntries = [];
 
+        function getPlayMakerToken() {
+            return (
+                localStorage.getItem("pm_token") ||
+                ""
+            ).trim();
+        }
+
         function getAdminApiKey() {
             let key = sessionStorage.getItem(
                 "playmaker_admin_api_key"
@@ -1414,10 +1421,25 @@
                 statusElement.textContent =
                     "Calculating projection and probability...";
 
+                const playMakerToken =
+                    getPlayMakerToken();
+
+                if (!playMakerToken) {
+                    throw new Error(
+                        "PlayMaker login required. Sign in before running analysis."
+                    );
+                }
+
                 const data = await apiRequest(
                     "/api/fetch-player-prop",
                     {
                         method: "POST",
+
+                        headers: {
+                            Authorization:
+                                `Bearer ${playMakerToken}`
+                        },
+
                         body: JSON.stringify({
                             player,
                             line,
@@ -1589,10 +1611,25 @@
                 statusElement.textContent =
                     "Calculating current PlayMaker analysis...";
 
+                const playMakerToken =
+                    getPlayMakerToken();
+
+                if (!playMakerToken) {
+                    throw new Error(
+                        "PlayMaker login required. Sign in before running analysis."
+                    );
+                }
+
                 const data = await apiRequest(
                     "/api/fetch-player-prop",
                     {
                         method: "POST",
+
+                        headers: {
+                            Authorization:
+                                `Bearer ${playMakerToken}`
+                        },
+
                         body: JSON.stringify({
                             player,
                             line,
