@@ -1343,12 +1343,19 @@
             }
 
             const number = Number(
-                String(value).replace("%", "").trim()
+                String(value)
+                    .replace("%", "")
+                    .trim()
             );
 
-            return Number.isFinite(number)
-                ? number
-                : null;
+            if (!Number.isFinite(number)) {
+                return null;
+            }
+
+            return Math.max(
+                0,
+                Math.min(100, number)
+            );
         }
 
         async function loadPickAnalysis(row, button) {
@@ -1464,8 +1471,8 @@
 
                 const probability =
                     parsePlayMakerPercent(
-                        data?.analysis?.stats?.hitRate ??
-                        data?.hitRate
+                        data?.hitRate ??
+                        data?.analysis?.stats?.hitRate
                     );
 
                 const last10Average =
