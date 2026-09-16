@@ -137,6 +137,98 @@
       </div>
     </section>
 
+    <section class="hq-section">
+      <div class="section-header">
+        <h3>Historical Accuracy Intelligence</h3>
+
+        <p>
+          Tracked performance across graded PlayMaker results,
+          with original-at-pick analysis kept separate from
+          historical backfills.
+        </p>
+      </div>
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <span>Historical Record</span>
+
+          <strong id="history-record">
+            --
+          </strong>
+
+          <p id="history-hit-rate">
+            Loading tracked accuracy...
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <span>Original Snapshots</span>
+
+          <strong id="original-snapshot-record">
+            --
+          </strong>
+
+          <p id="original-snapshot-rate">
+            Loading original snapshot accuracy...
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <span>Backfilled Snapshots</span>
+
+          <strong id="backfilled-snapshot-record">
+            --
+          </strong>
+
+          <p id="backfilled-snapshot-rate">
+            Loading backfilled accuracy...
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <span>Snapshot Coverage</span>
+
+          <strong id="snapshot-coverage">
+            --
+          </strong>
+
+          <p id="snapshot-coverage-copy">
+            Loading snapshot coverage...
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="results-table-wrap">
+
+        <table class="results-table">
+
+          <thead>
+            <tr>
+              <th>Direction</th>
+              <th>Record</th>
+              <th>Hit Rate</th>
+              <th>Sample Size</th>
+            </tr>
+          </thead>
+
+          <tbody id="direction-accuracy-body">
+
+            <tr>
+              <td colspan="4">
+                Loading direction accuracy...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+    </section>
+
     <section class="hq-section hq-section-alt">
       <div class="section-header">
         <h3>Results by Prop Type</h3>
@@ -302,60 +394,815 @@
   <script>
     async function loadResultsJson() {
       const res = await fetch("/assets/data/results.json");
-      if (!res.ok) throw new Error("Failed to load results.json");
+
+      if (!res.ok) {
+        throw new Error(
+          "Failed to load results.json"
+        );
+      }
+
       return await res.json();
     }
 
+
+    // ========================================
+    // DEDUPE RESULTS
+    // ========================================
+
     function getUniqueResults(results) {
-      const seen = new Set();
+      const unique = new Map();
 
-      return results.filter(result => {
-        const key = [
-          String(result.date || "").trim().toLowerCase(),
-          String(result.player || "").trim().toLowerCase(),
-          String(result.matchup || "").trim().toLowerCase(),
-          String(result.market || "").trim().toLowerCase(),
-          String(result.side || "").trim().toLowerCase(),
-          Number(result.line)
-        ].join("|");
+      for (const result of results) {
+        const key =
+          result.resultKey ||
+          [
+            String(
+              result.date || ""
+            )
+              .trim()
+              .toLowerCase(),
 
-        if (seen.has(key)) {
-          return false;
+            String(
+              result.player || ""
+            )
+              .trim()
+              .toLowerCase(),
+
+            String(
+              result.matchup || ""
+            )
+              .trim()
+              .toLowerCase(),
+
+            String(
+              result.market || ""
+            )
+              .trim()
+              .toLowerCase(),
+
+            String(
+              result.side || ""
+            )
+              .trim()
+              .toLowerCase(),
+
+            Number(
+              result.line
+            )
+          ].join("|");
+
+        const existing =
+          unique.get(key);
+
+        if (!existing) {
+          unique.set(
+            key,
+            result
+          );
+
+          continue;
         }
 
-        seen.add(key);
-        return true;
+        const existingHasSnapshot =
+          existing.playmakerProbability != null;
+
+        const incomingHasSnapshot =
+          result.playmakerProbability != null;
+
+        const existingIsOriginal =
+          existingHasSnapshot &&
+          existing.analysisBackfilled !== true;
+
+        const incomingIsOriginal =
+          incomingHasSnapshot &&
+          result.analysisBackfilled !== true;
+
+        // Prefer a true original-at-pick snapshot.
+        if (
+          incomingIsOriginal &&
+          !existingIsOriginal
+        ) {
+          unique.set(
+            key,
+            result
+          );
+
+          continue;
+        }
+
+        // Otherwise prefer a result that at least
+        // contains PlayMaker analysis data.
+        if (
+          incomingHasSnapshot &&
+          !existingHasSnapshot
+        ) {
+          unique.set(
+            key,
+            result
+          );
+        }
+      }
+
+      return Array.from(
+        unique.values()
+      );
+    }
+
+
+    // ========================================
+    // SHARED RESULT HELPERS
+    // ========================================
+
+    function isGradedResult(result) {
+      return [
+        "won",
+        "lost"
+      ].includes(
+        String(
+          result.result || ""
+        ).toLowerCase()
+      );
+    }
+
+
+    function getSnapshotType(result) {
+      if (
+        result.playmakerProbability == null
+      ) {
+        return "none";
+      }
+
+      return (
+        result.analysisBackfilled === true
+          ? "backfilled"
+          : "original"
+      );
+    }
+
+
+    function buildRecord(results) {
+      const graded =
+        results.filter(
+          isGradedResult
+        );
+
+      const wins =
+        graded.filter(
+          result =>
+            String(
+              result.result
+            ).toLowerCase() === "won"
+        ).length;
+
+      const losses =
+        graded.filter(
+          result =>
+            String(
+              result.result
+            ).toLowerCase() === "lost"
+        ).length;
+
+      const total =
+        wins + losses;
+
+      return {
+        wins,
+        losses,
+        total,
+
+        hitRate:
+          total
+            ? (
+              wins /
+              total
+            ) * 100
+            : null
+      };
+    }
+
+
+    function groupResults(
+      results,
+      keyGetter
+    ) {
+      const groups =
+        new Map();
+
+      for (const result of results) {
+        const key =
+          keyGetter(result);
+
+        if (
+          key === null ||
+          key === undefined ||
+          key === ""
+        ) {
+          continue;
+        }
+
+        if (!groups.has(key)) {
+          groups.set(
+            key,
+            []
+          );
+        }
+
+        groups
+          .get(key)
+          .push(result);
+      }
+
+      return Array.from(
+        groups.entries()
+      ).map(
+        ([label, picks]) => ({
+          label,
+          ...buildRecord(picks)
+        })
+      );
+    }
+
+
+    // ========================================
+    // HISTORICAL ANALYTICS
+    // ========================================
+
+    function buildHistoricalAnalytics(
+      results
+    ) {
+      const graded =
+        results.filter(
+          isGradedResult
+        );
+
+      const snapshotBacked =
+        graded.filter(
+          result =>
+            result.playmakerProbability != null
+        );
+
+      const originalSnapshots =
+        snapshotBacked.filter(
+          result =>
+            result.analysisBackfilled !== true
+        );
+
+      const backfilledSnapshots =
+        snapshotBacked.filter(
+          result =>
+            result.analysisBackfilled === true
+        );
+
+      const noSnapshot =
+        graded.filter(
+          result =>
+            result.playmakerProbability == null
+        );
+
+
+      // ======================================
+      // PROBABILITY BUCKETS
+      // ======================================
+
+      const probabilityBuckets = [
+        {
+          label: "50–59%",
+          min: 50,
+          max: 59
+        },
+        {
+          label: "60–69%",
+          min: 60,
+          max: 69
+        },
+        {
+          label: "70–79%",
+          min: 70,
+          max: 79
+        },
+        {
+          label: "80–89%",
+          min: 80,
+          max: 89
+        },
+        {
+          label: "90%+",
+          min: 90,
+          max: 100
+        }
+      ].map(bucket => {
+        const bucketResults =
+          snapshotBacked.filter(
+            result => {
+              const probability =
+                Number(
+                  result.playmakerProbability
+                );
+
+              return (
+                Number.isFinite(
+                  probability
+                ) &&
+                probability >=
+                bucket.min &&
+                probability <=
+                bucket.max
+              );
+            }
+          );
+
+        return {
+          label:
+            bucket.label,
+
+          ...buildRecord(
+            bucketResults
+          ),
+
+          original:
+            buildRecord(
+              bucketResults.filter(
+                result =>
+                  result.analysisBackfilled !== true
+              )
+            ),
+
+          backfilled:
+            buildRecord(
+              bucketResults.filter(
+                result =>
+                  result.analysisBackfilled === true
+              )
+            )
+        };
       });
+
+
+      // ======================================
+      // CONFIDENCE TIERS
+      // ======================================
+
+      const confidenceTiers =
+        groupResults(
+          snapshotBacked,
+          result =>
+            result.confidenceTier ||
+            result.confidence ||
+            "Unrated"
+        );
+
+
+      // ======================================
+      // PROP TYPES
+      // ======================================
+
+      const propTypes =
+        groupResults(
+          graded,
+          result =>
+            result.market ||
+            "Unknown"
+        );
+
+
+      // ======================================
+      // OVER / UNDER
+      // ======================================
+
+      const directions =
+        groupResults(
+          graded,
+          result =>
+            String(
+              result.side || ""
+            ).toLowerCase()
+        );
+
+
+      // ======================================
+      // PROJECTION ERROR
+      // ======================================
+
+      function buildProjectionError(
+        picks
+      ) {
+        const usable =
+          picks.filter(result => {
+            const projection =
+              Number(
+                result.projection
+              );
+
+            const actual =
+              Number(
+                result.actual
+              );
+
+            const line =
+              Number(
+                result.line
+              );
+
+            return (
+              result.projection != null &&
+              result.actual != null &&
+              Number.isFinite(
+                projection
+              ) &&
+              Number.isFinite(
+                actual
+              ) &&
+              Number.isFinite(
+                line
+              ) &&
+              line > 0
+            );
+          });
+
+        if (!usable.length) {
+          return {
+            sampleSize: 0,
+
+            meanAbsoluteError:
+              null,
+
+            meanSignedError:
+              null,
+
+            meanAbsoluteLineErrorPct:
+              null,
+
+            meanSignedLineErrorPct:
+              null
+          };
+        }
+
+        const absoluteErrors =
+          usable.map(
+            result =>
+              Math.abs(
+                Number(
+                  result.actual
+                ) -
+                Number(
+                  result.projection
+                )
+              )
+          );
+
+        const signedErrors =
+          usable.map(
+            result =>
+              Number(
+                result.actual
+              ) -
+              Number(
+                result.projection
+              )
+          );
+
+        const absoluteLineErrors =
+          usable.map(
+            result =>
+              (
+                Math.abs(
+                  Number(
+                    result.actual
+                  ) -
+                  Number(
+                    result.projection
+                  )
+                ) /
+                Number(
+                  result.line
+                )
+              ) * 100
+          );
+
+        const signedLineErrors =
+          usable.map(
+            result =>
+              (
+                (
+                  Number(
+                    result.actual
+                  ) -
+                  Number(
+                    result.projection
+                  )
+                ) /
+                Number(
+                  result.line
+                )
+              ) * 100
+          );
+
+        return {
+          sampleSize:
+            usable.length,
+
+          meanAbsoluteError:
+            absoluteErrors.reduce(
+              (
+                sum,
+                value
+              ) =>
+                sum + value,
+              0
+            ) /
+            usable.length,
+
+          meanSignedError:
+            signedErrors.reduce(
+              (
+                sum,
+                value
+              ) =>
+                sum + value,
+              0
+            ) /
+            usable.length,
+
+          meanAbsoluteLineErrorPct:
+            absoluteLineErrors.reduce(
+              (
+                sum,
+                value
+              ) =>
+                sum + value,
+              0
+            ) /
+            usable.length,
+
+          meanSignedLineErrorPct:
+            signedLineErrors.reduce(
+              (
+                sum,
+                value
+              ) =>
+                sum + value,
+              0
+            ) /
+            usable.length
+        };
+      }
+
+
+      // ======================================
+      // PROJECTION ERROR BY PROP TYPE
+      // ======================================
+
+      const projectionErrorByPropType =
+        Array.from(
+          new Set(
+            snapshotBacked.map(
+              result =>
+                result.market ||
+                "Unknown"
+            )
+          )
+        ).map(market => {
+          const picks =
+            snapshotBacked.filter(
+              result =>
+                (
+                  result.market ||
+                  "Unknown"
+                ) === market
+            );
+
+          const original =
+            picks.filter(
+              result =>
+                result.analysisBackfilled !== true
+            );
+
+          const backfilled =
+            picks.filter(
+              result =>
+                result.analysisBackfilled === true
+            );
+
+          return {
+            market,
+
+            all:
+              buildProjectionError(
+                picks
+              ),
+
+            original:
+              buildProjectionError(
+                original
+              ),
+
+            backfilled:
+              buildProjectionError(
+                backfilled
+              )
+          };
+        });
+
+
+      // ======================================
+      // FINAL HISTORICAL ANALYTICS OBJECT
+      // ======================================
+
+      return {
+        overall:
+          buildRecord(
+            graded
+          ),
+
+        snapshotCoverage: {
+          totalGraded:
+            graded.length,
+
+          withSnapshot:
+            snapshotBacked.length,
+
+          original:
+            originalSnapshots.length,
+
+          backfilled:
+            backfilledSnapshots.length,
+
+          withoutSnapshot:
+            noSnapshot.length
+        },
+
+        snapshotSources: {
+          original:
+            buildRecord(
+              originalSnapshots
+            ),
+
+          backfilled:
+            buildRecord(
+              backfilledSnapshots
+            ),
+
+          noSnapshot:
+            buildRecord(
+              noSnapshot
+            )
+        },
+
+        probabilityBuckets,
+
+        confidenceTiers,
+
+        propTypes,
+
+        directions,
+
+        projectionError: {
+          all:
+            buildProjectionError(
+              snapshotBacked
+            ),
+
+          original:
+            buildProjectionError(
+              originalSnapshots
+            ),
+
+          backfilled:
+            buildProjectionError(
+              backfilledSnapshots
+            ),
+
+          byPropType:
+            projectionErrorByPropType
+        }
+      };
     }
 
-    function getResultStats(results) {
-      const graded = results.filter(r =>
-        ["won", "lost"].includes(String(r.result || "").toLowerCase())
+
+    // ========================================
+    // EXISTING SUMMARY STATS
+    // ========================================
+
+    function getResultStats(
+      results
+    ) {
+      const graded =
+        results.filter(
+          result =>
+            [
+              "won",
+              "lost"
+            ].includes(
+              String(
+                result.result || ""
+              ).toLowerCase()
+            )
+        );
+
+      const wins =
+        graded.filter(
+          result =>
+            String(
+              result.result
+            ).toLowerCase() === "won"
+        ).length;
+
+      const losses =
+        graded.filter(
+          result =>
+            String(
+              result.result
+            ).toLowerCase() === "lost"
+        ).length;
+
+      const total =
+        wins + losses;
+
+      const winRate =
+        total
+          ? (
+            (
+              wins /
+              total
+            ) * 100
+          ).toFixed(1)
+          : "0.0";
+
+      return {
+        graded,
+        wins,
+        losses,
+        total,
+        winRate
+      };
+    }
+
+
+    function getCategoryStats(
+      results,
+      propFamily
+    ) {
+      const filtered =
+        results.filter(
+          result =>
+            String(
+              result.propFamily || ""
+            ).toLowerCase() ===
+            propFamily &&
+            [
+              "won",
+              "lost"
+            ].includes(
+              String(
+                result.result || ""
+              ).toLowerCase()
+            )
+        );
+
+      const wins =
+        filtered.filter(
+          result =>
+            String(
+              result.result
+            ).toLowerCase() === "won"
+        ).length;
+
+      const losses =
+        filtered.filter(
+          result =>
+            String(
+              result.result
+            ).toLowerCase() === "lost"
+        ).length;
+
+      const total =
+        wins + losses;
+
+      const rate =
+        total
+          ? Math.round(
+            (
+              wins /
+              total
+            ) * 100
+          )
+          : 0;
+
+      return (
+        `${wins}-${losses} record · ` +
+        `${rate}% win rate across ` +
+        `${total} tracked plays.`
       );
-
-      const wins = graded.filter(r => String(r.result).toLowerCase() === "won").length;
-      const losses = graded.filter(r => String(r.result).toLowerCase() === "lost").length;
-      const total = wins + losses;
-      const winRate = total ? ((wins / total) * 100).toFixed(1) : "0.0";
-
-      return { graded, wins, losses, total, winRate };
     }
 
-    function getCategoryStats(results, propFamily) {
-      const filtered = results.filter(r =>
-        String(r.propFamily || "").toLowerCase() === propFamily &&
-        ["won", "lost"].includes(String(r.result || "").toLowerCase())
-      );
 
-      const wins = filtered.filter(r => String(r.result).toLowerCase() === "won").length;
-      const losses = filtered.filter(r => String(r.result).toLowerCase() === "lost").length;
-      const total = wins + losses;
-      const rate = total ? Math.round((wins / total) * 100) : 0;
+    // ========================================
+    // CALIBRATION TABLE
+    // ========================================
 
-      return `${wins}-${losses} record · ${rate}% win rate across ${total} tracked plays.`;
-    }
-
-    function getCalibrationStats(results) {
+    function getCalibrationStats(
+      results
+    ) {
       const buckets = [
         {
           label: "50–59%",
@@ -384,60 +1231,99 @@
         }
       ];
 
-      const graded = results.filter(result => {
-        const probability =
-          Number(result.playmakerProbability);
+      const graded =
+        results.filter(
+          result => {
+            const probability =
+              Number(
+                result.playmakerProbability
+              );
 
-        const outcome =
-          String(result.result || "").toLowerCase();
+            const outcome =
+              String(
+                result.result || ""
+              ).toLowerCase();
 
-        return (
-          Number.isFinite(probability) &&
-          probability >= 50 &&
-          ["won", "lost"].includes(outcome)
+            return (
+              Number.isFinite(
+                probability
+              ) &&
+              probability >= 50 &&
+              [
+                "won",
+                "lost"
+              ].includes(
+                outcome
+              )
+            );
+          }
         );
-      });
 
-      return buckets.map(bucket => {
-        const picks = graded.filter(result => {
-          const probability =
-            Number(result.playmakerProbability);
+      return buckets.map(
+        bucket => {
+          const picks =
+            graded.filter(
+              result => {
+                const probability =
+                  Number(
+                    result.playmakerProbability
+                  );
 
-          return (
-            probability >= bucket.min &&
-            probability <= bucket.max
-          );
-        });
+                return (
+                  probability >=
+                  bucket.min &&
+                  probability <=
+                  bucket.max
+                );
+              }
+            );
 
-        const wins = picks.filter(
-          result =>
-            String(result.result).toLowerCase() === "won"
-        ).length;
+          const wins =
+            picks.filter(
+              result =>
+                String(
+                  result.result
+                ).toLowerCase() ===
+                "won"
+            ).length;
 
-        const losses = picks.filter(
-          result =>
-            String(result.result).toLowerCase() === "lost"
-        ).length;
+          const losses =
+            picks.filter(
+              result =>
+                String(
+                  result.result
+                ).toLowerCase() ===
+                "lost"
+            ).length;
 
-        const total =
-          wins + losses;
+          const total =
+            wins + losses;
 
-        const accuracy =
-          total
-            ? (wins / total) * 100
-            : null;
+          const accuracy =
+            total
+              ? (
+                wins /
+                total
+              ) * 100
+              : null;
 
-        return {
-          label: bucket.label,
-          wins,
-          losses,
-          total,
-          accuracy
-        };
-      });
+          return {
+            label:
+              bucket.label,
+
+            wins,
+            losses,
+            total,
+            accuracy
+          };
+        }
+      );
     }
 
-    function renderCalibrationTable(results) {
+
+    function renderCalibrationTable(
+      results
+    ) {
       const tbody =
         document.getElementById(
           "calibration-table-body"
@@ -448,37 +1334,207 @@
       }
 
       const calibration =
-        getCalibrationStats(results);
+        getCalibrationStats(
+          results
+        );
 
       tbody.innerHTML =
         calibration
           .map(bucket => {
             const accuracyText =
               bucket.accuracy !== null
-                ? `${bucket.accuracy.toFixed(1)}%`
+                ? `${bucket.accuracy.toFixed(
+                  1
+                )}%`
                 : "—";
 
             const recordText =
               bucket.total
-                ? `${bucket.wins}-${bucket.losses}`
+                ? (
+                  `${bucket.wins}-` +
+                  `${bucket.losses}`
+                )
+                : "—";
+
+            return `
+            <tr>
+              <td>
+                ${bucket.label}
+              </td>
+
+              <td>
+                ${accuracyText}
+              </td>
+
+              <td>
+                ${recordText}
+              </td>
+
+              <td>
+                ${bucket.total}
+              </td>
+            </tr>
+          `;
+          })
+          .join("");
+    }
+
+    function renderHistoricalIntelligence(
+      analytics
+    ) {
+      const overall =
+        analytics.overall;
+
+      const original =
+        analytics.snapshotSources.original;
+
+      const backfilled =
+        analytics.snapshotSources.backfilled;
+
+      const coverage =
+        analytics.snapshotCoverage;
+
+
+      // ========================================
+      // HISTORICAL RECORD
+      // ========================================
+
+      document.getElementById(
+        "history-record"
+      ).textContent =
+        `${overall.wins}-${overall.losses}`;
+
+      document.getElementById(
+        "history-hit-rate"
+      ).textContent =
+        overall.hitRate !== null
+          ? `${overall.hitRate.toFixed(1)}% hit rate across ${overall.total} graded plays`
+          : "No graded plays yet";
+
+
+      // ========================================
+      // ORIGINAL SNAPSHOTS
+      // ========================================
+
+      document.getElementById(
+        "original-snapshot-record"
+      ).textContent =
+        original.total
+          ? `${original.wins}-${original.losses}`
+          : "—";
+
+      document.getElementById(
+        "original-snapshot-rate"
+      ).textContent =
+        original.hitRate !== null
+          ? `${original.hitRate.toFixed(1)}% across ${original.total} true saved snapshots`
+          : "No original snapshots graded yet";
+
+
+      // ========================================
+      // BACKFILLED SNAPSHOTS
+      // ========================================
+
+      document.getElementById(
+        "backfilled-snapshot-record"
+      ).textContent =
+        backfilled.total
+          ? `${backfilled.wins}-${backfilled.losses}`
+          : "—";
+
+      document.getElementById(
+        "backfilled-snapshot-rate"
+      ).textContent =
+        backfilled.hitRate !== null
+          ? `${backfilled.hitRate.toFixed(1)}% across ${backfilled.total} historical backfills`
+          : "No backfilled snapshots graded yet";
+
+
+      // ========================================
+      // SNAPSHOT COVERAGE
+      // ========================================
+
+      const coveragePct =
+        coverage.totalGraded
+          ? (
+            (
+              coverage.withSnapshot /
+              coverage.totalGraded
+            ) * 100
+          )
+          : 0;
+
+      document.getElementById(
+        "snapshot-coverage"
+      ).textContent =
+        `${coverage.withSnapshot}/${coverage.totalGraded}`;
+
+      document.getElementById(
+        "snapshot-coverage-copy"
+      ).textContent =
+        `${coveragePct.toFixed(1)}% of graded plays include saved PlayMaker analysis`;
+
+
+      // ========================================
+      // OVER / UNDER TABLE
+      // ========================================
+
+      const tbody =
+        document.getElementById(
+          "direction-accuracy-body"
+        );
+
+      if (!tbody) {
+        return;
+      }
+
+      const directions =
+        analytics.directions;
+
+      if (!directions.length) {
+        tbody.innerHTML = `
+      <tr>
+        <td colspan="4">
+          No direction data available.
+        </td>
+      </tr>
+    `;
+
+        return;
+      }
+
+      tbody.innerHTML =
+        directions
+          .map(direction => {
+            const label =
+              direction.label
+                ? direction.label
+                  .charAt(0)
+                  .toUpperCase() +
+                direction.label.slice(1)
+                : "Unknown";
+
+            const rate =
+              direction.hitRate !== null
+                ? `${direction.hitRate.toFixed(1)}%`
                 : "—";
 
             return `
           <tr>
             <td>
-              ${bucket.label}
+              ${label}
             </td>
 
             <td>
-              ${accuracyText}
+              ${direction.wins}-${direction.losses}
             </td>
 
             <td>
-              ${recordText}
+              ${rate}
             </td>
 
             <td>
-              ${bucket.total}
+              ${direction.total}
             </td>
           </tr>
         `;
@@ -486,83 +1542,289 @@
           .join("");
     }
 
-    function renderResultsTable(results) {
-      const tbody = document.getElementById("results-table-body");
-      if (!tbody) return;
+    // ========================================
+    // RECENT RESULTS TABLE
+    // ========================================
 
-      const recent = results
-        .filter(r => ["won", "lost"].includes(String(r.result || "").toLowerCase()))
-        .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
-        .slice(0, 25);
+    function renderResultsTable(
+      results
+    ) {
+      const tbody =
+        document.getElementById(
+          "results-table-body"
+        );
 
-      if (!recent.length) {
-        tbody.innerHTML = `<tr><td colspan="6">No graded results found yet.</td></tr>`;
+      if (!tbody) {
         return;
       }
 
-      tbody.innerHTML = recent.map(r => {
-        const result = String(r.result || "").toLowerCase();
-        const resultClass = result === "won" ? "result-win" : "result-loss";
-        const resultText = result === "won" ? "Win" : "Loss";
-        const pick = `${String(r.side || "").toUpperCase()} ${r.line || ""}`;
+      const recent =
+        results
+          .filter(
+            result =>
+              [
+                "won",
+                "lost"
+              ].includes(
+                String(
+                  result.result || ""
+                ).toLowerCase()
+              )
+          )
+          .sort(
+            (a, b) =>
+              new Date(
+                b.date || 0
+              ) -
+              new Date(
+                a.date || 0
+              )
+          )
+          .slice(
+            0,
+            25
+          );
 
-        return `
-      <tr>
-        <td>${r.date || "TBD"}</td>
-        <td>${r.player || "Unknown"}</td>
-        <td>${r.market || "Prop"}</td>
-        <td>${pick}</td>
-        <td>${r.score || r.matchup || "Final unavailable"}</td>
-        <td><span class="${resultClass}">${resultText}</span></td>
-      </tr>
-    `;
-      }).join("");
+      if (!recent.length) {
+        tbody.innerHTML = `
+        <tr>
+          <td colspan="6">
+            No graded results found yet.
+          </td>
+        </tr>
+      `;
+
+        return;
+      }
+
+      tbody.innerHTML =
+        recent
+          .map(result => {
+            const outcome =
+              String(
+                result.result || ""
+              ).toLowerCase();
+
+            const resultClass =
+              outcome === "won"
+                ? "result-win"
+                : "result-loss";
+
+            const resultText =
+              outcome === "won"
+                ? "Win"
+                : "Loss";
+
+            const pick =
+              `${String(
+                result.side || ""
+              ).toUpperCase()} ` +
+              `${result.line ?? ""}`;
+
+            return `
+            <tr>
+              <td>
+                ${result.date || "TBD"}
+              </td>
+
+              <td>
+                ${result.player || "Unknown"}
+              </td>
+
+              <td>
+                ${result.market || "Prop"}
+              </td>
+
+              <td>
+                ${pick}
+              </td>
+
+              <td>
+                ${result.score ||
+              result.matchup ||
+              "Final unavailable"
+              }
+              </td>
+
+              <td>
+                <span class="${resultClass}">
+                  ${resultText}
+                </span>
+              </td>
+            </tr>
+          `;
+          })
+          .join("");
     }
+
+
+    // ========================================
+    // PAGE RENDER
+    // ========================================
 
     async function renderResultsPage() {
       try {
-        const rawResults = await loadResultsJson();
+        const rawResults =
+          await loadResultsJson();
 
-        const results = getUniqueResults(rawResults);
+        const results =
+          getUniqueResults(
+            rawResults
+          );
+
+        const analytics =
+          buildHistoricalAnalytics(
+            results
+          );
+
+        console.log(
+          "PlayMaker Historical Analytics:",
+          analytics
+        );
 
         console.log(
           "Results dedupe:",
           {
-            raw: rawResults.length,
-            unique: results.length,
+            raw:
+              rawResults.length,
+
+            unique:
+              results.length,
+
             duplicatesRemoved:
-              rawResults.length - results.length
+              rawResults.length -
+              results.length
           }
         );
 
-        const { wins, losses, total, winRate } =
-          getResultStats(results);
+        const {
+          wins,
+          losses,
+          total,
+          winRate
+        } =
+          getResultStats(
+            results
+          );
 
-        document.getElementById("hero-total-plays").textContent = total;
-        document.getElementById("hero-win-rate").textContent = `${winRate}%`;
-        document.getElementById("hero-status").textContent = "Live Results";
-        document.getElementById("hero-status-copy").textContent = "Updated from tracked picks";
 
-        document.getElementById("total-plays").textContent = total;
-        document.getElementById("total-wins").textContent = wins;
-        document.getElementById("total-losses").textContent = losses;
-        document.getElementById("total-win-rate").textContent = `${winRate}%`;
+        // ====================================
+        // HERO
+        // ====================================
 
-        document.getElementById("passing-results").textContent = getCategoryStats(results, "passing");
-        document.getElementById("rushing-results").textContent = getCategoryStats(results, "rushing");
-        document.getElementById("receiving-results").textContent = getCategoryStats(results, "receiving");
+        document.getElementById(
+          "hero-total-plays"
+        ).textContent =
+          total;
 
-        renderResultsTable(results);
-        renderCalibrationTable(results);
+        document.getElementById(
+          "hero-win-rate"
+        ).textContent =
+          `${winRate}%`;
+
+        document.getElementById(
+          "hero-status"
+        ).textContent =
+          "Live Results";
+
+        document.getElementById(
+          "hero-status-copy"
+        ).textContent =
+          "Updated from tracked picks";
+
+
+        // ====================================
+        // PERFORMANCE SNAPSHOT
+        // ====================================
+
+        document.getElementById(
+          "total-plays"
+        ).textContent =
+          total;
+
+        document.getElementById(
+          "total-wins"
+        ).textContent =
+          wins;
+
+        document.getElementById(
+          "total-losses"
+        ).textContent =
+          losses;
+
+        document.getElementById(
+          "total-win-rate"
+        ).textContent =
+          `${winRate}%`;
+
+
+        // ====================================
+        // PROP FAMILY CARDS
+        // ====================================
+
+        document.getElementById(
+          "passing-results"
+        ).textContent =
+          getCategoryStats(
+            results,
+            "passing"
+          );
+
+        document.getElementById(
+          "rushing-results"
+        ).textContent =
+          getCategoryStats(
+            results,
+            "rushing"
+          );
+
+        document.getElementById(
+          "receiving-results"
+        ).textContent =
+          getCategoryStats(
+            results,
+            "receiving"
+          );
+
+
+        // ====================================
+        // TABLES
+        // ====================================
+
+        renderResultsTable(
+          results
+        );
+
+        renderCalibrationTable(
+          results
+        );
+
+        renderHistoricalIntelligence(
+          analytics
+        );
+
       } catch (err) {
-        console.error(err);
+        console.error(
+          err
+        );
 
-        const tbody = document.getElementById("results-table-body");
+        const tbody =
+          document.getElementById(
+            "results-table-body"
+          );
+
         if (tbody) {
-          tbody.innerHTML = `<tr><td colspan="6">Results data could not be loaded.</td></tr>`;
+          tbody.innerHTML = `
+          <tr>
+            <td colspan="6">
+              Results data could not be loaded.
+            </td>
+          </tr>
+        `;
         }
       }
     }
+
 
     renderResultsPage();
   </script>
