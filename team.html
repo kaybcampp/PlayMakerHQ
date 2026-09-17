@@ -388,6 +388,16 @@
             "washington-commanders": "WAS"
         };
 
+        function normalizeTeamCode(code) {
+            const value =
+                String(code || "")
+                    .toUpperCase();
+
+            return value === "WAS"
+                ? "WSH"
+                : value;
+        }
+
         const TEAM_LOGOS = {
             "arizona-cardinals": "/assets/images/teams/ari.png",
             "atlanta-falcons": "/assets/images/teams/atl.png",
@@ -517,11 +527,26 @@
         }
 
         function isTeamInGame(game, team) {
+
+            const normalizedTeam =
+                normalizeTeamCode(team);
+
             return (
-                game.playerTeam === team ||
-                game.opponentTeam === team ||
-                game.awayTeam === team ||
-                game.homeTeam === team
+                normalizeTeamCode(
+                    game.playerTeam
+                ) === normalizedTeam ||
+
+                normalizeTeamCode(
+                    game.opponentTeam
+                ) === normalizedTeam ||
+
+                normalizeTeamCode(
+                    game.awayTeam
+                ) === normalizedTeam ||
+
+                normalizeTeamCode(
+                    game.homeTeam
+                ) === normalizedTeam
             );
         }
 
@@ -546,7 +571,9 @@
         function buildPlayerPools(results, teamCode) {
 
             const teamGames = results.filter(g =>
-                g.playerTeam === teamCode
+                normalizeTeamCode(
+                    g.playerTeam
+                ) === teamCode
             );
 
             const players = {};
@@ -595,7 +622,9 @@
         function buildTeamLeaders(results, teamCode) {
 
             const teamGames = results.filter(g =>
-                g.playerTeam === teamCode
+                normalizeTeamCode(
+                    g.playerTeam
+                ) === teamCode
             );
 
             const stats = {};
@@ -632,7 +661,11 @@
             const teams = Object.values(TEAM_MAP);
 
             const baseGames = results.filter(g =>
-                g.playerTeam === teamCode || g.opponentTeam === teamCode
+                normalizeTeamCode(
+                    g.playerTeam
+                ) === teamCode || normalizeTeamCode(
+                    g.opponentTeam
+                ) === teamCode
             );
 
             const baseHitRate =
@@ -646,7 +679,9 @@
                 .map(otherTeam => {
 
                     const games = results.filter(g =>
-                        g.playerTeam === otherTeam || g.opponentTeam === otherTeam
+                        g.playerTeam === otherTeam || normalizeTeamCode(
+                            g.opponentTeam
+                        ) === teamCode
                     );
 
                     const hitRate =
@@ -693,7 +728,11 @@
         function buildSnapshot(teamCode, games) {
 
             const teamGames = games.filter(g =>
-                g.playerTeam === teamCode || g.opponentTeam === teamCode
+                normalizeTeamCode(
+                    g.playerTeam
+                ) === teamCode || normalizeTeamCode(
+                    g.opponentTeam
+                ) === teamCode
             );
 
             const total = teamGames.length || 1;
@@ -702,7 +741,9 @@
             const hitRate = Math.round((hits / total) * 100);
 
             const oppHits = teamGames.filter(g =>
-                g.opponentTeam === teamCode && g.result === "won"
+                normalizeTeamCode(
+                    g.opponentTeam
+                ) === teamCode && g.result === "won"
             ).length;
 
             const vulnerability = Math.min(100, Math.round((oppHits / total) * 120));
@@ -734,7 +775,9 @@
 
         function buildOffensiveIdentity(games, teamCode) {
 
-            const teamPlays = games.filter(g => g.playerTeam === teamCode);
+            const teamPlays = games.filter(g => normalizeTeamCode(
+                g.playerTeam
+            ) === teamCode);
 
             const passGames = teamPlays.filter(g =>
                 g.market?.toLowerCase().includes("pass")
@@ -763,7 +806,9 @@
 
         function buildDefensiveProfile(games, teamCode) {
 
-            const oppGames = games.filter(g => g.opponentTeam === teamCode);
+            const oppGames = games.filter(g => normalizeTeamCode(
+                g.opponentTeam
+            ) === teamCode);
 
             const passAllowed = oppGames.filter(g =>
                 g.market?.toLowerCase().includes("pass")
@@ -791,7 +836,9 @@
         function buildTeamProps(results, teamCode) {
 
             const teamGames = results.filter(g =>
-                g.playerTeam === teamCode
+                normalizeTeamCode(
+                    g.playerTeam
+                ) === teamCode
             );
 
             const props = {};
@@ -845,7 +892,13 @@
                 smallLogo.src = logo;
             }
 
-            const teamCode = TEAM_MAP[teamSlug];
+            const displayTeamCode =
+                TEAM_MAP[teamSlug];
+
+            const teamCode =
+                normalizeTeamCode(
+                    displayTeamCode
+                );
             if (!teamCode) {
                 console.error("Invalid team slug:", teamSlug);
                 return;
