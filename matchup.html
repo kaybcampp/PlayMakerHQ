@@ -116,7 +116,9 @@
                     <!-- LEFT: SCORE CARD -->
                     <div class="opportunity-card">
 
-                        <span>PlayMaker Matchup Ranking</span>
+                        <span id="snapshot-primary-label">
+                            PlayMaker Matchup Ranking
+                        </span>
 
                         <strong id="opportunity-score">Pending</strong>
 
@@ -168,8 +170,8 @@
 
     <section class="hq-section">
         <div class="section-header">
-            <h3>Stat Relevance</h3>
-            <p>Key metrics that make this matchup impactful for props.</p>
+            <h3 id="stat-relevance-title">Stat Relevance</h3>
+            <p id="stat-relevance-copy">Key metrics that make this matchup impactful for props.</p>
         </div>
 
         <div class="matchup-stats-grid" id="matchup-stats">
@@ -179,8 +181,10 @@
 
     <section class="hq-section hq-section-alt">
         <div class="section-header">
-            <h3>Why This Matchup Matters</h3>
-            <p>PlayMaker analysis of game context, trends, and player prop opportunities.</p>
+            <h3 id="why-matters-title">Why This Matchup Matters</h3>
+            <p id="why-matters-copy">
+                PlayMaker analysis of game context, trends, and player prop opportunities.
+            </p>
         </div>
 
         <div id="why-matchup-matters">
@@ -203,7 +207,7 @@
     <section class="ai-summary-section">
         <div class="ai-summary-card">
             <div class="ai-summary-top">
-                <span class="hq-pill">AI Matchup Summary</span>
+                <span class="hq-pill" id="ai-summary-label">AI Matchup Summary</span>
                 <span id="ai-summary-grade" class="summary-grade">Building...</span>
             </div>
 
@@ -226,7 +230,7 @@
 
         <section class="hq-section">
             <div class="section-header">
-                <h3>Matchup Opportunities</h3>
+                <h3 id="opportunities-title">Matchup Opportunities</h3>
                 <p id="opportunity-summary">Loading matchup-specific prop opportunities...</p>
             </div>
 
@@ -280,7 +284,9 @@
 
         <section class="hq-section hq-section-alt">
             <div class="section-header">
-                <h3>Why This Matchup?</h3>
+                <h3 id="why-section-title">
+                    Why This Matchup?
+                </h3>
                 <p id="why-matchup-summary">
                     Breaking down the key factors driving this matchup's prop outlook.
                 </p>
@@ -531,7 +537,7 @@
 
         <section class="hq-section">
             <div class="section-header">
-                <h3>Matchup Intelligence</h3>
+                <h3 id="intelligence-title">Matchup Intelligence</h3>
                 <p id="intelligence-summary">Loading matchup summary...</p>
             </div>
 
@@ -689,7 +695,7 @@
 
             <div class="section-header">
 
-                <h3>FAQ</h3>
+                <h3 id="faq-title">FAQ</h3>
 
                 <p id="faq-summary">
 
@@ -747,7 +753,7 @@
 
         <section class="hq-section">
             <div class="final-cta">
-                <span class="hq-pill">Launch PlayMaker</span>
+                <span class="hq-pill" id="cta-label">Launch PlayMaker</span>
                 <h3 id="cta-title">Run this matchup in PlayMaker</h3>
                 <p id="cta-copy">Open PlayMaker with this matchup preloaded for prop-specific research.</p>
                 <a href="/tool/" id="tool-link" class="btn-primary">Run Matchup in PlayMaker</a>
@@ -757,7 +763,9 @@
         <section class="hq-section">
             <div class="section-header">
                 <h3>Explore More Matchups</h3>
-                <p>Continue researching upcoming NFL games.</p>
+                <p id="related-matchups-copy">
+                    Continue researching upcoming NFL games.
+                </p>
             </div>
 
             <div id="related-matchups" class="related-matchups-grid">
@@ -899,9 +907,8 @@
             return `${awaySlug}-vs-${homeSlug}`;
         }
 
-        const slug = getMatchupSlugFromUrl();
-        loadMatchupStats(slug);
-        loadMatchupContext(slug);
+        const slug =
+            getMatchupSlugFromUrl();
 
         async function loadResults() {
             try {
@@ -994,33 +1001,156 @@
             }).join("");
         }
 
-        function loadMatchupStats(matchupSlug) {
-            const container = document.getElementById("matchup-stats");
+        function loadMatchupStats(
+            awayCode,
+            homeCode,
+            awayDefense,
+            homeDefense
+        ) {
+            const container =
+                document.getElementById(
+                    "matchup-stats"
+                );
+
+            if (!container) return;
+
             const stats = [
-                { label: "Pass Defense Tier", value: "B+" },
-                { label: "Run Defense Tier", value: "A" },
-                { label: "Pressure Rate", value: "27%" },
-                { label: "Red Zone Vulnerability", value: "High" },
+                {
+                    label: `${awayCode} Pass Defense`,
+                    value:
+                        awayDefense?.passDefenseTier ||
+                        "N/A"
+                },
+                {
+                    label: `${awayCode} Run Defense`,
+                    value:
+                        awayDefense?.runDefenseTier ||
+                        "N/A"
+                },
+                {
+                    label: `${homeCode} Pass Defense`,
+                    value:
+                        homeDefense?.passDefenseTier ||
+                        "N/A"
+                },
+                {
+                    label: `${homeCode} Run Defense`,
+                    value:
+                        homeDefense?.runDefenseTier ||
+                        "N/A"
+                }
             ];
 
-            container.innerHTML = stats.map(s => `
-    <div class="stat-card">
-      <h4>${s.label}</h4>
-      <p>${s.value}</p>
-    </div>
-  `).join("");
+            container.innerHTML =
+                stats
+                    .map(
+                        stat => `
+                    <div class="stat-card">
+                        <h4>
+                            ${stat.label}
+                        </h4>
+
+                        <p>
+                            ${stat.value}
+                        </p>
+                    </div>
+                `
+                    )
+                    .join("");
         }
 
-        function loadMatchupContext(matchupSlug) {
-            const container = document.getElementById("why-matchup-matters");
-            // Replace with your real logic
+
+        function loadMatchupContext(
+            awayCode,
+            homeCode,
+            awayDefense,
+            homeDefense,
+            bestAngle,
+            completed,
+            finalScore
+        ) {
+            const container =
+                document.getElementById(
+                    "why-matchup-matters"
+                );
+
+            if (!container) return;
+
+            const awayPass =
+                awayDefense?.passDefenseTier ||
+                "N/A";
+
+            const awayRun =
+                awayDefense?.runDefenseTier ||
+                "N/A";
+
+            const homePass =
+                homeDefense?.passDefenseTier ||
+                "N/A";
+
+            const homeRun =
+                homeDefense?.runDefenseTier ||
+                "N/A";
+
+            const propType =
+                bestAngle?.propType ||
+                "balanced";
+
+            if (
+                completed &&
+                finalScore
+            ) {
+                container.innerHTML = `
+            <p>
+                Before kickoff, PlayMaker had
+                ${awayCode} graded at
+                <strong>${awayPass}</strong>
+                against the pass and
+                <strong>${awayRun}</strong>
+                against the run, while
+                ${homeCode} graded at
+                <strong>${homePass}</strong>
+                against the pass and
+                <strong>${homeRun}</strong>
+                against the run.
+
+                The primary pregame research lane was
+                <strong>${propType.toLowerCase()}</strong>
+                props.
+
+                The game finished
+                <strong>
+                    ${awayCode} ${finalScore.away} -
+                    ${finalScore.home} ${homeCode}
+                </strong>,
+                allowing the original matchup assumptions
+                to be reviewed against the final result.
+            </p>
+        `;
+
+                return;
+            }
+
             container.innerHTML = `
-    <p>
-      This matchup features a strong RB vs weak run defense,
-      while the QB faces high pressure — creating top prop opportunities
-      in both passing and rushing markets.
-    </p>
-  `;
+        <p>
+            ${awayCode} enters this matchup against a
+            ${homeCode} defense graded
+            <strong>${homePass}</strong>
+            against the pass and
+            <strong>${homeRun}</strong>
+            against the run.
+
+            PlayMaker currently identifies
+            <strong>${propType.toLowerCase()}</strong>
+            props as the first matchup lane to review.
+
+            ${awayCode}'s defense grades
+            <strong>${awayPass}</strong>
+            against the pass and
+            <strong>${awayRun}</strong>
+            against the run on the other side.
+        </p>
+    `;
         }
 
         function formatDate(dateString) {
@@ -1033,6 +1163,54 @@
                 day: "numeric",
                 year: "numeric"
             });
+        }
+
+        function isCompletedGame(game) {
+            return (
+                game?.completed === true ||
+                String(game?.status?.state || "").toLowerCase() === "post" ||
+                String(game?.status?.name || "").toUpperCase() === "STATUS_FINAL"
+            );
+        }
+
+        function hasFinalScore(game) {
+            return (
+                Number.isFinite(Number(game?.awayScore)) &&
+                Number.isFinite(Number(game?.homeScore))
+            );
+        }
+
+        function getFinalScore(game) {
+            if (!hasFinalScore(game)) {
+                return null;
+            }
+
+            return {
+                away: Number(game.awayScore),
+                home: Number(game.homeScore)
+            };
+        }
+
+        function getWinnerCode(game) {
+            if (game?.winner) {
+                return String(game.winner).toUpperCase();
+            }
+
+            const score = getFinalScore(game);
+
+            if (!score) {
+                return null;
+            }
+
+            if (score.away > score.home) {
+                return String(game.away || "").toUpperCase();
+            }
+
+            if (score.home > score.away) {
+                return String(game.home || "").toUpperCase();
+            }
+
+            return "TIE";
         }
 
         function tierScore(tier) {
@@ -1833,9 +2011,392 @@
 
         }
 
+        function applyCompletedGameMode({
+            game,
+            awayCode,
+            homeCode,
+            awayName,
+            homeName,
+            finalScore,
+            winnerCode,
+            historicalResults,
+            readableDate
+        }) {
+            if (
+                !isCompletedGame(game) ||
+                !finalScore
+            ) {
+                return;
+            }
+
+            const winnerName =
+                winnerCode === "TIE"
+                    ? null
+                    : formatTeam(winnerCode);
+
+            const loserName =
+                winnerCode === "TIE"
+                    ? null
+                    : winnerCode === awayCode
+                        ? homeName
+                        : awayName;
+
+            const won =
+                historicalResults.filter(
+                    r => r.result === "won"
+                ).length;
+
+            const lost =
+                historicalResults.filter(
+                    r => r.result === "lost"
+                ).length;
+
+            const totalGraded =
+                won + lost;
+
+            const accuracy =
+                totalGraded
+                    ? Math.round(
+                        (won / totalGraded) * 100
+                    )
+                    : null;
+
+
+            // =========================
+            // SEO / META
+            // =========================
+
+            document.title =
+                `${awayName} ${finalScore.away}, ${homeName} ${finalScore.home} | Final Score & Matchup Recap | PlayMaker Prime`;
+
+            const metaDescription =
+                document.querySelector(
+                    'meta[name="description"]'
+                );
+
+            if (metaDescription) {
+                metaDescription.setAttribute(
+                    "content",
+                    `${awayName} vs ${homeName} final score and PlayMaker Prime post-game recap for Week ${game.week}. Review the final result, pregame matchup research, player prop history, defensive context, and PlayMaker results.`
+                );
+            }
+
+            updateMeta(
+                "og:title",
+                `${awayName} ${finalScore.away}, ${homeName} ${finalScore.home} | Final`
+            );
+
+            updateMeta(
+                "og:description",
+                `Final: ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}. Review PlayMaker's pregame matchup research and historical prop results.`
+            );
+
+            updateMetaName(
+                "twitter:title",
+                `${awayName} ${finalScore.away}, ${homeName} ${finalScore.home} | Final`
+            );
+
+            updateMetaName(
+                "twitter:description",
+                `Final: ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}. Review the original PlayMaker matchup research and results.`
+            );
+
+
+            // =========================
+            // SECTION LABELS
+            // =========================
+
+            document.getElementById(
+                "stat-relevance-title"
+            ).textContent =
+                "Pregame Stat Profile";
+
+            document.getElementById(
+                "stat-relevance-copy"
+            ).textContent =
+                "The defensive and matchup metrics PlayMaker had available before kickoff.";
+
+            document.getElementById(
+                "why-matters-title"
+            ).textContent =
+                "Why This Matchup Mattered";
+
+            document.getElementById(
+                "why-matters-copy"
+            ).textContent =
+                "Review the matchup context and prop factors PlayMaker identified before the final result.";
+
+            document.getElementById(
+                "ai-summary-label"
+            ).textContent =
+                "Post-Game Summary";
+
+            document.getElementById(
+                "opportunities-title"
+            ).textContent =
+                "Pregame PlayMaker Angles";
+
+            document.getElementById(
+                "why-section-title"
+            ).textContent =
+                "Pregame Context vs Final Result";
+
+            document.getElementById(
+                "intelligence-title"
+            ).textContent =
+                "Pregame Matchup Intelligence";
+
+            document.getElementById(
+                "faq-title"
+            ).textContent =
+                "Post-Game FAQ";
+
+            document.getElementById(
+                "cta-label"
+            ).textContent =
+                "Continue Research";
+
+            document.getElementById(
+                "related-matchups-copy"
+            ).textContent =
+                "Continue to other NFL matchup reports and upcoming games.";
+
+
+            // =========================
+            // SEO INTRO
+            // =========================
+
+            document.getElementById(
+                "seo-intro-title"
+            ).textContent =
+                `${awayName} vs ${homeName} Final Score & Matchup Recap`;
+
+            document.getElementById(
+                "seo-intro-copy"
+            ).textContent =
+                `${homeName} and ${awayName} completed their Week ${game.week} matchup on ${readableDate}. This archived PlayMaker Prime report preserves the original pregame defensive analysis, prop opportunities, player trends, weather context, and historical results alongside the final score.`;
+
+
+            // =========================
+            // AI / POSTGAME SUMMARY
+            // =========================
+
+            document.getElementById(
+                "ai-summary-grade"
+            ).textContent =
+                "FINAL";
+
+            document.getElementById(
+                "ai-summary-title"
+            ).textContent =
+                winnerCode === "TIE"
+                    ? `${awayCode} and ${homeCode} finished tied`
+                    : `${winnerName} defeated ${loserName}`;
+
+            document.getElementById(
+                "ai-matchup-summary"
+            ).textContent =
+                winnerCode === "TIE"
+                    ? `${awayName} and ${homeName} finished ${finalScore.away}-${finalScore.home}. The sections below preserve PlayMaker's original pregame matchup profile so the assumptions, prop lanes, defensive context, and historical results can be reviewed against what happened on the field.`
+                    : `${winnerName} defeated ${loserName} ${winnerCode === homeCode
+                        ? `${finalScore.home}-${finalScore.away}`
+                        : `${finalScore.away}-${finalScore.home}`
+                    }. The sections below preserve PlayMaker's original pregame research so the projected matchup environment, defensive tendencies, prop lanes, and historical picks can be reviewed against the final result.`;
+
+
+            // =========================
+            // OPPORTUNITY SECTION
+            // =========================
+
+            document.getElementById(
+                "opportunity-summary"
+            ).textContent =
+                `These were the primary PlayMaker research angles identified for ${awayCode} vs ${homeCode} before kickoff. They are preserved for post-game review and model evaluation.`;
+
+
+            // =========================
+            // WHY THIS MATCHUP
+            // =========================
+
+            document.getElementById(
+                "why-matchup-summary"
+            ).textContent =
+                `Compare the original pregame matchup assumptions with the ${awayCode} ${finalScore.away}-${finalScore.home} ${homeCode} final result.`;
+
+            document.getElementById(
+                "why-history"
+            ).textContent =
+                historicalResults.length
+                    ? `PlayMaker has ${historicalResults.length} logged picks tied to this matchup context. Graded results currently sit at ${won}-${lost}${accuracy !== null
+                        ? ` (${accuracy}% accuracy)`
+                        : ""
+                    }, providing a proof-log for reviewing the original analysis after the game.`
+                    : `No logged PlayMaker prop results were found for this matchup context. The original pregame research remains archived for comparison with the final result.`;
+
+            document.getElementById(
+                "why-history-tag"
+            ).textContent =
+                historicalResults.length
+                    ? `${won}-${lost}`
+                    : "Archive";
+
+
+            // =========================
+            // TEAM COMPARISON
+            // =========================
+
+            document.getElementById(
+                "team-comparison-summary"
+            ).textContent =
+                `Team records and recent form provide context for how ${awayCode} and ${homeCode} entered and progressed through the season around this matchup.`;
+
+            document.getElementById(
+                "comparison-edge"
+            ).textContent =
+                `${awayCode} and ${homeCode} are shown with their available season and recent-form data. The final result was ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}.`;
+
+
+            // =========================
+            // MATCHUP INTELLIGENCE
+            // =========================
+
+            document.getElementById(
+                "intelligence-summary"
+            ).textContent =
+                `The original PlayMaker matchup intelligence for ${awayCode} vs ${homeCode}, preserved after the game for model review.`;
+
+            document.getElementById(
+                "script-copy"
+            ).textContent =
+                `This section reflects the pregame game-script projection built from schedule context, defensive tiers, weather, and injuries. Compare that expectation with the final ${awayCode} ${finalScore.away}-${finalScore.home} ${homeCode} result.`;
+
+            document.getElementById(
+                "pace-copy"
+            ).textContent =
+                `Pregame pace expectations are preserved here as historical research context. The completed game can now be evaluated against those assumptions.`;
+
+            document.getElementById(
+                "risk-copy"
+            ).textContent =
+                `These were the main matchup risks identified before kickoff. They remain visible so PlayMaker's assumptions can be reviewed after the final result.`;
+
+
+            // =========================
+            // PLAYER SECTION
+            // =========================
+
+            document.getElementById(
+                "player-pool-summary"
+            ).textContent =
+                `Review the players PlayMaker highlighted before kickoff, including their pregame trends, opponent history, and prop research focus.`;
+
+
+            // =========================
+            // FAQ
+            // =========================
+
+            document.getElementById(
+                "faq-summary"
+            ).textContent =
+                `Post-game questions about the ${awayCode} vs ${homeCode} final result and archived PlayMaker research.`;
+
+            document.getElementById(
+                "faq-q1"
+            ).textContent =
+                `Who won ${awayCode} vs ${homeCode}?`;
+
+            document.getElementById(
+                "faq-a1"
+            ).textContent =
+                winnerCode === "TIE"
+                    ? `${awayName} and ${homeName} finished tied ${finalScore.away}-${finalScore.home}.`
+                    : `${winnerName} defeated ${loserName} ${winnerCode === homeCode
+                        ? `${finalScore.home}-${finalScore.away}`
+                        : `${finalScore.away}-${finalScore.home}`
+                    }.`;
+
+            document.getElementById(
+                "faq-q2"
+            ).textContent =
+                `What did PlayMaker identify before ${awayCode} vs ${homeCode}?`;
+
+            document.getElementById(
+                "faq-a2"
+            ).textContent =
+                `The archived report shows PlayMaker's original defensive matchup, prop lanes, player trends, weather context, injury context, game-script assumptions, and historical results from before kickoff.`;
+
+            document.getElementById(
+                "faq-q3"
+            ).textContent =
+                `Can I still review the original ${awayCode} vs ${homeCode} matchup analysis?`;
+
+            document.getElementById(
+                "faq-a3"
+            ).textContent =
+                `Yes. The pregame PlayMaker research remains on this page so the original assumptions can be compared with the final result.`;
+
+            document.getElementById(
+                "faq-q4"
+            ).textContent =
+                `Why keep pregame research after the game is finished?`;
+
+            document.getElementById(
+                "faq-a4"
+            ).textContent =
+                `Keeping the original matchup research creates a historical audit trail. It allows PlayMaker users to review what the model saw before kickoff and compare those assumptions with what actually happened.`;
+
+            document.getElementById(
+                "faq-q5"
+            ).textContent =
+                `Where can I research ${awayCode} and ${homeCode} next?`;
+
+            document.getElementById(
+                "faq-a5"
+            ).textContent =
+                `Use PlayMaker's team and player research tools to review updated trends, upcoming opponents, defensive context, and new player prop lines.`;
+
+
+            // =========================
+            // CTA
+            // =========================
+
+            document.getElementById(
+                "cta-title"
+            ).textContent =
+                `Continue Researching ${homeCode}`;
+
+            document.getElementById(
+                "cta-copy"
+            ).textContent =
+                `Open ${homeCode}'s PlayMaker team page to review updated players, season trends, upcoming games, and new prop opportunities.`;
+
+            document.getElementById(
+                "tool-link"
+            ).textContent =
+                `Open ${homeCode} in PlayMaker`;
+        }
+
         function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
+            const completed =
+                isCompletedGame(game);
+
+            const finalScore =
+                getFinalScore(game);
+
+            const winnerCode =
+                getWinnerCode(game);
+
+            document.body.classList.toggle(
+                "completed-matchup",
+                completed
+            );
+
+            document.body.classList.toggle(
+                "upcoming-matchup",
+                !completed
+            );
 
             loadFeaturedPlayers(awayCode, homeCode, awayPlayers, homePlayers, resultsData);
 
@@ -1904,6 +2465,23 @@
             const bestAngle = getBestAngle(awayCode, homeCode, awayDefense, homeDefense);
             const filteredAwayPlayers = filterKeyPlayers(awayPlayers);
             const filteredHomePlayers = filterKeyPlayers(homePlayers);
+
+            loadMatchupStats(
+                awayCode,
+                homeCode,
+                awayDefense,
+                homeDefense
+            );
+
+            loadMatchupContext(
+                awayCode,
+                homeCode,
+                awayDefense,
+                homeDefense,
+                bestAngle,
+                completed,
+                finalScore
+            );
 
             renderQuickPlayers("away-quick-players", filteredAwayPlayers);
             renderQuickPlayers("home-quick-players", filteredHomePlayers);
@@ -2047,42 +2625,143 @@
                 `${awayName} vs ${homeName} Week ${game.week}. Compare player props, defensive tiers, weather, injuries, trends, and matchup intelligence.`
             );
 
-            document.getElementById("matchup-week").textContent = `Week ${game.week} Matchup`;
+            const matchupWeekEl =
+                document.getElementById("matchup-week");
 
-            document.getElementById("matchup-title").innerHTML = `
-        ${awayName} vs ${homeName}
-        <span>${awayCode} @ ${homeCode}</span>
-      `;
+            const matchupTitleEl =
+                document.getElementById("matchup-title");
 
-            document.getElementById("matchup-subtitle").textContent =
-                `${readableDate} · A PlayMaker Prime matchup report built for player prop research.`;
+            const matchupSubtitleEl =
+                document.getElementById("matchup-subtitle");
 
-            document.getElementById("opportunity-score").textContent = scoreData.label;
+            const opportunityScoreEl =
+                document.getElementById("opportunity-score");
 
-            document.getElementById("opportunity-fill").style.width = `${scoreData.score}%`;
+            const opportunityFillEl =
+                document.getElementById("opportunity-fill");
 
-            document.getElementById("opportunity-tier").textContent =
-                scoreData.tier;
+            const opportunityTierEl =
+                document.getElementById("opportunity-tier");
 
             const driversList =
                 document.getElementById("opportunity-drivers-list");
 
-            driversList.innerHTML =
-                scoreData.reasons.length
-                    ? scoreData.reasons.map(reason => {
+            const matchupNoteEl =
+                document.getElementById("matchup-note");
 
-                        const icon =
-                            reason.toLowerCase().includes("injury")
-                                ? "⚠"
-                                : "✓";
+            const snapshotPrimaryLabel =
+                document.getElementById(
+                    "snapshot-primary-label"
+                );
 
-                        return `<li>${icon} ${reason}</li>`;
+            if (
+                completed &&
+                finalScore
+            ) {
 
-                    }).join("")
-                    : "<li>✓ Matchup profile generated successfully.</li>";
+                snapshotPrimaryLabel.textContent =
+                    "Final Score";
 
-            document.getElementById("matchup-note").textContent =
-                `${awayCode} travels to ${homeCode}. This report uses schedule data plus defensive baseline tiers to shape the first prop research angle.`;
+                matchupWeekEl.textContent =
+                    `Week ${game.week} · FINAL`;
+
+                matchupTitleEl.innerHTML = `
+        ${awayName} ${finalScore.away}
+        <span>${homeName} ${finalScore.home}</span>
+    `;
+
+                matchupSubtitleEl.textContent =
+                    `${readableDate} · Final score and post-game PlayMaker recap.`;
+
+                opportunityScoreEl.textContent =
+                    `${awayCode} ${finalScore.away} - ${finalScore.home} ${homeCode}`;
+
+                opportunityFillEl.style.width =
+                    "100%";
+
+                opportunityTierEl.textContent =
+                    "FINAL";
+
+                const winnerName =
+                    winnerCode === "TIE"
+                        ? null
+                        : formatTeam(winnerCode);
+
+                driversList.innerHTML = `
+        <li>
+            ✓ Final score: ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}
+        </li>
+
+        <li>
+            ${winnerCode === "TIE"
+                        ? "➖ Game ended in a tie"
+                        : `✓ ${winnerName} won the matchup`
+                    }
+        </li>
+
+        <li>
+            ✓ Pregame PlayMaker research remains available below for historical review
+        </li>
+    `;
+
+                matchupNoteEl.textContent =
+                    winnerCode === "TIE"
+                        ? `${awayName} and ${homeName} finished tied. This page now serves as a post-game matchup archive.`
+                        : `${winnerName} defeated ${winnerCode === awayCode ? homeName : awayName}. Review the final result, PlayMaker picks, and original pregame research below.`;
+
+            } else {
+
+                snapshotPrimaryLabel.textContent =
+                    "PlayMaker Matchup Ranking";
+
+                matchupWeekEl.textContent =
+                    `Week ${game.week} Matchup`;
+
+                matchupTitleEl.innerHTML = `
+        ${awayName} vs ${homeName}
+        <span>${awayCode} @ ${homeCode}</span>
+    `;
+
+                matchupSubtitleEl.textContent =
+                    `${readableDate} · A PlayMaker Prime matchup report built for player prop research.`;
+
+                opportunityScoreEl.textContent =
+                    scoreData.label;
+
+                opportunityFillEl.style.width =
+                    `${scoreData.score}%`;
+
+                opportunityTierEl.textContent =
+                    scoreData.tier;
+
+                driversList.innerHTML =
+                    scoreData.reasons.length
+                        ? scoreData.reasons.map(reason => {
+
+                            const icon =
+                                reason
+                                    .toLowerCase()
+                                    .includes("injury")
+                                    ? "⚠"
+                                    : "✓";
+
+                            return `
+                    <li>
+                        ${icon} ${reason}
+                    </li>
+                `;
+
+                        }).join("")
+                        : `
+                <li>
+                    ✓ Matchup profile generated successfully.
+                </li>
+            `;
+
+                matchupNoteEl.textContent =
+                    `${awayCode} travels to ${homeCode}. This report uses schedule data plus defensive baseline tiers to shape the first prop research angle.`;
+
+            }
 
             document.getElementById("game-date-hero").textContent = readableDate;
             document.getElementById("game-week-hero").textContent = `Week ${game.week}`;
@@ -2463,6 +3142,17 @@
             document.getElementById("tool-link").href =
                 `/tool/team.html?team=${encodeURIComponent(homeCode)}`;
 
+            applyCompletedGameMode({
+                game,
+                awayCode,
+                homeCode,
+                awayName,
+                homeName,
+                finalScore,
+                winnerCode,
+                historicalResults,
+                readableDate
+            });
 
             /* ===========================
                Explore More Matchups
