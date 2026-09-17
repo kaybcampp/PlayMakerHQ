@@ -105,8 +105,53 @@
             </div>
         </section>
 
+        <!-- LATEST GAME -->
+        <section class="hq-section" id="latest-game-section">
+            <div class="section-header">
+                <h3>Latest Game</h3>
+                <p id="latest-game-sub">
+                    Loading the most recent completed game...
+                </p>
+            </div>
+
+            <div class="latest-game-card">
+
+                <div class="latest-game-teams">
+
+                    <div class="latest-game-team">
+                        <img id="latest-away-logo" alt="" />
+                        <span id="latest-away-name">--</span>
+                        <strong id="latest-away-score">--</strong>
+                    </div>
+
+                    <div class="latest-game-middle">
+                        <span class="hq-pill">FINAL</span>
+                        <p id="latest-game-date">--</p>
+                    </div>
+
+                    <div class="latest-game-team">
+                        <img id="latest-home-logo" alt="" />
+                        <span id="latest-home-name">--</span>
+                        <strong id="latest-home-score">--</strong>
+                    </div>
+
+                </div>
+
+                <div class="latest-game-result">
+                    <strong id="latest-game-result-text">
+                        Loading result...
+                    </strong>
+
+                    <a id="latest-game-link" href="/matchups.html" class="card-link">
+                        View Post-Game Matchup →
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
         <!-- SNAPSHOT -->
-        <section class="hq-section hq-section-alt">
+        <section class="hq-section">
             <div class="section-header">
                 <h3>Team Snapshot</h3>
             </div>
@@ -675,13 +720,25 @@
                 baseGames.filter(g => g.market?.toLowerCase().includes("pass")).length / (baseGames.length || 1);
 
             const scored = teams
-                .filter(t => t !== teamCode)
+                .filter(
+                    t =>
+                        normalizeTeamCode(t) !==
+                        normalizeTeamCode(teamCode)
+                )
                 .map(otherTeam => {
 
+                    const normalizedOtherTeam =
+                        normalizeTeamCode(
+                            otherTeam
+                        );
+
                     const games = results.filter(g =>
-                        g.playerTeam === otherTeam || normalizeTeamCode(
+                        normalizeTeamCode(
+                            g.playerTeam
+                        ) === normalizedOtherTeam ||
+                        normalizeTeamCode(
                             g.opponentTeam
-                        ) === teamCode
+                        ) === normalizedOtherTeam
                     );
 
                     const hitRate =
@@ -876,6 +933,333 @@
                 .slice(0, 6);
         }
 
+        function normalizeScheduleTeam(code) {
+            const value =
+                String(code || "")
+                    .toUpperCase();
+
+            return value === "WAS"
+                ? "WSH"
+                : value;
+        }
+
+
+        function isCompletedScheduleGame(game) {
+            return (
+                game?.completed === true ||
+                String(
+                    game?.status?.state || ""
+                ).toLowerCase() === "post" ||
+                String(
+                    game?.status?.name || ""
+                ).toUpperCase() === "STATUS_FINAL"
+            );
+        }
+
+
+        function getLatestCompletedGame(
+            schedule,
+            teamCode
+        ) {
+            const normalizedTeam =
+                normalizeScheduleTeam(
+                    teamCode
+                );
+
+            return schedule
+                .filter(game => {
+
+                    if (!isCompletedScheduleGame(game)) {
+                        return false;
+                    }
+
+                    const away =
+                        normalizeScheduleTeam(
+                            game.away
+                        );
+
+                    const home =
+                        normalizeScheduleTeam(
+                            game.home
+                        );
+
+                    return (
+                        away === normalizedTeam ||
+                        home === normalizedTeam
+                    );
+
+                })
+                .sort(
+                    (a, b) =>
+                        new Date(b.date || 0) -
+                        new Date(a.date || 0)
+                )[0] || null;
+        }
+
+
+        function getTeamGameResult(
+            game,
+            teamCode
+        ) {
+            if (!game) return null;
+
+            const team =
+                normalizeScheduleTeam(
+                    teamCode
+                );
+
+            const away =
+                normalizeScheduleTeam(
+                    game.away
+                );
+
+            const home =
+                normalizeScheduleTeam(
+                    game.home
+                );
+
+            const awayScore =
+                Number(game.awayScore);
+
+            const homeScore =
+                Number(game.homeScore);
+
+            if (
+                !Number.isFinite(awayScore) ||
+                !Number.isFinite(homeScore)
+            ) {
+                return null;
+            }
+
+            const teamScore =
+                team === away
+                    ? awayScore
+                    : homeScore;
+
+            const opponentScore =
+                team === away
+                    ? homeScore
+                    : awayScore;
+
+            let result = "T";
+
+            if (teamScore > opponentScore) {
+                result = "W";
+            } else if (teamScore < opponentScore) {
+                result = "L";
+            }
+
+            return {
+                result,
+                teamScore,
+                opponentScore
+            };
+        }
+
+
+        function matchupSlugFromGame(game) {
+
+            function slugifyTeam(code) {
+
+                const slug =
+                    Object.keys(TEAM_MAP)
+                        .find(
+                            key =>
+                                normalizeScheduleTeam(
+                                    TEAM_MAP[key]
+                                ) ===
+                                normalizeScheduleTeam(
+                                    code
+                                )
+                        );
+
+                return (
+                    slug ||
+                    String(code || "")
+                        .toLowerCase()
+                );
+
+            }
+
+            return `${slugifyTeam(game.away)}-vs-${slugifyTeam(game.home)}`;
+        }
+
+
+        function renderLatestGame(
+            game,
+            teamCode
+        ) {
+            const section =
+                document.getElementById(
+                    "latest-game-section"
+                );
+
+            if (!section) return;
+
+            if (!game) {
+
+                document.getElementById(
+                    "latest-game-sub"
+                ).textContent =
+                    "No completed regular-season games are available yet.";
+
+                document.getElementById(
+                    "latest-game-result-text"
+                ).textContent =
+                    "Season results will appear here once games are final.";
+
+                document.getElementById(
+                    "latest-game-link"
+                ).style.display =
+                    "none";
+
+                return;
+            }
+
+
+            const awayCode =
+                normalizeScheduleTeam(
+                    game.away
+                );
+
+            const homeCode =
+                normalizeScheduleTeam(
+                    game.home
+                );
+
+
+            const awaySlug =
+                Object.keys(TEAM_MAP)
+                    .find(
+                        key =>
+                            normalizeScheduleTeam(
+                                TEAM_MAP[key]
+                            ) === awayCode
+                    );
+
+            const homeSlug =
+                Object.keys(TEAM_MAP)
+                    .find(
+                        key =>
+                            normalizeScheduleTeam(
+                                TEAM_MAP[key]
+                            ) === homeCode
+                    );
+
+
+            const awayName =
+                awaySlug
+                    ? formatTeamName(
+                        awaySlug
+                    )
+                    : awayCode;
+
+            const homeName =
+                homeSlug
+                    ? formatTeamName(
+                        homeSlug
+                    )
+                    : homeCode;
+
+
+            const awayLogo =
+                TEAM_LOGOS[
+                awaySlug
+                ];
+
+            const homeLogo =
+                TEAM_LOGOS[
+                homeSlug
+                ];
+
+
+            const result =
+                getTeamGameResult(
+                    game,
+                    teamCode
+                );
+
+
+            document.getElementById(
+                "latest-away-name"
+            ).textContent =
+                awayName;
+
+            document.getElementById(
+                "latest-home-name"
+            ).textContent =
+                homeName;
+
+            document.getElementById(
+                "latest-away-score"
+            ).textContent =
+                game.awayScore;
+
+            document.getElementById(
+                "latest-home-score"
+            ).textContent =
+                game.homeScore;
+
+
+            const awayLogoEl =
+                document.getElementById(
+                    "latest-away-logo"
+                );
+
+            const homeLogoEl =
+                document.getElementById(
+                    "latest-home-logo"
+                );
+
+
+            if (awayLogo) {
+                awayLogoEl.src =
+                    awayLogo;
+            }
+
+            if (homeLogo) {
+                homeLogoEl.src =
+                    homeLogo;
+            }
+
+
+            document.getElementById(
+                "latest-game-date"
+            ).textContent =
+                game.date
+                    ? new Date(
+                        `${game.date}T12:00:00`
+                    ).toLocaleDateString(
+                        "en-US",
+                        {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric"
+                        }
+                    )
+                    : "Final";
+
+
+            document.getElementById(
+                "latest-game-sub"
+            ).textContent =
+                `Week ${game.week} final result and post-game matchup archive.`;
+
+
+            document.getElementById(
+                "latest-game-result-text"
+            ).textContent =
+                result
+                    ? `${result.result} ${result.teamScore}-${result.opponentScore}`
+                    : `${awayCode} ${game.awayScore} - ${game.homeScore} ${homeCode}`;
+
+
+            document.getElementById(
+                "latest-game-link"
+            ).href =
+                `/matchups/${matchupSlugFromGame(game)}`;
+        }
+
         async function loadTeamPage() {
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
@@ -917,14 +1301,61 @@
             document.getElementById("ai-summary-sub").textContent =
                 "Live PlayMaker read based on team results, prop history, offensive identity, and defensive profile.";
 
-            document.getElementById("ai-summary-text").textContent =
-                `${teamName} projects as a matchup-driven team with clear prop signals based on game script, offensive balance, and defensive efficiency. PlayMaker highlights usage trends and situational edges that directly impact player performance outcomes.`;
-
             document.getElementById("team-subtitle").textContent =
                 `Deep dive into ${teamName}'s offensive identity, defensive profile, trends, and prop environment.`;
 
             // ---------------- LOAD DATA ----------------
             const results = await loadResults();
+
+            let schedule = [];
+
+            try {
+
+                const res =
+                    await fetch(
+                        "/assets/data/schedule2026.json"
+                    );
+
+                if (res.ok) {
+                    schedule =
+                        await res.json();
+                }
+
+            } catch (err) {
+
+                console.warn(
+                    "Schedule unavailable:",
+                    err
+                );
+
+            }
+
+
+            const latestGame =
+                getLatestCompletedGame(
+                    schedule,
+                    teamCode
+                );
+
+
+            renderLatestGame(
+                latestGame,
+                teamCode
+            );
+
+            const latestResult =
+                getTeamGameResult(
+                    latestGame,
+                    teamCode
+                );
+
+            document.getElementById(
+                "ai-summary-text"
+            ).textContent =
+                latestGame &&
+                    latestResult
+                    ? `${teamName}'s latest completed game finished ${latestResult.result} ${latestResult.teamScore}-${latestResult.opponentScore}. PlayMaker combines that current game context with prop history, offensive identity, defensive profile, and usage trends to evaluate upcoming player opportunities.`
+                    : `${teamName} projects as a matchup-driven team with clear prop signals based on game script, offensive balance, and defensive efficiency. PlayMaker highlights usage trends and situational edges that directly impact player performance outcomes.`;
 
             const allTeamGames = results.filter(g =>
                 isTeamInGame(g, teamCode)
