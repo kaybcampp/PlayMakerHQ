@@ -1778,6 +1778,10 @@ footer {
 }
 
 
+/* =====================================
+   SCOREBOARD
+===================================== */
+
 .latest-game-teams {
     display: grid;
 
@@ -1847,7 +1851,6 @@ footer {
 
     flex-direction: column;
     align-items: center;
-
     justify-content: center;
 
     gap: 10px;
@@ -1869,6 +1872,10 @@ footer {
     opacity: 0.65;
 }
 
+
+/* =====================================
+   FINAL RESULT ROW
+===================================== */
 
 .latest-game-result {
     display: flex;
@@ -1899,8 +1906,264 @@ footer {
 
 
 /* =====================================
+   POST-GAME DETAILS
+===================================== */
+
+.latest-game-details {
+    margin-top: 28px;
+    padding-top: 28px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.latest-game-detail-section+.latest-game-detail-section {
+    margin-top: 34px;
+}
+
+
+.latest-game-detail-header {
+    margin-bottom: 18px;
+}
+
+
+.latest-game-detail-header h4 {
+    margin: 0 0 5px 0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    letter-spacing: 0.01em;
+}
+
+
+.latest-game-detail-header p {
+    margin: 0;
+
+    font-size: 13px;
+
+    opacity: 0.65;
+}
+
+
+/* =====================================
+   TEAM STATS TABLE
+===================================== */
+
+.latest-game-stat-table {
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 14px;
+
+    background:
+        rgba(11, 15, 26, 0.45);
+}
+
+
+.latest-stat-header,
+.latest-stat-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) minmax(140px, 1.2fr) minmax(0, 1fr);
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.latest-stat-header {
+    min-height: 46px;
+
+    padding:
+        10px 18px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    opacity: 0.75;
+}
+
+
+.latest-stat-row {
+    min-height: 52px;
+
+    padding:
+        12px 18px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+.latest-stat-row:last-child {
+    border-bottom: none;
+}
+
+
+.latest-stat-row strong {
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.latest-stat-row span {
+    font-size: 13px;
+
+    opacity: 0.68;
+}
+
+
+/* =====================================
+   TOP PERFORMERS
+===================================== */
+
+.latest-performers-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+.latest-performer-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+    padding: 16px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 14px;
+
+    background:
+        rgba(11, 15, 26, 0.5);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
+}
+
+
+.latest-performer-card:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(102, 255, 153, 0.22);
+
+    background:
+        rgba(255, 255, 255, 0.035);
+}
+
+
+.latest-performer-headshot {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    background:
+        rgba(11, 15, 26, 0.8);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.latest-performer-info {
+    min-width: 0;
+}
+
+
+.latest-performer-type {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+    opacity: 0.58;
+}
+
+
+.latest-performer-info h5 {
+    margin:
+        0 0 5px 0;
+
+    font-size: 15px;
+
+    line-height: 1.25;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.latest-performer-info p {
+    margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.45;
+
+    opacity: 0.75;
+}
+
+
+/* =====================================
    LATEST GAME RESPONSIVE
 ===================================== */
+
+@media (max-width: 900px) {
+
+    .latest-performers-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .latest-performer-card {
+        padding: 14px;
+    }
+
+}
+
 
 @media (max-width: 768px) {
 
@@ -1977,6 +2240,78 @@ footer {
         text-align: center;
     }
 
+
+    .latest-game-details {
+        margin-top: 22px;
+        padding-top: 22px;
+    }
+
+
+    .latest-game-detail-section+.latest-game-detail-section {
+        margin-top: 28px;
+    }
+
+
+    .latest-game-detail-header {
+        margin-bottom: 14px;
+    }
+
+
+    .latest-game-detail-header h4 {
+        font-size: 16px;
+    }
+
+
+    .latest-stat-header,
+    .latest-stat-row {
+        grid-template-columns:
+            minmax(0, 1fr) minmax(100px, 1.2fr) minmax(0, 1fr);
+    }
+
+
+    .latest-stat-header {
+        padding:
+            9px 10px;
+
+        font-size: 10px;
+    }
+
+
+    .latest-stat-row {
+        min-height: 48px;
+
+        padding:
+            10px;
+    }
+
+
+    .latest-stat-row strong {
+        font-size: 14px;
+    }
+
+
+    .latest-stat-row span {
+        font-size: 11px;
+    }
+
+
+    .latest-performer-headshot {
+        width: 52px;
+        height: 52px;
+    }
+
+
+    .latest-performer-info h5 {
+        white-space: normal;
+
+        font-size: 14px;
+    }
+
+
+    .latest-performer-info p {
+        font-size: 11px;
+    }
+
 }
 
 
@@ -2012,6 +2347,50 @@ footer {
         max-width: 70px;
 
         text-align: center;
+    }
+
+
+    .latest-stat-header,
+    .latest-stat-row {
+        grid-template-columns:
+            minmax(55px, 1fr) minmax(90px, 1.35fr) minmax(55px, 1fr);
+    }
+
+
+    .latest-stat-header {
+        padding:
+            8px 6px;
+    }
+
+
+    .latest-stat-row {
+        padding:
+            9px 6px;
+    }
+
+
+    .latest-stat-row strong {
+        font-size: 13px;
+    }
+
+
+    .latest-stat-row span {
+        font-size: 10px;
+
+        line-height: 1.25;
+    }
+
+
+    .latest-performer-card {
+        gap: 12px;
+
+        padding: 12px;
+    }
+
+
+    .latest-performer-headshot {
+        width: 46px;
+        height: 46px;
     }
 
 }

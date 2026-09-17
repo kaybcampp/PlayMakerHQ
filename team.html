@@ -52,9 +52,21 @@
             </p>
 
             <div class="team-meta-row">
-                <div class="meta-chip">📊 Prop Environment Analysis</div>
-                <div class="meta-chip">🧠 AI Team Modeling</div>
-                <div class="meta-chip">⚡ Last 10 Games Engine</div>
+                <div class="meta-chip" id="team-record">
+                    🏈 2026 Record: --
+                </div>
+
+                <div class="meta-chip">
+                    📊 Prop Environment Analysis
+                </div>
+
+                <div class="meta-chip">
+                    🧠 AI Team Modeling
+                </div>
+
+                <div class="meta-chip">
+                    ⚡ Last 10 Games Engine
+                </div>
             </div>
 
         </div>
@@ -145,6 +157,44 @@
                     <a id="latest-game-link" href="/matchups.html" class="card-link">
                         View Post-Game Matchup →
                     </a>
+                </div>
+
+                <!-- POST-GAME DETAILS -->
+                <div class="latest-game-details" id="latest-game-details" style="display:none;">
+
+                    <div class="latest-game-detail-section">
+
+                        <div class="latest-game-detail-header">
+                            <h4>Team Stats</h4>
+
+                            <p>
+                                Final-game statistical comparison.
+                            </p>
+                        </div>
+
+                        <div class="latest-game-stat-table" id="latest-game-stat-table"></div>
+
+                    </div>
+
+
+                    <div class="latest-game-detail-section">
+
+                        <div class="latest-game-detail-header">
+
+                            <h4>
+                                Top Performers
+                            </h4>
+
+                            <p id="latest-performers-sub">
+                                Leading performances from the latest game.
+                            </p>
+
+                        </div>
+
+                        <div class="latest-performers-grid" id="latest-performers"></div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -996,6 +1046,91 @@
                 )[0] || null;
         }
 
+        function getTeamRecord(
+            schedule,
+            teamCode
+        ) {
+
+            const team =
+                normalizeScheduleTeam(
+                    teamCode
+                );
+
+            let wins = 0;
+            let losses = 0;
+            let ties = 0;
+
+
+            schedule.forEach(game => {
+
+                if (
+                    !isCompletedScheduleGame(
+                        game
+                    )
+                ) {
+                    return;
+                }
+
+
+                const away =
+                    normalizeScheduleTeam(
+                        game.away
+                    );
+
+                const home =
+                    normalizeScheduleTeam(
+                        game.home
+                    );
+
+
+                if (
+                    away !== team &&
+                    home !== team
+                ) {
+                    return;
+                }
+
+
+                const result =
+                    getTeamGameResult(
+                        game,
+                        team
+                    );
+
+
+                if (!result) {
+                    return;
+                }
+
+
+                if (
+                    result.result === "W"
+                ) {
+
+                    wins++;
+
+                } else if (
+                    result.result === "L"
+                ) {
+
+                    losses++;
+
+                } else {
+
+                    ties++;
+
+                }
+
+            });
+
+
+            return {
+                wins,
+                losses,
+                ties
+            };
+
+        }
 
         function getTeamGameResult(
             game,
@@ -1260,6 +1395,438 @@
                 `/matchups/${matchupSlugFromGame(game)}`;
         }
 
+        function getRecapTeam(
+            recap,
+            teamCode
+        ) {
+
+            const normalized =
+                normalizeScheduleTeam(
+                    teamCode
+                );
+
+
+            const awayCode =
+                normalizeScheduleTeam(
+                    recap?.away?.code
+                );
+
+
+            const homeCode =
+                normalizeScheduleTeam(
+                    recap?.home?.code
+                );
+
+
+            if (
+                awayCode === normalized
+            ) {
+                return recap.away;
+            }
+
+
+            if (
+                homeCode === normalized
+            ) {
+                return recap.home;
+            }
+
+
+            return null;
+        }
+
+
+        function renderLatestGameRecap(
+            recap,
+            teamCode
+        ) {
+
+            const details =
+                document.getElementById(
+                    "latest-game-details"
+                );
+
+
+            const statsContainer =
+                document.getElementById(
+                    "latest-game-stat-table"
+                );
+
+
+            const performersContainer =
+                document.getElementById(
+                    "latest-performers"
+                );
+
+
+            const performersSub =
+                document.getElementById(
+                    "latest-performers-sub"
+                );
+
+
+            if (
+                !details ||
+                !statsContainer ||
+                !performersContainer
+            ) {
+                return;
+            }
+
+
+            const away =
+                recap?.away;
+
+
+            const home =
+                recap?.home;
+
+
+            if (
+                !away ||
+                !home
+            ) {
+                return;
+            }
+
+
+            const statRows = [
+                {
+                    label:
+                        "Total Yards",
+
+                    away:
+                        away.stats
+                            ?.totalYards,
+
+                    home:
+                        home.stats
+                            ?.totalYards
+                },
+
+                {
+                    label:
+                        "Passing Yards",
+
+                    away:
+                        away.stats
+                            ?.passingYards,
+
+                    home:
+                        home.stats
+                            ?.passingYards
+                },
+
+                {
+                    label:
+                        "Rushing Yards",
+
+                    away:
+                        away.stats
+                            ?.rushingYards,
+
+                    home:
+                        home.stats
+                            ?.rushingYards
+                },
+
+                {
+                    label:
+                        "Yards / Play",
+
+                    away:
+                        away.stats
+                            ?.yardsPerPlay,
+
+                    home:
+                        home.stats
+                            ?.yardsPerPlay
+                },
+
+                {
+                    label:
+                        "3rd Down",
+
+                    away:
+                        away.stats
+                            ?.thirdDown,
+
+                    home:
+                        home.stats
+                            ?.thirdDown
+                },
+
+                {
+                    label:
+                        "Red Zone",
+
+                    away:
+                        away.stats
+                            ?.redZone,
+
+                    home:
+                        home.stats
+                            ?.redZone
+                },
+
+                {
+                    label:
+                        "Turnovers",
+
+                    away:
+                        away.stats
+                            ?.turnovers,
+
+                    home:
+                        home.stats
+                            ?.turnovers
+                },
+
+                {
+                    label:
+                        "Possession",
+
+                    away:
+                        away.stats
+                            ?.possession,
+
+                    home:
+                        home.stats
+                            ?.possession
+                }
+            ];
+
+
+            statsContainer.innerHTML = `
+        <div class="latest-stat-header">
+
+            <div>
+                ${away.code || "AWAY"}
+            </div>
+
+            <div>
+                STAT
+            </div>
+
+            <div>
+                ${home.code || "HOME"}
+            </div>
+
+        </div>
+
+        ${statRows
+                    .map(
+                        row => `
+                    <div class="latest-stat-row">
+
+                        <strong>
+                            ${row.away ?? "--"}
+                        </strong>
+
+                        <span>
+                            ${row.label}
+                        </span>
+
+                        <strong>
+                            ${row.home ?? "--"}
+                        </strong>
+
+                    </div>
+                `
+                    )
+                    .join("")}
+    `;
+
+
+            const team =
+                getRecapTeam(
+                    recap,
+                    teamCode
+                );
+
+
+            if (!team) {
+
+                performersContainer.innerHTML =
+                    "";
+
+                return;
+
+            }
+
+
+            if (performersSub) {
+
+                performersSub.textContent =
+                    `Leading ${team.name || team.code} performances from the latest game.`;
+
+            }
+
+
+            const leaders = [
+                {
+                    type:
+                        "Passing",
+
+                    data:
+                        team.leaders
+                            ?.passing
+                },
+
+                {
+                    type:
+                        "Rushing",
+
+                    data:
+                        team.leaders
+                            ?.rushing
+                },
+
+                {
+                    type:
+                        "Receiving",
+
+                    data:
+                        team.leaders
+                            ?.receiving
+                }
+            ];
+
+
+            performersContainer.innerHTML =
+                leaders
+                    .filter(
+                        item =>
+                            item.data
+                    )
+                    .map(
+                        item => {
+
+                            const player =
+                                item.data;
+
+
+                            const image =
+                                player.headshot ||
+                                "/assets/images/player-placeholder.png";
+
+
+                            return `
+                        <div class="latest-performer-card">
+
+                            <img
+                                src="${image}"
+                                alt="${player.name || "Player"}"
+                                class="latest-performer-headshot"
+                                onerror="
+                                    this.onerror=null;
+                                    this.src='/assets/images/player-placeholder.png';
+                                "
+                            >
+
+                            <div class="latest-performer-info">
+
+                                <span class="latest-performer-type">
+                                    ${item.type} Leader
+                                </span>
+
+                                <h5>
+                                    ${player.name || "N/A"}
+                                </h5>
+
+                                <p>
+                                    ${player.value || "--"}
+                                </p>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                        }
+                    )
+                    .join("");
+
+
+            details.style.display =
+                "block";
+        }
+
+
+        async function loadLatestGameRecap(
+            game,
+            teamCode
+        ) {
+
+            const details =
+                document.getElementById(
+                    "latest-game-details"
+                );
+
+
+            if (
+                !game?.eventId
+            ) {
+
+                if (details) {
+                    details.style.display =
+                        "none";
+                }
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/assets/data/game-recaps/${game.eventId}.json`,
+                        {
+                            cache:
+                                "no-store"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Recap request failed: ${response.status}`
+                    );
+
+                }
+
+
+                const recap =
+                    await response.json();
+
+
+                renderLatestGameRecap(
+                    recap,
+                    teamCode
+                );
+
+
+            } catch (err) {
+
+                console.warn(
+                    "Latest game recap unavailable:",
+                    err
+                );
+
+
+                if (details) {
+
+                    details.style.display =
+                        "none";
+
+                }
+
+            }
+
+        }
+
         async function loadTeamPage() {
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
@@ -1337,8 +1904,41 @@
                     teamCode
                 );
 
+            const teamRecord =
+                getTeamRecord(
+                    schedule,
+                    teamCode
+                );
+
+
+            const recordText =
+                `${teamRecord.wins}-${teamRecord.losses}` +
+                (
+                    teamRecord.ties
+                        ? `-${teamRecord.ties}`
+                        : ""
+                );
+
+
+            const recordEl =
+                document.getElementById(
+                    "team-record"
+                );
+
+
+            if (recordEl) {
+
+                recordEl.textContent =
+                    `🏈 2026 Record: ${recordText}`;
+
+            }
 
             renderLatestGame(
+                latestGame,
+                teamCode
+            );
+
+            loadLatestGameRecap(
                 latestGame,
                 teamCode
             );
