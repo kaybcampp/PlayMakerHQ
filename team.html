@@ -231,11 +231,13 @@
             </div>
         </section>
 
-        <!-- LAST 10 -->
+        <!-- RECENT TEAM FORM -->
         <section class="hq-section">
             <div class="section-header">
-                <h3>Last 10 Trends</h3>
-                <p id="trend-sub">Recent team performance trends and PlayMaker outcomes.</p>
+                <h3>Recent Team Form</h3>
+                <p id="trend-sub">
+                    Current-season results and rolling performance from completed NFL games.
+                </p>
             </div>
 
             <div class="report-list" id="last10-list"></div>
@@ -661,6 +663,43 @@
             }
         }
 
+        async function loadAllTeamPerformanceProfiles() {
+
+            const teamCodes =
+                [
+                    ...new Set(
+                        Object.values(
+                            TEAM_MAP
+                        )
+                            .map(
+                                normalizeTeamCode
+                            )
+                    )
+                ];
+
+
+            const profiles =
+                await Promise.all(
+
+                    teamCodes.map(
+                        async teamCode => {
+
+                            const profile =
+                                await loadTeamPerformanceProfile(
+                                    teamCode
+                                );
+
+                            return profile;
+
+                        }
+                    )
+
+                );
+
+
+            return profiles.filter(Boolean);
+        }
+
         function isTeamInGame(game, team) {
 
             const normalizedTeam =
@@ -791,69 +830,232 @@
                 .slice(0, 6);
         }
 
-        function buildSimilarTeams(teamCode, results) {
+        function buildSimilarTeams(
+            teamCode,
+            profiles
+        ) {
 
-            const teams = Object.values(TEAM_MAP);
-
-            const baseGames = results.filter(g =>
+            const normalizedTeam =
                 normalizeTeamCode(
-                    g.playerTeam
-                ) === teamCode || normalizeTeamCode(
-                    g.opponentTeam
-                ) === teamCode
-            );
+                    teamCode
+                );
 
-            const baseHitRate =
-                baseGames.filter(g => g.result === "won").length / (baseGames.length || 1);
 
-            const basePassRate =
-                baseGames.filter(g => g.market?.toLowerCase().includes("pass")).length / (baseGames.length || 1);
-
-            const scored = teams
-                .filter(
-                    t =>
-                        normalizeTeamCode(t) !==
-                        normalizeTeamCode(teamCode)
-                )
-                .map(otherTeam => {
-
-                    const normalizedOtherTeam =
+            const baseProfile =
+                profiles.find(
+                    profile =>
                         normalizeTeamCode(
-                            otherTeam
-                        );
+                            profile?.team
+                        ) === normalizedTeam
+                );
 
-                    const games = results.filter(g =>
-                        normalizeTeamCode(
-                            g.playerTeam
-                        ) === normalizedOtherTeam ||
-                        normalizeTeamCode(
-                            g.opponentTeam
-                        ) === normalizedOtherTeam
-                    );
 
-                    const hitRate =
-                        games.filter(g => g.result === "won").length / (games.length || 1);
+            if (!baseProfile) {
+                return [];
+            }
 
-                    const passRate =
-                        games.filter(g => g.market?.toLowerCase().includes("pass")).length / (games.length || 1);
 
-                    // similarity score (core upgrade)
-                    const similarity =
-                        Math.abs(hitRate - baseHitRate) +
-                        Math.abs(passRate - basePassRate);
+            const baseOffense =
+                baseProfile
+                    ?.seasonPerformance
+                    ?.offense;
 
-                    return {
-                        code: otherTeam,
-                        slug: Object.keys(TEAM_MAP).find(k => TEAM_MAP[k] === otherTeam),
-                        name: formatTeamName(Object.keys(TEAM_MAP).find(k => TEAM_MAP[k] === otherTeam)),
-                        logo: TEAM_LOGOS_BY_CODE[otherTeam],
-                        similarity
-                    };
-                });
+
+            const baseDefense =
+                baseProfile
+                    ?.seasonPerformance
+                    ?.defense;
+
+
+            if (
+                !baseOffense ||
+                !baseDefense
+            ) {
+                return [];
+            }
+
+
+            function normalizedDifference(
+                a,
+                b,
+                scale
+            ) {
+
+                const first =
+                    Number(a);
+
+                const second =
+                    Number(b);
+
+
+                if (
+                    !Number.isFinite(first) ||
+                    !Number.isFinite(second)
+                ) {
+                    return 1;
+                }
+
+
+                return Math.min(
+                    1,
+                    Math.abs(
+                        first -
+                        second
+                    ) /
+                    scale
+                );
+
+            }
+
+
+            const scored =
+                profiles
+                    .filter(
+                        profile =>
+                            normalizeTeamCode(
+                                profile?.team
+                            ) !== normalizedTeam
+                    )
+                    .map(profile => {
+
+                        const offense =
+                            profile
+                                ?.seasonPerformance
+                                ?.offense;
+
+
+                        const defense =
+                            profile
+                                ?.seasonPerformance
+                                ?.defense;
+
+
+                        if (
+                            !offense ||
+                            !defense
+                        ) {
+                            return null;
+                        }
+
+
+                        const similarityDistance =
+
+                            normalizedDifference(
+                                offense.pointsPerGame,
+                                baseOffense.pointsPerGame,
+                                20
+                            ) +
+
+                            normalizedDifference(
+                                offense.totalYardsPerGame,
+                                baseOffense.totalYardsPerGame,
+                                200
+                            ) +
+
+                            normalizedDifference(
+                                offense.yardsPerPlay,
+                                baseOffense.yardsPerPlay,
+                                3
+                            ) +
+
+                            normalizedDifference(
+                                defense.pointsAllowedPerGame,
+                                baseDefense.pointsAllowedPerGame,
+                                20
+                            ) +
+
+                            normalizedDifference(
+                                defense.totalYardsAllowedPerGame,
+                                baseDefense.totalYardsAllowedPerGame,
+                                200
+                            ) +
+
+                            normalizedDifference(
+                                defense.yardsPerPlayAllowed,
+                                baseDefense.yardsPerPlayAllowed,
+                                3
+                            );
+
+
+                        const similarity =
+                            Math.max(
+                                0,
+                                Math.round(
+                                    (
+                                        1 -
+                                        similarityDistance /
+                                        6
+                                    ) *
+                                    100
+                                )
+                            );
+
+
+                        const profileCode =
+                            normalizeTeamCode(
+                                profile.team
+                            );
+
+
+                        const slug =
+                            Object.keys(
+                                TEAM_MAP
+                            )
+                                .find(
+                                    key =>
+                                        normalizeTeamCode(
+                                            TEAM_MAP[key]
+                                        ) ===
+                                        profileCode
+                                );
+
+
+                        return {
+
+                            code:
+                                profileCode,
+
+                            slug,
+
+                            name:
+                                slug
+                                    ? formatTeamName(
+                                        slug
+                                    )
+                                    : profileCode,
+
+                            logo:
+                                TEAM_LOGOS_BY_CODE[
+                                profileCode === "WSH"
+                                    ? "WAS"
+                                    : profileCode
+                                ],
+
+                            similarity,
+
+                            offense,
+
+                            defense
+
+                        };
+
+                    })
+                    .filter(Boolean);
+
 
             return scored
-                .sort((a, b) => a.similarity - b.similarity)
-                .slice(0, 4);
+                .sort(
+                    (
+                        a,
+                        b
+                    ) =>
+                        b.similarity -
+                        a.similarity
+                )
+                .slice(
+                    0,
+                    4
+                );
         }
 
         function buildHistoricalResults(results, teamCode) {
@@ -1995,6 +2197,10 @@
                 );
 
 
+            const allPerformanceProfiles =
+                await loadAllTeamPerformanceProfiles();
+
+
             let schedule = [];
 
             try {
@@ -2299,7 +2505,11 @@
                 }).join("");
 
             // ---------------- SIMILAR TEAMS ----------------
-            const similarTeams = buildSimilarTeams(teamCode, results);
+            const similarTeams =
+                buildSimilarTeams(
+                    teamCode,
+                    allPerformanceProfiles
+                );
 
             document.getElementById("similar-teams").innerHTML =
                 similarTeams.map(t => {
@@ -2314,11 +2524,11 @@
     </div>
 
     <p style="opacity:0.8; font-size:13px;">
-        Similar offensive/defensive profile + prop environment
+        Similar 2026 offensive and defensive performance profile
     </p>
 
     <div style="margin-top:8px; font-size:12px; opacity:0.6;">
-        Match similarity score: ${Math.round((1 - t.similarity) * 100)}%
+        Performance similarity: ${t.similarity}%
     </div>
 
     <a href="/teams/${t.slug}" class="card-link">
@@ -2329,84 +2539,97 @@
 `;
                 }).join("");
 
-            // ---------------- LAST 10 ----------------
-            const last10Games = results
-                .filter(g => isTeamInGame(g, teamCode))
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 10);
+            // ---------------- RECENT TEAM FORM ----------------
 
-            // GROUP BY DATE (THIS IS KEY IMPROVEMENT)
-            const grouped = {};
+            const recentForm =
+                performanceProfile
+                    ?.recentForm;
 
-            last10Games.forEach(g => {
-                const key = g.date;
 
-                if (!grouped[key]) {
-                    grouped[key] = {
-                        date: g.date,
-                        matchups: new Set(),
-                        wins: 0,
-                        losses: 0,
-                        avgConfidence: 0,
-                        count: 0
-                    };
-                }
+            const recentGames =
+                Array.isArray(
+                    recentForm?.games
+                )
+                    ? recentForm.games
+                    : [];
 
-                grouped[key].matchups.add(g.matchup);
 
-                grouped[key].count++;
-                grouped[key].avgConfidence += (g.confidence || 50);
+            const last10List =
+                document.getElementById(
+                    "last10-list"
+                );
 
-                if (g.result === "won") grouped[key].wins++;
-                else grouped[key].losses++;
-            });
 
-            const last10List = document.getElementById("last10-list");
-
-            const sorted = Object.values(grouped)
-                .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            if (!sorted.length) {
+            if (!recentGames.length) {
 
                 last10List.innerHTML = `
         <div class="report-row">
             <div>
-                <h4>No recent games found</h4>
-                <p>Trend data will appear once results are available.</p>
+                <h4>No completed games yet</h4>
+
+                <p>
+                    Current-season form will appear as 2026 games are completed.
+                </p>
             </div>
+
             <span>--</span>
         </div>
     `;
+
             } else {
 
-                last10List.innerHTML = sorted.map(g => {
+                last10List.innerHTML =
+                    [...recentGames]
+                        .reverse()
+                        .map(game => {
 
-                    const avgConf = Math.round(g.avgConfidence / g.count);
-                    const edgeLevel =
-                        avgConf >= 70 ? "High volatility game"
-                            : avgConf >= 55 ? "Balanced script"
-                                : "Controlled script";
+                            const result =
+                                String(
+                                    game.result || ""
+                                ).toUpperCase();
 
-                    const trendColor =
-                        g.wins > g.losses ? "#66FF99" : "#ff6b6b";
 
-                    return `
-            <div class="report-row">
-                <div>
-                    <h4>${[...g.matchups][0]}</h4>
-                    <p>
-                        ${g.date} • ${edgeLevel} • 
-                        Props: ${g.wins}W-${g.losses}L • 
-                        Confidence: ${avgConf}
-                    </p>
-                </div>
+                            const resultColor =
+                                result === "W"
+                                    ? "#66FF99"
+                                    : result === "L"
+                                        ? "#ff6b6b"
+                                        : "#FFD166";
 
-                <span style="color:${trendColor}">
-                    ${g.wins > g.losses ? "POSITIVE" : "NEGATIVE"}
-                </span>
-            </div>
-        `;
-                }).join("");
+
+                            return `
+                    <div class="report-row">
+
+                        <div>
+
+                            <h4>
+                                vs ${game.opponent || "--"}
+                            </h4>
+
+                            <p>
+                                ${game.date || "--"}
+                                •
+                                Final ${game.score || "--"}
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            style="
+                                color:${resultColor};
+                                font-weight:600;
+                            "
+                        >
+                            ${result || "--"}
+                        </span>
+
+                    </div>
+                `;
+
+                        })
+                        .join("");
+
             }
 
             // ---------------- HISTORICAL ----------------
