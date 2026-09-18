@@ -443,6 +443,20 @@
             display: none !important;
         }
 
+        .pick-script-resilience,
+        .pick-script-support,
+        .pick-script-workload {
+            background:
+                rgba(255, 255, 255, 0.035) !important;
+
+            cursor: default;
+        }
+
+
+        .pick-script-resilience {
+            font-weight: 800;
+        }
+
         @media (max-width: 900px) {
             .admin-grid {
                 grid-template-columns: 1fr;
@@ -866,6 +880,29 @@
 
                     <input class="pick-confidence-tier" type="text" placeholder="e.g. Strong" />
                 </div>
+
+
+                <div class="admin-field">
+                    <label>Script Resilience</label>
+
+                    <input class="pick-script-resilience" type="text" placeholder="High / Medium / Low" readonly />
+                </div>
+
+
+                <div class="admin-field">
+                    <label>Scenario Support</label>
+
+                    <input class="pick-script-support" type="text" placeholder="e.g. 2/3" readonly />
+                </div>
+
+
+                <div class="admin-field full-width">
+                    <label>Script Workload Basis</label>
+
+                    <input class="pick-script-workload" type="text" placeholder="Targets / Carries / Pass Attempts"
+                        readonly />
+                </div>
+
 
                 <div class="admin-field full-width">
                     <button type="button" class="admin-button secondary load-analysis-button">
@@ -1513,6 +1550,32 @@
                 ).value =
                     data?.confidenceTier ?? "";
 
+                const scriptResilience =
+                    data?.scriptResilience ||
+                    null;
+
+
+                row.querySelector(
+                    ".pick-script-resilience"
+                ).value =
+                    scriptResilience?.rating ||
+                    "";
+
+
+                row.querySelector(
+                    ".pick-script-support"
+                ).value =
+                    scriptResilience
+                        ? `${scriptResilience.supportedScenarios ?? 0}/${scriptResilience.totalScenarios ?? 3}`
+                        : "";
+
+
+                row.querySelector(
+                    ".pick-script-workload"
+                ).value =
+                    scriptResilience?.workload ||
+                    "";
+
                 // Freeze the exact moment this analysis was generated.
                 row.dataset.analysisCapturedAt =
                     new Date().toISOString();
@@ -1520,8 +1583,29 @@
                 row.dataset.last10Average =
                     last10Average ?? "";
 
+
+                // Freeze Script Resilience with this analysis.
+                row.dataset.scriptResilience =
+                    data?.scriptResilience
+                        ? JSON.stringify(
+                            data.scriptResilience
+                        )
+                        : "";
+
+
+                // Freeze the model version too for future analysis.
+                row.dataset.scriptResilienceVersion =
+                    data?.scriptResilience?.modelVersion ||
+                    "";
+
+
+                const resilienceRating =
+                    data?.scriptResilience?.rating ||
+                    "—";
+
+
                 statusElement.textContent =
-                    `Loaded: ${probability ?? "—"}% · Projection ${projection ?? "—"}`;
+                    `Loaded: ${probability ?? "—"}% · Projection ${projection ?? "—"} · Script ${resilienceRating}`;
 
             } catch (error) {
                 console.error(
@@ -1709,24 +1793,44 @@
                         projection ?? pick.projection ?? null,
 
                     analysisSnapshot: {
+
                         probability,
+
                         projection,
+
                         last10Average,
 
+
                         confidenceGrade:
-                            data?.confidence ?? null,
+                            data?.confidence ??
+                            null,
+
 
                         confidenceScore:
-                            data?.confidenceScore ?? null,
+                            data?.confidenceScore ??
+                            null,
+
 
                         confidenceTier:
-                            data?.confidenceTier ?? null,
+                            data?.confidenceTier ??
+                            null,
+
+
+                        scriptResilience:
+                            data?.scriptResilience
+                                ? {
+                                    ...data.scriptResilience
+                                }
+                                : null,
+
 
                         capturedAt,
+
 
                         backfilled:
                             pick.analysisSnapshot?.backfilled === true ||
                             !pick.analysisSnapshot?.capturedAt
+
                     }
                 };
 
@@ -1822,11 +1926,52 @@
             const snapshot =
                 initialData.analysisSnapshot || {};
 
+            const scriptResilience =
+                snapshot.scriptResilience ||
+                null;
+
+
+            row.querySelector(
+                ".pick-script-resilience"
+            ).value =
+                scriptResilience?.rating ||
+                "";
+
+
+            row.querySelector(
+                ".pick-script-support"
+            ).value =
+                scriptResilience
+                    ? `${scriptResilience.supportedScenarios ?? 0}/${scriptResilience.totalScenarios ?? 3}`
+                    : "";
+
+
+            row.querySelector(
+                ".pick-script-workload"
+            ).value =
+                scriptResilience?.workload ||
+                "";
+
             row.dataset.analysisCapturedAt =
                 snapshot.capturedAt || "";
 
+
             row.dataset.last10Average =
                 snapshot.last10Average ?? "";
+
+
+            // Preserve the exact Script Resilience snapshot.
+            row.dataset.scriptResilience =
+                snapshot.scriptResilience
+                    ? JSON.stringify(
+                        snapshot.scriptResilience
+                    )
+                    : "";
+
+
+            row.dataset.scriptResilienceVersion =
+                snapshot.scriptResilience?.modelVersion ||
+                "";
 
             row.querySelector(".pick-probability").value =
                 snapshot.probability ??
@@ -1995,35 +2140,69 @@
                             : null,
 
                     analysisSnapshot: {
+
                         probability:
                             probabilityValue !== ""
                                 ? Number(probabilityValue)
                                 : null,
+
 
                         projection:
                             projectionValue !== ""
                                 ? Number(projectionValue)
                                 : null,
 
+
                         last10Average:
                             row.dataset.last10Average
-                                ? Number(row.dataset.last10Average)
+                                ? Number(
+                                    row.dataset.last10Average
+                                )
                                 : null,
 
+
                         confidenceGrade:
-                            confidenceGradeValue || null,
+                            confidenceGradeValue ||
+                            null,
+
 
                         confidenceScore:
                             confidenceScoreValue !== ""
-                                ? Number(confidenceScoreValue)
+                                ? Number(
+                                    confidenceScoreValue
+                                )
                                 : null,
 
+
                         confidenceTier:
-                            confidenceTierValue || null,
+                            confidenceTierValue ||
+                            null,
+
+
+                        scriptResilience:
+                            row.dataset.scriptResilience
+                                ? (() => {
+
+                                    try {
+
+                                        return JSON.parse(
+                                            row.dataset.scriptResilience
+                                        );
+
+                                    } catch {
+
+                                        return null;
+
+                                    }
+
+                                })()
+                                : null,
+
 
                         capturedAt:
                             row.dataset.analysisCapturedAt ||
                             null
+
                     },
                     gameDate:
                         gameDateValue
@@ -2310,18 +2489,25 @@
     ${pick.analysisSnapshot
                     ? `
                 <span>
-                  PlayMaker:
-                  ${escapeHtml(
+  PlayMaker:
+  ${escapeHtml(
                         pick.analysisSnapshot.probability ?? "—"
                     )}%
-                  · Projection
-                  ${escapeHtml(
+  · Projection
+  ${escapeHtml(
                         pick.analysisSnapshot.projection ?? "—"
                     )}
-                  · ${escapeHtml(
+  · ${escapeHtml(
                         pick.analysisSnapshot.confidenceGrade ?? "—"
                     )}
-                </span>
+  · Script
+  ${escapeHtml(
+                        pick.analysisSnapshot
+                            ?.scriptResilience
+                            ?.rating ??
+                        "—"
+                    )}
+</span>
               `
                     : `
                 <span>
