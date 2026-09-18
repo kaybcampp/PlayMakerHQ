@@ -209,23 +209,23 @@
             <div class="intel-grid">
 
                 <div class="intel-card">
-                    <h4>Prop Hit Rate</h4>
-                    <p id="prop-hit-rate">--</p>
+                    <h4>Points / Game</h4>
+                    <p id="team-points-per-game">--</p>
                 </div>
 
                 <div class="intel-card">
-                    <h4>Opponent Vulnerability</h4>
-                    <p id="vulnerability-index">--</p>
+                    <h4>Total Yards / Game</h4>
+                    <p id="team-yards-per-game">--</p>
                 </div>
 
                 <div class="intel-card">
-                    <h4>Game Script Tendency</h4>
-                    <p id="game-script-score">--</p>
+                    <h4>Points Allowed / Game</h4>
+                    <p id="team-points-allowed">--</p>
                 </div>
 
                 <div class="intel-card">
-                    <h4>Overall Prop Environment</h4>
-                    <p id="prop-environment">--</p>
+                    <h4>2026 Form</h4>
+                    <p id="team-form">--</p>
                 </div>
 
             </div>
@@ -254,7 +254,7 @@
                 </div>
 
                 <div class="logic-card">
-                    <h4>Run / Pass Split</h4>
+                    <h4>Yardage Mix</h4>
                     <p id="off-split"></p>
                 </div>
 
@@ -283,7 +283,7 @@
                 </div>
 
                 <div class="logic-card">
-                    <h4>Pressure Rate</h4>
+                    <h4>Scoring Defense</h4>
                     <p id="def-pressure"></p>
                 </div>
             </div>
@@ -621,6 +621,46 @@
             return await res.json();
         }
 
+        async function loadTeamPerformanceProfile(
+            teamCode
+        ) {
+
+            const normalized =
+                normalizeTeamCode(
+                    teamCode
+                );
+
+            try {
+
+                const res =
+                    await fetch(
+                        `/assets/data/team-performance-${normalized}.json`,
+                        {
+                            cache: "no-store"
+                        }
+                    );
+
+                if (!res.ok) {
+
+                    throw new Error(
+                        `Performance profile request failed: ${res.status}`
+                    );
+
+                }
+
+                return await res.json();
+
+            } catch (err) {
+
+                console.warn(
+                    "Team performance profile unavailable:",
+                    err
+                );
+
+                return null;
+            }
+        }
+
         function isTeamInGame(game, team) {
 
             const normalizedTeam =
@@ -880,63 +920,136 @@
             };
         }
 
-        function buildOffensiveIdentity(games, teamCode) {
+        function buildOffensiveIdentity(
+            profile
+        ) {
 
-            const teamPlays = games.filter(g => normalizeTeamCode(
-                g.playerTeam
-            ) === teamCode);
+            const offense =
+                profile?.seasonPerformance?.offense;
 
-            const passGames = teamPlays.filter(g =>
-                g.market?.toLowerCase().includes("pass")
-            ).length;
+            if (!offense) {
 
-            const rushGames = teamPlays.filter(g =>
-                g.market?.toLowerCase().includes("rush")
-            ).length;
+                return {
+                    scheme:
+                        "2026 data unavailable",
 
-            const total = teamPlays.length || 1;
+                    split:
+                        "Not enough current-season data",
 
-            const passRate = Math.round((passGames / total) * 100);
-            const rushRate = Math.round((rushGames / total) * 100);
+                    tendencies:
+                        "Actual offensive tendencies will update as completed games are added."
+                };
+            }
+
+
+            const passYards =
+                Number(
+                    offense.passingYardsPerGame || 0
+                );
+
+            const rushYards =
+                Number(
+                    offense.rushingYardsPerGame || 0
+                );
+
+            const total =
+                passYards +
+                rushYards;
+
+
+            const passShare =
+                total > 0
+                    ? Math.round(
+                        (
+                            passYards /
+                            total
+                        ) *
+                        100
+                    )
+                    : 0;
+
+
+            const rushShare =
+                total > 0
+                    ? 100 -
+                    passShare
+                    : 0;
+
+
+            let scheme =
+                "Balanced Yardage Profile";
+
+
+            if (
+                passShare >= 65
+            ) {
+
+                scheme =
+                    "Pass-Yardage Lean";
+
+            } else if (
+                rushShare >= 45
+            ) {
+
+                scheme =
+                    "Rush-Yardage Lean";
+
+            }
+
+
+            const tendencies =
+                `${offense.totalYardsPerGame} total YPG · ` +
+                `${offense.yardsPerPlay} yards/play · ` +
+                `${offense.thirdDownPct}% on 3rd down · ` +
+                `${offense.redZonePct}% red-zone conversion`;
+
 
             return {
-                scheme: passRate > rushRate ? "Pass-Heavy Lean" : "Run-First Lean",
-                split: `${passRate}% Pass / ${rushRate}% Rush`,
-                tendencies:
-                    passRate > 65
-                        ? "High passing volume, elevated QB & WR prop dependency"
-                        : rushRate > 60
-                            ? "Run-centric offense with RB-driven production"
-                            : "Balanced offensive distribution across game scripts"
+
+                scheme,
+
+                split:
+                    `${passShare}% Pass Yards / ${rushShare}% Rush Yards`,
+
+                tendencies
+
             };
         }
 
-        function buildDefensiveProfile(games, teamCode) {
 
-            const oppGames = games.filter(g => normalizeTeamCode(
-                g.opponentTeam
-            ) === teamCode);
+        function buildDefensiveProfile(
+            profile
+        ) {
 
-            const passAllowed = oppGames.filter(g =>
-                g.market?.toLowerCase().includes("pass")
-            ).length;
+            const defense =
+                profile?.seasonPerformance?.defense;
 
-            const rushAllowed = oppGames.filter(g =>
-                g.market?.toLowerCase().includes("rush")
-            ).length;
+            if (!defense) {
 
-            const total = oppGames.length || 1;
+                return {
+                    pass:
+                        "2026 data unavailable",
 
-            const passRate = Math.round((passAllowed / total) * 100);
-            const rushRate = Math.round((rushAllowed / total) * 100);
+                    run:
+                        "2026 data unavailable",
+
+                    pressure:
+                        "Current defensive data will update as games are completed."
+                };
+            }
+
 
             return {
-                pass: passRate > 60 ? "Vulnerable vs Pass" : "Solid Pass Defense",
-                run: rushRate > 60 ? "Vulnerable vs Run" : "Solid Run Defense",
+
+                pass:
+                    `${defense.passingYardsAllowedPerGame} pass yards allowed / game`,
+
+                run:
+                    `${defense.rushingYardsAllowedPerGame} rush yards allowed / game`,
+
                 pressure:
-                    passRate > 65
-                        ? "Low pressure impact — allows QB efficiency"
-                        : "Moderate pressure impact — disrupts timing plays"
+                    `${defense.pointsAllowedPerGame} points allowed / game · ${defense.yardsPerPlayAllowed} yards/play allowed`
+
             };
         }
 
@@ -1872,7 +1985,15 @@
                 `Deep dive into ${teamName}'s offensive identity, defensive profile, trends, and prop environment.`;
 
             // ---------------- LOAD DATA ----------------
-            const results = await loadResults();
+            const results =
+                await loadResults();
+
+
+            const performanceProfile =
+                await loadTeamPerformanceProfile(
+                    teamCode
+                );
+
 
             let schedule = [];
 
@@ -1949,28 +2070,134 @@
                     teamCode
                 );
 
-            document.getElementById(
-                "ai-summary-text"
-            ).textContent =
-                latestGame &&
-                    latestResult
-                    ? `${teamName}'s latest completed game finished ${latestResult.result} ${latestResult.teamScore}-${latestResult.opponentScore}. PlayMaker combines that current game context with prop history, offensive identity, defensive profile, and usage trends to evaluate upcoming player opportunities.`
-                    : `${teamName} projects as a matchup-driven team with clear prop signals based on game script, offensive balance, and defensive efficiency. PlayMaker highlights usage trends and situational edges that directly impact player performance outcomes.`;
+            const actualOffense =
+                performanceProfile
+                    ?.seasonPerformance
+                    ?.offense;
+
+
+            const actualDefense =
+                performanceProfile
+                    ?.seasonPerformance
+                    ?.defense;
+
+
+            if (
+                performanceProfile &&
+                actualOffense &&
+                actualDefense
+            ) {
+
+                const latestText =
+                    latestGame &&
+                        latestResult
+                        ? `Their latest completed game finished ${latestResult.result} ${latestResult.teamScore}-${latestResult.opponentScore}. `
+                        : "";
+
+
+                document.getElementById(
+                    "ai-summary-text"
+                ).textContent =
+                    `${teamName} is ${performanceProfile.record.display} in 2026. ` +
+                    `${latestText}` +
+                    `The offense is averaging ${actualOffense.pointsPerGame} points and ${actualOffense.totalYardsPerGame} yards per game, while the defense is allowing ${actualDefense.pointsAllowedPerGame} points and ${actualDefense.totalYardsAllowedPerGame} yards per game. ` +
+                    `PlayMaker keeps this actual NFL performance separate from tracked prop history when evaluating player opportunities.`;
+
+            } else {
+
+                document.getElementById(
+                    "ai-summary-text"
+                ).textContent =
+                    `${teamName}'s current-season performance profile will update automatically as completed 2026 games are added.`;
+
+            }
 
             const allTeamGames = results.filter(g =>
                 isTeamInGame(g, teamCode)
             );
 
-            const snapshot = buildSnapshot(teamCode, allTeamGames);
+            const snapshot =
+                buildSnapshot(
+                    teamCode,
+                    allTeamGames
+                );
 
-            document.getElementById("prop-hit-rate").textContent = snapshot.hitRate;
-            document.getElementById("vulnerability-index").textContent = snapshot.vulnerability;
-            document.getElementById("game-script-score").textContent = snapshot.script;
-            document.getElementById("prop-environment").textContent = snapshot.environment;
+
+            const seasonPerformance =
+                performanceProfile
+                    ?.seasonPerformance;
+
+
+            const offensePerformance =
+                seasonPerformance
+                    ?.offense;
+
+
+            const defensePerformance =
+                seasonPerformance
+                    ?.defense;
+
+
+            document.getElementById(
+                "team-points-per-game"
+            ).textContent =
+                offensePerformance
+                    ?.pointsPerGame ?? "--";
+
+
+            document.getElementById(
+                "team-yards-per-game"
+            ).textContent =
+                offensePerformance
+                    ?.totalYardsPerGame ?? "--";
+
+
+            document.getElementById(
+                "team-points-allowed"
+            ).textContent =
+                defensePerformance
+                    ?.pointsAllowedPerGame ?? "--";
+
+
+            const trend =
+                performanceProfile
+                    ?.trend;
+
+
+            let formText =
+                performanceProfile
+                    ?.record
+                    ?.display ||
+                "--";
+
+
+            if (
+                trend?.offense !==
+                "insufficient_sample"
+            ) {
+
+                formText +=
+                    ` · Offense ${trend.offense}`;
+
+            }
+
+
+            document.getElementById(
+                "team-form"
+            ).textContent =
+                formText;
 
             // ---------------- OFFENSE / DEFENSE ----------------
-            const offense = buildOffensiveIdentity(allTeamGames, teamCode);
-            const defense = buildDefensiveProfile(allTeamGames, teamCode);
+            const offense =
+                buildOffensiveIdentity(
+                    performanceProfile
+                );
+
+
+            const defense =
+                buildDefensiveProfile(
+                    performanceProfile
+                );
 
             document.getElementById("off-scheme").textContent = offense.scheme;
             document.getElementById("off-split").textContent = offense.split;
@@ -1983,13 +2210,19 @@
             // ---------------- AI INSIGHTS ----------------
             document.getElementById("ai-primary-identity").textContent = offense.scheme;
 
-            document.getElementById("ai-game-script").textContent =
-                offense.split.includes("Pass") ? "Pass-script lean" : "Run-script lean";
+            document.getElementById(
+                "ai-game-script"
+            ).textContent =
+                offense.scheme === "Pass-Yardage Lean"
+                    ? "Pass-production lean"
+                    : offense.scheme === "Rush-Yardage Lean"
+                        ? "Rush-production lean"
+                        : "Balanced production";
 
-            document.getElementById("ai-prop-impact").textContent =
-                defense.pass.includes("Vulnerable") || defense.run.includes("Vulnerable")
-                    ? "High prop sensitivity"
-                    : "Balanced prop environment";
+            document.getElementById(
+                "ai-prop-impact"
+            ).textContent =
+                snapshot.environment;
 
             // ---------------- FAQ DYNAMIC TEXT ----------------
 
