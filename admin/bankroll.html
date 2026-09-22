@@ -600,6 +600,22 @@
                             </div>
 
                             <div class="admin-field">
+                                <label for="fundingType">
+                                    Funding Source
+                                </label>
+
+                                <select id="fundingType" name="fundingType">
+                                    <option value="cash">
+                                        Cash Bankroll
+                                    </option>
+
+                                    <option value="bonus">
+                                        Bonus / Promo
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="admin-field">
                                 <label for="entryType">
                                     Entry Type
                                 </label>
@@ -2249,6 +2265,11 @@
                     .value
                     .trim();
 
+            const fundingType =
+                document.getElementById(
+                    "fundingType"
+                ).value;
+
             if (
                 !platform ||
                 !entryType ||
@@ -2265,14 +2286,29 @@
 
             return {
                 sportsbook: platform,
+
+                fundingType,
+
                 entryType,
-                title: title || entryType,
+
+                title:
+                    title || entryType,
+
                 notes,
-                stake: wager,
-                payout: potentialPayout,
+
+                stake:
+                    wager,
+
+                payout:
+                    potentialPayout,
+
                 submittedAt:
-                    new Date(submittedAtValue).toISOString(),
-                picks: collectPickData()
+                    new Date(
+                        submittedAtValue
+                    ).toISOString(),
+
+                picks:
+                    collectPickData()
             };
         }
 
@@ -2675,6 +2711,11 @@
             const entryId = getEntryId(entry);
             const status = normalizeStatus(entry.status);
             const wager = toNumber(entry.stake);
+            const fundingType =
+                String(entry.fundingType || "cash")
+                    .toLowerCase() === "bonus"
+                    ? "bonus"
+                    : "cash";
             const actualPayout =
                 toNumber(entry.actualPayout);
             const profitLoss =
@@ -2759,6 +2800,51 @@
               </strong>
             </div>
           </div>
+
+          <div
+  class="admin-field"
+  style="margin-bottom: 18px;"
+>
+  <label>
+    Funding Source
+  </label>
+
+  <div
+    style="
+      display:flex;
+      gap:10px;
+      align-items:center;
+    "
+  >
+    <select
+      class="entry-funding-type"
+      data-entry-id="${escapeHtml(entryId)}"
+      style="max-width:220px;"
+    >
+      <option
+        value="cash"
+        ${fundingType === "cash" ? "selected" : ""}
+      >
+        Cash Bankroll
+      </option>
+
+      <option
+        value="bonus"
+        ${fundingType === "bonus" ? "selected" : ""}
+      >
+        Bonus / Promo
+      </option>
+    </select>
+
+    <button
+      type="button"
+      class="admin-button secondary small save-funding-button"
+      data-entry-id="${escapeHtml(entryId)}"
+    >
+      Save Funding
+    </button>
+  </div>
+</div>
 
           <div class="admin-entry-picks">
             ${picks.length
@@ -3063,6 +3149,54 @@
             await loadBankroll();
         }
 
+        async function saveEntryFunding(
+            entry,
+            select,
+            button
+        ) {
+            const fundingType =
+                select.value === "bonus"
+                    ? "bonus"
+                    : "cash";
+
+            try {
+                button.disabled = true;
+                button.textContent =
+                    "Saving...";
+
+                await apiRequest(
+                    API_ENDPOINTS.updateSlip(
+                        getEntryId(entry)
+                    ),
+                    {
+                        method: "PATCH",
+
+                        body: JSON.stringify({
+                            fundingType
+                        })
+                    },
+                    true
+                );
+
+                await loadBankroll();
+
+            } catch (error) {
+                console.error(
+                    "Failed to update funding source:",
+                    error
+                );
+
+                window.alert(
+                    error.message
+                );
+
+            } finally {
+                button.disabled = false;
+                button.textContent =
+                    "Save Funding";
+            }
+        }
+
         function bindEntryActions() {
             document
                 .querySelectorAll(".grade-entry-form")
@@ -3192,6 +3326,51 @@
                             }
                         }
                     );
+                });
+
+            document
+                .querySelectorAll(
+                    ".save-funding-button"
+                )
+                .forEach(button => {
+
+                    button.addEventListener(
+                        "click",
+                        async () => {
+
+                            const entryId =
+                                button.dataset.entryId;
+
+                            const entry =
+                                activeEntries.find(
+                                    item =>
+                                        String(
+                                            getEntryId(item)
+                                        ) ===
+                                        String(entryId)
+                                );
+
+                            if (!entry) {
+                                return;
+                            }
+
+                            const select =
+                                document.querySelector(
+                                    `.entry-funding-type[data-entry-id="${CSS.escape(entryId)}"]`
+                                );
+
+                            if (!select) {
+                                return;
+                            }
+
+                            await saveEntryFunding(
+                                entry,
+                                select,
+                                button
+                            );
+                        }
+                    );
+
                 });
         }
 
