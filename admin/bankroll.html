@@ -2708,18 +2708,37 @@
         }
 
         function renderEntryCard(entry) {
-            const entryId = getEntryId(entry);
-            const status = normalizeStatus(entry.status);
-            const wager = toNumber(entry.stake);
+            const entryId =
+                getEntryId(entry);
+
+            const status =
+                normalizeStatus(
+                    entry.status
+                );
+
+            const wager =
+                toNumber(
+                    entry.stake
+                );
+
             const fundingType =
-                String(entry.fundingType || "cash")
+                String(
+                    entry.fundingType ||
+                    "cash"
+                )
                     .toLowerCase() === "bonus"
                     ? "bonus"
                     : "cash";
+
             const actualPayout =
-                toNumber(entry.actualPayout);
+                toNumber(
+                    entry.actualPayout
+                );
+
             const profitLoss =
-                calculateEntryProfitLoss(entry);
+                calculateEntryProfitLoss(
+                    entry
+                );
 
             const profitClass =
                 profitLoss > 0
@@ -2728,171 +2747,291 @@
                         ? "negative"
                         : "neutral";
 
-            const picks = Array.isArray(entry.picks)
-                ? entry.picks
-                : [];
+            const picks =
+                Array.isArray(
+                    entry.picks
+                )
+                    ? entry.picks
+                    : [];
 
             return `
         <article class="admin-entry-card">
-          <div class="admin-entry-card-header">
-            <div>
-              <span class="admin-entry-id">
-                ${escapeHtml(entryId)}
-              </span>
 
-              <h3>
-                ${escapeHtml(getEntryTitle(entry))}
-              </h3>
+            <div class="admin-entry-card-header">
+                <div>
+                    <span class="admin-entry-id">
+                        ${escapeHtml(entryId)}
+                    </span>
 
-              <p>
-                ${escapeHtml(
+                    <h3>
+                        ${escapeHtml(
+                getEntryTitle(entry)
+            )}
+                    </h3>
+
+                    <p>
+                        ${escapeHtml(
                 entry.sportsbook ||
                 entry.platform ||
                 "Official PlayMaker Entry"
             )}
-                ·
-                ${formatDate(
+                        ·
+                        ${formatDate(
                 entry.submittedAt ||
                 entry.createdAt ||
                 entry.date,
                 true
             )}
-              </p>
+                    </p>
+                </div>
+
+                <span class="admin-entry-status ${status}">
+                    ${getStatusLabel(status)}
+                </span>
             </div>
 
-            <span class="admin-entry-status ${status}">
-              ${getStatusLabel(status)}
-            </span>
-          </div>
 
-          <div class="admin-entry-financials">
-            <div class="admin-entry-financial">
-              <span>Wager</span>
-              <strong>${formatCurrency(wager)}</strong>
-            </div>
+            <div class="admin-entry-financials">
 
-            <div class="admin-entry-financial">
-              <span>
-                ${status === "pending"
+                <div class="admin-entry-financial">
+                    <span>
+                        Wager
+                    </span>
+
+                    <strong>
+                        ${formatCurrency(wager)}
+                    </strong>
+                </div>
+
+
+                <div class="admin-entry-financial">
+                    <span>
+                        ${status === "pending"
                     ? "Potential Payout"
                     : "Actual Payout"
                 }
-              </span>
+                    </span>
 
-              <strong>
-                ${status === "pending"
+                    <strong>
+                        ${status === "pending"
                     ? formatCurrency(
                         entry.payout
                     )
-                    : formatCurrency(actualPayout)
+                    : formatCurrency(
+                        actualPayout
+                    )
                 }
-              </strong>
-            </div>
+                    </strong>
+                </div>
 
-            <div class="admin-entry-financial">
-              <span>Profit/Loss</span>
 
-              <strong class="${profitClass}">
-                ${status === "pending"
+                <div class="admin-entry-financial">
+                    <span>
+                        Profit/Loss
+                    </span>
+
+                    <strong class="${profitClass}">
+                        ${status === "pending"
                     ? "Pending"
-                    : formatCurrency(profitLoss)
+                    : formatCurrency(
+                        profitLoss
+                    )
                 }
-              </strong>
+                    </strong>
+                </div>
+
             </div>
-          </div>
 
-          <div
-  class="admin-field"
-  style="margin-bottom: 18px;"
->
-  <label>
-    Funding Source
-  </label>
 
-  <div
-    style="
-      display:flex;
-      gap:10px;
-      align-items:center;
-    "
-  >
-    <select
-      class="entry-funding-type"
-      data-entry-id="${escapeHtml(entryId)}"
-      style="max-width:220px;"
-    >
-      <option
-        value="cash"
-        ${fundingType === "cash" ? "selected" : ""}
-      >
-        Cash Bankroll
-      </option>
+            <div
+                class="admin-field"
+                style="margin-bottom: 18px;"
+            >
+                <label>
+                    Funding Source
+                </label>
 
-      <option
-        value="bonus"
-        ${fundingType === "bonus" ? "selected" : ""}
-      >
-        Bonus / Promo
-      </option>
-    </select>
+                <div
+                    style="
+                        display: flex;
+                        gap: 10px;
+                        align-items: center;
+                    "
+                >
+                    <select
+                        class="entry-funding-type"
+                        data-entry-id="${escapeHtml(entryId)}"
+                        style="max-width: 220px;"
+                    >
+                        <option
+                            value="cash"
+                            ${fundingType === "cash"
+                    ? "selected"
+                    : ""
+                }
+                        >
+                            Cash Bankroll
+                        </option>
 
-    <button
-      type="button"
-      class="admin-button secondary small save-funding-button"
-      data-entry-id="${escapeHtml(entryId)}"
-    >
-      Save Funding
-    </button>
-  </div>
-</div>
+                        <option
+                            value="bonus"
+                            ${fundingType === "bonus"
+                    ? "selected"
+                    : ""
+                }
+                        >
+                            Bonus / Promo
+                        </option>
+                    </select>
 
-          <div class="admin-entry-picks">
-            ${picks.length
+                    <button
+                        type="button"
+                        class="admin-button secondary small save-funding-button"
+                        data-entry-id="${escapeHtml(entryId)}"
+                    >
+                        Save Funding
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="admin-entry-picks">
+
+                ${picks.length
                     ? picks
-                        .map(renderEntryPick)
+                        .map(
+                            renderEntryPick
+                        )
                         .join("")
                     : `
-                  <div class="admin-empty-state">
-                    No picks were attached to this entry.
-                  </div>
-                `
+                            <div class="admin-empty-state">
+                                No picks were attached to this entry.
+                            </div>
+                        `
                 }
-          </div>
 
-          ${status === "pending"
-                    ? renderGradeFields(entry)
+            </div>
+
+
+            ${status === "pending"
+
+                    ? renderGradeFields(
+                        entry
+                    )
+
                     : `
-                <div class="admin-button-row">
-                  <button
-                    class="admin-button danger delete-settled-entry-button"
-                    type="button"
-                    data-entry-id="${escapeHtml(entryId)}"
-                  >
-                    Delete Entry
-                  </button>
-                </div>
-              `
+                        <div
+                            class="admin-form-grid settled-entry-edit"
+                            data-entry-id="${escapeHtml(entryId)}"
+                            style="margin-top: 18px;"
+                        >
+
+                            <div class="admin-field full-width">
+                                <label>
+                                    Entry Title
+                                </label>
+
+                                <input
+                                    class="settled-edit-title"
+                                    type="text"
+                                    value="${escapeHtml(
+                        getEntryTitle(entry)
+                    )}"
+                                />
+                            </div>
+
+
+                            <div class="admin-field">
+                                <label>
+                                    Wager Amount
+                                </label>
+
+                                <input
+                                    class="settled-edit-stake"
+                                    type="number"
+                                    min="0.01"
+                                    step="0.01"
+                                    value="${escapeHtml(
+                        entry.stake ??
+                        ""
+                    )}"
+                                />
+                            </div>
+
+
+                            <div class="admin-field">
+                                <label>
+                                    Actual Total Payout
+                                </label>
+
+                                <input
+                                    class="settled-edit-payout"
+                                    type="number"
+                                    min="0"
+                                    step="0.01"
+                                    value="${escapeHtml(
+                        entry.actualPayout ??
+                        0
+                    )}"
+                                />
+                            </div>
+
+                        </div>
+
+
+                        <div class="admin-button-row">
+
+                            <button
+                                class="admin-button secondary save-settled-edit-button"
+                                type="button"
+                                data-entry-id="${escapeHtml(entryId)}"
+                            >
+                                Save Entry Changes
+                            </button>
+
+
+                            <button
+                                class="admin-button danger delete-settled-entry-button"
+                                type="button"
+                                data-entry-id="${escapeHtml(entryId)}"
+                            >
+                                Delete Entry
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="admin-status settled-edit-status"
+                            hidden
+                        ></div>
+                    `
                 }
+
         </article>
-      `;
+    `;
         }
 
+
         function renderEntries() {
-            const filter = entryFilter.value;
+            const filter =
+                entryFilter.value;
 
             const filteredEntries =
                 filter === "all"
                     ? activeEntries
                     : activeEntries.filter(
                         entry =>
-                            normalizeStatus(entry.status) === filter
+                            normalizeStatus(
+                                entry.status
+                            ) === filter
                     );
 
             if (!filteredEntries.length) {
                 entryList.innerHTML = `
-          <div class="admin-empty-state">
-            No ${escapeHtml(filter)} entries were found.
-          </div>
+            <div class="admin-empty-state">
+                No ${escapeHtml(filter)} entries were found.
+            </div>
         `;
 
                 return;
@@ -2900,13 +3039,19 @@
 
             entryList.innerHTML =
                 filteredEntries
-                    .map(renderEntryCard)
+                    .map(
+                        renderEntryCard
+                    )
                     .join("");
 
             bindEntryActions();
         }
 
-        function collectGrades(container, entry) {
+
+        function collectGrades(
+            container,
+            entry
+        ) {
             const gradeRows = [
                 ...container.querySelectorAll(
                     ".grade-grid"
@@ -2914,29 +3059,50 @@
             ];
 
             const originalPicks =
-                Array.isArray(entry.picks)
+                Array.isArray(
+                    entry.picks
+                )
                     ? entry.picks
                     : [];
 
-            return gradeRows.map((row, index) => {
-                const actualValue =
-                    row.querySelector(".grade-actual")
-                        .value;
+            return gradeRows.map(
+                (
+                    row,
+                    index
+                ) => {
 
-                const result =
-                    row.querySelector(".grade-result")
-                        .value;
+                    const actualValue =
+                        row
+                            .querySelector(
+                                ".grade-actual"
+                            )
+                            .value;
 
-                return {
-                    ...originalPicks[index],
-                    actual:
-                        actualValue !== ""
-                            ? Number(actualValue)
-                            : null,
-                    result
-                };
-            });
+                    const result =
+                        row
+                            .querySelector(
+                                ".grade-result"
+                            )
+                            .value;
+
+                    return {
+                        ...originalPicks[
+                        index
+                        ],
+
+                        actual:
+                            actualValue !== ""
+                                ? Number(
+                                    actualValue
+                                )
+                                : null,
+
+                        result
+                    };
+                }
+            );
         }
+
 
         async function saveGrades(
             entry,
@@ -2950,22 +3116,27 @@
 
             try {
                 button.disabled = true;
-                button.textContent = "Saving...";
+                button.textContent =
+                    "Saving...";
 
-                const picks = collectGrades(
-                    container,
-                    entry
-                );
+                const picks =
+                    collectGrades(
+                        container,
+                        entry
+                    );
 
                 await apiRequest(
                     API_ENDPOINTS.updateSlip(
                         getEntryId(entry)
                     ),
                     {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            picks
-                        })
+                        method:
+                            "PATCH",
+
+                        body:
+                            JSON.stringify({
+                                picks
+                            })
                     },
                     true
                 );
@@ -2977,17 +3148,21 @@
                 );
 
                 await loadBankroll();
+
             } catch (error) {
                 showMessage(
                     statusElement,
                     error.message,
                     "error"
                 );
+
             } finally {
                 button.disabled = false;
-                button.textContent = "Save Leg Grades";
+                button.textContent =
+                    "Save Leg Grades";
             }
         }
+
 
         async function settleEntry(
             entry,
@@ -3011,7 +3186,9 @@
 
             const actualPayout =
                 payoutValue !== ""
-                    ? Number(payoutValue)
+                    ? Number(
+                        payoutValue
+                    )
                     : 0;
 
             if (
@@ -3029,38 +3206,56 @@
 
             try {
                 button.disabled = true;
-                button.textContent = "Settling...";
+                button.textContent =
+                    "Settling...";
 
-                const entryId = getEntryId(entry);
+                const entryId =
+                    getEntryId(entry);
 
-                const picks = collectGrades(
-                    container,
-                    entry
-                );
+                const picks =
+                    collectGrades(
+                        container,
+                        entry
+                    );
 
                 await apiRequest(
-                    API_ENDPOINTS.updateSlip(entryId),
+                    API_ENDPOINTS.updateSlip(
+                        entryId
+                    ),
                     {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            picks
-                        })
+                        method:
+                            "PATCH",
+
+                        body:
+                            JSON.stringify({
+                                picks
+                            })
                     },
                     true
                 );
 
                 await apiRequest(
-                    API_ENDPOINTS.settleSlip(entryId),
+                    API_ENDPOINTS.settleSlip(
+                        entryId
+                    ),
                     {
-                        method: "POST",
-                        body: JSON.stringify({
-                            result: finalStatus,
-                            ...(finalStatus === "won"
-                                ? {
-                                    payout: actualPayout
-                                }
-                                : {})
-                        })
+                        method:
+                            "POST",
+
+                        body:
+                            JSON.stringify({
+                                result:
+                                    finalStatus,
+
+                                ...(
+                                    finalStatus === "won"
+                                        ? {
+                                            payout:
+                                                actualPayout
+                                        }
+                                        : {}
+                                )
+                            })
                     },
                     true
                 );
@@ -3072,26 +3267,31 @@
                 );
 
                 await loadBankroll();
+
             } catch (error) {
                 showMessage(
                     statusElement,
                     error.message,
                     "error"
                 );
+
             } finally {
                 button.disabled = false;
-                button.textContent = "Settle Entry";
+                button.textContent =
+                    "Settle Entry";
             }
         }
+
 
         async function voidEntry(
             entry,
             container,
             button
         ) {
-            const confirmed = window.confirm(
-                "Void this entry? Its bankroll profit/loss will be set to $0."
-            );
+            const confirmed =
+                window.confirm(
+                    "Void this entry? Its bankroll profit/loss will be set to $0."
+                );
 
             if (!confirmed) {
                 return;
@@ -3104,50 +3304,63 @@
 
             try {
                 button.disabled = true;
-                button.textContent = "Voiding...";
+                button.textContent =
+                    "Voiding...";
 
                 await apiRequest(
                     API_ENDPOINTS.voidSlip(
                         getEntryId(entry)
                     ),
                     {
-                        method: "POST"
+                        method:
+                            "POST"
                     },
                     true
                 );
 
                 await loadBankroll();
+
             } catch (error) {
                 showMessage(
                     statusElement,
                     error.message,
                     "error"
                 );
+
             } finally {
                 button.disabled = false;
-                button.textContent = "Void Entry";
+                button.textContent =
+                    "Void Entry";
             }
         }
 
-        async function deleteEntry(entryId) {
-            const confirmed = window.confirm(
-                "Permanently delete this bankroll entry? This cannot be undone."
-            );
+
+        async function deleteEntry(
+            entryId
+        ) {
+            const confirmed =
+                window.confirm(
+                    "Permanently delete this bankroll entry? This cannot be undone."
+                );
 
             if (!confirmed) {
                 return;
             }
 
             await apiRequest(
-                API_ENDPOINTS.deleteSlip(entryId),
+                API_ENDPOINTS.deleteSlip(
+                    entryId
+                ),
                 {
-                    method: "DELETE"
+                    method:
+                        "DELETE"
                 },
                 true
             );
 
             await loadBankroll();
         }
+
 
         async function saveEntryFunding(
             entry,
@@ -3169,11 +3382,13 @@
                         getEntryId(entry)
                     ),
                     {
-                        method: "PATCH",
+                        method:
+                            "PATCH",
 
-                        body: JSON.stringify({
-                            fundingType
-                        })
+                        body:
+                            JSON.stringify({
+                                fundingType
+                            })
                     },
                     true
                 );
@@ -3197,181 +3412,492 @@
             }
         }
 
-        function bindEntryActions() {
-            document
-                .querySelectorAll(".grade-entry-form")
-                .forEach(container => {
-                    const entryId =
-                        container.dataset.entryId;
 
-                    const entry = activeEntries.find(
-                        item =>
-                            String(getEntryId(item)) ===
-                            String(entryId)
+        async function saveSettledEntryChanges(
+            entry,
+            container,
+            button
+        ) {
+            const statusElement =
+                container
+                    .closest(
+                        ".admin-entry-card"
+                    )
+                    .querySelector(
+                        ".settled-edit-status"
                     );
 
-                    if (!entry) {
-                        return;
-                    }
+            const title =
+                container
+                    .querySelector(
+                        ".settled-edit-title"
+                    )
+                    .value
+                    .trim();
 
+            const stake =
+                Number(
                     container
-                        .querySelectorAll(
-                            ".load-existing-analysis-button"
+                        .querySelector(
+                            ".settled-edit-stake"
                         )
-                        .forEach(button => {
+                        .value
+                );
 
-                            button.addEventListener(
-                                "click",
-                                () => {
+            const actualPayout =
+                Number(
+                    container
+                        .querySelector(
+                            ".settled-edit-payout"
+                        )
+                        .value
+                );
 
-                                    const pickIndex =
-                                        Number(
-                                            button.dataset.pickIndex
-                                        );
+            if (!title) {
+                showMessage(
+                    statusElement,
+                    "Entry title is required.",
+                    "error"
+                );
 
-                                    const gradeRow =
-                                        button.closest(
-                                            ".grade-grid"
-                                        );
+                return;
+            }
 
-                                    loadExistingPickAnalysis(
-                                        entry,
-                                        pickIndex,
-                                        gradeRow,
-                                        button
+            if (
+                !Number.isFinite(stake) ||
+                stake <= 0
+            ) {
+                showMessage(
+                    statusElement,
+                    "Enter a valid wager amount.",
+                    "error"
+                );
+
+                return;
+            }
+
+            if (
+                !Number.isFinite(
+                    actualPayout
+                ) ||
+                actualPayout < 0
+            ) {
+                showMessage(
+                    statusElement,
+                    "Enter a valid payout.",
+                    "error"
+                );
+
+                return;
+            }
+
+            try {
+                button.disabled = true;
+                button.textContent =
+                    "Saving...";
+
+                await apiRequest(
+                    API_ENDPOINTS.updateSlip(
+                        getEntryId(entry)
+                    ),
+                    {
+                        method:
+                            "PATCH",
+
+                        body:
+                            JSON.stringify({
+                                title,
+                                stake,
+                                actualPayout
+                            })
+                    },
+                    true
+                );
+
+                showMessage(
+                    statusElement,
+                    "Entry updated successfully.",
+                    "success"
+                );
+
+                await loadBankroll();
+
+            } catch (error) {
+                showMessage(
+                    statusElement,
+                    error.message,
+                    "error"
+                );
+
+            } finally {
+                button.disabled = false;
+                button.textContent =
+                    "Save Entry Changes";
+            }
+        }
+
+
+        function bindEntryActions() {
+
+            document
+                .querySelectorAll(
+                    ".grade-entry-form"
+                )
+                .forEach(
+                    container => {
+
+                        const entryId =
+                            container.dataset.entryId;
+
+                        const entry =
+                            activeEntries.find(
+                                item =>
+                                    String(
+                                        getEntryId(item)
+                                    ) ===
+                                    String(entryId)
+                            );
+
+                        if (!entry) {
+                            return;
+                        }
+
+
+                        container
+                            .querySelectorAll(
+                                ".load-existing-analysis-button"
+                            )
+                            .forEach(
+                                button => {
+
+                                    button.addEventListener(
+                                        "click",
+                                        () => {
+
+                                            const pickIndex =
+                                                Number(
+                                                    button.dataset.pickIndex
+                                                );
+
+                                            const gradeRow =
+                                                button.closest(
+                                                    ".grade-grid"
+                                                );
+
+                                            loadExistingPickAnalysis(
+                                                entry,
+                                                pickIndex,
+                                                gradeRow,
+                                                button
+                                            );
+                                        }
                                     );
+
                                 }
                             );
-                        });
 
-                    const saveButton =
-                        container.querySelector(
-                            ".save-grades-button"
-                        );
 
-                    const settleButton =
-                        container.querySelector(
-                            ".settle-entry-button"
-                        );
+                        const saveButton =
+                            container.querySelector(
+                                ".save-grades-button"
+                            );
 
-                    const voidButton =
-                        container.querySelector(
-                            ".void-entry-button"
-                        );
+                        const settleButton =
+                            container.querySelector(
+                                ".settle-entry-button"
+                            );
 
-                    const deleteButton =
-                        container.querySelector(
-                            ".delete-entry-button"
-                        );
+                        const voidButton =
+                            container.querySelector(
+                                ".void-entry-button"
+                            );
 
-                    saveButton.addEventListener(
-                        "click",
-                        () => saveGrades(
-                            entry,
-                            container,
-                            saveButton
-                        )
-                    );
+                        const deleteButton =
+                            container.querySelector(
+                                ".delete-entry-button"
+                            );
 
-                    settleButton.addEventListener(
-                        "click",
-                        () => settleEntry(
-                            entry,
-                            container,
-                            settleButton
-                        )
-                    );
 
-                    voidButton.addEventListener(
-                        "click",
-                        () => voidEntry(
-                            entry,
-                            container,
-                            voidButton
-                        )
-                    );
-
-                    deleteButton.addEventListener(
-                        "click",
-                        async () => {
-                            try {
-                                await deleteEntry(entryId);
-                            } catch (error) {
-                                showMessage(
-                                    container.querySelector(
-                                        ".entry-action-status"
-                                    ),
-                                    error.message,
-                                    "error"
-                                );
-                            }
+                        if (saveButton) {
+                            saveButton.addEventListener(
+                                "click",
+                                () =>
+                                    saveGrades(
+                                        entry,
+                                        container,
+                                        saveButton
+                                    )
+                            );
                         }
-                    );
-                });
+
+
+                        if (settleButton) {
+                            settleButton.addEventListener(
+                                "click",
+                                () =>
+                                    settleEntry(
+                                        entry,
+                                        container,
+                                        settleButton
+                                    )
+                            );
+                        }
+
+
+                        if (voidButton) {
+                            voidButton.addEventListener(
+                                "click",
+                                () =>
+                                    voidEntry(
+                                        entry,
+                                        container,
+                                        voidButton
+                                    )
+                            );
+                        }
+
+
+                        if (deleteButton) {
+                            deleteButton.addEventListener(
+                                "click",
+                                async () => {
+
+                                    try {
+                                        await deleteEntry(
+                                            entryId
+                                        );
+
+                                    } catch (error) {
+                                        showMessage(
+                                            container.querySelector(
+                                                ".entry-action-status"
+                                            ),
+                                            error.message,
+                                            "error"
+                                        );
+                                    }
+
+                                }
+                            );
+                        }
+                    }
+                );
+
 
             document
                 .querySelectorAll(
                     ".delete-settled-entry-button"
                 )
-                .forEach(button => {
-                    button.addEventListener(
-                        "click",
-                        async () => {
-                            try {
-                                await deleteEntry(
-                                    button.dataset.entryId
-                                );
-                            } catch (error) {
-                                window.alert(error.message);
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            async () => {
+
+                                try {
+                                    await deleteEntry(
+                                        button.dataset.entryId
+                                    );
+
+                                } catch (error) {
+                                    window.alert(
+                                        error.message
+                                    );
+                                }
+
                             }
-                        }
-                    );
-                });
+                        );
+
+                    }
+                );
+
 
             document
                 .querySelectorAll(
                     ".save-funding-button"
                 )
-                .forEach(button => {
+                .forEach(
+                    button => {
 
-                    button.addEventListener(
-                        "click",
-                        async () => {
+                        button.addEventListener(
+                            "click",
+                            async () => {
 
-                            const entryId =
-                                button.dataset.entryId;
+                                const entryId =
+                                    button.dataset.entryId;
 
-                            const entry =
-                                activeEntries.find(
-                                    item =>
-                                        String(
-                                            getEntryId(item)
-                                        ) ===
-                                        String(entryId)
+                                const entry =
+                                    activeEntries.find(
+                                        item =>
+                                            String(
+                                                getEntryId(item)
+                                            ) ===
+                                            String(entryId)
+                                    );
+
+                                if (!entry) {
+                                    return;
+                                }
+
+
+                                const select =
+                                    document.querySelector(
+                                        `.entry-funding-type[data-entry-id="${CSS.escape(entryId)}"]`
+                                    );
+
+                                if (!select) {
+                                    return;
+                                }
+
+
+                                await saveEntryFunding(
+                                    entry,
+                                    select,
+                                    button
                                 );
 
-                            if (!entry) {
-                                return;
                             }
+                        );
 
-                            const select =
-                                document.querySelector(
-                                    `.entry-funding-type[data-entry-id="${CSS.escape(entryId)}"]`
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".save-settled-edit-button"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            async () => {
+
+                                const entryId =
+                                    button.dataset.entryId;
+
+                                const entry =
+                                    activeEntries.find(
+                                        item =>
+                                            String(
+                                                getEntryId(item)
+                                            ) ===
+                                            String(entryId)
+                                    );
+
+                                if (!entry) {
+                                    return;
+                                }
+
+
+                                const card =
+                                    button.closest(
+                                        ".admin-entry-card"
+                                    );
+
+                                if (!card) {
+                                    return;
+                                }
+
+
+                                const container =
+                                    card.querySelector(
+                                        ".settled-entry-edit"
+                                    );
+
+                                if (!container) {
+                                    return;
+                                }
+
+
+                                await saveSettledEntryChanges(
+                                    entry,
+                                    container,
+                                    button
                                 );
 
-                            if (!select) {
-                                return;
                             }
+                        );
 
-                            await saveEntryFunding(
-                                entry,
-                                select,
-                                button
-                            );
-                        }
+                    }
+                );
+        }
+
+
+        async function loadBankroll() {
+            try {
+                refreshButton.disabled = true;
+                refreshButton.textContent =
+                    "Refreshing...";
+
+                hideMessage(
+                    summaryStatus
+                );
+
+                bankrollData =
+                    await apiRequest(
+                        API_ENDPOINTS.bankroll
                     );
 
-                });
+                activeEntries =
+                    getEntries(
+                        bankrollData
+                    )
+                        .sort((a, b) => {
+
+                            const aDate =
+                                new Date(
+                                    a.submittedAt ||
+                                    a.createdAt ||
+                                    a.date ||
+                                    0
+                                ).getTime();
+
+                            const bDate =
+                                new Date(
+                                    b.submittedAt ||
+                                    b.createdAt ||
+                                    b.date ||
+                                    0
+                                ).getTime();
+
+                            return (
+                                bDate -
+                                aDate
+                            );
+                        });
+
+                renderSummary(
+                    bankrollData
+                );
+
+                renderEntries();
+
+            } catch (error) {
+                console.error(
+                    "Failed to load bankroll:",
+                    error
+                );
+
+                showMessage(
+                    summaryStatus,
+                    error.message,
+                    "error"
+                );
+
+                entryList.innerHTML = `
+            <div class="admin-empty-state">
+                Bankroll entries could not be loaded.
+            </div>
+        `;
+
+            } finally {
+                refreshButton.disabled = false;
+                refreshButton.textContent =
+                    "Refresh Data";
+            }
         }
 
         async function loadBankroll() {
@@ -3421,9 +3947,9 @@
                 );
 
                 entryList.innerHTML = `
-          <div class="admin-empty-state">
-            Bankroll entries could not be loaded.
-          </div>
+            < div class="admin-empty-state" >
+                Bankroll entries could not be loaded.
+          </div >
         `;
             } finally {
                 refreshButton.disabled = false;
