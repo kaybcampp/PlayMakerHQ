@@ -508,20 +508,217 @@
       );
     }
 
-    function getFilteredGames() {
-      const selectedWeek = weekFilter?.value || "all";
-      const query = input?.value.toLowerCase().trim() || "";
+    function getGameTimestamp(game) {
+      if (!game?.date) {
+        return null;
+      }
 
-      return scheduleData.filter(game => {
-        const matchesWeek =
-          selectedWeek === "all" ||
-          Number(game.week) === Number(selectedWeek);
+      const parsed =
+        new Date(game.date);
 
-        const matchesSearch =
-          gameMatchesSearch(game, query);
+      const timestamp =
+        parsed.getTime();
 
-        return matchesWeek && matchesSearch;
+      return Number.isNaN(timestamp)
+        ? null
+        : timestamp;
+    }
+
+
+    function isGameCompleted(game) {
+      if (
+        game?.completed === true
+      ) {
+        return true;
+      }
+
+      const status =
+        String(
+          game?.status ||
+          ""
+        )
+          .trim()
+          .toLowerCase();
+
+      return (
+        status.includes("final") ||
+        status.includes("completed")
+      );
+    }
+
+
+    function isGameLive(game) {
+      if (
+        isGameCompleted(game)
+      ) {
+        return false;
+      }
+
+      const status =
+        String(
+          game?.status ||
+          ""
+        )
+          .trim()
+          .toLowerCase();
+
+      return (
+        status.includes("live") ||
+        status.includes("in progress") ||
+        status.includes("in_progress") ||
+        status.includes("halftime")
+      );
+    }
+
+
+    function sortGamesForDisplay(games) {
+      const now =
+        Date.now();
+
+      return [
+        ...games
+      ].sort((a, b) => {
+        const aLive =
+          isGameLive(a);
+
+        const bLive =
+          isGameLive(b);
+
+        if (
+          aLive &&
+          !bLive
+        ) {
+          return -1;
+        }
+
+        if (
+          !aLive &&
+          bLive
+        ) {
+          return 1;
+        }
+
+        const aCompleted =
+          isGameCompleted(a);
+
+        const bCompleted =
+          isGameCompleted(b);
+
+        const aTime =
+          getGameTimestamp(a);
+
+        const bTime =
+          getGameTimestamp(b);
+
+        const aUpcoming =
+          !aCompleted &&
+          aTime !== null &&
+          aTime >= now;
+
+        const bUpcoming =
+          !bCompleted &&
+          bTime !== null &&
+          bTime >= now;
+
+        if (
+          aUpcoming &&
+          !bUpcoming
+        ) {
+          return -1;
+        }
+
+        if (
+          !aUpcoming &&
+          bUpcoming
+        ) {
+          return 1;
+        }
+
+        if (
+          aUpcoming &&
+          bUpcoming
+        ) {
+          return (
+            (aTime ?? Infinity) -
+            (bTime ?? Infinity)
+          );
+        }
+
+        if (
+          aCompleted &&
+          !bCompleted
+        ) {
+          return 1;
+        }
+
+        if (
+          !aCompleted &&
+          bCompleted
+        ) {
+          return -1;
+        }
+
+        if (
+          aCompleted &&
+          bCompleted
+        ) {
+          return (
+            (bTime ?? 0) -
+            (aTime ?? 0)
+          );
+        }
+
+        if (
+          aTime !== null &&
+          bTime !== null
+        ) {
+          return (
+            Math.abs(aTime - now) -
+            Math.abs(bTime - now)
+          );
+        }
+
+        return (
+          Number(a.week || 99) -
+          Number(b.week || 99)
+        );
       });
+    }
+
+
+    function getFilteredGames() {
+      const selectedWeek =
+        weekFilter?.value ||
+        "all";
+
+      const query =
+        input?.value
+          .toLowerCase()
+          .trim() ||
+        "";
+
+      const filtered =
+        scheduleData.filter(game => {
+          const matchesWeek =
+            selectedWeek === "all" ||
+            Number(game.week) ===
+            Number(selectedWeek);
+
+          const matchesSearch =
+            gameMatchesSearch(
+              game,
+              query
+            );
+
+          return (
+            matchesWeek &&
+            matchesSearch
+          );
+        });
+
+      return sortGamesForDisplay(
+        filtered
+      );
     }
 
     function getRatingFromGame(game) {
@@ -858,102 +1055,205 @@
     // ---------------------------------------
     // INPUT AUTOCOMPLETE
     // ---------------------------------------
-    input.addEventListener("input", function () {
-      const val = this.value.toLowerCase().trim();
+    input.addEventListener(
+      "input",
+      function () {
 
-      renderMatchupBoard(getFilteredGames());
+        const val =
+          this.value
+            .toLowerCase()
+            .trim();
 
-      box.innerHTML = "";
+        renderMatchupBoard(
+          getFilteredGames()
+        );
 
-      if (!val || !scheduleData.length) return;
+        box.innerHTML =
+          "";
 
-      const matches = scheduleData
-        .filter(g => gameMatchesSearch(g, val))
-        .slice(0, 8);
+        if (
+          !val ||
+          !scheduleData.length
+        ) {
+          return;
+        }
 
-      matches.forEach(game => {
-        const item = document.createElement("div");
-        item.className = "suggestion-item";
+        const matches =
+          sortGamesForDisplay(
+            scheduleData.filter(
+              game =>
+                gameMatchesSearch(
+                  game,
+                  val
+                )
+            )
+          )
+            .slice(
+              0,
+              8
+            );
 
-        item.innerHTML = `
-  <strong>${teamDisplayName(game.away)} @ ${teamDisplayName(game.home)}</strong>
-  <span class="suggestion-meta">
-    ${game.away} @ ${game.home} · Week ${game.week} · ${game.date || "TBD"}
-  </span>
-`;
+        matches.forEach(
+          game => {
 
-        item.onclick = () => {
-          input.value = `${game.away} vs ${game.home}`;
-          box.innerHTML = "";
-          renderMatchupBoard(getFilteredGames());
-        };
+            const item =
+              document.createElement(
+                "div"
+              );
 
-        box.appendChild(item);
-      });
-    });
+            item.className =
+              "suggestion-item";
+
+            item.innerHTML = `
+                    <strong>
+                        ${teamDisplayName(game.away)}
+                        @
+                        ${teamDisplayName(game.home)}
+                    </strong>
+
+                    <span class="suggestion-meta">
+                        ${game.away}
+                        @
+                        ${game.home}
+                        ·
+                        Week ${game.week}
+                        ·
+                        ${game.date || "TBD"}
+                    </span>
+                `;
+
+            item.onclick =
+              () => {
+
+                input.value =
+                  `${game.away} vs ${game.home}`;
+
+                box.innerHTML =
+                  "";
+
+                renderMatchupBoard(
+                  getFilteredGames()
+                );
+              };
+
+            box.appendChild(
+              item
+            );
+          }
+        );
+      }
+    );
 
     // ---------------------------------------
     // ENTER KEY → OPEN MATCHUP PAGE
     // ---------------------------------------
-    input.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
+    input.addEventListener(
+      "keydown",
+      function (e) {
+
+        if (
+          e.key !== "Enter"
+        ) {
+          return;
+        }
+
         e.preventDefault();
 
-        const val = this.value.toLowerCase();
+        const val =
+          this.value
+            .toLowerCase()
+            .trim();
 
-        const match = scheduleData.find(g => {
 
-          const awayHome =
-            `${g.away} vs ${g.home}`.toLowerCase();
+        const matches =
+          sortGamesForDisplay(
+            scheduleData.filter(
+              game => {
 
-          const homeAway =
-            `${g.home} vs ${g.away}`.toLowerCase();
+                const awayHome =
+                  `${game.away} vs ${game.home}`
+                    .toLowerCase();
 
-          return (
-            awayHome === val ||
-            homeAway === val ||
-            awayHome.includes(val) ||
-            homeAway.includes(val)
+                const homeAway =
+                  `${game.home} vs ${game.away}`
+                    .toLowerCase();
+
+                return (
+                  awayHome === val ||
+                  homeAway === val ||
+                  awayHome.includes(val) ||
+                  homeAway.includes(val) ||
+                  gameMatchesSearch(
+                    game,
+                    val
+                  )
+                );
+              }
+            )
           );
 
-        });
+
+        const match =
+          matches[0];
 
         if (match) {
-          openMatchup(match);
+          openMatchup(
+            match
+          );
         }
       }
-    });
+    );
 
     // ---------------------------------------
     // SEARCH BUTTON → OPEN MATCHUP PAGE
     // ---------------------------------------
     function runSearch() {
 
-      const val = input.value.toLowerCase().trim();
+      const val =
+        input.value
+          .toLowerCase()
+          .trim();
 
-      const match = scheduleData.find(g => {
 
-        const a =
-          `${g.away} vs ${g.home}`.toLowerCase();
+      const matches =
+        sortGamesForDisplay(
+          scheduleData.filter(
+            game => {
 
-        const b =
-          `${g.home} vs ${g.away}`.toLowerCase();
+              const awayHome =
+                `${game.away} vs ${game.home}`
+                  .toLowerCase();
 
-        return (
-          a === val ||
-          b === val ||
-          a.includes(val) ||
-          b.includes(val)
+              const homeAway =
+                `${game.home} vs ${game.away}`
+                  .toLowerCase();
+
+              return (
+                awayHome === val ||
+                homeAway === val ||
+                awayHome.includes(val) ||
+                homeAway.includes(val) ||
+                gameMatchesSearch(
+                  game,
+                  val
+                )
+              );
+            }
+          )
         );
 
-      });
+
+      const match =
+        matches[0];
 
       if (match) {
-        openMatchup(match);
+        openMatchup(
+          match
+        );
       }
 
-      box.innerHTML = "";
-
+      box.innerHTML =
+        "";
     }
     // ---------------------------------------
     // CLOSE DROPDOWN ON OUTSIDE CLICK
