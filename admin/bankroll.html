@@ -1528,6 +1528,15 @@
                         data?.analysis?.stats?.hitRate
                     );
 
+                const rawProbability =
+                    parsePlayMakerPercent(
+                        data?.rawHitRate
+                    );
+
+                const calibrationVersion =
+                    data?.calibrationVersion ||
+                    null;
+
                 const last10Average =
                     data?.analysis?.stats?.last10Average ??
                     null;
@@ -1598,6 +1607,12 @@
 
                 row.dataset.last10Average =
                     last10Average ?? "";
+
+                row.dataset.rawProbability =
+                    rawProbability ?? "";
+
+                row.dataset.calibrationVersion =
+                    calibrationVersion ?? "";
 
 
                 // Freeze Script Resilience with this analysis.
@@ -1775,9 +1790,18 @@
 
                 const probability =
                     parsePlayMakerPercent(
-                        data?.analysis?.stats?.hitRate ??
-                        data?.hitRate
+                        data?.hitRate ??
+                        data?.analysis?.stats?.hitRate
                     );
+
+                const rawProbability =
+                    parsePlayMakerPercent(
+                        data?.rawHitRate
+                    );
+
+                const calibrationVersion =
+                    data?.calibrationVersion ||
+                    null;
 
                 const rawLast10Average =
                     data?.analysis?.stats?.last10Average ??
@@ -1811,6 +1835,10 @@
                     analysisSnapshot: {
 
                         probability,
+
+                        rawProbability,
+
+                        calibrationVersion,
 
                         projection,
 
@@ -2162,6 +2190,16 @@
                                 ? Number(probabilityValue)
                                 : null,
 
+                        rawProbability:
+                            row.dataset.rawProbability !== ""
+                                ? Number(
+                                    row.dataset.rawProbability
+                                )
+                                : null,
+
+                        calibrationVersion:
+                            row.dataset.calibrationVersion ||
+                            null,
 
                         projection:
                             projectionValue !== ""
