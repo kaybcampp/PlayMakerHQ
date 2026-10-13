@@ -1541,6 +1541,10 @@
                     data?.analysis?.stats?.last10Average ??
                     null;
 
+                const shadowModels =
+                    data?.shadowModels ||
+                    null;
+
                 if (
                     projection === null &&
                     probability === null
@@ -1614,6 +1618,12 @@
                 row.dataset.calibrationVersion =
                     calibrationVersion ?? "";
 
+                row.dataset.shadowModels =
+                    shadowModels
+                        ? JSON.stringify(
+                            shadowModels
+                        )
+                        : "";
 
                 // Freeze Script Resilience with this analysis.
                 row.dataset.scriptResilience =
@@ -1628,7 +1638,6 @@
                 row.dataset.scriptResilienceVersion =
                     data?.scriptResilience?.modelVersion ||
                     "";
-
 
                 const resilienceRating =
                     data?.scriptResilience?.rating ||
@@ -1844,6 +1853,13 @@
 
                         last10Average,
 
+                        shadowModels:
+                            data?.shadowModels
+                                ? {
+                                    ...data.shadowModels
+                                }
+                                : null,
+
 
                         confidenceGrade:
                             data?.confidence ??
@@ -2016,6 +2032,13 @@
             row.dataset.scriptResilienceVersion =
                 snapshot.scriptResilience?.modelVersion ||
                 "";
+
+            row.dataset.shadowModels =
+                snapshot.shadowModels
+                    ? JSON.stringify(
+                        snapshot.shadowModels
+                    )
+                    : "";
 
             row.querySelector(".pick-probability").value =
                 snapshot.probability ??
@@ -2252,6 +2275,24 @@
                                 })()
                                 : null,
 
+                        shadowModels:
+                            row.dataset.shadowModels
+                                ? (() => {
+
+                                    try {
+
+                                        return JSON.parse(
+                                            row.dataset.shadowModels
+                                        );
+
+                                    } catch {
+
+                                        return null;
+
+                                    }
+
+                                })()
+                                : null,
 
                         capturedAt:
                             row.dataset.analysisCapturedAt ||
