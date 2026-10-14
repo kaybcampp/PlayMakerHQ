@@ -5,12 +5,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Team Intelligence Report | PlayMaker Prime</title>
+    <title>NFL Team Reports 2026 | Stats, Players & Matchup Research | PlayMaker Prime</title>
+
     <meta name="description"
-        content="NFL team intelligence report with offense, defense, trends, player pools, prop environments, and PlayMaker matchup insights." />
+        content="Research 2026 NFL teams with current offense, defense, recent form, player usage, prop trends, schedule results, and matchup analysis from PlayMaker Prime." />
+
+    <link id="canonical-url" rel="canonical" href="https://playmakerprime.com/teams/" />
+
+    <meta property="og:title" content="NFL Team Reports 2026 | Stats, Players & Matchup Research" />
+
+    <meta property="og:description"
+        content="Research 2026 NFL team stats, players, offense, defense, recent form, prop trends, schedule results, and matchup analysis." />
+
+    <meta property="og:type" content="article" />
+
+    <meta id="og-url" property="og:url" content="https://playmakerprime.com/teams/" />
+
+    <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="twitter:title" content="NFL Team Reports 2026 | Stats, Players & Matchup Research" />
+
+    <meta name="twitter:description"
+        content="Research 2026 NFL teams with current stats, player usage, recent form, prop trends, and matchup analysis." />
+
+    <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
 
     <link rel="stylesheet" href="/assets/css/teams.css" />
+
     <link rel="stylesheet" href="/assets/css/entity-links.css" />
+
     <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 </head>
 
@@ -38,17 +63,21 @@
         <div class="teams-hero-content">
 
             <span class="hq-pill" id="team-label">
-                NFL Team Intelligence Report
+                2026 NFL Team Intelligence
             </span>
 
             <div class="team-hero-logo-wrap">
                 <img id="team-logo" class="team-hero-logo" alt="team logo" />
             </div>
 
-            <h2 id="team-title">Loading team...</h2>
+            <h1 id="team-title">
+                Loading team...
+            </h1>
 
             <p id="team-subtitle">
-                Real-time breakdown of offensive identity, defensive profile, trends, and prop environment.
+                Research 2026 NFL team performance, offensive identity,
+                defensive profile, recent form, player usage, prop trends,
+                and matchup context.
             </p>
 
             <div class="team-meta-row">
@@ -335,6 +364,130 @@
             </div>
 
             <div id="team-props" class="prop-grid"></div>
+        </section>
+
+        <!-- RELATED RESEARCH -->
+        <section class="hq-section hq-section-alt">
+
+            <div class="section-header">
+
+                <h3>
+                    Related NFL Team & Matchup Research
+                </h3>
+
+                <p>
+                    Continue from this team report into player, matchup,
+                    game-environment, and defensive research across PlayMaker.
+                </p>
+
+            </div>
+
+            <div class="stack-grid">
+
+                <div class="stack-card">
+
+                    <h4>
+                        Weekly NFL Matchups
+                    </h4>
+
+                    <p>
+                        Compare upcoming opponents, matchup conditions,
+                        recent form, and player prop context.
+                    </p>
+
+                    <a href="/matchups.html">
+                        View NFL Matchups →
+                    </a>
+
+                </div>
+
+                <div class="stack-card">
+
+                    <h4>
+                        NFL Players
+                    </h4>
+
+                    <p>
+                        Move from team-level trends into individual player
+                        usage, performance, and prop research.
+                    </p>
+
+                    <a href="/players.html">
+                        Browse NFL Players →
+                    </a>
+
+                </div>
+
+                <div class="stack-card">
+
+                    <h4>
+                        Defensive Matchups
+                    </h4>
+
+                    <p>
+                        Research defensive strengths, weaknesses, and how
+                        opponent profiles affect player opportunities.
+                    </p>
+
+                    <a href="/research/defensive-matchups.html">
+                        View Defensive Matchups →
+                    </a>
+
+                </div>
+
+                <div class="stack-card">
+
+                    <h4>
+                        Pressure Rate
+                    </h4>
+
+                    <p>
+                        Compare NFL pressure rate and pass-rush performance
+                        when evaluating quarterback and receiving environments.
+                    </p>
+
+                    <a href="/research/pressure-rate.html">
+                        View Pressure Rate →
+                    </a>
+
+                </div>
+
+                <div class="stack-card">
+
+                    <h4>
+                        Game Script
+                    </h4>
+
+                    <p>
+                        Understand how expected score flow can change
+                        passing volume, rushing volume, and player opportunity.
+                    </p>
+
+                    <a href="/research/game-script.html">
+                        View Game Script →
+                    </a>
+
+                </div>
+
+                <div class="stack-card">
+
+                    <h4>
+                        Research Center
+                    </h4>
+
+                    <p>
+                        Explore PlayMaker's full collection of NFL usage,
+                        efficiency, defensive, and game-environment research.
+                    </p>
+
+                    <a href="/research.html">
+                        Browse Research →
+                    </a>
+
+                </div>
+
+            </div>
+
         </section>
 
         <!-- FAQ -->
@@ -2142,6 +2295,163 @@
 
         }
 
+        function updateTeamSeo(
+            teamName,
+            teamSlug
+        ) {
+
+            const title =
+                `${teamName} 2026 | NFL Team Stats, Players & Matchups`;
+
+            const description =
+                `Research the ${teamName} for the 2026 NFL season, including offense, defense, recent form, player usage, prop trends, schedule results, and matchup analysis.`;
+
+            const canonical =
+                `https://playmakerprime.com/teams/${teamSlug}`;
+
+
+            // ========================================
+            // PAGE TITLE
+            // ========================================
+
+            document.title =
+                title;
+
+
+            // ========================================
+            // META DESCRIPTION
+            // ========================================
+
+            const descriptionMeta =
+                document.querySelector(
+                    'meta[name="description"]'
+                );
+
+            if (descriptionMeta) {
+
+                descriptionMeta.setAttribute(
+                    "content",
+                    description
+                );
+
+            }
+
+
+            // ========================================
+            // CANONICAL
+            // ========================================
+
+            const canonicalEl =
+                document.getElementById(
+                    "canonical-url"
+                );
+
+            if (canonicalEl) {
+
+                canonicalEl.setAttribute(
+                    "href",
+                    canonical
+                );
+
+            }
+
+
+            // ========================================
+            // OPEN GRAPH TITLE
+            // ========================================
+
+            const ogTitle =
+                document.querySelector(
+                    'meta[property="og:title"]'
+                );
+
+            if (ogTitle) {
+
+                ogTitle.setAttribute(
+                    "content",
+                    title
+                );
+
+            }
+
+
+            // ========================================
+            // OPEN GRAPH DESCRIPTION
+            // ========================================
+
+            const ogDescription =
+                document.querySelector(
+                    'meta[property="og:description"]'
+                );
+
+            if (ogDescription) {
+
+                ogDescription.setAttribute(
+                    "content",
+                    description
+                );
+
+            }
+
+
+            // ========================================
+            // OPEN GRAPH URL
+            // ========================================
+
+            const ogUrl =
+                document.getElementById(
+                    "og-url"
+                );
+
+            if (ogUrl) {
+
+                ogUrl.setAttribute(
+                    "content",
+                    canonical
+                );
+
+            }
+
+
+            // ========================================
+            // TWITTER TITLE
+            // ========================================
+
+            const twitterTitle =
+                document.querySelector(
+                    'meta[name="twitter:title"]'
+                );
+
+            if (twitterTitle) {
+
+                twitterTitle.setAttribute(
+                    "content",
+                    title
+                );
+
+            }
+
+
+            // ========================================
+            // TWITTER DESCRIPTION
+            // ========================================
+
+            const twitterDescription =
+                document.querySelector(
+                    'meta[name="twitter:description"]'
+                );
+
+            if (twitterDescription) {
+
+                twitterDescription.setAttribute(
+                    "content",
+                    description
+                );
+
+            }
+
+        }
+
         async function loadTeamPage() {
             const teamSlug = getTeamFromURL();
             if (!teamSlug) return;
@@ -2172,19 +2482,44 @@
 
             const teamName = formatTeamName(teamSlug);
 
-            // ---------------- HERO TEXT ----------------
-            document.getElementById("team-title").textContent =
-                teamSlug.replaceAll("-", " ")
-                    .replace(/\b\w/g, l => l.toUpperCase());
+            // ---------------- SEO ----------------
 
-            document.getElementById("ai-summary-title").textContent =
+            updateTeamSeo(
+                teamName,
+                teamSlug
+            );
+
+
+            // ---------------- HERO TEXT ----------------
+
+            document.getElementById(
+                "team-title"
+            ).textContent =
+                `${teamName} 2026 NFL Team Report`;
+
+
+            document.getElementById(
+                "team-label"
+            ).textContent =
+                "2026 NFL Team Intelligence";
+
+
+            document.getElementById(
+                "ai-summary-title"
+            ).textContent =
                 `${teamName.toUpperCase()} INTELLIGENCE PROFILE`;
 
-            document.getElementById("ai-summary-sub").textContent =
-                "Live PlayMaker read based on team results, prop history, offensive identity, and defensive profile.";
 
-            document.getElementById("team-subtitle").textContent =
-                `Deep dive into ${teamName}'s offensive identity, defensive profile, trends, and prop environment.`;
+            document.getElementById(
+                "ai-summary-sub"
+            ).textContent =
+                "Current PlayMaker read based on 2026 team results, prop history, offensive identity, and defensive profile.";
+
+
+            document.getElementById(
+                "team-subtitle"
+            ).textContent =
+                `Research the ${teamName} for the 2026 NFL season, including offense, defense, recent form, player usage, prop trends, schedule results, and matchup context.`;
 
             // ---------------- LOAD DATA ----------------
             const results =
