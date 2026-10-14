@@ -7,42 +7,43 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Matchup Report — PlayMaker Prime</title>
+    <title>NFL Matchups 2026 | Player Props, Injuries & Analysis</title>
 
     <meta name="description"
-        content="Dynamic NFL matchup reports with defensive tiers, player trends, weather impact, prop opportunities, and PlayMaker Prime intelligence." />
+        content="Research 2026 NFL matchups with player props, injuries, defensive matchup data, weather, game environment, team trends, and PlayMaker analysis." />
 
     <!-- Canonical -->
 
-    <link rel="canonical" href="https://playmakerprime.com/matchup.html" />
+    <link rel="canonical" href="https://playmakerprime.com/matchups.html" />
 
     <!-- Open Graph -->
 
-    <meta property="og:title" content="PlayMaker Prime NFL Matchup Report">
+    <meta property="og:title" content="NFL Matchups 2026 | Player Props & Analysis" />
 
     <meta property="og:description"
-        content="Compare NFL matchups, player trends, defensive profiles, weather impact, and AI-powered prop research.">
+        content="Research 2026 NFL matchups with player props, injuries, defensive matchup data, weather, game environment, and team trends." />
 
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="website" />
 
-    <meta property="og:url" content="https://playmakerprime.com/matchup.html">
+    <meta property="og:url" content="https://playmakerprime.com/matchups.html" />
 
-    <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
+    <meta property="og:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
 
     <!-- Twitter / X -->
 
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <meta name="twitter:title" content="PlayMaker Prime NFL Matchup Report">
+    <meta name="twitter:title" content="NFL Matchups 2026 | Player Props & Analysis" />
 
     <meta name="twitter:description"
-        content="Compare NFL matchups, player trends, defensive profiles, weather impact, and AI-powered prop research.">
+        content="Research 2026 NFL matchups with player props, injuries, defensive matchup data, weather, game environment, and team trends." />
 
-    <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png">
+    <meta name="twitter:image" content="https://playmakerprime.com/assets/images/playmaker-share.png" />
 
     <!-- Assets -->
 
     <link rel="stylesheet" href="/assets/css/matchups.css" />
+
     <link rel="stylesheet" href="/assets/css/entity-links.css" />
 
     <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
@@ -73,11 +74,10 @@
 
             <span class="hq-pill" id="matchup-week">NFL Matchup Report</span>
 
-            <h2 id="matchup-title">
+            <h1 id="matchup-title">
                 Loading matchup...
                 <span>PlayMaker Prime</span>
-            </h2>
-
+            </h1>
             <p id="matchup-subtitle">
                 Pulling schedule data and matchup context.
             </p>
@@ -663,32 +663,60 @@
             <div id="historical-results-list" class="matchup-grid"></div>
         </section>
 
-        <div class="section-header">
-            <h3>Key Player Matchups</h3>
-            <p id="player-pool-summary">
-                Loading key player research, prop focus, and matchup context...
-            </p>
-        </div>
+        <section class="hq-section">
 
-        <div class="key-player-grid">
-            <div class="key-player-team-card">
-                <div class="key-player-team-header">
-                    <span class="comparison-label">Away Players</span>
-                    <h4 id="away-player-title">Away Player Matchups</h4>
-                </div>
+            <div class="section-header">
 
-                <div id="away-player-list" class="key-player-list"></div>
+                <h3>
+                    Key Player Matchups
+                </h3>
+
+                <p id="player-pool-summary">
+                    Loading key player research, prop focus, and matchup context...
+                </p>
+
             </div>
 
-            <div class="key-player-team-card">
-                <div class="key-player-team-header">
-                    <span class="comparison-label">Home Players</span>
-                    <h4 id="home-player-title">Home Player Matchups</h4>
+            <div class="key-player-grid">
+
+                <div class="key-player-team-card">
+
+                    <div class="key-player-team-header">
+
+                        <span class="comparison-label">
+                            Away Players
+                        </span>
+
+                        <h4 id="away-player-title">
+                            Away Player Matchups
+                        </h4>
+
+                    </div>
+
+                    <div id="away-player-list" class="key-player-list"></div>
+
                 </div>
 
-                <div id="home-player-list" class="key-player-list"></div>
+                <div class="key-player-team-card">
+
+                    <div class="key-player-team-header">
+
+                        <span class="comparison-label">
+                            Home Players
+                        </span>
+
+                        <h4 id="home-player-title">
+                            Home Player Matchups
+                        </h4>
+
+                    </div>
+
+                    <div id="home-player-list" class="key-player-list"></div>
+
+                </div>
+
             </div>
-        </div>
+
         </section>
 
         <section class="hq-section hq-section-alt">
@@ -857,6 +885,46 @@
         const TEAM_ALIAS = {
             WSH: "WAS"
         };
+
+        const SEO_TEAM_NAMES = {
+            ARI: "Cardinals",
+            ATL: "Falcons",
+            BAL: "Ravens",
+            BUF: "Bills",
+            CAR: "Panthers",
+            CHI: "Bears",
+            CIN: "Bengals",
+            CLE: "Browns",
+            DAL: "Cowboys",
+            DEN: "Broncos",
+            DET: "Lions",
+            GB: "Packers",
+            HOU: "Texans",
+            IND: "Colts",
+            JAX: "Jaguars",
+            KC: "Chiefs",
+            LV: "Raiders",
+            LAC: "Chargers",
+            LAR: "Rams",
+            MIA: "Dolphins",
+            MIN: "Vikings",
+            NE: "Patriots",
+            NO: "Saints",
+            NYG: "Giants",
+            NYJ: "Jets",
+            PHI: "Eagles",
+            PIT: "Steelers",
+            SF: "49ers",
+            SEA: "Seahawks",
+            TB: "Buccaneers",
+            TEN: "Titans",
+            WAS: "Commanders",
+            WSH: "Commanders"
+        };
+
+        function formatSeoTeam(code) {
+            return SEO_TEAM_NAMES[code] || formatTeam(code);
+        }
 
         function teamKey(code) {
             return TEAM_ALIAS[code] || code;
@@ -2066,8 +2134,18 @@
             // SEO / META
             // =========================
 
+            const awaySeoName =
+                formatSeoTeam(
+                    awayCode
+                );
+
+            const homeSeoName =
+                formatSeoTeam(
+                    homeCode
+                );
+
             document.title =
-                `${awayName} ${finalScore.away}, ${homeName} ${finalScore.home} | Final Score & Matchup Recap | PlayMaker Prime`;
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 | Final Score & Matchup Recap`;
 
             const metaDescription =
                 document.querySelector(
@@ -2075,30 +2153,31 @@
                 );
 
             if (metaDescription) {
+
                 metaDescription.setAttribute(
                     "content",
-                    `${awayName} vs ${homeName} final score and PlayMaker Prime post-game recap for Week ${game.week}. Review the final result, pregame matchup research, player prop history, defensive context, and PlayMaker results.`
+                    `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 final score and matchup recap. Review the final result, player prop history, injuries, defensive matchup context, and pregame analysis.`
                 );
             }
 
             updateMeta(
                 "og:title",
-                `${awayName} ${finalScore.away}, ${homeName} ${finalScore.home} | Final`
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 | Final ${finalScore.away}-${finalScore.home}`
             );
 
             updateMeta(
                 "og:description",
-                `Final: ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}. Review PlayMaker's pregame matchup research and historical prop results.`
+                `Final: ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}. Review the Week ${game.week} 2026 matchup, player prop history, injuries, defensive context, and pregame research.`
             );
 
             updateMetaName(
                 "twitter:title",
-                `${awayName} ${finalScore.away}, ${homeName} ${finalScore.home} | Final`
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 | Final ${finalScore.away}-${finalScore.home}`
             );
 
             updateMetaName(
                 "twitter:description",
-                `Final: ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}. Review the original PlayMaker matchup research and results.`
+                `Final: ${awayCode} ${finalScore.away}, ${homeCode} ${finalScore.home}. Review the Week ${game.week} 2026 NFL matchup, player prop history, defensive context, and original research.`
             );
 
 
@@ -2169,13 +2248,12 @@
             document.getElementById(
                 "seo-intro-title"
             ).textContent =
-                `${awayName} vs ${homeName} Final Score & Matchup Recap`;
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 Final Score & Matchup Recap`;
 
             document.getElementById(
                 "seo-intro-copy"
             ).textContent =
-                `${homeName} and ${awayName} completed their Week ${game.week} matchup on ${readableDate}. This archived PlayMaker Prime report preserves the original pregame defensive analysis, prop opportunities, player trends, weather context, and historical results alongside the final score.`;
-
+                `${awayName} vs ${homeName} completed their Week ${game.week} 2026 NFL matchup on ${readableDate}. This archived report preserves the final score alongside the original player prop research, injury context, defensive matchup analysis, player trends, weather, and game-environment assumptions.`;
 
             // =========================
             // AI / POSTGAME SUMMARY
@@ -2572,87 +2650,181 @@
                 scoreData
             });
 
-            document.getElementById("ai-summary-title").textContent = aiSummary.title;
-            document.getElementById("ai-summary-grade").textContent = aiSummary.grade;
-            document.getElementById("ai-matchup-summary").textContent = aiSummary.copy;
-            document.getElementById("seo-intro-title").textContent =
-                `${awayName} vs ${homeName} NFL Matchup Preview`;
+            document.getElementById("ai-summary-title").textContent =
+                aiSummary.title;
 
-            document.getElementById("seo-intro-copy").textContent =
-                `The ${awayName} vs ${homeName} matchup report gives bettors and fantasy players a full PlayMaker Prime breakdown of Week ${game.week}. Compare defensive tiers, prop opportunity lanes, player trends, injury context, weather impact, similar matchup profiles, and historical PlayMaker results before opening matchup-specific player prop research.`;
+            document.getElementById("ai-summary-grade").textContent =
+                aiSummary.grade;
 
-            document.title =
-                `${awayName} vs ${homeName} NFL Matchup Report | Props, Trends & Defensive Analysis | PlayMaker Prime`;
+            document.getElementById("ai-matchup-summary").textContent =
+                aiSummary.copy;
 
-            let metaDescription = document.querySelector('meta[name="description"]');
 
-            if (!metaDescription) {
-                metaDescription = document.createElement("meta");
-                metaDescription.setAttribute("name", "description");
-                document.head.appendChild(metaDescription);
-            }
-
-            metaDescription.setAttribute(
-                "content",
-                `${awayName} vs ${homeName} NFL matchup report for Week ${game.week}. Compare defensive tiers, player prop angles, weather impact, injury context, team trends, and PlayMaker Prime matchup intelligence.`
-            );
-            updateMeta(
-                "og:title",
-                `${awayName} vs ${homeName} NFL Matchup Report | PlayMaker Prime`
-            );
-
-            updateMeta(
-                "og:description",
-                `${awayName} vs ${homeName} Week ${game.week}. Compare player props, defensive tiers, weather, injuries, trends, and matchup intelligence.`
-            );
-
-            updateMeta(
-                "og:url",
-                window.location.href
-            );
-
-            updateCanonical(
-                window.location.href
-            );
-
-            updateMetaName(
-                "twitter:title",
-                `${awayName} vs ${homeName} NFL Matchup Report | PlayMaker Prime`
-            );
-
-            updateMetaName(
-                "twitter:description",
-                `${awayName} vs ${homeName} Week ${game.week}. Compare player props, defensive tiers, weather, injuries, trends, and matchup intelligence.`
-            );
+            // ========================================
+            // HERO ELEMENTS
+            // ========================================
 
             const matchupWeekEl =
-                document.getElementById("matchup-week");
+                document.getElementById(
+                    "matchup-week"
+                );
 
             const matchupTitleEl =
-                document.getElementById("matchup-title");
+                document.getElementById(
+                    "matchup-title"
+                );
 
             const matchupSubtitleEl =
-                document.getElementById("matchup-subtitle");
+                document.getElementById(
+                    "matchup-subtitle"
+                );
 
             const opportunityScoreEl =
-                document.getElementById("opportunity-score");
+                document.getElementById(
+                    "opportunity-score"
+                );
 
             const opportunityFillEl =
-                document.getElementById("opportunity-fill");
+                document.getElementById(
+                    "opportunity-fill"
+                );
 
             const opportunityTierEl =
-                document.getElementById("opportunity-tier");
+                document.getElementById(
+                    "opportunity-tier"
+                );
 
             const driversList =
-                document.getElementById("opportunity-drivers-list");
+                document.getElementById(
+                    "opportunity-drivers-list"
+                );
 
             const matchupNoteEl =
-                document.getElementById("matchup-note");
+                document.getElementById(
+                    "matchup-note"
+                );
 
             const snapshotPrimaryLabel =
                 document.getElementById(
                     "snapshot-primary-label"
                 );
+
+
+            // ========================================
+            // SEO TEAM NAMES
+            // ========================================
+
+            const awaySeoName =
+                formatSeoTeam(
+                    awayCode
+                );
+
+            const homeSeoName =
+                formatSeoTeam(
+                    homeCode
+                );
+
+
+            // ========================================
+            // ON-PAGE SEO INTRO
+            // ========================================
+
+            document.getElementById(
+                "seo-intro-title"
+            ).textContent =
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 NFL Matchup`;
+
+            document.getElementById(
+                "seo-intro-copy"
+            ).textContent =
+                `Research the ${awayName} vs ${homeName} NFL matchup for Week ${game.week} of the 2026 season. Compare player props, injuries, defensive matchup data, recent team and player trends, weather, game environment, and PlayMaker matchup intelligence before kickoff.`;
+
+
+            // ========================================
+            // TITLE
+            // ========================================
+
+            document.title =
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 | NFL Matchup & Player Props`;
+
+
+            // ========================================
+            // META DESCRIPTION
+            // ========================================
+
+            let metaDescription =
+                document.querySelector(
+                    'meta[name="description"]'
+                );
+
+            if (!metaDescription) {
+
+                metaDescription =
+                    document.createElement(
+                        "meta"
+                    );
+
+                metaDescription.setAttribute(
+                    "name",
+                    "description"
+                );
+
+                document.head.appendChild(
+                    metaDescription
+                );
+            }
+
+            metaDescription.setAttribute(
+                "content",
+                `Research ${awaySeoName} vs ${homeSeoName} for Week ${game.week} of the 2026 NFL season. Compare player props, injuries, defensive matchups, recent trends, weather, and game environment.`
+            );
+
+
+            // ========================================
+            // CANONICAL
+            // ========================================
+
+            const canonicalMatchupUrl =
+                `https://playmakerprime.com/matchups/${matchupSlug(game)}`;
+
+            updateCanonical(
+                canonicalMatchupUrl
+            );
+
+
+            // ========================================
+            // OPEN GRAPH
+            // ========================================
+
+            updateMeta(
+                "og:title",
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 | NFL Matchup & Player Props`
+            );
+
+            updateMeta(
+                "og:description",
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026. Compare player props, injuries, defensive matchups, recent trends, weather, and game environment.`
+            );
+
+            updateMeta(
+                "og:url",
+                canonicalMatchupUrl
+            );
+
+
+            // ========================================
+            // TWITTER / X
+            // ========================================
+
+            updateMetaName(
+                "twitter:title",
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026 | NFL Matchup & Player Props`
+            );
+
+            updateMetaName(
+                "twitter:description",
+                `${awaySeoName} vs ${homeSeoName} Week ${game.week} 2026. Compare player props, injuries, defensive matchups, recent trends, weather, and game environment.`
+            );
 
             if (
                 completed &&
@@ -2715,7 +2887,7 @@
                     "PlayMaker Matchup Ranking";
 
                 matchupWeekEl.textContent =
-                    `Week ${game.week} Matchup`;
+                    `Week ${game.week} · 2026 NFL Matchup`;
 
                 matchupTitleEl.innerHTML = `
         ${awayName} vs ${homeName}
@@ -2723,7 +2895,7 @@
     `;
 
                 matchupSubtitleEl.textContent =
-                    `${readableDate} · A PlayMaker Prime matchup report built for player prop research.`;
+                    `${readableDate} · NFL matchup research with player props, injuries, defensive context, weather, and game-environment analysis.`;
 
                 opportunityScoreEl.textContent =
                     scoreData.label;
