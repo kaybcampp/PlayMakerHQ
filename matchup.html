@@ -157,7 +157,264 @@
         </div>
     </section>
 
-    <section class="hq-section hq-section-alt">
+    <!-- ========================================
+         MATCHUP INTELLIGENCE V2 DASHBOARD
+         ======================================== -->
+    <section id="matchup-intelligence-v2-section" class="hq-section matchup-v2-section">
+
+        <div class="section-header">
+            <span class="hq-pill">
+                PlayMaker Matchup Intelligence
+            </span>
+
+            <h3>
+                Who Has the Edge?
+            </h3>
+
+            <p id="matchup-v2-summary">
+                Building matchup intelligence...
+            </p>
+        </div>
+
+
+        <!-- TEAM WIN LEAN -->
+        <div class="matchup-v2-lean-card">
+
+            <div class="matchup-v2-team">
+                <span id="matchup-v2-away-code">
+                    Away
+                </span>
+
+                <strong id="matchup-v2-away-win">
+                    --
+                </strong>
+
+                <small id="matchup-v2-away-record">
+                    --
+                </small>
+            </div>
+
+
+            <div class="matchup-v2-lean-center">
+
+                <span class="matchup-v2-lean-label">
+                    PlayMaker Lean
+                </span>
+
+                <strong id="matchup-v2-favored-team">
+                    --
+                </strong>
+
+                <span id="matchup-v2-confidence">
+                    --
+                </span>
+
+                <small>
+                    Model estimate · not sportsbook odds
+                </small>
+
+            </div>
+
+
+            <div class="matchup-v2-team">
+                <span id="matchup-v2-home-code">
+                    Home
+                </span>
+
+                <strong id="matchup-v2-home-win">
+                    --
+                </strong>
+
+                <small id="matchup-v2-home-record">
+                    --
+                </small>
+            </div>
+
+        </div>
+
+
+        <!-- EDGE TABLE -->
+        <div class="matchup-v2-card">
+
+            <div class="matchup-v2-card-header">
+                <h4>Edge Breakdown</h4>
+
+                <span id="matchup-v2-edge-label">
+                    --
+                </span>
+            </div>
+
+
+            <div class="matchup-v2-edge-grid">
+
+                <div class="matchup-v2-edge-header">
+                    <span>Category</span>
+                    <strong id="matchup-v2-away-header">Away</strong>
+                    <strong id="matchup-v2-home-header">Home</strong>
+                </div>
+
+
+                <div class="matchup-v2-edge-row">
+                    <span>Offense</span>
+
+                    <strong id="matchup-v2-away-offense">
+                        --
+                    </strong>
+
+                    <strong id="matchup-v2-home-offense">
+                        --
+                    </strong>
+                </div>
+
+
+                <div class="matchup-v2-edge-row">
+                    <span>Passing</span>
+
+                    <strong id="matchup-v2-away-passing">
+                        --
+                    </strong>
+
+                    <strong id="matchup-v2-home-passing">
+                        --
+                    </strong>
+                </div>
+
+
+                <div class="matchup-v2-edge-row">
+                    <span>Rushing</span>
+
+                    <strong id="matchup-v2-away-rushing">
+                        --
+                    </strong>
+
+                    <strong id="matchup-v2-home-rushing">
+                        --
+                    </strong>
+                </div>
+
+
+                <div class="matchup-v2-edge-row">
+                    <span>Defense</span>
+
+                    <strong id="matchup-v2-away-defense">
+                        --
+                    </strong>
+
+                    <strong id="matchup-v2-home-defense">
+                        --
+                    </strong>
+                </div>
+
+
+                <div class="matchup-v2-edge-row">
+                    <span>Recent Form</span>
+
+                    <strong id="matchup-v2-away-form">
+                        --
+                    </strong>
+
+                    <strong id="matchup-v2-home-form">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXPECTED GAME ENVIRONMENT -->
+        <div class="matchup-v2-card">
+
+            <div class="matchup-v2-card-header">
+                <h4>
+                    Expected Game Environment
+                </h4>
+            </div>
+
+
+            <div class="matchup-v2-environment-grid">
+
+                <div>
+                    <span>
+                        Projected Score
+                    </span>
+
+                    <strong id="matchup-v2-score">
+                        --
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>
+                        Expected Total
+                    </span>
+
+                    <strong id="matchup-v2-total">
+                        --
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>
+                        Scoring
+                    </span>
+
+                    <strong id="matchup-v2-scoring">
+                        --
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>
+                        Competitiveness
+                    </span>
+
+                    <strong id="matchup-v2-competitiveness">
+                        --
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>
+                        Volatility
+                    </span>
+
+                    <strong id="matchup-v2-volatility">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WHY -->
+        <div class="matchup-v2-card">
+
+            <div class="matchup-v2-card-header">
+                <h4>
+                    Why PlayMaker Leans This Way
+                </h4>
+            </div>
+
+            <ul id="matchup-v2-reasons" class="matchup-v2-reasons">
+                <li>
+                    Building matchup reasons...
+                </li>
+            </ul>
+
+        </div>
+
+    </section>
+
+
+    <section class="hq-section hq-section-alt legacy-featured-picks">
         <div class="section-header">
             <h3>Featured Historical Picks</h3>
             <p>Past PlayMaker prop calls from this matchup context, grouped by player for quick proof-log review.</p>
@@ -168,7 +425,7 @@
         </div>
     </section>
 
-    <section class="hq-section">
+    <section class="hq-section legacy-stat-relevance">
         <div class="section-header">
             <h3 id="stat-relevance-title">Stat Relevance</h3>
             <p id="stat-relevance-copy">Key metrics that make this matchup impactful for props.</p>
@@ -179,7 +436,7 @@
         </div>
     </section>
 
-    <section class="hq-section hq-section-alt">
+    <section class="hq-section hq-section-alt legacy-why-matters">
         <div class="section-header">
             <h3 id="why-matters-title">Why This Matchup Matters</h3>
             <p id="why-matters-copy">
@@ -192,19 +449,7 @@
         </div>
     </section>
 
-    <!-- SEO MATCHUP INTRO -->
-    <section class="hq-section matchup-seo-intro-section">
-        <div class="seo-intro-card">
-            <h3 id="seo-intro-title">NFL Matchup Report</h3>
-
-            <p id="seo-intro-copy">
-                Loading matchup-specific NFL prop research, defensive analysis,
-                player trends, weather context, and PlayMaker Prime matchup intelligence.
-            </p>
-        </div>
-    </section>
-
-    <section class="ai-summary-section">
+    <section class="ai-summary-section legacy-ai-summary">
         <div class="ai-summary-card">
             <div class="ai-summary-top">
                 <span class="hq-pill" id="ai-summary-label">AI Matchup Summary</span>
@@ -222,67 +467,233 @@
 
     <main>
 
-        <div class="matchup-breadcrumb">
-            <a href="/matchups.html" class="hq-pill">
-                ← Back to Matchup Hub
-            </a>
-        </div>
+        <section class="hq-section prop-lanes-v2-section">
 
-        <section class="hq-section">
             <div class="section-header">
-                <h3 id="opportunities-title">Matchup Opportunities</h3>
-                <p id="opportunity-summary">Loading matchup-specific prop opportunities...</p>
+
+                <span class="hq-pill">
+                    Prop Research
+                </span>
+
+                <h3 id="opportunities-title">
+                    Best Prop Lanes
+                </h3>
+
+                <p id="opportunity-summary">
+                    Comparing how each offense matches up with the opposing defense.
+                </p>
+
             </div>
 
-            <div class="matchup-grid">
-                <article class="matchup-card">
-                    <div class="matchup-top">
-                        <span class="game-tag">Primary Opportunity</span>
-                        <span class="game-date" id="primary-opportunity-stars">★★★★★</span>
+
+            <div class="prop-lanes-v2-grid">
+
+                <!-- ========================================
+             AWAY OFFENSE
+             ======================================== -->
+                <article class="prop-lane-v2-team-card">
+
+                    <div class="prop-lane-v2-team-header">
+
+                        <div>
+
+                            <span class="comparison-label">
+                                Away Offense
+                            </span>
+
+                            <h4 id="prop-lanes-away-title">
+                                Away Team
+                            </h4>
+
+                        </div>
+
+
+                        <span id="prop-lanes-away-grade" class="prop-lane-v2-grade">
+                            --
+                        </span>
+
                     </div>
 
-                    <h4 id="primary-opportunity-title">Loading primary opportunity...</h4>
 
-                    <ul class="matchup-points">
-                        <li id="primary-opportunity-1">Analyzing best prop path...</li>
-                        <li id="primary-opportunity-2">Checking defensive tiers...</li>
-                        <li id="primary-opportunity-3">Reviewing game script...</li>
-                    </ul>
-                </article>
+                    <div class="prop-lane-v2-primary">
 
-                <article class="matchup-card">
-                    <div class="matchup-top">
-                        <span class="game-tag">Secondary Opportunity</span>
-                        <span class="game-date" id="secondary-opportunity-stars">★★★★</span>
+                        <span id="prop-lanes-away-primary-label">
+                            Best Lane
+                        </span>
+
+                        <strong id="prop-lanes-away-primary">
+                            --
+                        </strong>
+
+                        <p id="prop-lanes-away-primary-copy">
+                            Building matchup read...
+                        </p>
+
                     </div>
 
-                    <h4 id="secondary-opportunity-title">Loading secondary opportunity...</h4>
 
-                    <ul class="matchup-points">
-                        <li id="secondary-opportunity-1">Building alternate prop angle...</li>
-                        <li id="secondary-opportunity-2">Checking Key Player Matchups...</li>
-                        <li id="secondary-opportunity-3">Reviewing supporting markets...</li>
-                    </ul>
-                </article>
+                    <div class="prop-lane-v2-secondary-grid">
 
-                <article class="matchup-card">
-                    <div class="matchup-top">
-                        <span class="game-tag">Avoid / Use Caution</span>
-                        <span class="game-date" id="caution-opportunity-stars">★★</span>
+                        <div>
+
+                            <span>
+                                Secondary
+                            </span>
+
+                            <strong id="prop-lanes-away-secondary">
+                                --
+                            </strong>
+
+                            <small id="prop-lanes-away-secondary-rate">
+                                --
+                            </small>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Watch
+                            </span>
+
+                            <strong id="prop-lanes-away-watch">
+                                --
+                            </strong>
+
+                            <small id="prop-lanes-away-watch-rate">
+                                --
+                            </small>
+
+                        </div>
+
+
+                        <div class="prop-lane-v2-caution-box">
+
+                            <span>
+                                Use Caution
+                            </span>
+
+                            <strong id="prop-lanes-away-caution">
+                                --
+                            </strong>
+
+                            <small id="prop-lanes-away-caution-rate">
+                                --
+                            </small>
+
+                        </div>
+
                     </div>
 
-                    <h4 id="caution-opportunity-title">Loading caution area...</h4>
-
-                    <ul class="matchup-points">
-                        <li id="caution-opportunity-1">Identifying lower-confidence angles...</li>
-                        <li id="caution-opportunity-2">Checking defensive resistance...</li>
-                        <li id="caution-opportunity-3">Reviewing volatility factors...</li>
-                    </ul>
                 </article>
+
+
+                <!-- ========================================
+             HOME OFFENSE
+             ======================================== -->
+                <article class="prop-lane-v2-team-card">
+
+                    <div class="prop-lane-v2-team-header">
+
+                        <div>
+
+                            <span class="comparison-label">
+                                Home Offense
+                            </span>
+
+                            <h4 id="prop-lanes-home-title">
+                                Home Team
+                            </h4>
+
+                        </div>
+
+
+                        <span id="prop-lanes-home-grade" class="prop-lane-v2-grade">
+                            --
+                        </span>
+
+                    </div>
+
+
+                    <div class="prop-lane-v2-primary">
+
+                        <span id="prop-lanes-home-primary-label">
+                            Best Lane
+                        </span>
+
+                        <strong id="prop-lanes-home-primary">
+                            --
+                        </strong>
+
+                        <p id="prop-lanes-home-primary-copy">
+                            Building matchup read...
+                        </p>
+
+                    </div>
+
+
+                    <div class="prop-lane-v2-secondary-grid">
+
+                        <div>
+
+                            <span>
+                                Secondary
+                            </span>
+
+                            <strong id="prop-lanes-home-secondary">
+                                --
+                            </strong>
+
+                            <small id="prop-lanes-home-secondary-rate">
+                                --
+                            </small>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Watch
+                            </span>
+
+                            <strong id="prop-lanes-home-watch">
+                                --
+                            </strong>
+
+                            <small id="prop-lanes-home-watch-rate">
+                                --
+                            </small>
+
+                        </div>
+
+
+                        <div class="prop-lane-v2-caution-box">
+
+                            <span>
+                                Use Caution
+                            </span>
+
+                            <strong id="prop-lanes-home-caution">
+                                --
+                            </strong>
+
+                            <small id="prop-lanes-home-caution-rate">
+                                --
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
             </div>
+
         </section>
 
-        <section class="hq-section hq-section-alt">
+        <section class="hq-section hq-section-alt legacy-why-report">
             <div class="section-header">
                 <h3 id="why-section-title">
                     Why This Matchup?
@@ -356,7 +767,7 @@
             </div>
         </section>
 
-        <section class="hq-section">
+        <section class="hq-section legacy-team-comparison">
             <div class="section-header">
                 <h3>Team Comparison & Recent Trends</h3>
                 <p id="team-comparison-summary">
@@ -412,12 +823,13 @@
             </div>
         </section>
 
-        <section class="hq-section hq-section-alt">
+        <section class="hq-section hq-section-alt defensive-profiles-section">
 
             <div class="section-header">
-                <h3>Defensive Matchup</h3>
+                <h3>Defensive Profiles</h3>
                 <p id="defense-source-note">
-                    Compare defensive strengths, weaknesses, pressure rates, and prop-specific opportunities.
+                    Compare each defense against the opposing offense, including pass/run grades, pressure, and
+                    prop-specific weaknesses.
                 </p>
             </div>
 
@@ -508,34 +920,65 @@
 
             </div>
 
-            <!-- PROP LANES (BOTTOM FULL WIDTH) -->
-            <div class="defense-prop-lanes">
+        </section>
 
-                <div class="prop-lane-card">
-                    <h4>QB Props</h4>
-                    <p id="qb-prop-lane">Loading quarterback matchup analysis...</p>
+        <section class="hq-section key-player-matchups-section">
+
+            <div class="section-header">
+
+                <h3>
+                    Key Player Matchups
+                </h3>
+
+                <p id="player-pool-summary">
+                    Loading key player research, prop focus, and matchup context...
+                </p>
+
+            </div>
+
+            <div class="key-player-grid">
+
+                <div class="key-player-team-card">
+
+                    <div class="key-player-team-header">
+
+                        <span class="comparison-label">
+                            Away Players
+                        </span>
+
+                        <h4 id="away-player-title">
+                            Away Player Matchups
+                        </h4>
+
+                    </div>
+
+                    <div id="away-player-list" class="key-player-list"></div>
+
                 </div>
 
-                <div class="prop-lane-card">
-                    <h4>RB Props</h4>
-                    <p id="rb-prop-lane">Loading running back matchup analysis...</p>
-                </div>
+                <div class="key-player-team-card">
 
-                <div class="prop-lane-card">
-                    <h4>WR Props</h4>
-                    <p id="wr-prop-lane">Loading wide receiver matchup analysis...</p>
-                </div>
+                    <div class="key-player-team-header">
 
-                <div class="prop-lane-card">
-                    <h4>TE Props</h4>
-                    <p id="te-prop-lane">Loading tight end matchup analysis...</p>
+                        <span class="comparison-label">
+                            Home Players
+                        </span>
+
+                        <h4 id="home-player-title">
+                            Home Player Matchups
+                        </h4>
+
+                    </div>
+
+                    <div id="home-player-list" class="key-player-list"></div>
+
                 </div>
 
             </div>
 
         </section>
 
-        <section class="hq-section">
+        <section class="hq-section legacy-matchup-intelligence">
             <div class="section-header">
                 <h3 id="intelligence-title">Matchup Intelligence</h3>
                 <p id="intelligence-summary">Loading matchup summary...</p>
@@ -580,7 +1023,7 @@
             </div>
         </section>
 
-        <section class="hq-section hq-section-alt">
+        <section class="hq-section hq-section-alt similar-profiles-section">
 
             <div class="section-header">
 
@@ -654,72 +1097,41 @@
 
         </section>
 
-        <section class="hq-section">
-            <div class="section-header">
-                <h3>Historical PlayMaker Results</h3>
-                <p id="results-summary">Loading previous PlayMaker picks tied to this matchup...</p>
-            </div>
-
-            <div id="historical-results-list" class="matchup-grid"></div>
-        </section>
-
-        <section class="hq-section">
+        <section class="hq-section historical-results-section">
 
             <div class="section-header">
+
+                <span class="hq-pill">
+                    Proof Log
+                </span>
 
                 <h3>
-                    Key Player Matchups
+                    Historical PlayMaker Results
                 </h3>
 
-                <p id="player-pool-summary">
-                    Loading key player research, prop focus, and matchup context...
+                <p id="results-summary">
+                    Loading previous PlayMaker picks tied to this matchup...
                 </p>
 
             </div>
 
-            <div class="key-player-grid">
-
-                <div class="key-player-team-card">
-
-                    <div class="key-player-team-header">
-
-                        <span class="comparison-label">
-                            Away Players
-                        </span>
-
-                        <h4 id="away-player-title">
-                            Away Player Matchups
-                        </h4>
-
-                    </div>
-
-                    <div id="away-player-list" class="key-player-list"></div>
-
-                </div>
-
-                <div class="key-player-team-card">
-
-                    <div class="key-player-team-header">
-
-                        <span class="comparison-label">
-                            Home Players
-                        </span>
-
-                        <h4 id="home-player-title">
-                            Home Player Matchups
-                        </h4>
-
-                    </div>
-
-                    <div id="home-player-list" class="key-player-list"></div>
-
-                </div>
-
-            </div>
+            <div id="historical-results-list" class="historical-results-grid"></div>
 
         </section>
 
-        <section class="hq-section hq-section-alt">
+        <!-- SEO MATCHUP INTRO -->
+        <section class="hq-section matchup-seo-intro-section">
+            <div class="seo-intro-card">
+                <h3 id="seo-intro-title">NFL Matchup Report</h3>
+
+                <p id="seo-intro-copy">
+                    Loading matchup-specific NFL prop research, defensive analysis,
+                    player trends, weather context, and PlayMaker Prime matchup intelligence.
+                </p>
+            </div>
+        </section>
+
+        <section class="hq-section hq-section-alt matchup-faq-section">
 
             <div class="section-header">
 
@@ -779,7 +1191,7 @@
 
         </section>
 
-        <section class="hq-section">
+        <section class="hq-section matchup-final-cta-section">
             <div class="final-cta">
                 <span class="hq-pill" id="cta-label">Launch PlayMaker</span>
                 <h3 id="cta-title">Run this matchup in PlayMaker</h3>
@@ -788,7 +1200,7 @@
             </div>
         </section>
 
-        <section class="hq-section">
+        <section class="hq-section explore-matchups-section">
             <div class="section-header">
                 <h3>Explore More Matchups</h3>
                 <p id="related-matchups-copy">
@@ -1603,56 +2015,220 @@
                 .slice(0, 6);
         }
 
-        function renderHistoricalResults(results, awayCode, homeCode) {
-            const summaryEl = document.getElementById("results-summary");
-            const listEl = document.getElementById("historical-results-list");
+        function renderHistoricalResults(
+            results,
+            awayCode,
+            homeCode
+        ) {
 
-            if (!summaryEl || !listEl) return;
+            const summaryEl =
+                document.getElementById(
+                    "results-summary"
+                );
 
-            if (!results.length) {
-                summaryEl.textContent =
-                    `No previous PlayMaker results found yet for ${awayCode} or ${homeCode}.`;
 
-                listEl.innerHTML = `
-            <article class="matchup-card">
-                <h4>No Historical Results Yet</h4>
-                <p>This section will populate once prior PlayMaker picks exist for these teams or players.</p>
-            </article>
-        `;
+            const listEl =
+                document.getElementById(
+                    "historical-results-list"
+                );
+
+
+            if (
+                !summaryEl ||
+                !listEl
+            ) {
+
                 return;
             }
 
-            const won = results.filter(r => r.result === "won").length;
-            const lost = results.filter(r => r.result === "lost").length;
-            const total = won + lost;
-            const accuracy = total ? Math.round((won / total) * 100) : 0;
 
-            summaryEl.textContent =
-                `${results.length} previous PlayMaker picks found for this matchup context · ${won}-${lost} · ${accuracy}% accuracy.`;
+            if (
+                !results.length
+            ) {
 
-            listEl.innerHTML = results.map(item => {
-                const result = String(item.result || "").toUpperCase();
-                const matchup = item.matchup || item.match || "Matchup unavailable";
-                const pick = item.pick || `${item.player || ""} ${item.line || ""} ${item.market || ""}`.trim();
-                const confidence = item.confidence ?? item.odds ?? "N/A";
+                summaryEl.textContent =
+                    `No previous PlayMaker results found yet for ${awayCode} or ${homeCode}.`;
 
-                return `
-            <article class="matchup-card">
-                <div class="matchup-top">
-                    <span class="game-tag">${result}</span>
-                    <span class="game-date">${item.date || "TBD"}</span>
-                </div>
 
-                <h4>${pick}</h4>
+                listEl.innerHTML = `
+            <article class="historical-result-empty">
 
-                <ul class="matchup-points">
-                    <li>${matchup}</li>
-                    <li>Confidence: ${String(confidence).includes("%") ? confidence : `${confidence}%`}</li>
-                    <li>Final: ${item.score || "Score unavailable"}</li>
-                </ul>
+                <span>
+                    New Matchup Context
+                </span>
+
+                <strong>
+                    No historical PlayMaker picks yet
+                </strong>
+
+                <p>
+                    This matchup will build its own proof log as new PlayMaker picks are tracked and settled.
+                </p>
+
             </article>
         `;
-            }).join("");
+
+                return;
+            }
+
+
+            const won =
+                results.filter(
+                    result =>
+                        String(
+                            result.result ||
+                            ""
+                        ).toLowerCase() ===
+                        "won"
+                ).length;
+
+
+            const lost =
+                results.filter(
+                    result =>
+                        String(
+                            result.result ||
+                            ""
+                        ).toLowerCase() ===
+                        "lost"
+                ).length;
+
+
+            const total =
+                won +
+                lost;
+
+
+            const accuracy =
+                total
+                    ? Math.round(
+                        (
+                            won /
+                            total
+                        ) *
+                        100
+                    )
+                    : 0;
+
+
+            summaryEl.textContent =
+                `${results.length} related historical picks · ${won}-${lost} record · ${accuracy}% settled hit rate.`;
+
+
+            listEl.innerHTML =
+                results
+                    .map(
+                        item => {
+
+                            const result =
+                                String(
+                                    item.result ||
+                                    ""
+                                )
+                                    .trim()
+                                    .toUpperCase();
+
+
+                            const resultClass =
+                                result === "WON"
+                                    ? "historical-result-win"
+                                    : result === "LOST"
+                                        ? "historical-result-loss"
+                                        : "";
+
+
+                            const matchup =
+                                item.matchup ||
+                                item.match ||
+                                "Matchup unavailable";
+
+
+                            const pick =
+                                item.pick ||
+                                `${item.player || ""} ${item.line || ""} ${item.market || ""}`.trim() ||
+                                "Pick unavailable";
+
+
+                            const confidenceRaw =
+                                item.confidence ??
+                                item.odds ??
+                                null;
+
+
+                            const confidence =
+                                confidenceRaw !== null &&
+                                    confidenceRaw !== undefined
+                                    ? String(
+                                        confidenceRaw
+                                    ).includes("%")
+                                        ? String(
+                                            confidenceRaw
+                                        )
+                                        : `${confidenceRaw}%`
+                                    : "N/A";
+
+
+                            const finalScore =
+                                item.score ||
+                                "Unavailable";
+
+
+                            return `
+                        <article class="historical-result-card ${resultClass}">
+
+                            <div class="historical-result-top">
+
+                                <span class="historical-result-status">
+                                    ${result || "SETTLED"}
+                                </span>
+
+                                <span class="historical-result-date">
+                                    ${item.date || "Date unavailable"}
+                                </span>
+
+                            </div>
+
+
+                            <h4>
+                                ${pick}
+                            </h4>
+
+
+                            <p class="historical-result-matchup">
+                                ${matchup}
+                            </p>
+
+
+                            <div class="historical-result-meta">
+
+                                <div>
+                                    <span>
+                                        Confidence
+                                    </span>
+
+                                    <strong>
+                                        ${confidence}
+                                    </strong>
+                                </div>
+
+
+                                <div>
+                                    <span>
+                                        Final
+                                    </span>
+
+                                    <strong>
+                                        ${finalScore}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        </article>
+                    `;
+                        }
+                    )
+                    .join("");
         }
 
         function getPlayerByPosition(players, position, index = 0) {
@@ -1882,6 +2458,142 @@
             return weaknesses.length
                 ? weaknesses.map(w => `${w.label} (${w.pct.toFixed(1)}% over rate)`)
                 : ["No major prop weakness identified"];
+        }
+
+        function getRankedPropLanesV2(
+            defense
+        ) {
+
+            if (
+                !defense ||
+                !defense.vs_props_split
+            ) {
+
+                return [];
+            }
+
+
+            const propMap = [
+
+                {
+                    key:
+                        "qb_passing_yards_hit_pct",
+
+                    label:
+                        "QB Passing Yards"
+                },
+
+                {
+                    key:
+                        "qb_rushing_yards_hit_pct",
+
+                    label:
+                        "QB Rushing Yards"
+                },
+
+                {
+                    key:
+                        "rb_rushing_yards_hit_pct",
+
+                    label:
+                        "RB Rushing Yards"
+                },
+
+                {
+                    key:
+                        "rb_receiving_yards_hit_pct",
+
+                    label:
+                        "RB Receiving Yards"
+                },
+
+                {
+                    key:
+                        "wr_receiving_yards_hit_pct",
+
+                    label:
+                        "WR Receiving Yards"
+                },
+
+                {
+                    key:
+                        "te_receiving_yards_hit_pct",
+
+                    label:
+                        "TE Receiving Yards"
+                },
+
+                {
+                    key:
+                        "passing_tds_hit_pct",
+
+                    label:
+                        "Passing TDs"
+                },
+
+                {
+                    key:
+                        "rushing_tds_hit_pct",
+
+                    label:
+                        "Rushing TDs"
+                }
+
+            ];
+
+
+            return propMap
+                .map(
+                    item => {
+
+                        const raw =
+                            defense
+                                .vs_props_split
+                            ?.[item.key];
+
+
+                        if (
+                            raw === undefined ||
+                            raw === null
+                        ) {
+
+                            return null;
+                        }
+
+
+                        const pct =
+                            Number(raw) <= 1
+                                ? Number(raw) * 100
+                                : Number(raw);
+
+
+                        if (
+                            !Number.isFinite(
+                                pct
+                            )
+                        ) {
+
+                            return null;
+                        }
+
+
+                        return {
+
+                            ...item,
+
+                            pct
+                        };
+                    }
+                )
+                .filter(Boolean)
+                .sort(
+                    (
+                        a,
+                        b
+                    ) =>
+                        b.pct -
+                        a.pct
+                );
         }
 
         function getBestPropSplit(defense, keys) {
@@ -2454,11 +3166,918 @@
                 `Open ${homeCode} in PlayMaker`;
         }
 
-        function renderMatchup(game, defenseData, weatherData, injuriesData, awayPlayers, homePlayers, resultsData, schedule) {
+        function formatEdgeValue(
+            value
+        ) {
+
+            const number =
+                Number(
+                    value
+                );
+
+
+            if (
+                !Number.isFinite(
+                    number
+                )
+            ) {
+                return "--";
+            }
+
+
+            return number > 0
+                ? `+${number.toFixed(1)}`
+                : number.toFixed(1);
+        }
+
+        function buildPropLaneV2(
+            teamCode,
+            opponentCode,
+            passingEdge,
+            rushingEdge,
+            opponentDefense
+        ) {
+
+            const passEdge =
+                Number.isFinite(
+                    Number(
+                        passingEdge
+                    )
+                )
+                    ? Number(
+                        passingEdge
+                    )
+                    : 0;
+
+
+            const rushEdge =
+                Number.isFinite(
+                    Number(
+                        rushingEdge
+                    )
+                )
+                    ? Number(
+                        rushingEdge
+                    )
+                    : 0;
+
+
+            const rankedProps =
+                getRankedPropLanesV2(
+                    opponentDefense
+                );
+
+
+            // ========================================
+            // FALLBACK:
+            // no detailed defensive prop splits
+            // ========================================
+
+            if (
+                !rankedProps.length
+            ) {
+
+                const passingBetter =
+                    passEdge >=
+                    rushEdge;
+
+
+                const fallbackName =
+                    passingBetter
+                        ? "Passing / Receiving"
+                        : "Rushing";
+
+
+                const fallbackEdge =
+                    passingBetter
+                        ? passEdge
+                        : rushEdge;
+
+
+                let fallbackGrade =
+                    "Neutral";
+
+
+                if (
+                    fallbackEdge >= 3
+                ) {
+
+                    fallbackGrade =
+                        "Strong";
+
+                } else if (
+                    fallbackEdge >= 1
+                ) {
+
+                    fallbackGrade =
+                        "Favorable";
+
+                } else if (
+                    fallbackEdge <= -2
+                ) {
+
+                    fallbackGrade =
+                        "Difficult";
+                }
+
+
+                return {
+
+                    grade:
+                        fallbackGrade,
+
+                    hasClearEdge:
+                        fallbackEdge >= 1,
+
+                    matchupContext:
+                        `${fallbackName} matchup ${formatEdgeValue(
+                            fallbackEdge
+                        )}`,
+
+                    primary: {
+                        name:
+                            fallbackName,
+
+                        pct:
+                            null,
+
+                        label:
+                            fallbackEdge >= 1
+                                ? "Best Lane"
+                                : "Best Available",
+
+                        copy:
+                            `Detailed defensive prop splits are unavailable for ${opponentCode}, so this lane is based on PlayMaker's team-level matchup edge.`
+                    },
+
+                    secondary:
+                        null,
+
+                    watch:
+                        null,
+
+                    caution:
+                        null
+                };
+            }
+
+
+            // ========================================
+            // SPLIT INTO ACTUAL RESEARCH BUCKETS
+            // ========================================
+
+            const favorable =
+                rankedProps.filter(
+                    item =>
+                        item.pct >= 55
+                );
+
+
+            const watchList =
+                rankedProps.filter(
+                    item =>
+                        item.pct >= 50 &&
+                        item.pct < 55
+                );
+
+
+            const cautionList =
+                rankedProps.filter(
+                    item =>
+                        item.pct < 50
+                );
+
+
+            // ========================================
+            // PRIMARY
+            // Only call it a real edge at 55%+
+            // ========================================
+
+            let primary =
+                null;
+
+
+            let hasClearEdge =
+                false;
+
+
+            if (
+                favorable.length
+            ) {
+
+                primary =
+                    favorable[0];
+
+                hasClearEdge =
+                    true;
+
+            } else {
+
+                primary =
+                    rankedProps[0] ||
+                    null;
+            }
+
+
+            // ========================================
+            // SECONDARY
+            // Another favorable prop only
+            // ========================================
+
+            const secondary =
+                favorable.find(
+                    item =>
+                        item.key !==
+                        primary?.key
+                ) ||
+                null;
+
+
+            // ========================================
+            // WATCH
+            // Neutral / modest signal only
+            // ========================================
+
+            const watch =
+                watchList.find(
+                    item =>
+                        item.key !==
+                        primary?.key &&
+                        item.key !==
+                        secondary?.key
+                ) ||
+                null;
+
+
+            // ========================================
+            // CAUTION
+            // Weakest unique prop under 50%
+            // ========================================
+
+            const caution =
+                [...cautionList]
+                    .reverse()
+                    .find(
+                        item =>
+                            item.key !==
+                            primary?.key &&
+                            item.key !==
+                            secondary?.key &&
+                            item.key !==
+                            watch?.key
+                    ) ||
+                null;
+
+
+            // ========================================
+            // GRADE
+            // ========================================
+
+            let grade =
+                "Neutral";
+
+
+            if (
+                primary?.pct >= 60
+            ) {
+
+                grade =
+                    "Strong";
+
+            } else if (
+                primary?.pct >= 55
+            ) {
+
+                grade =
+                    "Favorable";
+
+            } else if (
+                primary?.pct >= 50
+            ) {
+
+                grade =
+                    "Neutral";
+
+            } else if (
+                primary?.pct >= 45
+            ) {
+
+                grade =
+                    "Caution";
+
+            } else {
+
+                grade =
+                    "Difficult";
+            }
+
+
+            // ========================================
+            // TEAM-LEVEL CONTEXT
+            // ========================================
+
+            const matchupContext =
+                passEdge > rushEdge
+                    ? `Passing matchup edge ${formatEdgeValue(
+                        passEdge
+                    )}`
+                    : rushEdge > passEdge
+                        ? `Rushing matchup edge ${formatEdgeValue(
+                            rushEdge
+                        )}`
+                        : "Balanced team matchup";
+
+
+            // ========================================
+            // PRIMARY COPY
+            // ========================================
+
+            let primaryCopy =
+                "No meaningful defensive prop weakness is currently showing in the available split sample.";
+
+
+            if (
+                primary
+            ) {
+
+                if (
+                    primary.pct >= 60
+                ) {
+
+                    primaryCopy =
+                        `${opponentCode} has allowed this prop type to go over at a ${primary.pct.toFixed(
+                            1
+                        )}% rate, making it the strongest current prop lane.`;
+
+                } else if (
+                    primary.pct >= 55
+                ) {
+
+                    primaryCopy =
+                        `${opponentCode} has allowed this prop type to go over at a ${primary.pct.toFixed(
+                            1
+                        )}% rate, making it a favorable research lane.`;
+
+                } else if (
+                    primary.pct >= 50
+                ) {
+
+                    primaryCopy =
+                        `${opponentCode} has allowed this prop type to go over at a ${primary.pct.toFixed(
+                            1
+                        )}% rate. This is the best available split, but it does not currently represent a meaningful edge.`;
+
+                } else {
+
+                    primaryCopy =
+                        `${opponentCode}'s available defensive prop splits do not currently show a favorable over-rate. This is the best available lane, but should be treated cautiously.`;
+                }
+            }
+
+
+            return {
+
+                grade,
+
+                hasClearEdge,
+
+                matchupContext,
+
+                primary:
+                    primary
+                        ? {
+                            name:
+                                primary.label,
+
+                            pct:
+                                primary.pct,
+
+                            label:
+                                hasClearEdge
+                                    ? "Best Lane"
+                                    : "Best Available",
+
+                            copy:
+                                primaryCopy
+                        }
+                        : {
+                            name:
+                                "No Clear Prop Edge",
+
+                            pct:
+                                null,
+
+                            label:
+                                "Best Available",
+
+                            copy:
+                                "No meaningful defensive prop weakness is currently showing in the available sample."
+                        },
+
+                secondary:
+                    secondary
+                        ? {
+                            name:
+                                secondary.label,
+
+                            pct:
+                                secondary.pct
+                        }
+                        : null,
+
+                watch:
+                    watch
+                        ? {
+                            name:
+                                watch.label,
+
+                            pct:
+                                watch.pct
+                        }
+                        : null,
+
+                caution:
+                    caution
+                        ? {
+                            name:
+                                caution.label,
+
+                            pct:
+                                caution.pct
+                        }
+                        : null
+            };
+        }
+
+        function renderMatchupIntelligenceV2(
+            data,
+            game
+        ) {
+
+            const section =
+                document.getElementById(
+                    "matchup-intelligence-v2-section"
+                );
+
+
+            if (
+                !section ||
+                !data ||
+                data.available !== true
+            ) {
+
+                if (section) {
+                    section.style.display =
+                        "none";
+                }
+
+                return;
+            }
+
+
+            const awayCode =
+                data.teams?.away ||
+                String(
+                    game?.away ||
+                    ""
+                ).toUpperCase();
+
+
+            const homeCode =
+                data.teams?.home ||
+                String(
+                    game?.home ||
+                    ""
+                ).toUpperCase();
+
+
+            const awayProfile =
+                data.teamComparison?.[awayCode] ||
+                {};
+
+
+            const homeProfile =
+                data.teamComparison?.[homeCode] ||
+                {};
+
+
+            const edges =
+                data.edges ||
+                {};
+
+
+            const environment =
+                data.gameEnvironment ||
+                {};
+
+
+            const winResearch =
+                data.teamWinResearch ||
+                {};
+
+
+            const setText = (
+                id,
+                value
+            ) => {
+
+                const el =
+                    document.getElementById(
+                        id
+                    );
+
+
+                if (el) {
+
+                    el.textContent =
+                        value;
+                }
+            };
+
+
+            setText(
+                "matchup-v2-away-code",
+                awayCode
+            );
+
+
+            setText(
+                "matchup-v2-home-code",
+                homeCode
+            );
+
+
+            setText(
+                "matchup-v2-away-header",
+                awayCode
+            );
+
+
+            setText(
+                "matchup-v2-home-header",
+                homeCode
+            );
+
+
+            setText(
+                "matchup-v2-away-win",
+                Number.isFinite(
+                    Number(
+                        winResearch
+                            .awayWinProbability
+                    )
+                )
+                    ? `${Number(
+                        winResearch
+                            .awayWinProbability
+                    ).toFixed(1)}%`
+                    : "--"
+            );
+
+
+            setText(
+                "matchup-v2-home-win",
+                Number.isFinite(
+                    Number(
+                        winResearch
+                            .homeWinProbability
+                    )
+                )
+                    ? `${Number(
+                        winResearch
+                            .homeWinProbability
+                    ).toFixed(1)}%`
+                    : "--"
+            );
+
+
+            setText(
+                "matchup-v2-away-record",
+                awayProfile
+                    ?.record
+                    ?.display ||
+                "--"
+            );
+
+
+            setText(
+                "matchup-v2-home-record",
+                homeProfile
+                    ?.record
+                    ?.display ||
+                "--"
+            );
+
+
+            setText(
+                "matchup-v2-favored-team",
+                winResearch.favoredTeam ||
+                "--"
+            );
+
+
+            setText(
+                "matchup-v2-confidence",
+                winResearch.confidence
+                    ? `${winResearch.confidence} confidence`
+                    : "--"
+            );
+
+
+            const interpretation =
+                edges
+                    ?.overall
+                    ?.interpretation ||
+                "EVEN";
+
+
+            setText(
+                "matchup-v2-edge-label",
+                interpretation
+            );
+
+
+            setText(
+                "matchup-v2-away-offense",
+                formatEdgeValue(
+                    edges
+                        ?.offense
+                    ?.[awayCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-home-offense",
+                formatEdgeValue(
+                    edges
+                        ?.offense
+                    ?.[homeCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-away-passing",
+                formatEdgeValue(
+                    edges
+                        ?.passing
+                    ?.[awayCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-home-passing",
+                formatEdgeValue(
+                    edges
+                        ?.passing
+                    ?.[homeCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-away-rushing",
+                formatEdgeValue(
+                    edges
+                        ?.rushing
+                    ?.[awayCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-home-rushing",
+                formatEdgeValue(
+                    edges
+                        ?.rushing
+                    ?.[homeCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-away-defense",
+                formatEdgeValue(
+                    edges
+                        ?.defense
+                    ?.[awayCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-home-defense",
+                formatEdgeValue(
+                    edges
+                        ?.defense
+                    ?.[homeCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-away-form",
+                formatEdgeValue(
+                    edges
+                        ?.recentForm
+                    ?.[awayCode]
+                )
+            );
+
+
+            setText(
+                "matchup-v2-home-form",
+                formatEdgeValue(
+                    edges
+                        ?.recentForm
+                    ?.[homeCode]
+                )
+            );
+
+
+            const expectedAway =
+                Number(
+                    environment
+                        .expectedAwayPoints
+                );
+
+
+            const expectedHome =
+                Number(
+                    environment
+                        .expectedHomePoints
+                );
+
+
+            setText(
+                "matchup-v2-score",
+                Number.isFinite(
+                    expectedAway
+                ) &&
+                    Number.isFinite(
+                        expectedHome
+                    )
+                    ? `${awayCode} ${expectedAway.toFixed(1)} - ${expectedHome.toFixed(1)} ${homeCode}`
+                    : "--"
+            );
+
+
+            setText(
+                "matchup-v2-total",
+                Number.isFinite(
+                    Number(
+                        environment
+                            .expectedTotal
+                    )
+                )
+                    ? Number(
+                        environment
+                            .expectedTotal
+                    ).toFixed(1)
+                    : "--"
+            );
+
+
+            setText(
+                "matchup-v2-scoring",
+                environment
+                    .scoringEnvironment ||
+                "--"
+            );
+
+
+            setText(
+                "matchup-v2-competitiveness",
+                environment
+                    .competitiveness ||
+                "--"
+            );
+
+
+            setText(
+                "matchup-v2-volatility",
+                environment
+                    .volatility ||
+                "--"
+            );
+
+
+            const reasons =
+                Array.isArray(
+                    winResearch.reasons
+                )
+                    ? winResearch.reasons
+                    : [];
+
+
+            const reasonsList =
+                document.getElementById(
+                    "matchup-v2-reasons"
+                );
+
+
+            if (
+                reasonsList
+            ) {
+
+                reasonsList.innerHTML =
+                    reasons.length
+                        ? reasons
+                            .map(
+                                reason => `
+                            <li>
+                                ${reason}
+                            </li>
+                        `
+                            )
+                            .join("")
+                        : `
+                    <li>
+                        No major edge drivers were identified.
+                    </li>
+                `;
+            }
+
+
+            const summary =
+                document.getElementById(
+                    "matchup-v2-summary"
+                );
+
+
+            if (
+                summary
+            ) {
+
+                const favored =
+                    winResearch
+                        .favoredTeam ||
+                    "Neither team";
+
+
+                const probability =
+                    Number(
+                        winResearch
+                            .favoredProbability
+                    );
+
+
+                summary.textContent =
+                    Number.isFinite(
+                        probability
+                    )
+                        ? `${favored} holds a ${probability.toFixed(1)}% PlayMaker model lean in a ${String(
+                            environment
+                                .competitiveness ||
+                            "close"
+                        ).toLowerCase()} matchup.`
+                        : "PlayMaker is comparing both teams across offense, defense, recent form, and expected game environment.";
+            }
+        }
+
+        function renderMatchup(
+            game,
+            defenseData,
+            weatherData,
+            injuriesData,
+            awayPlayers,
+            homePlayers,
+            resultsData,
+            schedule,
+            matchupIntelligenceV2
+        ) {
             const awayCode = String(game.away || "").toUpperCase();
             const homeCode = String(game.home || "").toUpperCase();
             const completed =
                 isCompletedGame(game);
+
+            if (
+                !completed
+            ) {
+
+                renderMatchupIntelligenceV2(
+                    matchupIntelligenceV2,
+                    game
+                );
+
+            } else {
+
+                const matchupV2Section =
+                    document.getElementById(
+                        "matchup-intelligence-v2-section"
+                    );
+
+
+                if (
+                    matchupV2Section
+                ) {
+
+                    matchupV2Section.style.display =
+                        "none";
+                }
+            }
 
             const finalScore =
                 getFinalScore(game);
@@ -2531,6 +4150,267 @@
 
             const awayDefense = getDefense(defenseData, awayCode);
             const homeDefense = getDefense(defenseData, homeCode);
+
+            const matchupV2Edges =
+                matchupIntelligenceV2
+                    ?.edges ||
+                {};
+
+
+            const awayPropLaneV2 =
+                buildPropLaneV2(
+                    awayCode,
+                    homeCode,
+
+                    matchupV2Edges
+                        ?.passing
+                    ?.[awayCode],
+
+                    matchupV2Edges
+                        ?.rushing
+                    ?.[awayCode],
+
+                    homeDefense
+                );
+
+
+            const homePropLaneV2 =
+                buildPropLaneV2(
+                    homeCode,
+                    awayCode,
+
+                    matchupV2Edges
+                        ?.passing
+                    ?.[homeCode],
+
+                    matchupV2Edges
+                        ?.rushing
+                    ?.[homeCode],
+
+                    awayDefense
+                );
+
+            if (
+                !completed &&
+                matchupIntelligenceV2
+                    ?.available
+            ) {
+
+                document.getElementById(
+                    "prop-lanes-away-title"
+                ).textContent =
+                    `${awayCode} Offense vs ${homeCode}`;
+
+
+                document.getElementById(
+                    "prop-lanes-home-title"
+                ).textContent =
+                    `${homeCode} Offense vs ${awayCode}`;
+
+
+                document.getElementById(
+                    "prop-lanes-away-grade"
+                ).textContent =
+                    awayPropLaneV2.grade;
+
+
+                document.getElementById(
+                    "prop-lanes-home-grade"
+                ).textContent =
+                    homePropLaneV2.grade;
+
+                document.getElementById(
+                    "prop-lanes-away-primary-label"
+                ).textContent =
+                    awayPropLaneV2
+                        .primary
+                        .label ||
+                    "Best Lane";
+
+
+                document.getElementById(
+                    "prop-lanes-home-primary-label"
+                ).textContent =
+                    homePropLaneV2
+                        .primary
+                        .label ||
+                    "Best Lane";
+
+                document.getElementById(
+                    "prop-lanes-away-primary"
+                ).textContent =
+                    awayPropLaneV2
+                        .primary
+                        .name;
+
+
+                document.getElementById(
+                    "prop-lanes-home-primary"
+                ).textContent =
+                    homePropLaneV2
+                        .primary
+                        .name;
+
+
+                document.getElementById(
+                    "prop-lanes-away-primary-copy"
+                ).textContent =
+                    awayPropLaneV2
+                        .primary
+                        .copy;
+
+
+                document.getElementById(
+                    "prop-lanes-home-primary-copy"
+                ).textContent =
+                    homePropLaneV2
+                        .primary
+                        .copy;
+
+
+                document.getElementById(
+                    "prop-lanes-away-secondary"
+                ).textContent =
+                    awayPropLaneV2
+                        .secondary
+                        ?.name ||
+                    "--";
+
+
+                document.getElementById(
+                    "prop-lanes-away-secondary-rate"
+                ).textContent =
+                    Number.isFinite(
+                        awayPropLaneV2
+                            .secondary
+                            ?.pct
+                    )
+                        ? `${awayPropLaneV2.secondary.pct.toFixed(
+                            1
+                        )}% over rate`
+                        : "--";
+
+                document.getElementById(
+                    "opportunity-summary"
+                ).textContent =
+                    `${awayCode} and ${homeCode} are evaluated independently so both offensive sides of the matchup are represented.`;
+
+
+            }
+
+            document.getElementById(
+                "prop-lanes-away-watch"
+            ).textContent =
+                awayPropLaneV2
+                    .watch
+                    ?.name ||
+                "--";
+
+
+            document.getElementById(
+                "prop-lanes-away-watch-rate"
+            ).textContent =
+                Number.isFinite(
+                    awayPropLaneV2
+                        .watch
+                        ?.pct
+                )
+                    ? `${awayPropLaneV2.watch.pct.toFixed(
+                        1
+                    )}% over rate`
+                    : "--";
+
+
+            document.getElementById(
+                "prop-lanes-away-caution"
+            ).textContent =
+                awayPropLaneV2
+                    .caution
+                    ?.name ||
+                "--";
+
+
+            document.getElementById(
+                "prop-lanes-away-caution-rate"
+            ).textContent =
+                Number.isFinite(
+                    awayPropLaneV2
+                        .caution
+                        ?.pct
+                )
+                    ? `${awayPropLaneV2.caution.pct.toFixed(
+                        1
+                    )}% over rate`
+                    : "--";
+
+            document.getElementById(
+                "prop-lanes-home-secondary"
+            ).textContent =
+                homePropLaneV2
+                    .secondary
+                    ?.name ||
+                "--";
+
+
+            document.getElementById(
+                "prop-lanes-home-secondary-rate"
+            ).textContent =
+                Number.isFinite(
+                    homePropLaneV2
+                        .secondary
+                        ?.pct
+                )
+                    ? `${homePropLaneV2.secondary.pct.toFixed(
+                        1
+                    )}% over rate`
+                    : "--";
+
+
+            document.getElementById(
+                "prop-lanes-home-watch"
+            ).textContent =
+                homePropLaneV2
+                    .watch
+                    ?.name ||
+                "--";
+
+
+            document.getElementById(
+                "prop-lanes-home-watch-rate"
+            ).textContent =
+                Number.isFinite(
+                    homePropLaneV2
+                        .watch
+                        ?.pct
+                )
+                    ? `${homePropLaneV2.watch.pct.toFixed(
+                        1
+                    )}% over rate`
+                    : "--";
+
+
+            document.getElementById(
+                "prop-lanes-home-caution"
+            ).textContent =
+                homePropLaneV2
+                    .caution
+                    ?.name ||
+                "--";
+
+
+            document.getElementById(
+                "prop-lanes-home-caution-rate"
+            ).textContent =
+                Number.isFinite(
+                    homePropLaneV2
+                        .caution
+                        ?.pct
+                )
+                    ? `${homePropLaneV2.caution.pct.toFixed(
+                        1
+                    )}% over rate`
+                    : "--";
+
             const weather = weatherData?.games?.[game.gameId] || null;
             const awayInjuries = injuriesData?.teams?.[teamKey(awayCode)] || null;
             const homeInjuries = injuriesData?.teams?.[teamKey(homeCode)] || null;
@@ -2889,13 +4769,11 @@
                 matchupWeekEl.textContent =
                     `Week ${game.week} · 2026 NFL Matchup`;
 
-                matchupTitleEl.innerHTML = `
-        ${awayName} vs ${homeName}
-        <span>${awayCode} @ ${homeCode}</span>
-    `;
+                matchupTitleEl.textContent =
+                    `${awayName} @ ${homeName}`;
 
                 matchupSubtitleEl.textContent =
-                    `${readableDate} · NFL matchup research with player props, injuries, defensive context, weather, and game-environment analysis.`;
+                    `${readableDate} · Week ${game.week} matchup intelligence, prop research, injuries, weather, and game environment.`;
 
                 opportunityScoreEl.textContent =
                     scoreData.label;
@@ -2945,8 +4823,15 @@
                     `Defensive tiers use ${defenseData.sourceSeason} regular-season EPA baseline data. Status: ${defenseData.status}.`;
             }
 
-            document.getElementById("away-defense-team").textContent = `${awayCode} Defense`;
-            document.getElementById("home-defense-team").textContent = `${homeCode} Defense`;
+            document.getElementById(
+                "away-defense-team"
+            ).textContent =
+                `${awayCode} Defense vs ${homeCode} Offense`;
+
+            document.getElementById(
+                "home-defense-team"
+            ).textContent =
+                `${homeCode} Defense vs ${awayCode} Offense`;
 
             document.getElementById("away-overall-tier").textContent = awayDefense?.overallDefenseTier || "N/A";
             document.getElementById("away-pass-tier").textContent = awayDefense?.passDefenseTier || "N/A";
@@ -2964,17 +4849,6 @@
             document.getElementById("home-weakness-list").innerHTML =
                 getDefensePropWeaknesses(homeDefense).map(w => `<li>${w}</li>`).join("");
 
-            document.getElementById("qb-prop-lane").textContent =
-                getPropLaneFromSplits(homeDefense, "QB");
-
-            document.getElementById("rb-prop-lane").textContent =
-                getPropLaneFromSplits(homeDefense, "RB");
-
-            document.getElementById("wr-prop-lane").textContent =
-                getPropLaneFromSplits(homeDefense, "WR");
-
-            document.getElementById("te-prop-lane").textContent =
-                getPropLaneFromSplits(homeDefense, "TE");
             document.getElementById("intelligence-summary").textContent =
                 `PlayMaker analyst notes for ${awayCode} vs ${homeCode}: defense, weather, injuries, projected game script, pace expectations, and matchup risk factors.`;
             document.getElementById("defense-copy").textContent =
@@ -3080,90 +4954,6 @@
             const homeWR2 = getPlayerByPosition(filteredHomePlayers, "WR", 1);
             const homeTE = getPlayerByPosition(filteredHomePlayers, "TE");
 
-            const primaryMarket =
-                bestAngle.propType === "Rushing"
-                    ? "Rushing Props"
-                    : bestAngle.propType === "Passing"
-                        ? "Passing / Receiving Props"
-                        : "Balanced Props";
-
-            const secondaryMarket =
-                bestAngle.propType === "Rushing"
-                    ? "Receiving Props"
-                    : "Rushing Props";
-
-            const cautionMarket =
-                bestAngle.propType === "Rushing"
-                    ? `${homeCode} passing props`
-                    : `${awayCode} rushing props`;
-
-            document.getElementById("opportunity-summary").textContent =
-                `${awayCode} vs ${homeCode} grades best through ${primaryMarket.toLowerCase()}, with secondary angles available depending on line value.`;
-
-            document.getElementById("primary-opportunity-title").textContent =
-                `${awayCode} ${primaryMarket}`;
-
-            document.getElementById("secondary-opportunity-title").textContent =
-                `${awayCode} ${secondaryMarket}`;
-
-            document.getElementById("caution-opportunity-title").textContent =
-                cautionMarket;
-
-            if (bestAngle.propType === "Rushing") {
-                document.getElementById("primary-opportunity-1").textContent =
-                    `${playerName(awayRB, `${awayCode} RB`)} rushing yards`;
-
-                document.getElementById("primary-opportunity-2").textContent =
-                    `${playerName(awayQB, `${awayCode} QB`)} rushing yards`;
-
-                document.getElementById("primary-opportunity-3").textContent =
-                    `${playerName(awayRB, `${awayCode} RB`)} / ${playerName(awayQB, `${awayCode} QB`)} rushing TD angles`;
-
-                document.getElementById("secondary-opportunity-1").textContent =
-                    `${playerName(awayWR1, `${awayCode} WR1`)} receiving yards`;
-
-                document.getElementById("secondary-opportunity-2").textContent =
-                    `${playerName(awayWR2, `${awayCode} WR2`)} receptions`;
-
-                document.getElementById("secondary-opportunity-3").textContent =
-                    `${playerName(awayTE, `${awayCode} TE`)} receiving yards or TD angle`;
-
-                document.getElementById("caution-opportunity-1").textContent =
-                    `${playerName(homeQB, `${homeCode} QB`)} passing yards`;
-
-                document.getElementById("caution-opportunity-2").textContent =
-                    `${playerName(homeWR1, `${homeCode} WR1`)} receiving props`;
-
-                document.getElementById("caution-opportunity-3").textContent =
-                    `${homeCode} low-volume WR/TE props`;
-            } else {
-                document.getElementById("primary-opportunity-1").textContent =
-                    `${playerName(awayQB, `${awayCode} QB`)} passing yards`;
-
-                document.getElementById("primary-opportunity-2").textContent =
-                    `${playerName(awayWR1, `${awayCode} WR1`)} receiving yards`;
-
-                document.getElementById("primary-opportunity-3").textContent =
-                    `${playerName(awayWR2, `${awayCode} WR2`)} receptions / ${playerName(awayTE, `${awayCode} TE`)} receiving yards`;
-
-                document.getElementById("secondary-opportunity-1").textContent =
-                    `${playerName(awayRB, `${awayCode} RB`)} rushing yards`;
-
-                document.getElementById("secondary-opportunity-2").textContent =
-                    `${playerName(awayQB, `${awayCode} QB`)} rushing yards`;
-
-                document.getElementById("secondary-opportunity-3").textContent =
-                    `${playerName(awayRB, `${awayCode} RB`)} rush + rec TD angle`;
-
-                document.getElementById("caution-opportunity-1").textContent =
-                    `${playerName(homeQB, `${homeCode} QB`)} passing yards`;
-
-                document.getElementById("caution-opportunity-2").textContent =
-                    `${playerName(homeWR1, `${homeCode} WR1`)} low-target receiving props`;
-
-                document.getElementById("caution-opportunity-3").textContent =
-                    `${homeCode} props affected by weather or injury uncertainty`;
-            }
             document.getElementById("why-defense").textContent =
                 homeDefense
                     ? `${homeCode} enter this matchup with a ${homeDefense.passDefenseTier} pass defense grade and ${homeDefense.runDefenseTier} run defense grade. This creates the foundation for the preferred prop angles shown above.`
@@ -3419,10 +5209,58 @@
                 let resultsData = [];
 
                 try {
-                    resultsData = await loadJson("/assets/data/results.json");
+
+                    resultsData =
+                        await loadJson(
+                            "/assets/data/results.json"
+                        );
+
                 } catch (err) {
-                    console.warn("Results unavailable:", err.message);
+
+                    console.warn(
+                        "Results unavailable:",
+                        err.message
+                    );
                 }
+
+
+                let matchupIntelligenceV2 =
+                    null;
+
+
+                if (
+                    !isCompletedGame(
+                        game
+                    )
+                ) {
+
+                    try {
+
+                        const matchupResponse =
+                            await loadJson(
+                                `/api/matchup-intelligence?away=${encodeURIComponent(
+                                    game.away
+                                )}&home=${encodeURIComponent(
+                                    game.home
+                                )}`
+                            );
+
+
+                        matchupIntelligenceV2 =
+                            matchupResponse
+                                ?.matchupIntelligenceV2 ||
+                            null;
+
+
+                    } catch (err) {
+
+                        console.warn(
+                            "Matchup Intelligence V2 unavailable:",
+                            err.message
+                        );
+                    }
+                }
+
 
                 renderMatchup(
                     game,
@@ -3432,7 +5270,8 @@
                     awayPlayers,
                     homePlayers,
                     resultsData,
-                    schedule
+                    schedule,
+                    matchupIntelligenceV2
                 );
             } catch (err) {
                 console.error("Failed to load matchup:", err);
