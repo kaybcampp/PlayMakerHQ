@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+
+  <title>Activate Account | PlayMaker Prime</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #0b0f1a;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      background: #151b2b;
+      border: 1px solid #303b52;
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    h1 { margin-top: 0; }
+
+    p {
+      color: #bac4d5;
+      line-height: 1.6;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #46516a;
+      background: #0b0f1a;
+      color: white;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 14px;
+      background: #21c887;
+      border: none;
+      border-radius: 8px;
+      color: #07130e;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #message {
+      margin-top: 18px;
+      overflow-wrap: anywhere;
+    }
+
+    a { color: #21c887; }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <h1>Activate PlayMaker Pro</h1>
+
+    <p>
+      Create your password to access your
+      PlayMaker Prime subscription.
+    </p>
+
+    <form id="activation-form">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        minlength="12"
+        maxlength="128"
+        autocomplete="new-password"
+        required
+      >
+
+      <label for="confirm-password">
+        Confirm password
+      </label>
+      <input
+        id="confirm-password"
+        type="password"
+        minlength="12"
+        maxlength="128"
+        autocomplete="new-password"
+        required
+      >
+
+      <button id="activate-button" type="submit">
+        Activate Account
+      </button>
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <p>
+      Already activated?
+      <a href="/login.html">Log in</a>
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      const params =
+        new URLSearchParams(window.location.search);
+
+      let activationToken =
+        params.get("token") || "";
+
+      // Remove the secret from browser history/address bar.
+      history.replaceState(
+        null,
+        "",
+        window.location.pathname
+      );
+
+      const form =
+        document.getElementById("activation-form");
+
+      const message =
+        document.getElementById("message");
+
+      const button =
+        document.getElementById("activate-button");
+
+      if (!/^[a-f0-9]{64}$/i.test(activationToken)) {
+        form.hidden = true;
+        message.textContent =
+          "This activation link is invalid. Please contact support.";
+        return;
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const password =
+          document.getElementById("password").value;
+
+        const confirm =
+          document.getElementById("confirm-password").value;
+
+        if (password !== confirm) {
+          message.textContent =
+            "Passwords do not match.";
+          return;
+        }
+
+        button.disabled = true;
+        message.textContent = "Activating your account...";
+
+        try {
+          const response = await fetch(
+            "/api/account/activate",
+            {
+              method: "POST",
+              cache: "no-store",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                token: activationToken,
+                password
+              })
+            }
+          );
+
+          const data = await response.json();
+
+          if (!response.ok || !data.success) {
+            throw new Error(
+              data.error || "Activation failed."
+            );
+          }
+
+          activationToken = "";
+          form.hidden = true;
+
+          message.textContent =
+            "Account activated successfully. You can now log in.";
+
+          const link = document.createElement("a");
+          link.href = "/login.html";
+          link.textContent = "Continue to Login";
+          message.appendChild(document.createTextNode(" "));
+          message.appendChild(link);
+
+        } catch (error) {
+          message.textContent = error.message;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
